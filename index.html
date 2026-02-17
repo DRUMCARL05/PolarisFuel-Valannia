@@ -609,34 +609,27 @@
   }
   .about-emblem-wrap {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: 240px;
+    height: 240px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .about-emblem-ring {
+  .about-ring-svg-wrap {
     position: absolute;
-    inset: -20px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    animation: rotateSlow 20s linear infinite;
-  }
-  .about-emblem-ring::before {
-    content: '★ POLARIS FUEL ★ VALANNIA ★ $VALAN ★ WEB3 ★ ';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 100%;
-    font-family: 'Cinzel', serif;
-    font-size: 0.45rem;
-    letter-spacing: 0.18em;
-    color: var(--text-dim);
-    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    width: 285px;
+    height: 285px;
     transform: translate(-50%, -50%);
-    /* Circular text workaround via svg */
+    pointer-events: none;
   }
   .about-ring-svg {
-    position: absolute;
-    inset: -28px;
+    width: 100%;
+    height: 100%;
     animation: rotateSlow 25s linear infinite;
+    transform-origin: center center;
   }
   @keyframes rotateSlow {
     from { transform: rotate(0deg); }
@@ -649,7 +642,7 @@
     filter: drop-shadow(0 0 40px rgba(255,107,26,0.5));
     animation: floatEmblem 6s ease-in-out infinite;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
   .about-glow-bg {
     position: absolute;
@@ -934,7 +927,8 @@
     .nav-links { display: none; }
     .about-inner { grid-template-columns: 1fr; gap: 3rem; }
     .about-visual { order: -1; }
-    .about-emblem-wrap { width: 200px; height: 200px; }
+    .about-emblem-wrap { width: 180px; height: 180px; }
+    .about-ring-svg-wrap { width: 215px; height: 215px; }
     .services-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     footer { flex-direction: column; align-items: flex-start; }
@@ -1138,15 +1132,16 @@
     <div class="about-visual reveal">
       <div class="about-emblem-wrap">
         <div class="about-glow-bg"></div>
-        <!-- Rotating SVG text ring -->
-        <svg class="about-ring-svg" viewBox="-160 -160 320 320" xmlns="http://www.w3.org/2000/svg">
+        <div class="about-ring-svg-wrap">
+        <svg class="about-ring-svg" viewBox="0 0 285 285" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <path id="circle-path" d="M 0,0 m -120,0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0" />
+            <path id="circle-path" d="M 142.5,142.5 m -135,0 a 135,135 0 1,1 270,0 a 135,135 0 1,1 -270,0" />
           </defs>
-          <text font-family="Cinzel, serif" font-size="9" fill="rgba(212,168,67,0.4)" letter-spacing="4">
+          <text font-family="Cinzel, serif" font-size="8.5" fill="rgba(212,168,67,0.4)" letter-spacing="3.8">
             <textPath href="#circle-path">★ POLARIS FUEL ★ VALANNIA ★ $VALAN ★ WEB3 ECONOMY ★ BUILT FOR BUILDERS ★</textPath>
           </text>
         </svg>
+        </div>
         <img src="emblem.png" alt="Polaris Fuel" class="about-emblem" onerror="this.style.display='none'">
       </div>
     </div>
