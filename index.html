@@ -1,131 +1,451 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2868 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;} {\colortbl;\red255\green255\blue255;} {\*\expandedcolortbl;;} \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0 \f0\fs24 \cf0 \ \ \ \ \ \ \ \ \
-\
-\
-\uc0\u9889 Polaris Fuel
-\
-\
-Home
-\
-Services
-\
-About
-\
-Dashboard
-\
-Contact
-\
-\
-\
-\ \
-\
-\
-Polaris Fuel - Valannia
-\
-The Connective Tissue of Valannia's Web3 Economy
-\ Join the Network\
-\
-\ \
-\
-\
-Infrastructure Services
-\
-\
-\
-\uc0\u55356 \u57307 \u65039
-\
-Polaris Guildhalls
-\
-Physical presence in all 8 racial capitals and Eldorath. Premium coordination tools and meeting spaces for high-level guild negotiations.
-\
-\ \
-\
-\uc0\u55357 \u56613
-\
-Fire & Metal Logistics
-\
-Specialized transport and alchemy services. We fuel the economy by moving resources from Red Zones to capitals for processing.
-\
-\ \
-\
-\uc0\u55357 \u56462
-\
-Bulk Resource Exchange
-\
-Escrow and matching services solving liquidity problems. Commission-based coordination between extractors and crafters.
-\
-\ \
-\
-\uc0\u55357 \u56819 \u65039
-\
-Political Consulting
-\
-Strategic advisory for Race Leader elections. Ballot management and diplomatic coordination for pro-economy candidates.
-\
-\ \
-\
-\uc0\u55356 \u57318
-\
-VET Integration
-\
-Partnered with Valannia Eternal Treasury for community tool development. Grant-funded infrastructure for sustained engagement.
-\
-\ \
-\
-\uc0\u9881 \u65039
-\
-IaaS Platform
-\
-Infrastructure-as-a-Service for the interdependent production chain. APIs, tools, and economic intermediation services.
-\
-\
-\
-\
-\ \
-\
-\
-About Polaris Fuel
-\
-\
-\ Polaris Fuel operates as the essential economic infrastructure layer for Valannia's complex Web3 ecosystem. We solve the coordination challenges inherent in a multi-profession, interdependent economy where miners need explorers, engineers need transporters, and crafters need bulk resources.\
-\
-\ By establishing physical presence in-game, providing logistics monopoly in the "Fire & Metal" sector, and creating financial intermediation tools, we ensure the economy flows efficiently. Our political consulting services ensure pro-economy leadership, while our VET backing positions us as the primary infrastructure provider for long-term community growth.\
-\
-\ Built for builders. Powered by $VALAN. Essential for Valannia.\
-\
-\
-\
-\ \
-\
-\
-Dashboard
-\
-\
-\uc0\u55357 \u56999 Coming Soon
-\
-Our provisional dashboard for trade coordination, resource matching, and political analytics is currently under development. Check back soon for real-time Valannia economy metrics.
-\
-\
-\
-\ \
-\
-\
-Partner With Us
-\
-\
-\ Name / Guild Name\ \
-\ \
-\ Email / Discord\ \
-\ \
-\ Service Interest\ \
-\ \
-\ Message\ \
-\ \ Send Message\
-\
-\
-\ \
-\
-\
-© 2025 Polaris Fuel - Valannia. Infrastructure for the Web3 Economy.
-\
-\
-\ \ \ \ }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polaris Fuel - Valannia | Web3 Economic Infrastructure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #00d4ff;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: radial-gradient(ellipse at center, rgba(123, 47, 247, 0.15) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #00d4ff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(26, 26, 46, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d4ff;
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .service-card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .service-card p {
+            color: #b0b0b0;
+            font-size: 16px;
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 20px;
+            background: rgba(123, 47, 247, 0.05);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 20px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(26, 26, 46, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00d4ff;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            padding: 80px 20px;
+            background: rgba(123, 47, 247, 0.05);
+        }
+
+        .dashboard-placeholder {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 60px;
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        .dashboard-placeholder h3 {
+            color: #00d4ff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-placeholder p {
+            color: #b0b0b0;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 2px solid #00d4ff;
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: #b0b0b0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">⚡ Polaris Fuel</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Polaris Fuel - Valannia</h1>
+            <p class="subtitle">The Connective Tissue of Valannia's Web3 Economy</p>
+            <a href="#contact" class="cta-button">Join the Network</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Infrastructure Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏛️</div>
+                    <h3>Polaris Guildhalls</h3>
+                    <p>Physical presence in all 8 racial capitals and Eldorath. Premium coordination tools and meeting spaces for high-level guild negotiations.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔥</div>
+                    <h3>Fire & Metal Logistics</h3>
+                    <p>Specialized transport and alchemy services. We fuel the economy by moving resources from Red Zones to capitals for processing.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💎</div>
+                    <h3>Bulk Resource Exchange</h3>
+                    <p>Escrow and matching services solving liquidity problems. Commission-based coordination between extractors and crafters.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🗳️</div>
+                    <h3>Political Consulting</h3>
+                    <p>Strategic advisory for Race Leader elections. Ballot management and diplomatic coordination for pro-economy candidates.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏦</div>
+                    <h3>VET Integration</h3>
+                    <p>Partnered with Valannia Eternal Treasury for community tool development. Grant-funded infrastructure for sustained engagement.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>IaaS Platform</h3>
+                    <p>Infrastructure-as-a-Service for the interdependent production chain. APIs, tools, and economic intermediation services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Polaris Fuel</h2>
+            <div class="about-content">
+                <p>
+                    Polaris Fuel operates as the essential economic infrastructure layer for Valannia's complex Web3 ecosystem. We solve the coordination challenges inherent in a multi-profession, interdependent economy where miners need explorers, engineers need transporters, and crafters need bulk resources.
+                </p>
+                <p>
+                    By establishing physical presence in-game, providing logistics monopoly in the "Fire & Metal" sector, and creating financial intermediation tools, we ensure the economy flows efficiently. Our political consulting services ensure pro-economy leadership, while our VET backing positions us as the primary infrastructure provider for long-term community growth.
+                </p>
+                <p>
+                    <strong>Built for builders. Powered by $VALAN. Essential for Valannia.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <h2 class="section-title">Dashboard</h2>
+            <div class="dashboard-placeholder">
+                <h3>🚧 Coming Soon</h3>
+                <p>Our provisional dashboard for trade coordination, resource matching, and political analytics is currently under development. Check back soon for real-time Valannia economy metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Partner With Us</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name / Guild Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email / Discord</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Service Interest</label>
+                    <input type="text" id="service" name="service" placeholder="e.g., Bulk Exchange, Political Consulting">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Polaris Fuel - Valannia. Infrastructure for the Web3 Economy.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Form submission (placeholder - you'll need to connect to your backend)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We will contact you soon. (Note: Connect this form to your backend service)');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
