@@ -104,7 +104,7 @@
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
         .contact-info p { color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:36px; }
         .contact-channels { display:flex; flex-direction:column; gap:12px; }
-        .channel { display:flex; align-items:center; gap:16px; padding:14px 18px; border:1px solid rgba(255,106,0,.1); border-radius:3px; font-size:14px; color:var(--muted); letter-spacing:1px; transition:border-color .3s,color .3s; }
+        .channel { display:flex; align-items:center; gap:16px; padding:14px 18px; border:1px solid rgba(255,106,0,.1); border-radius:3px; font-size:14px; color:var(--muted); letter-spacing:1px; transition:border-color .3s,color .3s; text-decoration:none; }
         .channel:hover { border-color:rgba(255,106,0,.35); color:var(--orange); }
         .channel-icon { font-size:20px; }
         .contact-form { background:rgba(26,18,8,.8); border:1px solid rgba(255,106,0,.15); border-radius:4px; padding:40px; }
@@ -249,9 +249,8 @@
                 <h2 class="section-title" data-i18n="contact_title">Partner <span>With Us</span></h2>
                 <p data-i18n="contact_desc">Whether you're a guild leader, a solo crafter, or a strategic investor in the $VALAN economy — Polaris Fuel has a role for you in Valannia's infrastructure network.</p>
                 <div class="contact-channels">
-                    <div class="channel"><span class="channel-icon">&#128172;</span><span data-i18n="ch1">Discord Community — Coming Soon</span></div>
-                    <div class="channel"><span class="channel-icon">&#128241;</span><span data-i18n="ch2">Telegram Announcements — Coming Soon</span></div>
-                    <div class="channel"><span class="channel-icon">&#120143;</span><span data-i18n="ch3">X / Twitter — Coming Soon</span></div>
+                    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" class="channel"><span class="channel-icon">&#128172;</span><span data-i18n="ch1">Discord Community</span></a>
+                    <a href="https://x.com/Polaris_Fuel" target="_blank" class="channel"><span class="channel-icon">&#120143;</span><span data-i18n="ch3">X / Twitter — @Polaris_Fuel</span></a>
                 </div>
             </div>
             <form class="contact-form reveal" id="contactForm">
@@ -286,6 +285,8 @@
             <li><a href="#services" data-i18n="nav_services">Services</a></li>
             <li><a href="#about" data-i18n="nav_about">About</a></li>
             <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+            <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank">Discord</a></li>
+            <li><a href="https://x.com/Polaris_Fuel" target="_blank">X / Twitter</a></li>
         </ul>
         <p data-i18n="footer_copy">&copy; 2025 Polaris Fuel — Valannia. Infrastructure for the Web3 Economy. Powered by $VALAN.</p>
     </div>
@@ -319,7 +320,7 @@ const T = {
     dash_btn:'🔒 Enter Dashboard', dash_stat1:'Tasks', dash_stat2:'Milestones', dash_stat3:'Phases',
     contact_label:'Get In Touch', contact_title:'Partner <span>With Us</span>',
     contact_desc:"Whether you're a guild leader, a solo crafter, or a strategic investor in the $VALAN economy — Polaris Fuel has a role for you in Valannia's infrastructure network.",
-    ch1:'Discord Community — Coming Soon', ch2:'Telegram Announcements — Coming Soon', ch3:'X / Twitter — Coming Soon',
+    ch1:'Discord Community', ch3:'X / Twitter — @Polaris_Fuel',
     form_name:'Name / Guild Name', form_name_ph:'Your name or guild',
     form_contact:'Email / Discord', form_contact_ph:'How to reach you',
     form_service:'Service Interest', form_service_default:'Select a service...',
@@ -354,7 +355,7 @@ const T = {
     dash_btn:'🔒 Entrar al Panel', dash_stat1:'Tareas', dash_stat2:'Hitos', dash_stat3:'Fases',
     contact_label:'Contáctanos', contact_title:'Asóciate <span>Con Nosotros</span>',
     contact_desc:'Ya seas líder de gremio, artesano independiente o inversor estratégico en la economía $VALAN — Polaris Fuel tiene un papel para ti en la red de infraestructura de Valannia.',
-    ch1:'Comunidad Discord — Próximamente', ch2:'Anuncios en Telegram — Próximamente', ch3:'X / Twitter — Próximamente',
+    ch1:'Comunidad Discord', ch3:'X / Twitter — @Polaris_Fuel',
     form_name:'Nombre / Nombre del Gremio', form_name_ph:'Tu nombre o gremio',
     form_contact:'Email / Discord', form_contact_ph:'Cómo contactarte',
     form_service:'Servicio de Interés', form_service_default:'Selecciona un servicio...',
