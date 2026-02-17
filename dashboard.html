@@ -249,7 +249,10 @@ function setLang(lang) {
     const key = el.getAttribute('data-i18n');
     if (typeof t[key] === 'string') el.innerHTML = t[key];
   });
-  if (document.getElementById('dashboard-screen').style.display !== 'none') render();
+  if (document.getElementById('dashboard-screen').style.display !== 'none') {
+    if (typeof reloadDataForLang === 'function') reloadDataForLang(lang);
+    render();
+  }
 }
 
 // ── AUTH ──
@@ -261,6 +264,7 @@ function tryLogin() {
     sessionStorage.setItem('pf_auth','1');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('dashboard-screen').style.display = 'block';
+    reloadDataForLang(currentLang);
     render();
   } else {
     err.style.display = 'block';
@@ -291,6 +295,14 @@ Beta Tested,2026-04-06,15+ founding members feedback integrated,Medium,Founding 
 Launch Ready,2026-04-11,All systems go team trained Valannia aligned,High,All previous milestones complete Valannia launch date confirmed,Mods trained content scheduled announcements ready systems tested,External dependency on Valannia timing
 Successful Launch,2026-04-14,No major incidents positive community response,Medium,Launch readiness confirmed coordinated timing,100+ members in first 48hrs 5+ trades processed no critical failures,Public validation of concept
 30-Day Proof,2026-05-14,Metrics show value partnership health good,Low,30 days of operations complete data collected,Target metrics hit (100+ members 40% active 20+ trades) positive Valannia feedback,Determines next phase viability`;
+
+const MILESTONES_CSV_ES = `Milestone Name,Target Date,Gate Criteria,Blocker Risk,Key Dependencies,Success Indicators,Notes
+Alianza Asegurada,2026-03-21,MOU firmado con Valannia,Medium,Borrador de MOU completado y revisado,Acuerdo escrito y canal oficial de comunicación establecido,Primera puerta principal - habilita el resto del proyecto
+MVP Completo,2026-03-28,Discord funcional contenido listo herramientas operativas,Low,Todo el contenido creado Discord construido herramientas probadas,29 canales activos 9 guías de profesión sistema de emparejamiento de recursos operativo,Listo para pruebas beta
+Beta Probado,2026-04-06,15+ miembros fundadores integrados con retroalimentación,Medium,Miembros fundadores reclutados pruebas completadas,15-25 probadores activos retroalimentación recopilada problemas críticos resueltos,Validación de calidad antes del lanzamiento
+Listo para Lanzar,2026-04-11,Todo en orden equipo entrenado Valannia alineado,High,Todos los hitos anteriores completos fecha de lanzamiento de Valannia confirmada,Mods entrenados contenido programado anuncios listos sistemas probados,Dependencia externa del calendario de Valannia
+Lanzamiento Exitoso,2026-04-14,Sin incidentes graves respuesta positiva de la comunidad,Medium,Preparación de lanzamiento confirmada coordinación de tiempo,100+ miembros en primeras 48hrs 5+ intercambios procesados sin fallos críticos,Validación pública del concepto
+Prueba de 30 Días,2026-05-14,Métricas muestran valor y salud de la alianza,Low,30 días de operaciones completos datos recopilados,Métricas objetivo logradas (100+ miembros 40% activos 20+ intercambios) retroalimentación positiva de Valannia,Determina la viabilidad de la siguiente fase`;
 
 const TASKS_CSV = `Task Name,Description,Due Date,Priority,Category,Phase,Estimated Hours,Dependencies,Status,Notes
 Email partnership proposal to Valannia contact,Use existing proposal document and personalize for recipient,2026-02-17,P0,Partnership Outreach,Week 1-2,1,,Not Started,Critical first step
@@ -357,6 +369,71 @@ Implement quick-win improvements,Based on user feedback from first week,2026-04-
 Compile metrics report,Members activity trades retention and engagement data,2026-05-14,P1,30-Day Review,Post-Launch,4,Gather early metrics,Not Started,Performance assessment
 30-day partnership review meeting,Assess success criteria what to change and next phase,2026-05-16,P0,30-Day Review,Post-Launch,1.5,Compile metrics report,Not Started,MILESTONE: 30-Day Proof`;
 
+const TASKS_CSV_ES = `Task Name,Description,Due Date,Priority,Category,Phase,Estimated Hours,Dependencies,Status,Notes
+Enviar propuesta de alianza al contacto de Valannia,Usar documento de propuesta existente y personalizarlo para el destinatario,2026-02-17,P0,Contacto de Alianza,Semana 1-2,1,,Not Started,Primer paso crítico
+Solicitar reunión de 60 min de alianza,Programar discusión inicial de alianza,2026-02-17,P0,Contacto de Alianza,Semana 1-2,0.5,Enviar propuesta de alianza al contacto de Valannia,Not Started,Dar seguimiento si no hay respuesta el jueves
+Crear Referencia Rápida de Alianza de una página,PDF resumiendo qué necesitas qué obtienen ellos y el cronograma,2026-02-19,P1,Contacto de Alianza,Semana 1-2,2,,Not Started,Llevar a la reunión de alianza
+Redactar 3 preguntas clave para claridad de cronograma,Preguntas sobre fecha de lanzamiento de Arena fecha beta del juego principal y mecánicas listas,2026-02-19,P1,Contacto de Alianza,Semana 1-2,1,,Not Started,Preparar para la reunión de alianza
+Seguimiento a solicitud de reunión si no hay respuesta,Enviar recordatorio amigable sobre la solicitud de reunión,2026-02-20,P0,Contacto de Alianza,Semana 1-2,0.5,Solicitar reunión de 60 min de alianza,Not Started,Solo si es necesario
+Listar 25 posibles miembros fundadores a reclutar,Contactos de Star Atlas y primeros adoptantes de Valannia,2026-02-21,P2,Preparación Pre-Reunión,Semana 1-2,2,,Not Started,Guardar lista para reclutamiento de Semana 7
+Investigar estado actual de Valannia,Probar Arena si está disponible y revisar últimas actualizaciones,2026-02-23,P1,Preparación Pre-Reunión,Semana 1-2,3,,Not Started,Tarea de fin de semana
+Documentar brechas de conocimiento en sus mecánicas,Qué necesitas aprender en la reunión de alianza,2026-02-23,P2,Preparación Pre-Reunión,Semana 1-2,1,Investigar estado actual de Valannia,Not Started,Informar preguntas de la reunión
+Realizar reunión marco de alianza,Reunión de 60 min sobre alineación de lanzamiento definición de socio comunicación y mecánicas,2026-03-05,P0,Reunión de Alianza,Semana 3-4,1,Solicitar reunión de 60 min de alianza,Not Started,Semana del 3 de marzo
+Obtener respuestas a 4 preguntas críticas,¿Qué profesiones están activas? ¿Gremios disponibles? ¿Votación de Líder de Raza? ¿Acceso a datos públicos?,2026-03-05,P0,Reunión de Alianza,Semana 3-4,0,Realizar reunión marco de alianza,Not Started,Durante la reunión de alianza
+Establecer calendario de sincronización semanal,Configurar invitación de calendario recurrente con el equipo de Valannia,2026-03-05,P1,Reunión de Alianza,Semana 3-4,0.25,Realizar reunión marco de alianza,Not Started,Acción al final de la reunión
+Documentar todas las mecánicas del juego a apoyar,9 profesiones 8 razas gremios y puntos de integración de VALAN,2026-03-07,P1,Documentación Técnica,Semana 3-4,4,Realizar reunión marco de alianza,Not Started,Base para el MVP
+Definir características MVP para el lanzamiento,Lista de características imprescindibles vs deseables,2026-03-08,P0,Documentación Técnica,Semana 3-4,3,Documentar todas las mecánicas del juego a apoyar,Not Started,Crítico para el alcance
+Crear documento de requisitos técnicos,Necesidades de API integración de billetera acceso a datos del mercado,2026-03-10,P1,Documentación Técnica,Semana 3-4,4,Definir características MVP para el lanzamiento,Not Started,Compartir con equipo de Valannia
+Redactar documento de términos de alianza (MOU),MOU completo listo para revisión de Valannia,2026-03-14,P0,Documentación Técnica,Semana 3-4,6,Crear documento de requisitos técnicos,Not Started,Marco legal de la alianza
+Revisar borrador de MOU con equipo de Valannia,Programar reunión de revisión para discutir términos,2026-03-18,P0,Formalización de Alianza,Semana 5-6,1,Redactar documento de términos de alianza (MOU),Not Started,Puede requerir múltiples iteraciones
+Negociar y finalizar términos de alianza,Finalizar y firmar MOU con Valannia,2026-03-21,P0,Formalización de Alianza,Semana 5-6,2,Revisar borrador de MOU con equipo de Valannia,Not Started,HITO: Alianza Asegurada
+Configurar canales oficiales de comunicación,Canal conjunto de Discord o Slack con Valannia,2026-03-22,P1,Formalización de Alianza,Semana 5-6,0.5,Negociar y finalizar términos de alianza,Not Started,Infraestructura de colaboración continua
+Crear estructura del servidor de Discord,29 canales: Bienvenida Centros Raciales Profesiones Trading Gobernanza Operaciones,2026-03-19,P0,Infraestructura Discord,Semana 5-6,4,,Not Started,Plataforma comunitaria principal
+Configurar roles y permisos,Configurar roles de Discord para diferentes tipos de miembros y niveles de acceso,2026-03-20,P1,Infraestructura Discord,Semana 5-6,2,Crear estructura del servidor de Discord,Not Started,Seguridad y organización
+Diseñar branding/visuales del servidor,Logo banners e iconos de canales,2026-03-22,P2,Infraestructura Discord,Semana 5-6,4,Crear estructura del servidor de Discord,Not Started,Apariencia profesional
+Escribir guía de profesión #1,Guía completa con ejemplos para la profesión más fácil/importante,2026-03-20,P1,Creación de Contenido,Semana 5-6,4,,Not Started,Empezar con la de mayor prioridad
+Escribir guías de profesión #2-9,Completar todas las guías de profesiones restantes,2026-03-27,P1,Creación de Contenido,Semana 5-6,24,Escribir guía de profesión #1,Not Started,Tarea en lote: 1-2 por día
+Crear explicador del sistema económico,Infografía visual más guía escrita mostrando interdependencia,2026-03-25,P1,Creación de Contenido,Semana 5-6,5,,Not Started,Contenido educativo principal
+Diseñar documento de flujo de incorporación,Viaje paso a paso del nuevo miembro,2026-03-26,P0,Creación de Contenido,Semana 5-6,3,Crear explicador del sistema económico,Not Started,Crítico para la experiencia del miembro
+Preparar materiales de anuncio de lanzamiento,Publicación de anuncio gráficos y puntos de conversación,2026-03-28,P0,Creación de Contenido,Semana 5-6,4,,Not Started,HITO: MVP Completo
+Crear formulario de emparejamiento de recursos,Formulario Google a sistema de hoja de cálculo automatizada,2026-03-23,P1,Desarrollo de Herramientas,Semana 5-6,3,Definir características MVP para el lanzamiento,Not Started,Propuesta de valor principal
+Configurar sistema de verificación de miembros,Rol de Discord basado en tenencias de VALAN o manual para MVP,2026-03-24,P2,Desarrollo de Herramientas,Semana 5-6,4,Crear estructura del servidor de Discord,Not Started,Puede empezar manual
+Crear hoja básica de seguimiento de reputación,Hoja de cálculo manual rastreando intercambios y contribuciones,2026-03-25,P2,Desarrollo de Herramientas,Semana 5-6,2,Crear formulario de emparejamiento de recursos,Not Started,Versión MVP simple
+Contactar a 25 posibles miembros fundadores,DMs personales con invitación al grupo de miembros fundadores,2026-04-01,P0,Reclutamiento de Fundadores,Semana 7,4,Listar 25 posibles miembros fundadores a reclutar,Not Started,Contacto personal
+Publicar reclutamiento en Discord de Valannia,Requiere aprobación de Valannia primero,2026-04-01,P1,Reclutamiento de Fundadores,Semana 7,1,Negociar y finalizar términos de alianza,Not Started,Reclutamiento en canal oficial
+Incorporar 15-25 miembros fundadores,Mínimo 15 probadores activos requeridos,2026-04-03,P0,Reclutamiento de Fundadores,Semana 7,6,Contactar a 25 posibles miembros fundadores,Not Started,Masa crítica para pruebas
+Ejecutar prueba de usabilidad de estructura de Discord,Recopilar retroalimentación sobre navegación de canales de los beta testers,2026-04-03,P0,Pruebas Beta,Semana 7,2,Incorporar 15-25 miembros fundadores,Not Started,Enfoque en usabilidad
+Probar guías de profesión con miembros,Recopilar retroalimentación sobre claridad y completitud,2026-04-03,P1,Pruebas Beta,Semana 7,2,Incorporar 15-25 miembros fundadores,Not Started,Verificación de calidad de contenido
+Probar sistema de emparejamiento de recursos,Procesar 3-5 intercambios reales con miembros fundadores,2026-04-04,P0,Pruebas Beta,Semana 7,3,Incorporar 15-25 miembros fundadores,Not Started,Prueba de funcionalidad principal
+Recopilar retroalimentación sobre qué falta,Encuesta o sesión de discusión con beta testers,2026-04-04,P1,Pruebas Beta,Semana 7,2,Probar sistema de emparejamiento de recursos,Not Started,Identificar brechas
+Refinar estructura de canales de Discord,Basado en retroalimentación beta,2026-04-05,P1,Iteración,Semana 7,3,Recopilar retroalimentación sobre qué falta,Not Started,Mejoras rápidas
+Actualizar guías de profesión,Corregir secciones poco claras y agregar ejemplos,2026-04-05,P2,Iteración,Semana 7,4,Probar guías de profesión con miembros,Not Started,Refinamiento de contenido
+Corregir problemas críticos de UX,Solo bloqueadores de lanzamiento,2026-04-06,P0,Iteración,Semana 7,4,Recopilar retroalimentación sobre qué falta,Not Started,HITO: Beta Probado
+Redactar anuncio de alianza,Co-escribir comunicado de prensa conjunto con Valannia,2026-04-07,P0,Materiales de Marketing,Semana 8,3,Negociar y finalizar términos de alianza,Not Started,Mensajería conjunta
+Crear explicador ¿Qué es Polaris Fuel?,Video de 2 minutos o infografía,2026-04-08,P0,Materiales de Marketing,Semana 8,6,,Not Started,Activo de marketing clave
+Construir calendario de contenido en redes sociales,Publicaciones diarias por 4 semanas,2026-04-09,P1,Materiales de Marketing,Semana 8,4,Crear explicador ¿Qué es Polaris Fuel?,Not Started,Presencia consistente
+Planificar evento del día de lanzamiento,Q&A en vivo recorrido de profesiones y primeros intercambios,2026-04-10,P1,Materiales de Marketing,Semana 8,3,,Not Started,Motor de participación
+Reclutar equipo de moderadores,3-5 personas para gestor de comunidad creador de contenido y soporte de mod,2026-04-08,P0,Configuración Operativa,Semana 8,4,,Not Started,Equipo esencial
+Escribir lineamientos de moderación,Reglas proceso de escalación y estándares de tono,2026-04-09,P1,Configuración Operativa,Semana 8,3,Reclutar equipo de moderadores,Not Started,Alineación del equipo
+Crear lista de contactos de emergencia,Contactos de Valannia equipo central y soporte de Discord,2026-04-09,P2,Configuración Operativa,Semana 8,1,,Not Started,Preparación para crisis
+Construir documento de preguntas frecuentes,20 preguntas más comunes anticipadas,2026-04-10,P1,Configuración Operativa,Semana 8,3,Actualizar guías de profesión,Not Started,Recurso de soporte
+Prueba de estrés de Discord para 100+ usuarios,Invitar grupo de prueba o usar simulación,2026-04-10,P0,Verificaciones Técnicas Finales,Semana 8,2,Corregir problemas críticos de UX,Not Started,Prueba de escalabilidad
+Verificar que todos los enlaces funcionen,Sitio web redes sociales y flujos de verificación,2026-04-10,P0,Verificaciones Técnicas Finales,Semana 8,1,,Not Started,Aseguramiento de calidad
+Probar sistemas de respaldo,Planificación de contingencia si Discord falla,2026-04-11,P1,Verificaciones Técnicas Finales,Semana 8,2,,Not Started,Mitigación de riesgos
+Reunión final de coordinación de lanzamiento,Confirmar tiempo co-marketing mensajería y plan de soporte de 48hrs,2026-04-11,P0,Coordinación de Lanzamiento,Semana 8,1,Redactar anuncio de alianza,Not Started,Alineación final
+Confirmar preparación de lanzamiento con el equipo,Lista de verificación todo listo,2026-04-11,P0,Coordinación de Lanzamiento,Semana 8,0.5,Reunión final de coordinación de lanzamiento,Not Started,HITO: Listo para Lanzar
+Hora 0: Anuncios coordinados,Publicaciones simultáneas en todos los canales,2026-04-14,P0,Día de Lanzamiento,Lanzamiento,0.5,Confirmar preparación de lanzamiento con el equipo,Not Started,HITO: Lanzamiento
+Horas 1-6: Participación activa en Discord,Todos los mods en línea respondiendo preguntas en tiempo real,2026-04-14,P0,Día de Lanzamiento,Lanzamiento,6,Hora 0: Anuncios coordinados,Not Started,Soporte intensivo
+Hora 6: Recorrido en vivo de profesiones,Stream o tutorial en chat de voz,2026-04-14,P1,Día de Lanzamiento,Lanzamiento,1.5,Horas 1-6: Participación activa en Discord,Not Started,Evento educativo
+Horas 12-24: Procesar primeros emparejamientos,Meta de 3-5 intercambios exitosos,2026-04-14,P0,Día de Lanzamiento,Lanzamiento,4,Hora 6: Recorrido en vivo de profesiones,Not Started,Demostrar el concepto
+Hora 24: Resumen del Día 1,Reunión del equipo sobre qué funcionó qué falló y qué corregir,2026-04-15,P1,Día de Lanzamiento,Lanzamiento,1,Horas 12-24: Procesar primeros emparejamientos,Not Started,Aprender y adaptarse
+Participación y contenido diario,Contenido nuevo y moderación activa,2026-04-21,P0,Semana 1 Post-Lanzamiento,Post-Lanzamiento,14,Hora 24: Resumen del Día 1,Not Started,Tarea diaria recurrente
+Primera sincronización semanal con Valannia,Revisar rendimiento del lanzamiento problemas y próximos pasos,2026-04-18,P1,Semana 1 Post-Lanzamiento,Post-Lanzamiento,1,Hora 24: Resumen del Día 1,Not Started,Salud de la alianza
+Recopilar métricas tempranas,Rastrear conteo de miembros participación intercambios y retención,2026-04-18,P1,Semana 1 Post-Lanzamiento,Post-Lanzamiento,2,Participación y contenido diario,Not Started,Recopilación de datos
+Implementar mejoras de impacto rápido,Basadas en retroalimentación de usuarios de la primera semana,2026-04-21,P2,Semana 1 Post-Lanzamiento,Post-Lanzamiento,6,Recopilar métricas tempranas,Not Started,Iteración rápida
+Compilar informe de métricas,Datos de miembros actividad intercambios retención y participación,2026-05-14,P1,Revisión de 30 Días,Post-Lanzamiento,4,Recopilar métricas tempranas,Not Started,Evaluación de rendimiento
+Reunión de revisión de alianza de 30 días,Evaluar criterios de éxito qué cambiar y siguiente fase,2026-05-16,P0,Revisión de 30 Días,Post-Lanzamiento,1.5,Compilar informe de métricas,Not Started,HITO: Prueba de 30 Días`;
+
 function parseCSV(csv) {
   const lines = csv.split('\n'); const headers = lines[0].split(',');
   return lines.slice(1).filter(l=>l.trim()).map((line,idx) => {
@@ -373,7 +450,24 @@ const TODAY = new Date('2026-02-17');
 const STORAGE_KEY = 'polaris_task_statuses';
 
 function loadStatuses() { try { const s=JSON.parse(localStorage.getItem(STORAGE_KEY)); if(s) tasks.forEach(t=>{if(s[t['Task Name']])t.Status=s[t['Task Name']];}); } catch(e){} }
-function saveStatuses() { const s={}; tasks.forEach(t=>s[t['Task Name']]=t.Status); localStorage.setItem(STORAGE_KEY,JSON.stringify(s)); }
+function saveStatuses() {
+  // Save statuses using English task name as the stable key
+  const enTasks = parseCSV(TASKS_CSV);
+  const s={};
+  tasks.forEach((t,i)=>{ s[enTasks[i]['Task Name']] = t.Status; });
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+}
+function reloadDataForLang(lang) {
+  const savedS = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e){return{};} })();
+  const enTasks = parseCSV(TASKS_CSV);
+  const rawTasks = lang==='es' ? parseCSV(TASKS_CSV_ES) : enTasks;
+  tasks = rawTasks.map((t,i)=>{
+    const enName = enTasks[i] ? enTasks[i]['Task Name'] : t['Task Name'];
+    if(savedS && savedS[enName]) t.Status = savedS[enName];
+    return t;
+  });
+  milestones = parseCSV(lang==='es' ? MILESTONES_CSV_ES : MILESTONES_CSV);
+}
 loadStatuses();
 
 let state = { view:'list', priorityFilter:'all', phaseFilter:'all', search:'', selectedTask:null };
