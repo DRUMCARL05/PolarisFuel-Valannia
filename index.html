@@ -254,6 +254,7 @@
                 </div>
             </div>
             <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/xaqdjrzk" method="POST">
+                <input type="hidden" name="_subject" value="New Polaris Fuel Contact Form Submission">
                 <div class="form-group"><label for="name" data-i18n="form_name">Name / Guild Name</label><input type="text" id="name" name="name" data-i18n-placeholder="form_name_ph" placeholder="Your name or guild" required></div>
                 <div class="form-group"><label for="contact" data-i18n="form_contact">Email / Discord</label><input type="text" id="contact" name="contact" data-i18n-placeholder="form_contact_ph" placeholder="How to reach you" required></div>
                 <div class="form-group">
@@ -397,6 +398,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
   const form = e.target;
   const data = new FormData(form);
   
+  console.log('Form submitting to:', form.action);
+  
   try {
     const response = await fetch(form.action, {
       method: 'POST',
@@ -404,13 +407,18 @@ document.getElementById('contactForm').addEventListener('submit', async function
       headers: { 'Accept': 'application/json' }
     });
     
+    console.log('Response status:', response.status);
+    
     if (response.ok) {
       form.querySelectorAll('input,select,textarea,button').forEach(el => el.style.display='none');
       document.getElementById('formSuccess').style.display='block';
     } else {
+      const errorData = await response.json();
+      console.error('Formspree error:', errorData);
       alert('Oops! There was a problem submitting your form. Please try again.');
     }
   } catch (error) {
+    console.error('Submission error:', error);
     alert('Oops! There was a problem submitting your form. Please try again.');
   }
 });
