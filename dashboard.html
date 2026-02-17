@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polaris Fuel — Internal Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ── LOGIN SCREEN ── */
+  :root {
+    --red: #cc1111; --red-hot: #ff2200; --orange: #ff6a00;
+    --gold: #ffbb00; --black: #0d0a06; --black2: #1a1208;
+    --text: #f0e0c0; --muted: #9a7a50;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Rajdhani', sans-serif; background: var(--black); color: var(--text); min-height:100vh; }
+
+  /* LOGIN */
+  #login-screen {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: var(--black);
+    background-image:
+      radial-gradient(ellipse at 20% 80%, rgba(204,17,17,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255,106,0,0.10) 0%, transparent 50%);
+  }
+
+  .login-box {
+    background: rgba(26,18,8,0.9);
+    border: 1px solid rgba(255,106,0,0.25);
+    border-radius: 8px;
+    padding: 48px 40px;
+    width: 100%; max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .login-emblem {
+    width: 80px; height: 80px; object-fit: contain; margin-bottom: 20px;
+    filter: drop-shadow(0 0 16px rgba(255,106,0,0.5));
+  }
+
+  .login-box h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 4px;
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 6px;
+  }
+
+  .login-box p { color: var(--muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; }
+
+  .login-label {
+    display: block; text-align: left;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 8px; font-weight: 600;
+  }
+
+  .login-input {
+    width: 100%; padding: 12px 16px; margin-bottom: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,106,0,0.2); border-radius: 4px;
+    color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 16px;
+    letter-spacing: 4px; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .login-input:focus { outline: none; border-color: rgba(255,106,0,0.6); background: rgba(255,106,0,0.04); }
+
+  .login-btn {
+    width: 100%; padding: 13px;
+    background: linear-gradient(135deg, var(--red-hot), var(--orange));
+    border: none; border-radius: 4px;
+    color: var(--black); font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 3px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(255,106,0,0.3);
+  }
+  .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,106,0,0.5); }
+
+  .login-error {
+    display: none; color: var(--red-hot); font-size: 13px;
+    margin-top: 14px; letter-spacing: 1px;
+    animation: shake 0.3s ease;
+  }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  .back-link {
+    display: inline-block; margin-top: 24px;
+    color: var(--muted); font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--orange); }
+
+  /* ── DASHBOARD ── */
+  #dashboard-screen { display: none; }
+
+  /* Top bar */
+  .dash-topbar {
+    background: rgba(13,10,6,0.97);
+    border-bottom: 1px solid rgba(255,106,0,0.2);
+    padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 50;
+  }
+
+  .dash-topbar-left { display: flex; align-items: center; gap: 14px; }
+
+  .dash-topbar img { height: 36px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(255,106,0,0.4)); }
+
+  .dash-topbar h1 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px;
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .dash-badge {
+    background: rgba(255,106,0,0.1); border: 1px solid rgba(255,106,0,0.3);
+    color: var(--orange); padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  .logout-btn {
+    background: none; border: 1px solid rgba(255,106,0,0.2);
+    color: var(--muted); padding: 6px 16px; border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 1px;
+    cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  }
+  .logout-btn:hover { border-color: rgba(255,106,0,0.5); color: var(--orange); }
+
+  /* Dashboard content wrapper */
+  #dash-content {
+    /* original dashboard styles load here */
+  }
+
+  /* ── ORIGINAL DASHBOARD STYLES ── */
+  #dash-content {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2129;
+    --border: #30363d; --text-d: #e6edf3; --text-muted: #8b949e;
+    --accent: #58a6ff; --accent-dim: #1f6feb33;
+    --p0: #f85149; --p1: #d29922; --p2: #3fb950;
+    --done: #3fb950; --progress: #58a6ff; --not-started: #8b949e;
+    background: var(--bg);
+  }
+
+  #dash-content .app { max-width: 1320px; margin: 0 auto; padding: 24px 20px; color: var(--text-d); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  #dash-content .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px; }
+  #dash-content .header h1 { font-size:22px; font-weight:600; color: var(--text-d); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; letter-spacing: normal; background: none; -webkit-text-fill-color: var(--text-d); }
+  #dash-content .header h1 span { color: var(--accent); }
+  #dash-content .header-right { display:flex; gap:8px; align-items:center; }
+  #dash-content .today-badge { background: var(--accent-dim); color: var(--accent); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  #dash-content .stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-bottom:24px; }
+  #dash-content .stat-card { background: var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center; }
+  #dash-content .stat-card .value { font-size:28px; font-weight:700; color: var(--text-d); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; letter-spacing: normal; background: none; -webkit-text-fill-color: var(--text-d); }
+  #dash-content .stat-card .label { font-size:12px; color:var(--text-muted); margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
+  #dash-content .stat-card.overdue .value { color: var(--p0); -webkit-text-fill-color: var(--p0); }
+  #dash-content .stat-card.done .value { color: var(--done); -webkit-text-fill-color: var(--done); }
+  #dash-content .stat-card.hours .value { color: var(--accent); -webkit-text-fill-color: var(--accent); }
+  #dash-content .progress-section { margin-bottom:24px; }
+  #dash-content .progress-bar-bg { height:8px; background:var(--surface); border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  #dash-content .progress-bar-fill { height:100%; background: linear-gradient(90deg, var(--done), #2ea043); border-radius:8px; transition: width .4s; }
+  #dash-content .progress-label { font-size:12px; color:var(--text-muted); margin-top:6px; text-align:right; }
+  #dash-content .controls { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+  #dash-content .filter-group { display:flex; gap:6px; flex-wrap:wrap; }
+  #dash-content .filter-btn { background: var(--surface); border:1px solid var(--border); color:var(--text-muted); padding:6px 14px; border-radius:20px; cursor:pointer; font-size:13px; transition: all .15s; font-family: inherit; }
+  #dash-content .filter-btn:hover { border-color: var(--accent); color: var(--text-d); }
+  #dash-content .filter-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  #dash-content .search-box { background: var(--surface); border:1px solid var(--border); color:var(--text-d); padding:6px 14px; border-radius:20px; font-size:13px; width:220px; outline:none; font-family: inherit; }
+  #dash-content .search-box:focus { border-color: var(--accent); }
+  #dash-content .search-box::placeholder { color: var(--text-muted); }
+  #dash-content .view-toggle { margin-left:auto; display:flex; gap:4px; }
+  #dash-content .view-btn { background: var(--surface); border:1px solid var(--border); color:var(--text-muted); padding:6px 12px; cursor:pointer; font-size:13px; font-family: inherit; }
+  #dash-content .view-btn:first-child { border-radius:8px 0 0 8px; }
+  #dash-content .view-btn:last-child { border-radius:0 8px 8px 0; }
+  #dash-content .view-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+  #dash-content .phase-timeline { display:flex; gap:4px; margin-bottom:24px; overflow-x:auto; padding-bottom:4px; }
+  #dash-content .phase-chip { flex-shrink:0; padding:6px 14px; border-radius:20px; font-size:12px; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--text-muted); transition:all .15s; white-space:nowrap; }
+  #dash-content .phase-chip:hover { border-color:var(--accent); }
+  #dash-content .phase-chip.active { background:var(--accent-dim); border-color:var(--accent); color:var(--accent); }
+  #dash-content .phase-chip .count { margin-left:6px; opacity:.7; }
+  #dash-content .task-group { margin-bottom:20px; }
+  #dash-content .group-header { font-size:14px; font-weight:600; color:var(--text-muted); padding:8px 0; display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
+  #dash-content .group-header .arrow { transition: transform .2s; font-size:10px; }
+  #dash-content .group-header .arrow.collapsed { transform: rotate(-90deg); }
+  #dash-content .group-header .badge { background:var(--surface2); padding:2px 8px; border-radius:10px; font-size:11px; }
+  #dash-content .task-list { display:flex; flex-direction:column; gap:4px; }
+  #dash-content .task-row { display:grid; grid-template-columns: 36px 1fr 90px 60px 120px 90px; align-items:center; gap:8px; padding:10px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; transition: all .15s; font-size:13px; color: var(--text-d); }
+  #dash-content .task-row:hover { border-color: var(--accent); background: var(--surface2); }
+  #dash-content .task-row.overdue { border-left: 3px solid var(--p0); }
+  #dash-content .task-row.completed { opacity:.55; }
+  #dash-content .task-check { width:20px; height:20px; border-radius:50%; border:2px solid var(--border); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; flex-shrink:0; }
+  #dash-content .task-check:hover { border-color: var(--done); }
+  #dash-content .task-check.checked { background: var(--done); border-color: var(--done); }
+  #dash-content .task-check.checked::after { content:'✓'; color:#fff; font-size:11px; }
+  #dash-content .task-check.in-progress { border-color: var(--progress); background: var(--progress)33; }
+  #dash-content .task-check.in-progress::after { content:'◐'; color:var(--progress); font-size:13px; }
+  #dash-content .task-name { font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #dash-content .task-name .dep-icon { color:var(--text-muted); font-size:11px; margin-left:4px; cursor:help; }
+  #dash-content .task-date { font-size:12px; color:var(--text-muted); }
+  #dash-content .task-date.overdue { color:var(--p0); font-weight:600; }
+  #dash-content .priority-badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; text-align:center; }
+  #dash-content .priority-badge.p0 { background: #f8514922; color: var(--p0); }
+  #dash-content .priority-badge.p1 { background: #d2992222; color: var(--p1); }
+  #dash-content .priority-badge.p2 { background: #3fb95022; color: var(--p2); }
+  #dash-content .task-category { font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #dash-content .task-hours { font-size:12px; color:var(--text-muted); text-align:right; }
+  #dash-content .kanban { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+  #dash-content .kanban-col { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px; min-height:200px; }
+  #dash-content .kanban-col h3 { font-size:13px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; color: var(--text-d); font-family: inherit; background: none; -webkit-text-fill-color: var(--text-d); }
+  #dash-content .kanban-col h3 .dot { width:8px; height:8px; border-radius:50%; }
+  #dash-content .kanban-col.not-started h3 .dot { background:var(--not-started); }
+  #dash-content .kanban-col.in-progress h3 .dot { background:var(--progress); }
+  #dash-content .kanban-col.completed h3 .dot { background:var(--done); }
+  #dash-content .kanban-card { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:8px; font-size:13px; cursor:pointer; transition:all .15s; color: var(--text-d); }
+  #dash-content .kanban-card:hover { border-color:var(--accent); }
+  #dash-content .kanban-card .card-title { font-weight:500; margin-bottom:6px; }
+  #dash-content .kanban-card .card-meta { display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); }
+  #dash-content .kanban-card.overdue { border-left:3px solid var(--p0); }
+  #dash-content .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; z-index:100; align-items:center; justify-content:center; }
+  #dash-content .modal-overlay.open { display:flex; }
+  #dash-content .modal { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; max-width:520px; width:90%; max-height:80vh; overflow-y:auto; color: var(--text-d); }
+  #dash-content .modal h2 { font-size:18px; margin-bottom:16px; color: var(--text-d); font-family: inherit; background: none; -webkit-text-fill-color: var(--text-d); letter-spacing: normal; }
+  #dash-content .modal .field { margin-bottom:12px; }
+  #dash-content .modal .field-label { font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--text-muted); margin-bottom:4px; }
+  #dash-content .modal .field-value { font-size:14px; color: var(--text-d); }
+  #dash-content .modal .close-btn { float:right; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:20px; }
+  #dash-content .modal .close-btn:hover { color:var(--text-d); }
+  #dash-content .modal .status-btns { display:flex; gap:6px; margin-top:4px; }
+  #dash-content .modal .status-btn { padding:6px 12px; border-radius:6px; border:1px solid var(--border); background:var(--surface2); color:var(--text-muted); cursor:pointer; font-size:12px; font-family: inherit; }
+  #dash-content .modal .status-btn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+  #dash-content .modal .dep-list { font-size:13px; color:var(--text-muted); }
+  #dash-content .milestones { display:grid; gap:12px; }
+  #dash-content .milestone-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px; border-left:4px solid var(--border); }
+  #dash-content .milestone-card.upcoming { border-left-color: var(--accent); }
+  #dash-content .milestone-card.completed { border-left-color: var(--done); }
+  #dash-content .milestone-card.at-risk { border-left-color: var(--p0); }
+  #dash-content .milestone-card h3 { font-size:14px; font-weight:600; margin-bottom:8px; color: var(--text-d); font-family: inherit; background: none; -webkit-text-fill-color: var(--text-d); letter-spacing: normal; }
+  #dash-content .milestone-date { font-size:12px; color:var(--text-muted); margin-bottom:8px; display:flex; gap:12px; }
+  #dash-content .milestone-badges { display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+  #dash-content .milestone-badge { padding:3px 10px; border-radius:10px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-muted); }
+  #dash-content .milestone-badge.high-risk { background:#f8514922; color: var(--p0); }
+  #dash-content .milestone-badge.medium-risk { background:#d2992222; color: var(--p1); }
+  #dash-content .milestone-badge.low-risk { background:#3fb95022; color: var(--done); }
+  #dash-content .milestone-details { font-size:13px; line-height:1.5; color: var(--text-d); }
+  #dash-content .milestone-details p { margin-bottom:6px; }
+  #dash-content .milestone-details strong { color:var(--accent); }
+  #dash-content .hidden { display:none; }
+  @media (max-width:900px) {
+    #dash-content .task-row { grid-template-columns: 36px 1fr 90px 60px; }
+    #dash-content .task-category, #dash-content .task-hours { display:none; }
+    #dash-content .kanban { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <img src="emblem.png" alt="Polaris Fuel" class="login-emblem">
+    <h1>Internal Access</h1>
+    <p>Polaris Fuel &mdash; Valannia</p>
+    <label class="login-label" for="pw">Password</label>
+    <input type="password" id="pw" class="login-input" placeholder="••••••••••"
+      onkeydown="if(event.key==='Enter') tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">Enter Dashboard</button>
+    <div class="login-error" id="login-error">&#10006; Incorrect password. Try again.</div>
+    <a href="index.html" class="back-link">&#8592; Back to main site</a>
+  </div>
+</div>
+
+<!-- DASHBOARD SCREEN -->
+<div id="dashboard-screen">
+  <div class="dash-topbar">
+    <div class="dash-topbar-left">
+      <img src="emblem.png" alt="Polaris Fuel">
+      <h1>Command Center</h1>
+      <span class="dash-badge">&#128274; Internal</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">&#8594; Logout</button>
+  </div>
+  <div id="dash-content">
+    <div class="app" id="app"></div>
+  </div>
+</div>
+
+<script>
+// ── AUTH ──
+const PASS = 'admin';
+
+function tryLogin() {
+  const val = document.getElementById('pw').value;
+  const err = document.getElementById('login-error');
+  if (val === PASS) {
+    sessionStorage.setItem('pf_auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard-screen').style.display = 'block';
+    render();
+  } else {
+    err.style.display = 'block';
+    document.getElementById('pw').value = '';
+    document.getElementById('pw').focus();
+    setTimeout(() => err.style.display = 'none', 3000);
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('pf_auth');
+  document.getElementById('dashboard-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw').value = '';
+}
+
+// Check if already authenticated
+if (sessionStorage.getItem('pf_auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard-screen').style.display = 'block';
+}
+</script>
+
+<script>
+// ── DASHBOARD LOGIC (original, unmodified) ──
+const MILESTONES_CSV = `Milestone Name,Target Date,Gate Criteria,Blocker Risk,Key Dependencies,Success Indicators,Notes
+Partnership Secured,2026-03-21,Signed MOU with Valannia,Medium,MOU draft completed and reviewed,Written agreement official communication channel established,First major gate - enables rest of project
+MVP Complete,2026-03-28,Discord functional content ready tools working,Low,All content created Discord built tools tested,29 channels live 9 profession guides resource matching system operational,Ready for beta testing
+Beta Tested,2026-04-06,15+ founding members feedback integrated,Medium,Founding members recruited testing completed,15-25 active testers feedback collected critical issues fixed,Quality validation before launch
+Launch Ready,2026-04-11,All systems go team trained Valannia aligned,High,All previous milestones complete Valannia launch date confirmed,Mods trained content scheduled announcements ready systems tested,External dependency on Valannia timing
+Successful Launch,2026-04-14,No major incidents positive community response,Medium,Launch readiness confirmed coordinated timing,100+ members in first 48hrs 5+ trades processed no critical failures,Public validation of concept
+30-Day Proof,2026-05-14,Metrics show value partnership health good,Low,30 days of operations complete data collected,Target metrics hit (100+ members 40% active 20+ trades) positive Valannia feedback,Determines next phase viability`;
+
+const TASKS_CSV = `Task Name,Description,Due Date,Priority,Category,Phase,Estimated Hours,Dependencies,Status,Notes
+Email partnership proposal to Valannia contact,Use existing proposal document and personalize for recipient,2026-02-17,P0,Partnership Outreach,Week 1-2,1,,Not Started,Critical first step
+Request 60-min partnership meeting,Schedule initial partnership discussion,2026-02-17,P0,Partnership Outreach,Week 1-2,0.5,Email partnership proposal to Valannia contact,Not Started,Follow up if no response by Thursday
+Create one-page Partnership Quick Reference,PDF summarizing what you need what they get and timeline,2026-02-19,P1,Partnership Outreach,Week 1-2,2,,Not Started,Bring to partnership meeting
+Draft 3 key questions for timeline clarity,Questions about Arena launch date main game beta date and ready mechanics,2026-02-19,P1,Partnership Outreach,Week 1-2,1,,Not Started,Prepare for partnership meeting
+Follow up on meeting request if no response,Send friendly reminder about meeting request,2026-02-20,P0,Partnership Outreach,Week 1-2,0.5,Request 60-min partnership meeting,Not Started,Only if needed
+List 25 potential founding members to recruit,Star Atlas contacts and Valannia early adopters,2026-02-21,P2,Pre-Meeting Prep,Week 1-2,2,,Not Started,Keep list for Week 7 recruitment
+Research Valannia current state,Test Arena if available and review latest updates,2026-02-23,P1,Pre-Meeting Prep,Week 1-2,3,,Not Started,Weekend task
+Document knowledge gaps on their mechanics,What you need to learn in partnership meeting,2026-02-23,P2,Pre-Meeting Prep,Week 1-2,1,Research Valannia current state,Not Started,Inform meeting questions
+Conduct partnership framework meeting,60-min meeting covering launch alignment partner definition communication and mechanics,2026-03-05,P0,Partnership Meeting,Week 3-4,1,Request 60-min partnership meeting,Not Started,Week of Mar 3
+Get answers to 4 critical questions,Which professions active? Guilds/strongholds available? Race Leader voting? Public data access?,2026-03-05,P0,Partnership Meeting,Week 3-4,0,Conduct partnership framework meeting,Not Started,During partnership meeting
+Establish weekly sync schedule,Set up recurring calendar invite with Valannia team,2026-03-05,P1,Partnership Meeting,Week 3-4,0.25,Conduct partnership framework meeting,Not Started,End of meeting action
+Document all game mechanics to support,9 professions 8 races guilds and VALAN integration points,2026-03-07,P1,Technical Documentation,Week 3-4,4,Conduct partnership framework meeting,Not Started,Foundation for MVP
+Define MVP features for launch,Feature list with must-have vs nice-to-have,2026-03-08,P0,Technical Documentation,Week 3-4,3,Document all game mechanics to support,Not Started,Critical for scoping
+Create technical requirements document,API needs wallet integration marketplace data access,2026-03-10,P1,Technical Documentation,Week 3-4,4,Define MVP features for launch,Not Started,Share with Valannia team
+Draft partnership terms document (MOU),Complete MOU ready for Valannia review,2026-03-14,P0,Technical Documentation,Week 3-4,6,Create technical requirements document,Not Started,Legal framework for partnership
+Review MOU draft with Valannia team,Schedule review meeting to discuss terms,2026-03-18,P0,Partnership Formalization,Week 5-6,1,Draft partnership terms document (MOU),Not Started,May require multiple iterations
+Negotiate and finalize partnership terms,Finalize and sign MOU with Valannia,2026-03-21,P0,Partnership Formalization,Week 5-6,2,Review MOU draft with Valannia team,Not Started,MILESTONE: Partnership Secured
+Set up official communication channels,Joint Discord channel or Slack workspace with Valannia,2026-03-22,P1,Partnership Formalization,Week 5-6,0.5,Negotiate and finalize partnership terms,Not Started,Ongoing collaboration infrastructure
+Create Discord server structure,29 channels: Welcome Racial Hubs Professions Trading Governance Operations,2026-03-19,P0,Discord Infrastructure,Week 5-6,4,,Not Started,Core community platform
+Set up roles and permissions,Configure Discord roles for different member types and access levels,2026-03-20,P1,Discord Infrastructure,Week 5-6,2,Create Discord server structure,Not Started,Security and organization
+Design server branding/visuals,Logo banners and channel icons,2026-03-22,P2,Discord Infrastructure,Week 5-6,4,Create Discord server structure,Not Started,Professional appearance
+Write profession guide #1,Complete guide with examples for easiest/most important profession,2026-03-20,P1,Content Creation,Week 5-6,4,,Not Started,Start with highest priority
+Write profession guides #2-9,Complete all remaining profession guides,2026-03-27,P1,Content Creation,Week 5-6,24,Write profession guide #1,Not Started,Batch task: 1-2 per day
+Create economic system explainer,Visual infographic plus written guide showing interdependence,2026-03-25,P1,Content Creation,Week 5-6,5,,Not Started,Core educational content
+Design onboarding flow document,Step-by-step new member journey,2026-03-26,P0,Content Creation,Week 5-6,3,Create economic system explainer,Not Started,Critical for member experience
+Prepare launch announcement materials,Announcement post graphics and talking points,2026-03-28,P0,Content Creation,Week 5-6,4,,Not Started,MILESTONE: MVP Complete
+Create resource matching form,Google Form to automated spreadsheet system,2026-03-23,P1,Tools Development,Week 5-6,3,Define MVP features for launch,Not Started,Core value proposition
+Set up member verification system,Discord role based on VALAN holdings or manual for MVP,2026-03-24,P2,Tools Development,Week 5-6,4,Create Discord server structure,Not Started,Can start manual
+Create basic reputation tracking sheet,Manual spreadsheet tracking trades and contributions,2026-03-25,P2,Tools Development,Week 5-6,2,Create resource matching form,Not Started,Simple MVP version
+Reach out to 25 potential founding members,Personal DMs with invitation to founding member group,2026-04-01,P0,Founding Member Recruitment,Week 7,4,List 25 potential founding members to recruit,Not Started,Personal outreach
+Post recruitment in Valannia Discord,Requires Valannia approval first,2026-04-01,P1,Founding Member Recruitment,Week 7,1,Negotiate and finalize partnership terms,Not Started,Official channel recruitment
+Onboard 15-25 founding members,Minimum 15 active testers required,2026-04-03,P0,Founding Member Recruitment,Week 7,6,Reach out to 25 potential founding members,Not Started,Critical mass for testing
+Run Discord structure usability test,Collect channel navigation feedback from beta testers,2026-04-03,P0,Beta Testing,Week 7,2,Onboard 15-25 founding members,Not Started,Usability focus
+Test profession guides with members,Collect clarity and completeness feedback,2026-04-03,P1,Beta Testing,Week 7,2,Onboard 15-25 founding members,Not Started,Content quality check
+Test resource matching system,Process 3-5 real trades with founding members,2026-04-04,P0,Beta Testing,Week 7,3,Onboard 15-25 founding members,Not Started,Core functionality test
+Gather what is missing feedback,Survey or discussion session with beta testers,2026-04-04,P1,Beta Testing,Week 7,2,Test resource matching system,Not Started,Identify gaps
+Refine Discord channel structure,Based on beta feedback,2026-04-05,P1,Iteration,Week 7,3,Gather what is missing feedback,Not Started,Quick improvements
+Update profession guides,Fix unclear sections and add examples,2026-04-05,P2,Iteration,Week 7,4,Test profession guides with members,Not Started,Content refinement
+Fix critical UX issues,Launch blockers only,2026-04-06,P0,Iteration,Week 7,4,Gather what is missing feedback,Not Started,MILESTONE: Beta Tested
+Draft partnership announcement,Co-author joint press release with Valannia,2026-04-07,P0,Marketing Materials,Week 8,3,Negotiate and finalize partnership terms,Not Started,Joint messaging
+Create What is Polaris Fuel explainer,2-minute video or infographic,2026-04-08,P0,Marketing Materials,Week 8,6,,Not Started,Key marketing asset
+Build social media content calendar,Daily posts for 4 weeks,2026-04-09,P1,Marketing Materials,Week 8,4,Create What is Polaris Fuel explainer,Not Started,Consistent presence
+Plan launch day event,Live Q&A profession walkthrough and first trades,2026-04-10,P1,Marketing Materials,Week 8,3,,Not Started,Engagement driver
+Recruit moderator team,3-5 people for community manager content creator and mod support,2026-04-08,P0,Operational Setup,Week 8,4,,Not Started,Essential team
+Write moderation guidelines,Rules escalation process and tone standards,2026-04-09,P1,Operational Setup,Week 8,3,Recruit moderator team,Not Started,Team alignment
+Create emergency contact list,Valannia contacts core team and Discord support,2026-04-09,P2,Operational Setup,Week 8,1,,Not Started,Crisis preparedness
+Build FAQ document,20 most common anticipated questions,2026-04-10,P1,Operational Setup,Week 8,3,Update profession guides,Not Started,Support resource
+Stress test Discord for 100+ users,Invite test group or use simulation,2026-04-10,P0,Technical Final Checks,Week 8,2,Fix critical UX issues,Not Started,Scalability test
+Verify all links working,Website socials and verification flows,2026-04-10,P0,Technical Final Checks,Week 8,1,,Not Started,Quality assurance
+Test backup systems,Contingency planning if Discord goes down,2026-04-11,P1,Technical Final Checks,Week 8,2,,Not Started,Risk mitigation
+Final launch coordination meeting,Confirm timing co-marketing messaging and 48hr support plan,2026-04-11,P0,Launch Coordination,Week 8,1,Draft partnership announcement,Not Started,Final alignment
+Confirm launch readiness with team,All systems go checklist,2026-04-11,P0,Launch Coordination,Week 8,0.5,Final launch coordination meeting,Not Started,MILESTONE: Launch Ready
+Hour 0: Coordinated announcements,Simultaneous posts on all channels,2026-04-14,P0,Launch Day,Launch,0.5,Confirm launch readiness with team,Not Started,MILESTONE: Launch
+Hours 1-6: Active Discord engagement,All mods online answer questions real-time,2026-04-14,P0,Launch Day,Launch,6,Hour 0: Coordinated announcements,Not Started,High touch support
+Hour 6: Live profession walkthrough,Stream or voice chat tutorial,2026-04-14,P1,Launch Day,Launch,1.5,Hours 1-6: Active Discord engagement,Not Started,Educational event
+Hours 12-24: Process first resource matches,Target 3-5 successful trades,2026-04-14,P0,Launch Day,Launch,4,Hour 6: Live profession walkthrough,Not Started,Prove concept
+Hour 24: Day 1 debrief,Team meeting on what worked what broke what to fix,2026-04-15,P1,Launch Day,Launch,1,Hours 12-24: Process first resource matches,Not Started,Learn and adapt
+Daily engagement and content,Fresh content and active moderation,2026-04-21,P0,Week 1 Post-Launch,Post-Launch,14,Hour 24: Day 1 debrief,Not Started,Recurring daily task
+First weekly sync with Valannia,Review launch performance issues and next steps,2026-04-18,P1,Week 1 Post-Launch,Post-Launch,1,Hour 24: Day 1 debrief,Not Started,Partnership health
+Gather early metrics,Track member count engagement trades and retention,2026-04-18,P1,Week 1 Post-Launch,Post-Launch,2,Daily engagement and content,Not Started,Data collection
+Implement quick-win improvements,Based on user feedback from first week,2026-04-21,P2,Week 1 Post-Launch,Post-Launch,6,Gather early metrics,Not Started,Rapid iteration
+Compile metrics report,Members activity trades retention and engagement data,2026-05-14,P1,30-Day Review,Post-Launch,4,Gather early metrics,Not Started,Performance assessment
+30-day partnership review meeting,Assess success criteria what to change and next phase,2026-05-16,P0,30-Day Review,Post-Launch,1.5,Compile metrics report,Not Started,MILESTONE: 30-Day Proof`;
+
+function parseCSV(csv) {
+  const lines = csv.split('\n');
+  const headers = lines[0].split(',');
+  return lines.slice(1).filter(l=>l.trim()).map((line, idx) => {
+    const vals = [];
+    let current = '', inQuotes = false;
+    for (const ch of line) {
+      if (ch === '"') { inQuotes = !inQuotes; }
+      else if (ch === ',' && !inQuotes) { vals.push(current.trim()); current = ''; }
+      else { current += ch; }
+    }
+    vals.push(current.trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h.trim()] = vals[i] || '');
+    obj.id = idx;
+    return obj;
+  });
+}
+
+let tasks = parseCSV(TASKS_CSV);
+let milestones = parseCSV(MILESTONES_CSV);
+const TODAY = new Date('2026-02-17');
+
+const STORAGE_KEY = 'polaris_task_statuses';
+function loadStatuses() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (s) tasks.forEach(t => { if (s[t['Task Name']]) t.Status = s[t['Task Name']]; });
+  } catch(e) {}
+}
+function saveStatuses() {
+  const s = {};
+  tasks.forEach(t => s[t['Task Name']] = t.Status);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+}
+loadStatuses();
+
+let state = { view:'list', priorityFilter:'all', phaseFilter:'all', search:'', selectedTask:null };
+
+function getPhases() {
+  const seen = new Set();
+  return tasks.map(t => t.Phase).filter(p => { if (seen.has(p)) return false; seen.add(p); return true; });
+}
+function isOverdue(t) {
+  if (t.Status === 'Completed') return false;
+  return new Date(t['Due Date']) < TODAY;
+}
+function isDueToday(t) { return t['Due Date'] === '2026-02-17'; }
+function filteredTasks() {
+  return tasks.filter(t => {
+    if (state.priorityFilter !== 'all' && t.Priority !== state.priorityFilter) return false;
+    if (state.phaseFilter !== 'all' && t.Phase !== state.phaseFilter) return false;
+    if (state.search && !t['Task Name'].toLowerCase().includes(state.search.toLowerCase()) && !t.Category.toLowerCase().includes(state.search.toLowerCase())) return false;
+    return true;
+  });
+}
+
+function render() {
+  if (document.getElementById('dashboard-screen').style.display === 'none') return;
+  const ft = filteredTasks();
+  const total = tasks.length;
+  const completed = tasks.filter(t => t.Status === 'Completed').length;
+  const inProg = tasks.filter(t => t.Status === 'In Progress').length;
+  const overdue = tasks.filter(t => isOverdue(t)).length;
+  const totalHours = tasks.reduce((s, t) => s + parseFloat(t['Estimated Hours'] || 0), 0);
+  const doneHours = tasks.filter(t => t.Status === 'Completed').reduce((s, t) => s + parseFloat(t['Estimated Hours'] || 0), 0);
+  const pct = total ? Math.round((completed / total) * 100) : 0;
+  const phases = getPhases();
+
+  document.getElementById('app').innerHTML = `
+    <div class="header">
+      <h1>Polaris Fuel <span>×</span> Valannia</h1>
+      <div class="header-right"><div class="today-badge">Today: Feb 17, 2026</div></div>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="value">${total}</div><div class="label">Total Tasks</div></div>
+      <div class="stat-card done"><div class="value">${completed}</div><div class="label">Completed</div></div>
+      <div class="stat-card"><div class="value">${inProg}</div><div class="label">In Progress</div></div>
+      <div class="stat-card overdue"><div class="value">${overdue}</div><div class="label">Overdue</div></div>
+      <div class="stat-card hours"><div class="value">${totalHours - doneHours}h</div><div class="label">Hours Left</div></div>
+    </div>
+    <div class="progress-section">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${pct}% complete — ${completed}/${total} tasks</div>
+    </div>
+    <div class="controls">
+      <div class="filter-group">
+        ${['all','P0','P1','P2'].map(p => `<button class="filter-btn ${state.priorityFilter===p?'active':''}" onclick="setPriority('${p}')">${p==='all'?'All':p}</button>`).join('')}
+      </div>
+      <input class="search-box" placeholder="Search tasks..." value="${state.search}" oninput="setSearch(this.value)">
+      <div class="view-toggle">
+        <button class="view-btn ${state.view==='list'?'active':''}" onclick="setView('list')">Tasks</button>
+        <button class="view-btn ${state.view==='kanban'?'active':''}" onclick="setView('kanban')">Board</button>
+        <button class="view-btn ${state.view==='milestones'?'active':''}" onclick="setView('milestones')">Milestones</button>
+      </div>
+    </div>
+    <div class="phase-timeline">
+      <div class="phase-chip ${state.phaseFilter==='all'?'active':''}" onclick="setPhase('all')">All Phases</div>
+      ${phases.map(p => { const c = tasks.filter(t => t.Phase === p).length; return `<div class="phase-chip ${state.phaseFilter===p?'active':''}" onclick="setPhase('${p}')">${p}<span class="count">${c}</span></div>`; }).join('')}
+    </div>
+    ${state.view === 'list' ? renderList(ft) : state.view === 'kanban' ? renderKanban(ft) : renderMilestones()}
+    <div class="modal-overlay ${state.selectedTask !== null ? 'open' : ''}" onclick="closeModal(event)">
+      ${state.selectedTask !== null ? renderModal(tasks[state.selectedTask]) : ''}
+    </div>
+  `;
+}
+
+function renderList(ft) {
+  const groups = {};
+  ft.forEach(t => { const cat = t.Category; if (!groups[cat]) groups[cat] = []; groups[cat].push(t); });
+  return Object.entries(groups).map(([cat, items]) => `
+    <div class="task-group">
+      <div class="group-header"><span class="arrow">▼</span>${cat}<span class="badge">${items.length}</span></div>
+      <div class="task-list">
+        ${items.map(t => {
+          const od = isOverdue(t); const dt = isDueToday(t);
+          const checkClass = t.Status === 'Completed' ? 'checked' : t.Status === 'In Progress' ? 'in-progress' : '';
+          const dep = t.Dependencies ? `<span class="dep-icon" title="Depends on: ${t.Dependencies}">🔗</span>` : '';
+          return `<div class="task-row ${od?'overdue':''} ${t.Status==='Completed'?'completed':''}" onclick="openTask(${t.id})">
+            <div class="task-check ${checkClass}" onclick="event.stopPropagation(); cycleStatus(${t.id})"></div>
+            <div class="task-name">${t['Task Name']}${dep}</div>
+            <div class="task-date ${od?'overdue':''}">${dt?'TODAY':formatDate(t['Due Date'])}</div>
+            <div><span class="priority-badge ${t.Priority.toLowerCase()}">${t.Priority}</span></div>
+            <div class="task-category">${cat}</div>
+            <div class="task-hours">${t['Estimated Hours']}h</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function renderKanban(ft) {
+  const cols = ['Not Started','In Progress','Completed'];
+  const colClass = {'Not Started':'not-started','In Progress':'in-progress','Completed':'completed'};
+  return `<div class="kanban">${cols.map(status => {
+    const items = ft.filter(t => t.Status === status);
+    return `<div class="kanban-col ${colClass[status]}">
+      <h3><span class="dot"></span>${status} (${items.length})</h3>
+      ${items.map(t => `<div class="kanban-card ${isOverdue(t)?'overdue':''}" onclick="openTask(${t.id})">
+        <div class="card-title">${t['Task Name']}</div>
+        <div class="card-meta"><span class="priority-badge ${t.Priority.toLowerCase()}">${t.Priority}</span><span>${formatDate(t['Due Date'])}</span></div>
+      </div>`).join('')}
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function getMilestoneStatus(m) {
+  const mDate = new Date(m['Target Date']);
+  if (mDate < TODAY) return 'completed';
+  if (mDate.getTime() - TODAY.getTime() <= 14*24*60*60*1000) return 'at-risk';
+  return 'upcoming';
+}
+
+function renderMilestones() {
+  const sorted = [...milestones].sort((a, b) => new Date(a['Target Date']) - new Date(b['Target Date']));
+  return `<div class="milestones">${sorted.map(m => {
+    const status = getMilestoneStatus(m);
+    const riskColor = m['Blocker Risk']==='High'?'high-risk':m['Blocker Risk']==='Medium'?'medium-risk':'low-risk';
+    return `<div class="milestone-card ${status}">
+      <h3>${m['Milestone Name']}</h3>
+      <div class="milestone-date">📅 ${formatDate(m['Target Date'])}<span class="milestone-badge ${riskColor}">${m['Blocker Risk']} Risk</span></div>
+      <div class="milestone-details">
+        <p><strong>Gate Criteria:</strong> ${m['Gate Criteria']}</p>
+        <p><strong>Key Dependencies:</strong> ${m['Key Dependencies']}</p>
+        <p><strong>Success Indicators:</strong> ${m['Success Indicators']}</p>
+        ${m['Notes']?`<p><em>${m['Notes']}</em></p>`:''}
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function renderModal(t) {
+  if (!t) return '';
+  const od = isOverdue(t);
+  return `<div class="modal" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <h2>${t['Task Name']}</h2>
+    <div class="field"><div class="field-label">Description</div><div class="field-value">${t.Description||'—'}</div></div>
+    <div class="field"><div class="field-label">Due Date</div><div class="field-value ${od?'overdue':''}">${t['Due Date']}${od?' — OVERDUE':''}</div></div>
+    <div class="field"><div class="field-label">Priority</div><div class="field-value"><span class="priority-badge ${t.Priority.toLowerCase()}">${t.Priority}</span></div></div>
+    <div class="field"><div class="field-label">Phase / Category</div><div class="field-value">${t.Phase} — ${t.Category}</div></div>
+    <div class="field"><div class="field-label">Estimated Hours</div><div class="field-value">${t['Estimated Hours']}h</div></div>
+    ${t.Dependencies?`<div class="field"><div class="field-label">Depends On</div><div class="dep-list">${t.Dependencies}</div></div>`:''}
+    ${t.Notes?`<div class="field"><div class="field-label">Notes</div><div class="field-value">${t.Notes}</div></div>`:''}
+    <div class="field"><div class="field-label">Status</div>
+      <div class="status-btns">
+        ${['Not Started','In Progress','Completed'].map(s => `<button class="status-btn ${t.Status===s?'active':''}" onclick="setTaskStatus(${t.id},'${s}')">${s}</button>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function formatDate(d) { const dt = new Date(d); return dt.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+
+window.setPriority = (p) => { state.priorityFilter=p; render(); };
+window.setPhase = (p) => { state.phaseFilter=p; render(); };
+window.setSearch = (s) => { state.search=s; render(); };
+window.setView = (v) => { state.view=v; render(); };
+window.openTask = (id) => { state.selectedTask=id; render(); };
+window.closeModal = (e) => { if(!e||e.target.classList.contains('modal-overlay')){state.selectedTask=null;render();} };
+window.cycleStatus = (id) => {
+  const cycle = {'Not Started':'In Progress','In Progress':'Completed','Completed':'Not Started'};
+  tasks[id].Status = cycle[tasks[id].Status]||'Not Started';
+  saveStatuses(); render();
+};
+window.setTaskStatus = (id,s) => { tasks[id].Status=s; saveStatuses(); render(); };
+</script>
+</body>
+</html>
