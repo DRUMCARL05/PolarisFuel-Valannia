@@ -4,6 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Polaris Fuel — Valannia</title>
+
+<!-- SEO -->
+<meta name="description" content="Polaris Fuel is building the coordination infrastructure for Valannia — guilds trade smarter, resources flow faster, and players win more. Join the crew.">
+<meta name="keywords" content="Polaris Fuel, Valannia, Web3 gaming, $VALAN, blockchain gaming, guild coordination, Web3 economy">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://polarisfuel.app/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://polarisfuel.app/">
+<meta property="og:title" content="Polaris Fuel — The Economy Runs on Fuel">
+<meta property="og:description" content="Building the coordination infrastructure for Valannia. Join the crew before launch.">
+<meta property="og:image" content="https://polarisfuel.app/emblem.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Polaris_Fuel">
+<meta name="twitter:title" content="Polaris Fuel — The Economy Runs on Fuel">
+<meta name="twitter:description" content="Building the coordination infrastructure for Valannia. Join the crew before launch.">
+<meta name="twitter:image" content="https://polarisfuel.app/emblem.png">
+
+<!-- Favicon & theme -->
+<link rel="icon" type="image/png" href="emblem.png">
+<link rel="apple-touch-icon" href="emblem.png">
+<meta name="theme-color" content="#FF6B1A">
+
+<!-- Preload key asset -->
+<link rel="preload" as="image" href="BackgroundEraser_20220405_040008713.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;900&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
@@ -30,7 +59,7 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     background: var(--dark);
@@ -82,6 +111,7 @@
     z-index: 0;
     pointer-events: none;
     opacity: 0.6;
+    will-change: transform;
   }
 
   /* ============================================================
@@ -912,7 +942,6 @@
   [data-lang="es"] { display: none; }
   body.lang-es [data-lang="en"] { display: none; }
   body.lang-es [data-lang="es"] { display: block; }
-  body.lang-es .lang-btn-en { /* dim */ }
 
   /* Inline spans */
   span[data-lang="es"] { display: none; }
@@ -1209,52 +1238,45 @@
     <form class="contact-form reveal reveal-delay-3" id="contact-form">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">
+          <label class="form-label" for="field-name">
             <span data-lang="en">Name / Guild</span>
             <span data-lang="es">Nombre / Gremio</span>
           </label>
-          <input type="text" class="form-input" placeholder="Your name or guild handle" required>
+          <input id="field-name" type="text" class="form-input" placeholder="Your name or guild handle" required>
         </div>
         <div class="form-group">
-          <label class="form-label">
+          <label class="form-label" for="field-contact">
             <span data-lang="en">Email / Discord</span>
             <span data-lang="es">Email / Discord</span>
           </label>
-          <input type="text" class="form-input" placeholder="email or discord#tag" required>
+          <input id="field-contact" type="text" class="form-input" placeholder="email or discord#tag" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group full">
-          <label class="form-label">
+          <label class="form-label" for="field-role">
             <span data-lang="en">How do you want to be involved?</span>
             <span data-lang="es">¿Cómo quieres involucrarte?</span>
           </label>
-          <select class="form-select">
+          <select id="field-role" class="form-select">
             <option value="" disabled selected>
-              Select...
+              <span data-lang="en">Select...</span>
+              <span data-lang="es">Seleccionar...</span>
             </option>
-            <option value="explorer">
-              Explorer / Early Member
-            </option>
-            <option value="guild">
-              Guild Partnership
-            </option>
-            <option value="strategic">
-              Strategic Partner
-            </option>
-            <option value="watching">
-              Just watching for now
-            </option>
+            <option value="explorer" data-en="Explorer / Early Member" data-es="Explorador / Miembro Temprano">Explorer / Early Member</option>
+            <option value="guild" data-en="Guild Partnership" data-es="Asociación de Gremio">Guild Partnership</option>
+            <option value="strategic" data-en="Strategic Partner" data-es="Socio Estratégico">Strategic Partner</option>
+            <option value="watching" data-en="Just watching for now" data-es="Solo observando por ahora">Just watching for now</option>
           </select>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group full">
-          <label class="form-label">
+          <label class="form-label" for="field-message">
             <span data-lang="en">Message (optional)</span>
             <span data-lang="es">Mensaje (opcional)</span>
           </label>
-          <textarea class="form-textarea" placeholder="Tell us about yourself, your guild, or what you're looking for..."></textarea>
+          <textarea id="field-message" class="form-textarea" placeholder="Tell us about yourself, your guild, or what you're looking for..."></textarea>
         </div>
       </div>
       <button type="submit" class="btn-primary form-submit">
@@ -1285,7 +1307,7 @@
     <li><a href="#services"><span data-lang="en">Services</span><span data-lang="es">Servicios</span></a></li>
     <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
     <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank">Discord</a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
   </ul>
   <div class="footer-token">$VALAN</div>
 </footer>
@@ -1381,8 +1403,13 @@ revealEls.forEach(el => observer.observe(el));
 /* ---- Language toggle ---- */
 function setLang(lang) {
   document.body.classList.toggle('lang-es', lang === 'es');
+  document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('.lang-btn-' + lang).classList.add('active');
+  // Translate select option text
+  document.querySelectorAll('select option[data-en]').forEach(opt => {
+    opt.textContent = lang === 'es' ? opt.dataset.es : opt.dataset.en;
+  });
   localStorage.setItem('pf-lang', lang);
 }
 // Restore saved language
