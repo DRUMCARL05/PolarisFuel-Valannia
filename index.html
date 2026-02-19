@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polaris Fuel — Valannia</title>
+
+<!-- SEO -->
+<meta name="description" content="Polaris Fuel is building the coordination infrastructure for Valannia — guilds trade smarter, resources flow faster, and heroes win more. Join the movement.">
+<meta name="keywords" content="Polaris Fuel, Valannia, Web3 gaming, $VALAN, blockchain gaming, guild coordination, Web3 economy">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://polarisfuel.app/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://polarisfuel.app/">
+<meta property="og:title" content="Polaris Fuel — The Economy Runs on Fuel">
+<meta property="og:description" content="Building the coordination infrastructure for Valannia. Join the heroes before launch.">
+<meta property="og:image" content="https://polarisfuel.app/emblem.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Polaris_Fuel">
+<meta name="twitter:title" content="Polaris Fuel — The Economy Runs on Fuel">
+<meta name="twitter:description" content="Building the coordination infrastructure for Valannia. Join the heroes before launch.">
+<meta name="twitter:image" content="https://polarisfuel.app/emblem.png">
+
+<!-- Favicon & theme -->
+<link rel="icon" type="image/png" href="emblem.png">
+<link rel="apple-touch-icon" href="emblem.png">
+<meta name="theme-color" content="#FF6B1A">
+
+<!-- Preload key asset -->
+<link rel="preload" as="image" href="BackgroundEraser_20220405_040008713.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;900&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     ROOT & RESET
+  ============================================================ */
+  :root {
+    --fire: #FF6B1A;
+    --ember: #FF9A00;
+    --gold: #D4A843;
+    --gold-pale: #e8cc7a;
+    --dark: #0A0704;
+    --dark-mid: #120C05;
+    --dark-surface: #1A1008;
+    --dark-card: #1F1409;
+    --smoke: rgba(255,107,26,0.06);
+    --text: #D4C4A8;
+    --text-dim: #7A6A54;
+    --border: rgba(212,168,67,0.15);
+    --border-bright: rgba(212,168,67,0.4);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ============================================================
+     CUSTOM CURSOR
+  ============================================================ */
+  #cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 12px; height: 12px;
+    background: var(--fire);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, background 0.2s, width 0.2s, height 0.2s;
+    mix-blend-mode: screen;
+  }
+  #cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,107,26,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+  }
+  body:has(a:hover) #cursor,
+  body:has(button:hover) #cursor { width: 20px; height: 20px; background: var(--ember); }
+  body:has(a:hover) #cursor-ring,
+  body:has(button:hover) #cursor-ring { width: 50px; height: 50px; border-color: var(--gold); }
+
+  /* ============================================================
+     CANVAS PARTICLE BACKGROUND
+  ============================================================ */
+  #particle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+    will-change: transform;
+  }
+
+  /* ============================================================
+     NOISE OVERLAY
+  ============================================================ */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+  }
+
+  /* ============================================================
+     NAV
+  ============================================================ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 3rem;
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(10,7,4,0.85);
+    border-color: var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    height: 36px;
+    width: 36px;
+    object-fit: contain;
+  }
+  .nav-logo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--fire);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-lang {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .lang-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 0.3rem 0.6rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: none;
+    transition: all 0.2s;
+  }
+  .lang-btn.active, .lang-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212,168,67,0.08);
+  }
+
+  /* ============================================================
+     SECTIONS WRAPPER
+  ============================================================ */
+  section, footer {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============================================================
+     HERO
+  ============================================================ */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10rem 2rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(255,107,26,0.12) 0%, transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--fire);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--fire));
+  }
+  .hero-eyebrow::after { background: linear-gradient(90deg, var(--fire), transparent); }
+
+  .hero-emblem {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+    filter: drop-shadow(0 0 30px rgba(255,107,26,0.5));
+    animation-name: fadeUp, floatEmblem;
+    animation-duration: 0.8s, 6s;
+    animation-delay: 0.1s, 1s;
+    animation-fill-mode: forwards, none;
+    animation-iteration-count: 1, infinite;
+    animation-timing-function: ease, ease-in-out;
+  }
+  @keyframes floatEmblem {
+    0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 30px rgba(255,107,26,0.5)); }
+    50% { transform: translateY(-10px) rotate(1deg); filter: drop-shadow(0 0 50px rgba(255,107,26,0.8)); }
+  }
+
+  .hero-logo-img {
+    width: min(520px, 80vw);
+    object-fit: contain;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+    filter: drop-shadow(0 0 40px rgba(255,107,26,0.3));
+  }
+
+  .hero-tagline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: var(--gold-pale);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+    line-height: 1.2;
+  }
+  .hero-tagline span { color: var(--fire); }
+
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+    max-width: 540px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.1s forwards;
+  }
+
+  .btn-primary {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    background: linear-gradient(135deg, var(--fire), var(--ember));
+    color: #0A0704;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: none;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--ember), var(--gold));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,26,0.4); }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-ghost {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--border-bright);
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    cursor: none;
+  }
+  .btn-ghost:hover {
+    background: rgba(212,168,67,0.08);
+    border-color: var(--gold);
+    color: var(--gold-pale);
+    transform: translateY(-2px);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 2s forwards;
+    z-index: 1;
+  }
+  .scroll-indicator span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--fire), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* ============================================================
+     HOOK / TENSION SECTION
+  ============================================================ */
+  #hook {
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+  .hook-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--fire);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--fire);
+  }
+  .hook-headline {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--gold-pale);
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+  .hook-headline em {
+    font-style: normal;
+    color: var(--fire);
+  }
+  .hook-body {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--text);
+    max-width: 580px;
+    margin: 0 auto 2rem;
+  }
+  .hook-body + .hook-body { color: var(--text-dim); }
+
+  /* ============================================================
+     DIVIDER
+  ============================================================ */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    margin: 0;
+  }
+  .divider-ornament {
+    text-align: center;
+    position: relative;
+  }
+  .divider-ornament::before, .divider-ornament::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 3rem);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border));
+  }
+  .divider-ornament::before { left: 0; }
+  .divider-ornament::after { right: 0; background: linear-gradient(90deg, var(--border), transparent); }
+  .divider-symbol {
+    display: inline-block;
+    font-size: 1rem;
+    color: var(--fire);
+    padding: 1rem 1.5rem;
+    position: relative;
+  }
+
+  /* ============================================================
+     SERVICES
+  ============================================================ */
+  #services {
+    padding: 8rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .services-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 900;
+    color: var(--gold-pale);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .service-card {
+    background: var(--dark-card);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: none;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--fire), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .service-card:hover { background: #221509; }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-card-glow {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,107,26,0.08), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .service-card:hover .service-card-glow { opacity: 1; }
+
+  .service-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--fire);
+    margin-bottom: 1.2rem;
+    opacity: 0.7;
+  }
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(255,107,26,0.4));
+  }
+  .service-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--gold-pale);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .service-desc {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+  }
+  .service-tag {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fire);
+    border: 1px solid rgba(255,107,26,0.3);
+    padding: 0.25rem 0.7rem;
+  }
+
+  .services-footer-note {
+    text-align: center;
+    margin-top: 3rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* ============================================================
+     ABOUT
+  ============================================================ */
+  #about {
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-emblem-wrap {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-ring-svg-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 285px;
+    height: 285px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .about-ring-svg {
+    width: 100%;
+    height: 100%;
+    animation: rotateSlow 25s linear infinite;
+    transform-origin: center center;
+  }
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .about-emblem {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px rgba(255,107,26,0.5));
+    animation: floatEmblem 6s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+  }
+  .about-glow-bg {
+    position: absolute;
+    inset: -60px;
+    background: radial-gradient(ellipse, rgba(255,107,26,0.1), transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  .about-content {}
+  .about-headline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 900;
+    color: var(--gold-pale);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  }
+  .about-headline em { color: var(--fire); font-style: normal; }
+  .about-body {
+    font-size: 0.95rem;
+    line-height: 2;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .about-body + .about-body { color: var(--text-dim); }
+  .about-credo {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border-left: 2px solid var(--fire);
+    background: rgba(255,107,26,0.04);
+  }
+  .about-credo p {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+
+  /* ============================================================
+     JOIN / CONTACT
+  ============================================================ */
+  #contact {
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(5rem, 15vw, 12rem);
+    font-weight: 900;
+    color: rgba(255,107,26,0.025);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: 0.05em;
+  }
+  .contact-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+  .contact-headline {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--gold-pale);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .contact-sub {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-dim);
+    margin-bottom: 3.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+  }
+  .social-link {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--border-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    transition: all 0.3s;
+    cursor: none;
+  }
+  .social-link:hover {
+    background: rgba(212,168,67,0.08);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(212,168,67,0.15);
+  }
+  .social-icon { font-size: 1.1rem; }
+
+  .contact-form {
+    background: var(--dark-card);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--fire), transparent);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.85rem 1rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+    cursor: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--fire);
+    background: rgba(255,107,26,0.04);
+  }
+  .form-select option { background: var(--dark-surface); }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--ember);
+  }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 3rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .footer-left img {
+    height: 28px;
+    width: 28px;
+    object-fit: contain;
+    opacity: 0.7;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .footer-nav {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .footer-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: none;
+  }
+  .footer-nav a:hover { color: var(--gold); }
+  .footer-token {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--fire);
+    opacity: 0.7;
+  }
+
+  /* ============================================================
+     SCROLL ANIMATIONS
+  ============================================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.7; }
+  }
+
+  /* ============================================================
+     LANGUAGE CONTENT
+  ============================================================ */
+  [data-lang="es"] { display: none; }
+  body.lang-es [data-lang="en"] { display: none; }
+  body.lang-es [data-lang="es"] { display: block; }
+
+  /* Inline spans */
+  span[data-lang="es"] { display: none; }
+  body.lang-es span[data-lang="en"] { display: none; }
+  body.lang-es span[data-lang="es"] { display: inline; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-height: 900px) and (min-width: 768px) {
+    .scroll-indicator { bottom: 8rem; }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { order: -1; }
+    .about-emblem-wrap { width: 180px; height: 180px; }
+    .about-ring-svg-wrap { width: 215px; height: 215px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .social-links { flex-direction: column; align-items: center; }
+  }
+  @media (max-width: 600px) {
+    #cursor, #cursor-ring { display: none; }
+    body { cursor: auto; }
+    .btn-primary, .btn-ghost, .social-link, .form-input, .form-select, .form-textarea { cursor: auto; }
+    .lang-btn { cursor: auto; }
+    .contact-form { padding: 2rem 1.5rem; }
+    .scroll-indicator { bottom: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Particle canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <img src="emblem.png" alt="Polaris Fuel" onerror="this.style.display='none'">
+    <span class="nav-logo-text">Polaris Fuel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="#services"><span data-lang="en">Services</span><span data-lang="es">Servicios</span></a></li>
+    <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="dashboard.html"><span data-lang="en">Dashboard</span><span data-lang="es">Panel</span></a></li>
+    <li><a href="#contact"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></a></li>
+  </ul>
+  <div class="nav-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="home">
+  <div class="hero-glow"></div>
+
+  <img src="emblem.png" alt="Polaris Emblem" class="hero-emblem" onerror="this.style.display='none'">
+
+  <div class="hero-eyebrow">
+    <span data-lang="en">Valannia · Web3 · $VALAN</span>
+    <span data-lang="es">Valannia · Web3 · $VALAN</span>
+  </div>
+
+  <img src="BackgroundEraser_20220405_040008713.png" alt="Polaris Fuel" class="hero-logo-img" onerror="this.style.opacity='0'">
+
+  <h1 class="hero-tagline">
+    <span data-lang="en">The economy runs on <span>Fuel.</span></span>
+    <span data-lang="es">La economía corre con <span>Fuel.</span></span>
+  </h1>
+
+  <p class="hero-sub">
+    <span data-lang="en">The connective tissue of Valannia's interdependent production chain. Infrastructure, logistics, and economic intermediation for the Web3 frontier.</span>
+    <span data-lang="es">El tejido conectivo de la cadena de producción interdependiente de Valannia. Infraestructura, logística e intermediación económica para la frontera Web3.</span>
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#contact" class="btn-primary"><span data-lang="en">Become a Hero →</span><span data-lang="es">Conviértete en Héroe →</span></a>
+    <a href="#services" class="btn-ghost"><span data-lang="en">What We Build</span><span data-lang="es">Qué Construimos</span></a>
+  </div>
+
+  <div class="scroll-indicator">
+    <span><span data-lang="en">Scroll</span><span data-lang="es">Scroll</span></span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOOK
+============================================================ -->
+<section id="hook">
+  <div class="hook-inner">
+    <div class="section-label reveal">
+      <span data-lang="en">The Opportunity</span>
+      <span data-lang="es">La Oportunidad</span>
+    </div>
+
+    <h2 class="hook-headline reveal reveal-delay-1">
+      <span data-lang="en">Valannia is coming.<br>Are you ready to <em>dominate?</em></span>
+      <span data-lang="es">Valannia llega.<br>¿Estás listo para <em>dominar?</em></span>
+    </h2>
+
+    <p class="hook-body reveal reveal-delay-2">
+      <span data-lang="en">Valannia is a Web3 world where miners need transporters, crafters need supplies, and guilds need smart economic coordination to survive. Nine interdependent professions. Territorial politics. A Bitcoin-backed treasury. A token economy built to last.</span>
+      <span data-lang="es">Valannia es un mundo Web3 donde los mineros necesitan transportistas, los artesanos necesitan suministros y los gremios necesitan coordinación económica para sobrevivir. Nueve profesiones interdependientes. Política territorial. Una tesorería respaldada por Bitcoin. Una economía de tokens construida para durar.</span>
+    </p>
+
+    <p class="hook-body reveal reveal-delay-3">
+      <span data-lang="en">Most heroes will figure it out the hard way. Polaris Fuel is building the tools, the networks, and the infrastructure so you don't have to.</span>
+      <span data-lang="es">La mayoría de héroes lo aprenderán a las malas. Polaris Fuel está construyendo las herramientas, las redes y la infraestructura para que no tengas que hacerlo.</span>
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+     SERVICES
+============================================================ -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-label reveal">
+      <span data-lang="en">What We Build</span>
+      <span data-lang="es">Qué Construimos</span>
+    </div>
+    <h2 class="section-title reveal reveal-delay-1">
+      <span data-lang="en">Three Pillars of Power</span>
+      <span data-lang="es">Tres Pilares de Poder</span>
+    </h2>
+    <p class="section-sub reveal reveal-delay-2">
+      <span data-lang="en">More details coming as Valannia launches. Join to stay ahead of it.</span>
+      <span data-lang="es">Más detalles a medida que Valannia lance. Únete para mantenerte adelante.</span>
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <!-- Card 1 -->
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-card-glow"></div>
+      <div class="service-number">01</div>
+      <span class="service-icon">🏛</span>
+      <h3 class="service-title">
+        <span data-lang="en">Polaris Guildhalls</span>
+        <span data-lang="es">Guildhalls Polaris</span>
+      </h3>
+      <p class="service-desc">
+        <span data-lang="en">Coordination hubs in Valannia's racial capital cities. A home base for organized heroes — premium tools, high-level negotiations, and the network that moves things.</span>
+        <span data-lang="es">Centros de coordinación en las capitales raciales de Valannia. Una base de operaciones para héroes organizados — herramientas premium, negociaciones de alto nivel y la red que mueve todo.</span>
+      </p>
+      <span class="service-tag">
+        <span data-lang="en">Infrastructure</span>
+        <span data-lang="es">Infraestructura</span>
+      </span>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-card-glow"></div>
+      <div class="service-number">02</div>
+      <span class="service-icon">🔥</span>
+      <h3 class="service-title">
+        <span data-lang="en">Fire & Metal Network</span>
+        <span data-lang="es">Red de Fuego y Metal</span>
+      </h3>
+      <p class="service-desc">
+        <span data-lang="en">Raw materials move through dangerous Red Zones. We move them safely, at scale. Specialized transport and alchemy operations — the fuel that powers the whole production chain.</span>
+        <span data-lang="es">Los recursos brutos se mueven por peligrosas Zonas Rojas. Los movemos de forma segura y a escala. Transporte especializado y operaciones de alquimia — el combustible que impulsa toda la cadena productiva.</span>
+      </p>
+      <span class="service-tag">
+        <span data-lang="en">Logistics</span>
+        <span data-lang="es">Logística</span>
+      </span>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-card-glow"></div>
+      <div class="service-number">03</div>
+      <span class="service-icon">💎</span>
+      <h3 class="service-title">
+        <span data-lang="en">Resource Exchange</span>
+        <span data-lang="es">Intercambio de Recursos</span>
+      </h3>
+      <p class="service-desc">
+        <span data-lang="en">Connecting extractors with crafters. Coordinating bulk trades. Closing the liquidity gap between solo players and the guilds building Mega Constructions.</span>
+        <span data-lang="es">Conectando extractores con artesanos. Coordinando operaciones masivas. Cerrando la brecha de liquidez entre jugadores solitarios y los gremios que construyen Mega Construcciones.</span>
+      </p>
+      <span class="service-tag">
+        <span data-lang="en">Finance</span>
+        <span data-lang="es">Finanzas</span>
+      </span>
+    </div>
+  </div>
+
+  <p class="services-footer-note reveal">
+    <span data-lang="en">★ More systems coming as Valannia unfolds ★</span>
+    <span data-lang="es">★ Más sistemas a medida que Valannia se desarrolle ★</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-emblem-wrap">
+        <div class="about-glow-bg"></div>
+        <div class="about-ring-svg-wrap">
+        <svg class="about-ring-svg" viewBox="0 0 285 285" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="circle-path" d="M 142.5,142.5 m -135,0 a 135,135 0 1,1 270,0 a 135,135 0 1,1 -270,0" />
+          </defs>
+          <text font-family="Cinzel, serif" font-size="8.5" fill="rgba(212,168,67,0.4)" letter-spacing="3.8">
+            <textPath href="#circle-path">★ POLARIS FUEL ★ VALANNIA ★ $VALAN ★ WEB3 ECONOMY ★ BUILT FOR BUILDERS ★</textPath>
+          </text>
+        </svg>
+        </div>
+        <img src="emblem.png" alt="Polaris Fuel" class="about-emblem" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="section-label reveal" style="justify-content:flex-start;">
+        <span data-lang="en">Who We Are</span>
+        <span data-lang="es">Quiénes Somos</span>
+      </div>
+      <h2 class="about-headline reveal reveal-delay-1">
+        <span data-lang="en">Built for <em>Builders.</em><br>Powered by $VALAN.</span>
+        <span data-lang="es">Hecho para <em>Constructores.</em><br>Impulsado por $VALAN.</span>
+      </h2>
+      <p class="about-body reveal reveal-delay-2">
+        <span data-lang="en">We're a Web3 gaming community with years of experience coordinating player economies. We spotted Valannia early because its economic design is genuinely different — nine interconnected professions, territorial politics, a Bitcoin-backed treasury, and a token economy built to last.</span>
+        <span data-lang="es">Somos una comunidad de gaming Web3 con años de experiencia coordinando economías de jugadores. Identificamos Valannia temprano porque su diseño económico es genuinamente diferente — nueve profesiones interconectadas, política territorial, una tesorería respaldada por Bitcoin y una economía de tokens construida para durar.</span>
+      </p>
+      <p class="about-body reveal reveal-delay-3">
+        <span data-lang="en">We're not here to flip. We're here to build the coordination infrastructure — and we want the right people building it with us.</span>
+        <span data-lang="es">No estamos aquí para especular. Estamos aquí para construir la infraestructura de coordinación — y queremos a las personas correctas construyéndola con nosotros.</span>
+      </p>
+      <div class="about-credo reveal reveal-delay-4">
+        <p>
+          <span data-lang="en">"The heroes who coordinate first control the economy first.<br>We intend to be those heroes."</span>
+          <span data-lang="es">"Los héroes que coordinan primero controlan la economía primero.<br>Tenemos la intención de ser esos héroes."</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================================
+     CONTACT / JOIN
+============================================================ -->
+<section id="contact">
+  <div class="contact-bg-text">FUEL</div>
+
+  <div class="contact-inner">
+    <div class="section-label reveal">
+      <span data-lang="en">Get In Early</span>
+      <span data-lang="es">Entra Temprano</span>
+    </div>
+    <h2 class="contact-headline reveal reveal-delay-1">
+      <span data-lang="en">Calling all heroes.</span>
+      <span data-lang="es">Llamando a todos los héroes.</span>
+    </h2>
+    <p class="contact-sub reveal reveal-delay-2">
+      <span data-lang="en">Valannia launches soon. The heroes who organize first will control the economy first. Whether you're a guild leader, a solo crafter, or just Valannia-curious — there's a role for you.</span>
+      <span data-lang="es">Valannia lanza pronto. Los héroes que se organicen primero controlarán la economía primero. Ya seas líder de gremio, artesano solitario o simplemente curioso sobre Valannia — hay un rol para ti.</span>
+    </p>
+
+    <div class="social-links reveal reveal-delay-2">
+      <a href="https://discord.gg/yNfUZ4Gb7k" class="social-link" target="_blank" rel="noopener">
+        <span class="social-icon">💬</span>
+        Discord
+      </a>
+      <a href="https://x.com/Polaris_Fuel" class="social-link" target="_blank" rel="noopener">
+        <span class="social-icon">𝕏</span>
+        Twitter / X
+      </a>
+    </div>
+
+    <form class="contact-form reveal reveal-delay-3" id="contact-form" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="field-name">
+            <span data-lang="en">Name / Guild</span>
+            <span data-lang="es">Nombre / Gremio</span>
+          </label>
+          <input id="field-name" name="name" type="text" class="form-input" placeholder="Your name or guild handle" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="field-contact">
+            <span data-lang="en">Email / Discord</span>
+            <span data-lang="es">Email / Discord</span>
+          </label>
+          <input id="field-contact" name="contact" type="text" class="form-input" placeholder="email or discord#tag" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label class="form-label" for="field-role">
+            <span data-lang="en">How do you want to be involved?</span>
+            <span data-lang="es">¿Cómo quieres involucrarte?</span>
+          </label>
+          <select id="field-role" name="role" class="form-select">
+            <option value="" disabled selected>
+              <span data-lang="en">Select...</span>
+              <span data-lang="es">Seleccionar...</span>
+            </option>
+            <option value="explorer" data-en="Explorer / Early Member" data-es="Explorador / Miembro Temprano">Explorer / Early Member</option>
+            <option value="guild" data-en="Guild Partnership" data-es="Asociación de Gremio">Guild Partnership</option>
+            <option value="strategic" data-en="Strategic Partner" data-es="Socio Estratégico">Strategic Partner</option>
+            <option value="watching" data-en="Just watching for now" data-es="Solo observando por ahora">Just watching for now</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label class="form-label" for="field-message">
+            <span data-lang="en">Message (optional)</span>
+            <span data-lang="es">Mensaje (opcional)</span>
+          </label>
+          <textarea id="field-message" name="message" class="form-textarea" placeholder="Tell us about yourself, your guild, or what you're looking for..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary form-submit">
+        <span data-lang="en">Send Message 🔥</span>
+        <span data-lang="es">Enviar Mensaje 🔥</span>
+      </button>
+      <div class="form-success" id="form-success">
+        ★ <span data-lang="en">Message received — we'll be in touch soon!</span><span data-lang="es">Mensaje recibido — ¡nos pondremos en contacto pronto!</span> ★
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-left">
+    <img src="emblem.png" alt="Polaris Fuel" onerror="this.style.display='none'">
+    <p class="footer-copy">
+      © 2025 Polaris Fuel — Valannia<br>
+      <span data-lang="en">Coordinating the economy. Powered by $VALAN.</span>
+      <span data-lang="es">Coordinando la economía. Impulsado por $VALAN.</span>
+    </p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="#home"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="#services"><span data-lang="en">Services</span><span data-lang="es">Servicios</span></a></li>
+    <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+/* ---- Cursor ---- */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; }
+  if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+/* ---- Navbar scroll ---- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ---- Particle system ---- */
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(true); }
+  reset(init = false) {
+    this.x = Math.random() * W;
+    this.y = init ? Math.random() * H : H + 10;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedY = -(Math.random() * 0.6 + 0.2);
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.life = 0;
+    this.maxLife = Math.random() * 200 + 100;
+    this.hue = Math.random() * 30 + 10; // orange-amber range
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life++;
+    if (this.life > this.maxLife || this.y < -10) this.reset();
+  }
+  draw() {
+    const t = this.life / this.maxLife;
+    const alpha = t < 0.3 ? t / 0.3 : 1 - ((t - 0.3) / 0.7);
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.7;
+    ctx.fillStyle = `hsl(${this.hue}, 100%, 60%)`;
+    ctx.shadowBlur = 6;
+    ctx.shadowColor = `hsl(${this.hue}, 100%, 60%)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+// Initialize particles
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+/* ---- Scroll reveal ---- */
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => observer.observe(el));
+
+/* ---- Language toggle ---- */
+function setLang(lang) {
+  document.body.classList.toggle('lang-es', lang === 'es');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn-' + lang).classList.add('active');
+  // Translate select option text
+  document.querySelectorAll('select option[data-en]').forEach(opt => {
+    opt.textContent = lang === 'es' ? opt.dataset.es : opt.dataset.en;
+  });
+  localStorage.setItem('pf-lang', lang);
+}
+// Restore saved language
+const savedLang = localStorage.getItem('pf-lang');
+if (savedLang === 'es') setLang('es');
+
+/* ---- Contact form ---- */
+/* ---- Contact form submission ---- */
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('.form-submit');
+  const successMsg = document.getElementById('form-success');
+  
+  // Disable submit button during submission
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  
+  try {
+    const response = await fetch('https://formspree.io/f/xaqdjrzk', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if (response.ok) {
+      successMsg.style.display = 'block';
+      form.reset();
+      setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
+    } else {
+      alert('Oops! There was a problem submitting your form. Please try again or contact us directly on Discord.');
+    }
+  } catch (error) {
+    alert('Oops! There was a problem submitting your form. Please try again or contact us directly on Discord.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<span data-lang="en">Send Message 🔥</span><span data-lang="es">Enviar Mensaje 🔥</span>';
+  }
+});
+
+/* ---- Parallax on hero emblem ---- */
+document.addEventListener('mousemove', (e) => {
+  const ex = (e.clientX / window.innerWidth - 0.5) * 15;
+  const ey = (e.clientY / window.innerHeight - 0.5) * 15;
+  const heroEmblem = document.querySelector('.hero-emblem');
+  if (heroEmblem) heroEmblem.style.transform = `translate(${ex}px, ${ey}px)`;
+});
+</script>
+
+</body>
+</html>
