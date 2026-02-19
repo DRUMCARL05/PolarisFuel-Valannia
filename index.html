@@ -389,7 +389,7 @@
 
   .scroll-indicator {
     position: absolute;
-    bottom: 2.5rem;
+    bottom: 4rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -398,6 +398,7 @@
     gap: 0.5rem;
     opacity: 0;
     animation: fadeIn 1s 2s forwards;
+    z-index: 1;
   }
   .scroll-indicator span {
     font-family: 'Cinzel', serif;
@@ -969,6 +970,7 @@
     .btn-primary, .btn-ghost, .social-link, .form-input, .form-select, .form-textarea { cursor: auto; }
     .lang-btn { cursor: auto; }
     .contact-form { padding: 2rem 1.5rem; }
+    .scroll-indicator { bottom: 2rem; }
   }
 </style>
 </head>
