@@ -232,7 +232,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 10rem 2rem 6rem;
+    padding: 10rem 2rem 3rem;
     position: relative;
     overflow: hidden;
   }
@@ -388,14 +388,11 @@
   }
 
   .scroll-indicator {
-    position: absolute;
-    bottom: 6rem;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    margin-top: 3rem;
     opacity: 0;
     animation: fadeIn 1s 2s forwards;
     z-index: 1;
@@ -952,9 +949,6 @@
   /* ============================================================
      RESPONSIVE
   ============================================================ */
-  @media (max-height: 900px) and (min-width: 768px) {
-    .scroll-indicator { bottom: 8rem; }
-  }
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { display: none; }
@@ -973,7 +967,6 @@
     .btn-primary, .btn-ghost, .social-link, .form-input, .form-select, .form-textarea { cursor: auto; }
     .lang-btn { cursor: auto; }
     .contact-form { padding: 2rem 1.5rem; }
-    .scroll-indicator { bottom: 2rem; }
   }
 </style>
 </head>
