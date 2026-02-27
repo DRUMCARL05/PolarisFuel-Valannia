@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0050)file:///Users/carlosdugarte/Downloads/index_4.html -->
+<!-- saved from url=(0050)file:///Users/carlosdugarte/Downloads/index_5.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,7 +95,8 @@
     .hero-brand{display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .15s forwards}
     .hero-emblem{width:clamp(220px,42vw,480px);height:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 28px rgba(255,107,26,0.55)) drop-shadow(0 0 60px rgba(255,154,0,0.25));transition:filter .4s}
     .hero-emblem:hover{filter:drop-shadow(0 0 40px rgba(255,107,26,0.8)) drop-shadow(0 0 80px rgba(255,154,0,0.4))}
-    .hero-wordmark{width:clamp(200px,38vw,440px);height:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 12px rgba(255,107,26,0.4));margin-top:-1.5rem;opacity:0;animation:fadeUp .8s .3s forwards}
+    .hero-wordmark{width:clamp(200px,38vw,440px);height:auto;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 12px rgba(255,107,26,0.4));margin-top:-1.5rem;opacity:0;animation:fadeUp .8s .3s forwards;color:transparent}
+    .hero-wordmark:not([src]),.hero-wordmark[src=""]{display:none}
     .hero-eyebrow{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.42em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2rem;opacity:0;animation:fadeUp .8s .35s forwards;display:flex;align-items:center;gap:1rem}
     .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:inline-block;width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright))}
     .hero-eyebrow::after{background:linear-gradient(90deg,var(--border-bright),transparent)}
@@ -175,7 +176,7 @@
   </style>
 </head>
 <body>
-<div id="cursor" style="left: 1028px; top: 582px;"></div><div id="cursor-ring" style="left: 947.25px; top: 643.2px;"></div>
+<div id="cursor" style="left: 1022px; top: 579px;"></div><div id="cursor-ring" style="left: 705.8px; top: 400.5px;"></div>
 <canvas id="particle-canvas" width="1280" height="813"></canvas>
 <div class="mobile-menu" id="mobile-menu">
   <a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
@@ -216,8 +217,8 @@
 
   <!-- Brand identity: coin emblem + script wordmark -->
   <div class="hero-brand">
-    <img src="file:///Users/carlosdugarte/Downloads/emblem.png" alt="Polaris Fuel emblem" class="hero-emblem" onerror="this.style.display=&#39;none&#39;" style="display: none;">
-    <img src="file:///Users/carlosdugarte/Downloads/Emblem2.png" alt="Polaris Fuel" class="hero-wordmark" onerror="this.style.display=&#39;none&#39;" style="display: none;">
+    <img src="file:///Users/carlosdugarte/Downloads/emblem.png" alt="Polaris Fuel emblem" class="hero-emblem">
+    <img src="file:///Users/carlosdugarte/Downloads/Emblem2.png" alt="Polaris Fuel" class="hero-wordmark">
   </div>
 
   <div class="hero-eyebrow">
