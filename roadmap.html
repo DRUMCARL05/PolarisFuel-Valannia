@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///Users/carlosdugarte/Downloads/roadmap.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./Roadmap_files/css2" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Roadmap — Polaris Fuel</title>
+  <meta name="description" content="Polaris Fuel roadmap: Phase 1 fuel specialization launching March 2026, Phase 2 full expansion, and the long-term vision for multi-game coordination.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.btn-primary{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;padding:.95rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;border:none;text-decoration:none;display:inline-block;font-weight:700;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:none}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ember),var(--gold));opacity:0;transition:opacity .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,26,0.4)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-ghost{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;padding:.95rem 2rem;background:transparent;color:var(--gold);border:1px solid var(--border-bright);text-decoration:none;display:inline-block;transition:all .3s;cursor:none}
+.btn-ghost:hover{background:rgba(212,168,67,0.08);border-color:var(--gold);color:var(--gold-pale);transform:translateY(-2px)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}.reveal-delay-5{transition-delay:.5s}
+.section-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before,.section-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.section-sub{font-size:.92rem;color:var(--text-dim);line-height:1.9;max-width:500px}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+.phase-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.53rem;letter-spacing:.25em;text-transform:uppercase;padding:.32rem .85rem;border:1px solid rgba(255,107,26,0.4);color:var(--fire);background:rgba(255,107,26,0.06)}
+.phase-badge::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--fire);animation:pulseDot 1.5s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+.page-hero{padding:14rem 2rem 6rem;text-align:center;position:relative;overflow:hidden}
+.page-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.09) 0%,transparent 65%);pointer-events:none}
+.page-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--gold-pale);letter-spacing:.05em;opacity:0;animation:fadeUp .8s .3s forwards}
+.page-subtitle{font-size:1rem;color:var(--text-dim);line-height:1.9;max-width:520px;margin:.8rem auto 0;opacity:0;animation:fadeUp .8s .5s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ROADMAP */
+#roadmap-phases{padding:8rem 2rem;max-width:1000px;margin:0 auto}
+.roadmap-track{display:flex;flex-direction:column;gap:0;position:relative}
+.roadmap-track::before{content:'';position:absolute;left:22px;top:30px;bottom:30px;width:1px;background:linear-gradient(to bottom,var(--fire),rgba(255,107,26,0.2),transparent)}
+.phase-block{display:grid;grid-template-columns:50px 1fr;gap:2.5rem;position:relative;padding-bottom:5rem}
+.phase-block:last-child{padding-bottom:0}
+.phase-dot-col{display:flex;flex-direction:column;align-items:center;gap:0}
+.phase-dot{width:46px;height:46px;border-radius:50%;border:1px solid;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;flex-shrink:0;position:relative;z-index:2}
+.phase-dot.active{border-color:var(--fire);color:var(--fire);background:rgba(255,107,26,0.1);box-shadow:0 0 20px rgba(255,107,26,0.2)}
+.phase-dot.upcoming{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.06)}
+.phase-dot.future{border-color:var(--text-dim);color:var(--text-dim);background:var(--dark-card)}
+.phase-content{padding-top:.3rem}
+.phase-timing{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.6rem}
+.phase-timing.active{color:var(--fire)}
+.phase-timing.upcoming{color:var(--gold)}
+.phase-timing.future{color:var(--text-dim)}
+.phase-status-pill{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;padding:.2rem .6rem;border:1px solid;margin-bottom:1rem}
+.phase-status-pill.active{color:var(--fire);border-color:rgba(255,107,26,0.35);background:rgba(255,107,26,0.06)}
+.phase-status-pill.active::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--fire);animation:pulseDot 1.5s infinite}
+.phase-status-pill.upcoming{color:var(--gold);border-color:rgba(212,168,67,0.3)}
+.phase-status-pill.future{color:var(--text-dim);border-color:rgba(122,106,84,0.3)}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.phase-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;line-height:1.3}
+.phase-title em{color:var(--fire);font-style:normal}
+.phase-desc{font-size:.92rem;line-height:1.95;color:var(--text);margin-bottom:2rem}
+.phase-desc+.phase-desc{color:var(--text-dim)}
+.phase-milestones{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.phase-milestone{padding:1.2rem 1.5rem;border:1px solid var(--border);background:var(--dark-card);transition:border-color .3s}
+.phase-milestone.done{border-color:rgba(74,222,128,0.2);background:rgba(74,222,128,0.03)}
+.phase-milestone.done .ms-icon{color:#4ade80}
+.phase-milestone.active{border-color:rgba(255,107,26,0.25)}
+.phase-milestone.active .ms-icon{color:var(--fire)}
+.ms-icon{font-size:.9rem;margin-bottom:.4rem;display:block}
+.ms-label{font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.ms-desc{font-size:.8rem;color:var(--text-dim);line-height:1.7}
+
+/* PRINCIPLES */
+#principles{padding:6rem 2rem 8rem;max-width:900px;margin:0 auto}
+.principle-strip{padding:2rem 2.5rem;border:1px solid rgba(255,107,26,0.2);background:rgba(255,107,26,0.03);margin-bottom:1rem}
+.principle-strip h3{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--gold-pale);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.principle-strip p{font-size:.9rem;color:var(--text-dim);line-height:1.85}
+
+@media(max-width:700px){.roadmap-track::before{display:none}.phase-block{grid-template-columns:1fr}.phase-dot-col{display:none}.phase-milestones{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cursor" style="left: 1115px; top: 751px;"></div><div id="cursor-ring" style="left: 914.4px; top: 342.15px;"></div>
+<canvas id="particle-canvas" width="1474" height="1145"></canvas>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="mobile-menu-discord">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang(&#39;en&#39;)">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang(&#39;es&#39;)">ES</button>
+  </div>
+</div>
+<nav id="navbar">
+  <a href="file:///Users/carlosdugarte/Downloads/index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
+  <ul class="nav-links"><li><a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/roadmap.html" class="active"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li></ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang(&#39;en&#39;)">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang(&#39;es&#39;)">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="section-label" style="justify-content:center;opacity:0;animation:fadeUp .7s .2s forwards">
+    <span data-lang="en">Where We're Going</span>
+    <span data-lang="es">Hacia Dónde Vamos</span>
+  </div>
+  <h1 class="page-title">
+    <span data-lang="en">Prove it first.<br>Then expand.</span>
+    <span data-lang="es">Demuestral primero.<br>Luego expande.</span>
+  </h1>
+  <p class="page-subtitle">
+    <span data-lang="en">No grand promises. A clear, honest sequence of what we're building and in what order — with Phase 1 already underway.</span>
+    <span data-lang="es">Sin grandes promesas. Una secuencia clara y honesta de lo que estamos construyendo y en qué orden — con Fase 1 ya en marcha.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<section id="roadmap-phases">
+  <div class="section-label reveal visible" style="margin-bottom:4rem">
+    <span data-lang="en">Roadmap</span>
+    <span data-lang="es">Hoja de Ruta</span>
+  </div>
+  <div class="roadmap-track">
+
+    <!-- PHASE 1 -->
+    <div class="phase-block reveal visible">
+      <div class="phase-dot-col">
+        <div class="phase-dot active">01</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-timing active"><span data-lang="en">Early 2026 — Active Now</span><span data-lang="es">Inicios de 2026 — Activo Ahora</span></div>
+        <div class="phase-status-pill active">
+          <span data-lang="en">In Progress</span><span data-lang="es">En Progreso</span>
+        </div>
+        <h2 class="phase-title">
+          <span data-lang="en">Phase 1: <em>Fuel Specialization</em></span>
+          <span data-lang="es">Fase 1: <em>Especialización en Fuel</em></span>
+        </h2>
+        <p class="phase-desc">
+          <span data-lang="en">Launching with Valannia's Realms Phase 1, when the mount fuel system goes live. This is our proving ground — 30 days to demonstrate that Polaris Fuel provides real, measurable value to Valannia players.</span>
+          <span data-lang="es">Lanzando con Realms Fase 1 de Valannia, cuando el sistema de fuel de monturas entre en juego. Este es nuestro campo de pruebas — 30 días para demostrar que Polaris Fuel provee valor real y medible.</span>
+        </p>
+        <p class="phase-desc">
+          <span data-lang="en">The strategy: go deep on one system before expanding to nine. Mount fuel affects every profession from day one — it's the right entry point.</span>
+          <span data-lang="es">La estrategia: ir profundo en un sistema antes de expandirse a nueve. El fuel de monturas afecta a todas las profesiones desde el primer día — es el punto de entrada correcto.</span>
+        </p>
+        <div class="phase-milestones">
+          <div class="phase-milestone done">
+            <span class="ms-icon">✓</span>
+            <div class="ms-label"><span data-lang="en">Community Founded</span><span data-lang="es">Comunidad Fundada</span></div>
+            <p class="ms-desc"><span data-lang="en">Discord live. Founding members recruiting.</span><span data-lang="es">Discord activo. Reclutando miembros fundadores.</span></p>
+          </div>
+          <div class="phase-milestone done">
+            <span class="ms-icon">✓</span>
+            <div class="ms-label"><span data-lang="en">Studio Outreach</span><span data-lang="es">Contacto con el Estudio</span></div>
+            <p class="ms-desc"><span data-lang="en">Collaboration confirmed with Valannia team.</span><span data-lang="es">Colaboración confirmada con el equipo de Valannia.</span></p>
+          </div>
+          <div class="phase-milestone active">
+            <span class="ms-icon">⚙</span>
+            <div class="ms-label"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
+            <p class="ms-desc"><span data-lang="en">In development. Launches with Realms Phase 1.</span><span data-lang="es">En desarrollo. Lanza con Realms Fase 1.</span></p>
+          </div>
+          <div class="phase-milestone active">
+            <span class="ms-icon">⚙</span>
+            <div class="ms-label"><span data-lang="en">Mount Fuel Guides</span><span data-lang="es">Guías de Fuel</span></div>
+            <p class="ms-desc"><span data-lang="en">Complete guide set in production.</span><span data-lang="es">Conjunto completo de guías en producción.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-block reveal reveal-delay-2">
+      <div class="phase-dot-col">
+        <div class="phase-dot upcoming">02</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-timing upcoming"><span data-lang="en">Mid-2026</span><span data-lang="es">Mediados de 2026</span></div>
+        <div class="phase-status-pill upcoming">
+          <span data-lang="en">Upcoming</span><span data-lang="es">Próximamente</span>
+        </div>
+        <h2 class="phase-title">
+          <span data-lang="en">Phase 2: <em>Full Profession Expansion</em></span>
+          <span data-lang="es">Fase 2: <em>Expansión de Profesiones</em></span>
+        </h2>
+        <p class="phase-desc">
+          <span data-lang="en">If Phase 1 delivers measurable results — and we believe it will — we expand to all nine Valannia professions. This is when Polaris Fuel becomes the coordination layer for the entire economy, not just the fuel system.</span>
+          <span data-lang="es">Si Fase 1 entrega resultados medibles — y creemos que sí — nos expandimos a las nueve profesiones de Valannia. Aquí es cuando Polaris Fuel se convierte en la capa de coordinación para toda la economía.</span>
+        </p>
+        <p class="phase-desc">
+          <span data-lang="en">This phase also opens governance participation — Race Leader elections, VET treasury grants, and territorial coordination across all 8 racial capitals plus Eldorath.</span>
+          <span data-lang="es">Esta fase también abre la participación en la gobernanza — elecciones de Líder de Raza, subvenciones del tesoro VET y coordinación territorial en las 8 capitales raciales más Eldorath.</span>
+        </p>
+        <div class="phase-milestones">
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">9-Profession Coverage</span><span data-lang="es">Cobertura de 9 Profesiones</span></div>
+            <p class="ms-desc"><span data-lang="en">Guides, tools, and coordination for all professions.</span><span data-lang="es">Guías, herramientas y coordinación para todas las profesiones.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Polaris Guildhalls</span><span data-lang="es">Guildhalls Polaris</span></div>
+            <p class="ms-desc"><span data-lang="en">Coordination hubs established in racial capitals.</span><span data-lang="es">Centros de coordinación en capitales raciales.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Route Optimizer</span><span data-lang="es">Optimizador de Rutas</span></div>
+            <p class="ms-desc"><span data-lang="en">Full cross-capital logistics planning tool.</span><span data-lang="es">Herramienta completa de planificación logística.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Governance Participation</span><span data-lang="es">Participación en Gobernanza</span></div>
+            <p class="ms-desc"><span data-lang="en">Organized presence in Race Leader elections.</span><span data-lang="es">Presencia organizada en elecciones de Líder de Raza.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-block reveal reveal-delay-3">
+      <div class="phase-dot-col">
+        <div class="phase-dot future">03</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-timing future"><span data-lang="en">Long-Term Vision</span><span data-lang="es">Visión a Largo Plazo</span></div>
+        <div class="phase-status-pill future">
+          <span data-lang="en">Future</span><span data-lang="es">Futuro</span>
+        </div>
+        <h2 class="phase-title">
+          <span data-lang="en">Phase 3: <em>Multi-Game Infrastructure</em></span>
+          <span data-lang="es">Fase 3: <em>Infraestructura Multi-Juego</em></span>
+        </h2>
+        <p class="phase-desc">
+          <span data-lang="en">Polaris Fuel was founded as a metaverse social organization in 2022. The long-term vision has always been broader than one game. Phase 3 applies the coordination model we prove in Valannia to additional blockchain and traditional games with complex player economies.</span>
+          <span data-lang="es">Polaris Fuel fue fundado como organización social en el metaverso en 2022. La visión a largo plazo siempre ha sido más amplia que un solo juego. Fase 3 aplica el modelo de coordinación que probamos en Valannia a juegos adicionales con economías de jugadores complejas.</span>
+        </p>
+        <p class="phase-desc">
+          <span data-lang="en">We get there by proving Phase 1 first. Not by making promises about it now.</span>
+          <span data-lang="es">Llegamos ahí demostrando Fase 1 primero. No haciendo promesas al respecto ahora.</span>
+        </p>
+        <div class="phase-milestones">
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Multi-Game Expansion</span><span data-lang="es">Expansión Multi-Juego</span></div>
+            <p class="ms-desc"><span data-lang="en">Apply proven model to additional games.</span><span data-lang="es">Aplicar modelo probado a juegos adicionales.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">FUEL Token</span><span data-lang="es">Token FUEL</span></div>
+            <p class="ms-desc"><span data-lang="en">Economic coordination layer — only if warranted by community scale.</span><span data-lang="es">Capa de coordinación económica — solo si la escala de la comunidad lo justifica.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRINCIPLES -->
+<section id="principles">
+  <div class="section-label reveal">
+    <span data-lang="en">Our Commitment</span>
+    <span data-lang="es">Nuestro Compromiso</span>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1">
+    <span data-lang="en">How we make decisions.</span>
+    <span data-lang="es">Cómo tomamos decisiones.</span>
+  </h2>
+  <div style="margin-top:3rem;display:flex;flex-direction:column;gap:1rem">
+    <div class="principle-strip reveal reveal-delay-2">
+      <h3><span data-lang="en">Prove before we promise</span><span data-lang="es">Probar antes de prometer</span></h3>
+      <p><span data-lang="en">We won't announce Phase 2 expansion until Phase 1 delivers measurable results. Dates on this roadmap are targets, not commitments. We'd rather ship late and right than fast and wrong.</span><span data-lang="es">No anunciaremos la expansión de Fase 2 hasta que Fase 1 entregue resultados medibles. Las fechas en este roadmap son objetivos, no compromisos.</span></p>
+    </div>
+    <div class="principle-strip reveal reveal-delay-3">
+      <h3><span data-lang="en">Capacity-honest</span><span data-lang="es">Honestos sobre la capacidad</span></h3>
+      <p><span data-lang="en">We're two people with day jobs and families. We build at a pace we can sustain. Overpromising and underdelivering is how communities die. We'd rather set realistic expectations and exceed them.</span><span data-lang="es">Somos dos personas con empleos y familias. Construimos a un ritmo que podemos sostener. Prometer de más y entregar de menos es como mueren las comunidades.</span></p>
+    </div>
+    <div class="principle-strip reveal reveal-delay-4">
+      <h3><span data-lang="en">Community-driven expansion</span><span data-lang="es">Expansión impulsada por la comunidad</span></h3>
+      <p><span data-lang="en">Phase 2 and Phase 3 happen when the community demands them — not because we decided to grow. Member engagement, partnership health, and actual game mechanics drive our timeline, not investor pressure.</span><span data-lang="es">Fases 2 y 3 ocurren cuando la comunidad las demanda — no porque lo hayamos decidido. El compromiso de los miembros y las mecánicas reales del juego guían nuestro cronograma.</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2025 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');document.querySelectorAll('select option[data-en]').forEach(opt=>{opt.textContent=lang==='es'?opt.dataset.es:opt.dataset.en});localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+
+</body></html>

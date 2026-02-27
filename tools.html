@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)file:///Users/carlosdugarte/Downloads/tools.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./Tools_files/css2" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Tools — Polaris Fuel</title>
+  <meta name="description" content="Polaris Fuel tools for Valannia: fuel calculator, mount comparison, resource coordination. Free tools for economic optimization.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.btn-primary{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;padding:.95rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;border:none;text-decoration:none;display:inline-block;font-weight:700;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:none}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ember),var(--gold));opacity:0;transition:opacity .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,26,0.4)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-ghost{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;padding:.95rem 2rem;background:transparent;color:var(--gold);border:1px solid var(--border-bright);text-decoration:none;display:inline-block;transition:all .3s;cursor:none}
+.btn-ghost:hover{background:rgba(212,168,67,0.08);border-color:var(--gold);color:var(--gold-pale);transform:translateY(-2px)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}.reveal-delay-5{transition-delay:.5s}
+.section-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before,.section-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.section-sub{font-size:.92rem;color:var(--text-dim);line-height:1.9;max-width:500px}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+.phase-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.53rem;letter-spacing:.25em;text-transform:uppercase;padding:.32rem .85rem;border:1px solid rgba(255,107,26,0.4);color:var(--fire);background:rgba(255,107,26,0.06)}
+.phase-badge::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--fire);animation:pulseDot 1.5s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+.page-hero{padding:14rem 2rem 6rem;text-align:center;position:relative;overflow:hidden}
+.page-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.09) 0%,transparent 65%);pointer-events:none}
+.page-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--gold-pale);letter-spacing:.05em;opacity:0;animation:fadeUp .8s .3s forwards}
+.page-subtitle{font-size:1rem;color:var(--text-dim);line-height:1.9;max-width:520px;margin:.8rem auto 0;opacity:0;animation:fadeUp .8s .5s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* CALCULATOR */
+#calculator{padding:8rem 2rem;max-width:900px;margin:0 auto}
+.calc-wrapper{position:relative}
+.calc-locked-overlay{position:absolute;inset:0;background:rgba(10,7,4,0.82);backdrop-filter:blur(4px);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.5rem;border:1px solid rgba(255,107,26,0.2)}
+.calc-locked-icon{font-size:2.5rem;filter:drop-shadow(0 0 15px rgba(255,107,26,0.5))}
+.calc-locked-title{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold-pale);letter-spacing:.15em;text-transform:uppercase}
+.calc-locked-sub{font-size:.88rem;color:var(--text-dim);line-height:1.8;max-width:320px}
+.calc-ui{padding:3rem;border:1px solid var(--border);background:var(--dark-card)}
+.calc-header{margin-bottom:2.5rem}
+.calc-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.calc-desc{font-size:.87rem;color:var(--text-dim);line-height:1.7}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.calc-field{display:flex;flex-direction:column;gap:.5rem}
+.calc-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim)}
+.calc-input,.calc-select{background:var(--dark-surface);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;padding:.75rem 1rem;width:100%;transition:border-color .2s}
+.calc-input:focus,.calc-select:focus{outline:none;border-color:rgba(255,107,26,0.5)}
+.calc-select option{background:var(--dark)}
+.calc-result{margin-top:2rem;padding:1.5rem;border:1px solid rgba(255,107,26,0.2);background:rgba(255,107,26,0.04);display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center}
+.calc-result-item{}
+.calc-result-num{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;color:var(--fire);display:block}
+.calc-result-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+
+/* TOOLS LIST */
+#tools-list{padding:8rem 2rem;max-width:1100px;margin:0 auto}
+.tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
+.tool-card{padding:2.5rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden;transition:border-color .3s,background .3s}
+.tool-card:hover{border-color:rgba(255,107,26,0.3);background:#1c1008}
+.tool-card-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid;margin-bottom:1.2rem}
+.tool-card-status.live{color:#4ade80;border-color:rgba(74,222,128,0.3);background:rgba(74,222,128,0.06)}
+.tool-card-status.soon{color:var(--fire);border-color:rgba(255,107,26,0.3);background:rgba(255,107,26,0.06)}
+.tool-card-status.live::before,.tool-card-status.soon::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:currentColor}
+.tool-card-status.live::before{animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.tool-card-icon{font-size:1.8rem;display:block;margin-bottom:1rem;filter:drop-shadow(0 0 10px rgba(255,107,26,0.35))}
+.tool-card-title{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.tool-card-desc{font-size:.87rem;line-height:1.85;color:var(--text-dim);margin-bottom:1.5rem}
+.tool-card-features{display:flex;flex-direction:column;gap:.4rem}
+.tool-card-feature{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--text-dim)}
+.tool-card-feature::before{content:'→';color:var(--fire);font-size:.75rem;flex-shrink:0}
+
+/* NOTIFY FORM */
+#notify{padding:6rem 2rem;text-align:center}
+.notify-inner{max-width:540px;margin:0 auto}
+.notify-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.notify-sub{font-size:.9rem;color:var(--text-dim);line-height:1.8;margin-bottom:2rem}
+.notify-form{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}
+.notify-input{flex:1;min-width:200px;background:var(--dark-card);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;padding:.85rem 1.2rem;transition:border-color .2s}
+.notify-input:focus{outline:none;border-color:rgba(255,107,26,0.5)}
+.notify-note{margin-top:1rem;font-size:.75rem;color:var(--text-dim)}
+
+/* COMPARISON TABLE */
+#comparison{padding:8rem 2rem;max-width:900px;margin:0 auto}
+.comparison-table{width:100%;border-collapse:collapse;margin-top:3rem}
+.comparison-table th{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);padding:1rem;text-align:left;border-bottom:1px solid var(--border)}
+.comparison-table th:first-child{color:var(--fire)}
+.comparison-table td{padding:1.2rem 1rem;font-size:.88rem;color:var(--text);border-bottom:1px solid rgba(212,168,67,0.08);transition:background .2s}
+.comparison-table tr:hover td{background:rgba(255,107,26,0.03)}
+.comparison-table td:first-child{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase}
+.comparison-table .best{color:var(--fire);font-weight:600}
+.comparison-note{margin-top:1.5rem;font-size:.8rem;color:var(--text-dim);line-height:1.7;padding:1rem;border-left:2px solid rgba(255,107,26,0.3);background:rgba(255,107,26,0.03)}
+
+@media(max-width:900px){.calc-row{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}.calc-result{grid-template-columns:1fr;gap:.8rem}}
+</style>
+</head>
+<body>
+<div id="cursor" style="left: 1118px; top: 752px;"></div><div id="cursor-ring" style="left: 167.7px; top: 112.8px;"></div>
+<canvas id="particle-canvas" width="1474" height="1145"></canvas>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="mobile-menu-discord">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang(&#39;en&#39;)">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang(&#39;es&#39;)">ES</button>
+  </div>
+</div>
+<nav id="navbar">
+  <a href="file:///Users/carlosdugarte/Downloads/index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
+  <ul class="nav-links"><li><a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/tools.html" class="active"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li></ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang(&#39;en&#39;)">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang(&#39;es&#39;)">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="section-label" style="justify-content:center;opacity:0;animation:fadeUp .7s .2s forwards">
+    <span data-lang="en">Our Tools</span>
+    <span data-lang="es">Nuestras Herramientas</span>
+  </div>
+  <h1 class="page-title">
+    <span data-lang="en">Stop guessing.<br>Start calculating.</span>
+    <span data-lang="es">Deja de adivinar.<br>Empieza a calcular.</span>
+  </h1>
+  <p class="page-subtitle">
+    <span data-lang="en">Real data. Real calculations. No guesswork. All tools free to use.</span>
+    <span data-lang="es">Datos reales. Cálculos reales. Sin conjeturas. Todas las herramientas son gratuitas.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="section-label reveal visible">
+    <span data-lang="en">Fuel Calculator</span>
+    <span data-lang="es">Calculadora de Fuel</span>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1 visible">
+    <span data-lang="en">Mount Fuel Estimator</span>
+    <span data-lang="es">Estimador de Combustible</span>
+  </h2>
+  <p class="section-sub reveal reveal-delay-2 visible">
+    <span data-lang="en">Select your mount type and tier, enter your route distance, and get a complete fuel cost breakdown. Launching with Realms Phase 1.</span>
+    <span data-lang="es">Selecciona tu tipo de montura y nivel, ingresa la distancia de tu ruta y obtén un desglose completo del costo de combustible. Disponible con Realms Fase 1.</span>
+  </p>
+  <div class="calc-wrapper reveal reveal-delay-3 visible" style="margin-top:3rem">
+    <div class="calc-locked-overlay">
+      <div class="calc-locked-icon">⛽</div>
+      <div class="calc-locked-title"><span data-lang="en">Coming March 2026</span><span data-lang="es">Marzo 2026</span></div>
+      <p class="calc-locked-sub"><span data-lang="en">The calculator launches with Realms Phase 1. Join Discord to get notified the moment it's live — and to access early data as we collect it.</span><span data-lang="es">La calculadora lanza con Realms Fase 1. Únete a Discord para ser notificado en cuanto esté disponible.</span></p>
+      <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="btn-primary"><span><span data-lang="en">Join Discord for Early Access →</span><span data-lang="es">Únete a Discord →</span></span></a>
+    </div>
+    <div class="calc-ui">
+      <div class="calc-header">
+        <div class="calc-title"><span data-lang="en">Fuel Calculator · MVP</span><span data-lang="es">Calculadora de Fuel · MVP</span></div>
+        <div class="calc-desc"><span data-lang="en">Preview version — values are illustrative. Real data loaded at launch.</span><span data-lang="es">Versión preliminar — los valores son ilustrativos. Datos reales al lanzamiento.</span></div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label class="calc-label"><span data-lang="en">Mount Type</span><span data-lang="es">Tipo de Montura</span></label>
+          <select class="calc-select" id="c-mount">
+            <option value="" disabled="" selected="">Select...</option>
+            <option value="hover" data-en="Hover Bike" data-es="Moto Flotante">Hover Bike</option>
+            <option value="beast" data-en="Beast Mount" data-es="Montura Bestia">Beast Mount</option>
+            <option value="mechanical" data-en="Mechanical" data-es="Mecánica">Mechanical</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label"><span data-lang="en">Tier</span><span data-lang="es">Nivel</span></label>
+          <select class="calc-select" id="c-tier">
+            <option value="" disabled="" selected="">Select...</option>
+            <option value="1">Tier 1</option>
+            <option value="2">Tier 2</option>
+            <option value="3">Tier 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label class="calc-label"><span data-lang="en">Distance (Lyr)</span><span data-lang="es">Distancia (Lyr)</span></label>
+          <input type="number" class="calc-input" id="c-dist" placeholder="e.g. 500" min="0">
+        </div>
+        <div class="calc-field">
+          <label class="calc-label"><span data-lang="en">Cargo Load</span><span data-lang="es">Carga</span></label>
+          <select class="calc-select" id="c-cargo">
+            <option value="empty" data-en="Empty" data-es="Vacío">Empty</option>
+            <option value="half" data-en="Half Load" data-es="Media Carga">Half Load</option>
+            <option value="full" data-en="Full Load" data-es="Carga Completa">Full Load</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-item">
+          <span class="calc-result-num" id="res-fuel">—</span>
+          <span class="calc-result-label"><span data-lang="en">Fuel Required</span><span data-lang="es">Fuel Necesario</span></span>
+        </div>
+        <div class="calc-result-item">
+          <span class="calc-result-num" id="res-cost">—</span>
+          <span class="calc-result-label"><span data-lang="en">Est. Cost</span><span data-lang="es">Costo Est.</span></span>
+        </div>
+        <div class="calc-result-item">
+          <span class="calc-result-num" id="res-save">—</span>
+          <span class="calc-result-label"><span data-lang="en">vs. Baseline</span><span data-lang="es">vs. Base</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MOUNT COMPARISON -->
+<section id="comparison">
+  <div class="section-label reveal">
+    <span data-lang="en">Mount Comparison</span>
+    <span data-lang="es">Comparación de Monturas</span>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1">
+    <span data-lang="en">Which mount is right for you?</span>
+    <span data-lang="es">¿Qué montura es la adecuada para ti?</span>
+  </h2>
+  <p class="section-sub reveal reveal-delay-2">
+    <span data-lang="en">Preliminary data from Valannia's Phase 1 mechanics. Values subject to change at launch — updated in real-time as we collect gameplay data.</span>
+    <span data-lang="es">Datos preliminares de las mecánicas de Fase 1 de Valannia. Valores sujetos a cambios al lanzamiento — actualizados en tiempo real mientras recopilamos datos.</span>
+  </p>
+  <div class="reveal reveal-delay-3">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th><span data-lang="en">Mount / Tier</span><span data-lang="es">Montura / Nivel</span></th>
+          <th><span data-lang="en">Fuel Rate (Lyr/u)</span><span data-lang="es">Tasa Fuel (Lyr/u)</span></th>
+          <th><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span></th>
+          <th><span data-lang="en">Cargo</span><span data-lang="es">Carga</span></th>
+          <th><span data-lang="en">Best For</span><span data-lang="es">Mejor Para</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hover Bike · T1</td>
+          <td>1.0x <span data-lang="en">(baseline)</span><span data-lang="es">(base)</span></td>
+          <td><span data-lang="en">Medium</span><span data-lang="es">Medio</span></td>
+          <td><span data-lang="en">Light</span><span data-lang="es">Ligera</span></td>
+          <td><span data-lang="en">Short runs, solo</span><span data-lang="es">Rutas cortas</span></td>
+        </tr>
+        <tr>
+          <td>Hover Bike · T2</td>
+          <td class="best">0.88x</td>
+          <td><span data-lang="en">Medium-High</span><span data-lang="es">Medio-Alto</span></td>
+          <td><span data-lang="en">Light-Med</span><span data-lang="es">Ligera-Med</span></td>
+          <td><span data-lang="en">Daily runs, value</span><span data-lang="es">Rutas diarias</span></td>
+        </tr>
+        <tr>
+          <td>Beast Mount · T1</td>
+          <td>0.82x</td>
+          <td><span data-lang="en">Low-Medium</span><span data-lang="es">Bajo-Medio</span></td>
+          <td><span data-lang="en">Heavy</span><span data-lang="es">Pesada</span></td>
+          <td><span data-lang="en">Bulk cargo, extraction</span><span data-lang="es">Carga masiva</span></td>
+        </tr>
+        <tr>
+          <td>Beast Mount · T2</td>
+          <td class="best">0.71x</td>
+          <td><span data-lang="en">Medium</span><span data-lang="es">Medio</span></td>
+          <td><span data-lang="en">Very Heavy</span><span data-lang="es">Muy Pesada</span></td>
+          <td><span data-lang="en">Long-haul logistics</span><span data-lang="es">Logística larga distancia</span></td>
+        </tr>
+        <tr>
+          <td>Mechanical · T1</td>
+          <td>1.15x</td>
+          <td><span data-lang="en">High</span><span data-lang="es">Alto</span></td>
+          <td><span data-lang="en">Light</span><span data-lang="es">Ligera</span></td>
+          <td><span data-lang="en">Speed priority runs</span><span data-lang="es">Prioridad de velocidad</span></td>
+        </tr>
+        <tr>
+          <td>Mechanical · T3</td>
+          <td>0.80x</td>
+          <td><span data-lang="en">Very High</span><span data-lang="es">Muy Alto</span></td>
+          <td><span data-lang="en">Medium</span><span data-lang="es">Medio</span></td>
+          <td><span data-lang="en">Premium long routes</span><span data-lang="es">Rutas largas premium</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="comparison-note">
+      <span data-lang="en">⚠ Data is preliminary and based on pre-launch mechanics. Final values confirmed at Realms Phase 1 launch. We update this table in real-time as we gather data — join Discord for live updates.</span>
+      <span data-lang="es">⚠ Los datos son preliminares y basados en mecánicas pre-lanzamiento. Valores finales confirmados en el lanzamiento de Realms Fase 1. Actualizamos esta tabla en tiempo real — únete a Discord para actualizaciones en vivo.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ALL TOOLS -->
+<section id="tools-list">
+  <div class="section-label reveal" style="justify-content:center">
+    <span data-lang="en">All Tools</span>
+    <span data-lang="es">Todas las Herramientas</span>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1" style="text-align:center">
+    <span data-lang="en">Phase 1 Tool Suite</span>
+    <span data-lang="es">Suite de Herramientas Fase 1</span>
+  </h2>
+  <div class="tools-grid">
+    <div class="tool-card reveal reveal-delay-1">
+      <div class="tool-card-status soon">
+        <span data-lang="en">Coming March 2026</span><span data-lang="es">Marzo 2026</span>
+      </div>
+      <span class="tool-card-icon">⛽</span>
+      <div class="tool-card-title"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
+      <p class="tool-card-desc"><span data-lang="en">Input mount type, tier, and distance. Get exact fuel requirements, $VALAN cost estimate, and comparison against baseline efficiency.</span><span data-lang="es">Ingresa tipo de montura, nivel y distancia. Obtén requisitos exactos de fuel y costo estimado en $VALAN.</span></p>
+      <div class="tool-card-features">
+        <div class="tool-card-feature"><span data-lang="en">All 3 mount types</span><span data-lang="es">Los 3 tipos de montura</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Cargo load variables</span><span data-lang="es">Variables de carga</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Real-time $VALAN pricing</span><span data-lang="es">Precio $VALAN en tiempo real</span></div>
+      </div>
+    </div>
+    <div class="tool-card reveal reveal-delay-2">
+      <div class="tool-card-status live">
+        <span data-lang="en">Available · Discord</span><span data-lang="es">Disponible · Discord</span>
+      </div>
+      <span class="tool-card-icon">🤝</span>
+      <div class="tool-card-title"><span data-lang="en">Resource Matching</span><span data-lang="es">Coordinación de Recursos</span></div>
+      <p class="tool-card-desc"><span data-lang="en">Connect extractors with crafters. Post needs and offers in our Discord. Community-moderated, no fees. Manual coordination with human judgment — more reliable than pure automation.</span><span data-lang="es">Conecta extractores con artesanos. Publica necesidades y ofertas en nuestro Discord. Sin comisiones.</span></p>
+      <div class="tool-card-features">
+        <div class="tool-card-feature"><span data-lang="en">All 8 racial capitals</span><span data-lang="es">Las 8 capitales raciales</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Bulk + solo trades</span><span data-lang="es">Operaciones masivas y solitarias</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Community reputation system</span><span data-lang="es">Sistema de reputación comunitaria</span></div>
+      </div>
+    </div>
+    <div class="tool-card reveal reveal-delay-3">
+      <div class="tool-card-status soon">
+        <span data-lang="en">Coming Q2 2026</span><span data-lang="es">Q2 2026</span>
+      </div>
+      <span class="tool-card-icon">🗺️</span>
+      <div class="tool-card-title"><span data-lang="en">Route Optimizer</span><span data-lang="es">Optimizador de Rutas</span></div>
+      <p class="tool-card-desc"><span data-lang="en">Input origin, destination, and cargo type. Get optimal route recommendations with fuel cost projections and Red Zone risk assessment.</span><span data-lang="es">Ingresa origen, destino y tipo de carga. Obtén rutas óptimas con proyecciones de costo de fuel y evaluación de riesgo en Zonas Rojas.</span></p>
+      <div class="tool-card-features">
+        <div class="tool-card-feature"><span data-lang="en">Red Zone risk flags</span><span data-lang="es">Indicadores de riesgo en Zonas Rojas</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Multi-stop route planning</span><span data-lang="es">Planificación de rutas múltiples</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Community-sourced hazard data</span><span data-lang="es">Datos de peligro de la comunidad</span></div>
+      </div>
+    </div>
+    <div class="tool-card reveal reveal-delay-4">
+      <div class="tool-card-status soon">
+        <span data-lang="en">Coming Q2 2026</span><span data-lang="es">Q2 2026</span>
+      </div>
+      <span class="tool-card-icon">🧪</span>
+      <div class="tool-card-title"><span data-lang="en">Alchemy Tracker</span><span data-lang="es">Rastreador de Alquimia</span></div>
+      <p class="tool-card-desc"><span data-lang="en">Track potion and liquid gem production efficiency. Calculate material inputs vs. output value. Identify the most profitable alchemy combinations per $VALAN spent.</span><span data-lang="es">Rastrea la eficiencia de producción de pociones y gemas líquidas. Calcula inputs vs. valor de salida.</span></p>
+      <div class="tool-card-features">
+        <div class="tool-card-feature"><span data-lang="en">Full material cost tracking</span><span data-lang="es">Seguimiento completo de costos</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Profit margin calculator</span><span data-lang="es">Calculadora de margen de ganancia</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Market price integration</span><span data-lang="es">Integración de precios de mercado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NOTIFY -->
+<section id="notify">
+  <div class="notify-inner">
+    <div class="section-label reveal" style="justify-content:center">
+      <span data-lang="en">Stay Updated</span>
+      <span data-lang="es">Mantente Actualizado</span>
+    </div>
+    <h2 class="notify-title reveal reveal-delay-1">
+      <span data-lang="en">Get notified when the calculator launches</span>
+      <span data-lang="es">Sé notificado cuando la calculadora lance</span>
+    </h2>
+    <p class="notify-sub reveal reveal-delay-2">
+      <span data-lang="en">Drop your email or join Discord. We'll notify you the moment Phase 1 tools go live.</span>
+      <span data-lang="es">Deja tu email o únete a Discord. Te notificamos en cuanto las herramientas de Fase 1 estén disponibles.</span>
+    </p>
+    <form class="notify-form reveal reveal-delay-3" id="notify-form">
+      <input type="email" name="email" class="notify-input" placeholder="your@email.com" required="">
+      <button type="submit" class="btn-primary"><span><span data-lang="en">Notify Me</span><span data-lang="es">Notifícame</span></span></button>
+    </form>
+    <p class="notify-note reveal reveal-delay-4">
+      <span data-lang="en">Or join directly on <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" style="color:var(--fire);text-decoration:none">Discord</a> for real-time updates and early access.</span>
+      <span data-lang="es">O únete directamente en <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" style="color:var(--fire);text-decoration:none">Discord</a> para actualizaciones en tiempo real.</span>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2025 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');document.querySelectorAll('select option[data-en]').forEach(opt=>{opt.textContent=lang==='es'?opt.dataset.es:opt.dataset.en});localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+<script>
+// Simple calculator preview (locked but functional under overlay)
+function calcPreview(){
+  const mount = document.getElementById('c-mount')?.value;
+  const tier = document.getElementById('c-tier')?.value;
+  const dist = parseFloat(document.getElementById('c-dist')?.value) || 0;
+  if(!mount||!tier||!dist) return;
+  // Base rates (placeholder data — real values at launch)
+  const rates = {hover:{1:1.0,2:0.88,3:0.76},beast:{1:0.82,2:0.71,3:0.63},mechanical:{1:1.15,2:0.95,3:0.80}};
+  const rate = rates[mount]?.[parseInt(tier)] || 1.0;
+  const fuel = (dist * rate).toFixed(1);
+  const cost = (fuel * 0.42).toFixed(2); // placeholder $VALAN price
+  const savings = ((dist * 1.0 - parseFloat(fuel)) * 0.42).toFixed(2);
+  const fn = document.getElementById('res-fuel');
+  const cn = document.getElementById('res-cost');
+  const sn = document.getElementById('res-save');
+  if(fn) fn.textContent = fuel + ' u';
+  if(cn) cn.textContent = cost + ' $V';
+  if(sn) sn.textContent = Math.max(0,savings) + ' $V';
+}
+['c-mount','c-tier'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('change', calcPreview);
+});
+const distEl = document.getElementById('c-dist');
+if(distEl) distEl.addEventListener('input', calcPreview);
+
+// Notify form
+const nf = document.getElementById('notify-form');
+if(nf){
+  nf.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = nf.querySelector('button');
+    const input = nf.querySelector('input');
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+      const res = await fetch('https://formspree.io/f/xaqdjrzk', {
+        method:'POST',
+        body: new FormData(nf),
+        headers:{'Accept':'application/json'}
+      });
+      if(res.ok){
+        nf.innerHTML = '<p style="font-family:Cinzel,serif;font-size:.75rem;letter-spacing:.2em;color:var(--fire);text-transform:uppercase">★ You're on the list. We'll notify you at launch. ★</p>';
+      }
+    } catch(err){
+      btn.disabled = false;
+      btn.textContent = 'Notify Me';
+    }
+  });
+}
+</script>
+
+</body></html>
