@@ -31,3 +31,7 @@ build/
 
 # OS
 Desktop.ini
+
+# Browser-saved page artifacts (prevent _files/ CSS path bugs)
+*_files/
+*_files
