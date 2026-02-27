@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///Users/carlosdugarte/Downloads/tools.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="./Tools_files/css2" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#FF6B1A">
   <title>Tools — Polaris Fuel</title>
   <meta name="description" content="Polaris Fuel tools for Valannia: fuel calculator, mount comparison, resource coordination. Free tools for economic optimization.">
@@ -153,24 +153,24 @@ div[data-lang]{display:none}
 </style>
 </head>
 <body>
-<div id="cursor" style="left: 1118px; top: 752px;"></div><div id="cursor-ring" style="left: 167.7px; top: 112.8px;"></div>
-<canvas id="particle-canvas" width="1474" height="1145"></canvas>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a><a href="tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
   <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="mobile-menu-discord">Discord</a>
   <div class="mobile-lang">
-    <button class="lang-btn active lang-btn-en" onclick="setLang(&#39;en&#39;)">EN</button>
-    <button class="lang-btn lang-btn-es" onclick="setLang(&#39;es&#39;)">ES</button>
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
   </div>
 </div>
 <nav id="navbar">
-  <a href="file:///Users/carlosdugarte/Downloads/index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
-  <ul class="nav-links"><li><a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/tools.html" class="active"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li></ul>
+  <a href="index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
+  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="about.html" ><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li><li><a href="tools.html" class="active"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="resources.html" ><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li></ul>
   <div class="nav-right">
     <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="nav-discord-btn">Discord</a>
     <div class="nav-lang">
-      <button class="lang-btn active lang-btn-en" onclick="setLang(&#39;en&#39;)">EN</button>
-      <button class="lang-btn lang-btn-es" onclick="setLang(&#39;es&#39;)">ES</button>
+      <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
     </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -196,19 +196,19 @@ div[data-lang]{display:none}
 
 <!-- CALCULATOR -->
 <section id="calculator">
-  <div class="section-label reveal visible">
+  <div class="section-label reveal">
     <span data-lang="en">Fuel Calculator</span>
     <span data-lang="es">Calculadora de Fuel</span>
   </div>
-  <h2 class="section-title reveal reveal-delay-1 visible">
+  <h2 class="section-title reveal reveal-delay-1">
     <span data-lang="en">Mount Fuel Estimator</span>
     <span data-lang="es">Estimador de Combustible</span>
   </h2>
-  <p class="section-sub reveal reveal-delay-2 visible">
+  <p class="section-sub reveal reveal-delay-2">
     <span data-lang="en">Select your mount type and tier, enter your route distance, and get a complete fuel cost breakdown. Launching with Realms Phase 1.</span>
     <span data-lang="es">Selecciona tu tipo de montura y nivel, ingresa la distancia de tu ruta y obtén un desglose completo del costo de combustible. Disponible con Realms Fase 1.</span>
   </p>
-  <div class="calc-wrapper reveal reveal-delay-3 visible" style="margin-top:3rem">
+  <div class="calc-wrapper reveal reveal-delay-3" style="margin-top:3rem">
     <div class="calc-locked-overlay">
       <div class="calc-locked-icon">⛽</div>
       <div class="calc-locked-title"><span data-lang="en">Coming March 2026</span><span data-lang="es">Marzo 2026</span></div>
@@ -224,7 +224,7 @@ div[data-lang]{display:none}
         <div class="calc-field">
           <label class="calc-label"><span data-lang="en">Mount Type</span><span data-lang="es">Tipo de Montura</span></label>
           <select class="calc-select" id="c-mount">
-            <option value="" disabled="" selected="">Select...</option>
+            <option value="" disabled selected>Select...</option>
             <option value="hover" data-en="Hover Bike" data-es="Moto Flotante">Hover Bike</option>
             <option value="beast" data-en="Beast Mount" data-es="Montura Bestia">Beast Mount</option>
             <option value="mechanical" data-en="Mechanical" data-es="Mecánica">Mechanical</option>
@@ -233,7 +233,7 @@ div[data-lang]{display:none}
         <div class="calc-field">
           <label class="calc-label"><span data-lang="en">Tier</span><span data-lang="es">Nivel</span></label>
           <select class="calc-select" id="c-tier">
-            <option value="" disabled="" selected="">Select...</option>
+            <option value="" disabled selected>Select...</option>
             <option value="1">Tier 1</option>
             <option value="2">Tier 2</option>
             <option value="3">Tier 3</option>
@@ -437,7 +437,7 @@ div[data-lang]{display:none}
       <span data-lang="es">Deja tu email o únete a Discord. Te notificamos en cuanto las herramientas de Fase 1 estén disponibles.</span>
     </p>
     <form class="notify-form reveal reveal-delay-3" id="notify-form">
-      <input type="email" name="email" class="notify-input" placeholder="your@email.com" required="">
+      <input type="email" name="email" class="notify-input" placeholder="your@email.com" required>
       <button type="submit" class="btn-primary"><span><span data-lang="en">Notify Me</span><span data-lang="es">Notifícame</span></span></button>
     </form>
     <p class="notify-note reveal reveal-delay-4">
@@ -453,11 +453,11 @@ div[data-lang]{display:none}
     <p class="footer-copy">© 2025 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
   </div>
   <ul class="footer-nav">
-    <li><a href="file:///Users/carlosdugarte/Downloads/index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
-    <li><a href="file:///Users/carlosdugarte/Downloads/about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
-    <li><a href="file:///Users/carlosdugarte/Downloads/tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
-    <li><a href="file:///Users/carlosdugarte/Downloads/resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
-    <li><a href="file:///Users/carlosdugarte/Downloads/roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
     <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
     <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener">X / Twitter</a></li>
   </ul>
@@ -534,5 +534,5 @@ if(nf){
   });
 }
 </script>
-
-</body></html>
+</body>
+</html>
