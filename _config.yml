@@ -1,0 +1,8 @@
+# GitHub Pages config — disables Jekyll processing
+# This prevents GitHub from trying to process HTML files as templates,
+# which can break inline scripts and certain CSS patterns.
+exclude:
+  - "*.py"
+  - "*.sh"
+  - "deploy.sh"
+  - "README.md"
