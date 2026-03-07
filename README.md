@@ -139,7 +139,7 @@ Collaboration confirmed: **February 2026**
 |---|---|
 | **DRUMCARL05** | Co-Founder — partnerships, strategic direction |
 | **Birr4s** | Co-Founder — Spanish-language operations, community |
-| **Grimgorr** | Co-Founder — technical infrastructure, Wallet Manager (Axon dApp) |
+| **Grimgorr** | Co-Founder — technical infrastructure, Wallet Manager |
 
 ---
 
