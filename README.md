@@ -1,15 +1,14 @@
 <div align="center">
-
-<img src="emblem.png" alt="Polaris Fuel Emblem" width="120" />
+  <img src="emblem.png" alt="Polaris Fuel Emblem" width="120" />
 
 # Polaris Fuel — Valannia
 
-**The economy runs on Fuel.**
+**Mount fuel is expensive. Most players overspend by 15–20%.**
 
-*Coordination infrastructure for the Valannia Web3 gaming ecosystem*
+*Specialist coordination infrastructure for the Valannia Web3 gaming ecosystem*
 
 [![Live Site](https://img.shields.io/badge/Live%20Site-polarisfuel.app-FF6B1A?style=flat-square&logo=firefox)](https://polarisfuel.app)
-[![Discord](https://img.shields.io/badge/Discord-Join%20the%20Crew-5865F2?style=flat-square&logo=discord)](https://discord.gg/yNfUZ4Gb7k)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Us-5865F2?style=flat-square&logo=discord)](https://discord.gg/yNfUZ4Gb7k)
 [![Twitter](https://img.shields.io/badge/Twitter-@Polaris__Fuel-1DA1F2?style=flat-square&logo=twitter)](https://x.com/Polaris_Fuel)
 [![Valannia](https://img.shields.io/badge/Game-Valannia-gold?style=flat-square)](https://valannia.io)
 
@@ -19,11 +18,25 @@
 
 ## What is Polaris Fuel?
 
-Polaris Fuel is a Web3 gaming community organization building **coordination infrastructure** for [Valannia](https://valannia.io) — a blockchain game featuring nine interdependent professions, racial territorial politics, and a Bitcoin-backed economy powered by `$VALAN`.
+Polaris Fuel is a specialist community organization building **coordination infrastructure** for [Valannia](https://valannia.io) — a blockchain medieval fantasy MMO on Unreal Engine 5 and Solana, featuring nine interdependent professions, racial territorial politics, and a Bitcoin-backed economy powered by `$VALAN`.
 
-We're not here to flip. We're here to build the economic backbone that makes Valannia work for everyone — miners, crafters, transporters, guilds, and governance participants alike.
+We start with **mount fuel** — the one system that affects every player from day one of Realms Phase 1. We go deep before we go wide.
 
-> *"The players who coordinate first control the economy first."*
+> *"Data over hype. Practical tools. Real coordination."*
+
+---
+
+## What We Offer
+
+| # | Tool / Service | Status |
+|---|---|---|
+| 🗂️ | **Wallet Manager** — multi-wallet inventory management, cross-wallet resource transfers, OTC escrow trading, and asset overview. Built on Solana via delegate wallet. | ✅ Available at Launch |
+| 📖 | **Expert Guides** — mount comparison, alchemy primers, route optimization, Red Zone survival. Written by players who study the mechanics in depth. Free, always. | ✅ Available at Launch |
+| 🤝 | **Resource Coordination** — connecting extractors with crafters across all 8 racial capitals. Community-driven, no fees in Phase 1. | ✅ Live on Discord |
+| ⛽ | **Fuel Calculator** — mount fuel cost estimator based on real Phase 1 gameplay data. | 🔄 Phase 2 |
+| 🧪 | **Alchemy Tracker** — potion and liquid gem production efficiency with profit margin calculator. | 🔄 Phase 2 |
+
+> ★ All Phase 1 services are free. We prove value before asking for anything.
 
 ---
 
@@ -31,81 +44,106 @@ We're not here to flip. We're here to build the economic backbone that makes Val
 
 Valannia's economy is complex by design:
 
-- **Miners** need Explorers for maps, Engineers for protection, and Transporters to move materials safely
-- **Crafters** need bulk raw materials but can't source them efficiently from dozens of small miners
-- **Guilds** need organized voting power and economic velocity to influence Race Leader elections
-- **Everyone** loses when the coordination layer doesn't exist
+- Nine interdependent professions — miners, crafters, transporters, alchemists, and more
+- Territorial taxation and Race Leader elections that affect every trade route
+- A Bitcoin-backed treasury (`$VALAN`) where mistakes cost real money
+- Mount fuel costs that vary by tier, distance, and route — and that most players learn to navigate the expensive way
 
-Polaris Fuel is that coordination layer.
-
----
-
-## What We're Building
-
-| Pillar | Description |
-|---|---|
-| 🏛 **Polaris Guildhalls** | Physical in-game presence in Valannia's racial capital cities — coordination hubs with premium tools for high-level guild negotiations |
-| 🔥 **Fire & Metal Network** | Specialized transport and alchemy operations — moving raw materials from dangerous Red Zones to capital processing centers at scale |
-| 💎 **Resource Exchange** | Escrow and matching services connecting solo extractors with bulk-buying crafters, closing the liquidity gap for Mega Constructions |
-
-*More systems will be announced as Valannia launches.*
+Polaris Fuel is the coordination layer that removes that learning curve.
 
 ---
 
 ## This Repository
 
-This repo contains the source code for [polarisfuel.app](https://polarisfuel.app) — our public landing page and internal operations dashboard.
+Source code for [polarisfuel.app](https://polarisfuel.app) — a static site serving as our public landing page, team introduction, tools hub, resources knowledge base, and roadmap.
 
 ### File Structure
 
 ```
 PolarisFuel-Valannia/
-├── index.html                              # Public landing page
-├── dashboard.html                          # Internal operations dashboard (password protected)
-├── emblem.png                              # Polaris Fuel emblem (500×500)
-└── BackgroundEraser_20220405_040008713.png # Polaris Fuel logo
+├── index.html                  # Homepage — hero, services, why us, CTA
+├── about.html                  # Team, story, studio collaboration, principles
+├── tools.html                  # Wallet Manager + upcoming tools
+├── resources.html              # Expert guides, FAQ, knowledge base
+├── roadmap.html                # Phase 1–3 roadmap with milestone tracking
+├── mount-tier-comparison.html  # First published guide (live)
+├── emblem.png                  # Polaris Fuel coin emblem
+├── emblem2.png                 # Alternate emblem asset
+├── _config.yml                 # GitHub Pages config
+├── .gitmodules                 # Wallet Manager submodule (Grimgorr/valannia-v2)
+└── .github/workflows/          # GitHub Actions deployment
 ```
 
 ### Tech Stack
 
 - **Pure HTML/CSS/JS** — no framework dependencies, no build step
-- Custom canvas particle system (120 ember particles)
-- CSS scroll-reveal animations with IntersectionObserver
-- Bilingual EN/ES with localStorage persistence
-- Deployed via static hosting at [polarisfuel.app](https://polarisfuel.app)
+- Bilingual EN/ES with `localStorage` language persistence
+- CSS scroll-reveal animations via `IntersectionObserver`
+- Custom canvas particle system (ember particles)
+- Contact and notification forms via [Formspree](https://formspree.io)
+- Deployed via GitHub Pages at [polarisfuel.app](https://polarisfuel.app) (Porkbun domain)
+
+### Wallet Manager Submodule
+
+The Wallet Manager tool lives in a separate repository (`Grimgorr/valannia-v2`) included here as a Git submodule. To clone with the submodule:
+
+```bash
+git clone --recurse-submodules https://github.com/DRUMCARL05/PolarisFuel-Valannia.git
+```
+
+To update the submodule after cloning:
+
+```bash
+git submodule update --init --recursive
+```
 
 ---
 
 ## Roadmap
 
-The project follows a three-phase approach aligned with Valannia's launch windows:
+### Phase 1 — Fuel Specialization *(Active — March 2026)*
 
-**Phase 1 — Community Foundation** *(Active)*
-- Discord infrastructure organized by race and profession
-- Partnership outreach to Valannia team
-- Founding member recruitment
+- ✅ Community founded — Discord live, founding members recruiting
+- ✅ Studio collaboration confirmed with Valannia team
+- ✅ Wallet Manager tool live on Solana
+- ⚙️ Mount fuel guide set in production
 
-**Phase 2 — Economic Tools** *(Pre-launch)*
-- Coordination tooling for bulk trades and logistics
-- Guildhall establishment in-game
-- Transporter and Alchemist profession specialization
+### Phase 2 — Full Profession Expansion *(Mid-2026)*
 
-**Phase 3 — Governance & Treasury** *(Post-launch)*
-- Political consulting for Race Leader elections
-- VET (Valannia Eternal Treasury) grant positioning
-- Potential `$FUEL` community token (pending white paper)
+- Guides, tools, and coordination for all 9 professions
+- Polaris Guildhalls in Valannia's racial capitals
+- Fuel Calculator with real Phase 1 data
+- Alchemy Tracker with profit margin calculator
+- Crafting automation via Wallet Manager expansion
+- Governance participation in Race Leader elections
+
+### Phase 3 — Multi-Game Infrastructure *(Long-term)*
+
+- Apply the proven coordination model to additional blockchain and traditional games
+- Polaris Fuel DEX — decentralized resource marketplace
+- `$FUEL` token — only if warranted by community scale
 
 ---
 
 ## Partnership Status
 
-Polaris Fuel is pursuing an official community partnership with [Valannia Game Studio](https://valannia.io). Partnership discussions are ongoing and aligned with the upcoming Valannia Arena and main game launch windows.
+Polaris Fuel operates in **confirmed collaboration** with [Valannia Game Studio](https://valannia.io). The studio has confirmed openness to working together on guides, education, and community content that benefits all players. We are an independent community organization — not an official studio partner — but we have a direct working relationship with the team.
+
+Collaboration confirmed: **February 2026**
 
 ---
 
-## Join the Crew
+## Team
 
-Whether you're a guild leader, a solo crafter, or just Valannia-curious — there's a role for you.
+| Handle | Role |
+|---|---|
+| **DRUMCARL05** | Co-Founder — partnerships, strategic direction |
+| **Birr4s** | Co-Founder — Spanish-language operations, community |
+| **Grimgorr** | Co-Founder — technical infrastructure, Wallet Manager (Axon dApp) |
+
+---
+
+## Join Us
 
 - 💬 **Discord:** [discord.gg/yNfUZ4Gb7k](https://discord.gg/yNfUZ4Gb7k)
 - 𝕏 **Twitter/X:** [@Polaris_Fuel](https://x.com/Polaris_Fuel)
@@ -113,17 +151,15 @@ Whether you're a guild leader, a solo crafter, or just Valannia-curious — ther
 
 ---
 
-## Development
+## Local Development
 
-To run locally, simply open `index.html` in a browser — no server or build process required.
+No build process required. Clone and open any HTML file directly:
 
 ```bash
-git clone https://github.com/DRUMCARL05/PolarisFuel-Valannia.git
+git clone --recurse-submodules https://github.com/DRUMCARL05/PolarisFuel-Valannia.git
 cd PolarisFuel-Valannia
 open index.html
 ```
-
-The dashboard (`dashboard.html`) is password-protected and intended for internal team use only.
 
 ---
 
@@ -131,6 +167,6 @@ The dashboard (`dashboard.html`) is password-protected and intended for internal
 
 *Built for builders. Powered by $VALAN.*
 
-**© 2025 Polaris Fuel — Valannia**
+**© 2026 Polaris Fuel — Valannia**
 
 </div>
