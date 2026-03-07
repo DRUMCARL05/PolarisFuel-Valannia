@@ -24,6 +24,12 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      # 🟢 ESTE ES EL PASO DE LIMPIEZA PROFUNDA 🟢
+      - name: Sincronizar y Forzar Submódulos
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --remote --recursive --force
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

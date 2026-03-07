@@ -1,0 +1,31 @@
+name: Sync Wallet Manager
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # cada hora
+  workflow_dispatch:        # también manual si quieres
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+
+      - name: Update submodule to latest
+        run: |
+          git submodule update --remote wallet-manager
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add wallet-manager
+          git diff --staged --quiet || git commit -m "Auto-sync: Wallet Manager updated"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUBMODULE_TOKEN }}
