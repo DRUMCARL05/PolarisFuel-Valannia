@@ -95,10 +95,10 @@ div[data-lang]{display:none}
 .phase-block{display:grid;grid-template-columns:50px 1fr;gap:2.5rem;position:relative;padding-bottom:5rem}
 .phase-block:last-child{padding-bottom:0}
 .phase-dot-col{display:flex;flex-direction:column;align-items:center;gap:0}
-.phase-dot{width:46px;height:46px;border-radius:50%;border:1px solid;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;flex-shrink:0;position:relative;z-index:2}
-.phase-dot.active{border-color:var(--fire);color:var(--fire);background:rgba(255,107,26,0.1);box-shadow:0 0 20px rgba(255,107,26,0.2)}
-.phase-dot.upcoming{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.06)}
-.phase-dot.future{border-color:var(--text-dim);color:var(--text-dim);background:var(--dark-card)}
+.phase-dot{width:46px;height:46px;border-radius:50%;border:1px solid;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;flex-shrink:0;position:relative;z-index:3}
+.phase-dot.active{border-color:var(--fire);color:var(--fire);background:var(--dark);box-shadow:0 0 20px rgba(255,107,26,0.2)}
+.phase-dot.upcoming{border-color:var(--gold);color:var(--gold);background:var(--dark)}
+.phase-dot.future{border-color:var(--text-dim);color:var(--text-dim);background:var(--dark)}
 .phase-content{padding-top:.3rem}
 .phase-timing{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.6rem}
 .phase-timing.active{color:var(--fire)}
@@ -215,10 +215,10 @@ div[data-lang]{display:none}
             <div class="ms-label"><span data-lang="en">Studio Outreach</span><span data-lang="es">Contacto con el Estudio</span></div>
             <p class="ms-desc"><span data-lang="en">Collaboration confirmed with Valannia team.</span><span data-lang="es">Colaboración confirmada con el equipo de Valannia.</span></p>
           </div>
-          <div class="phase-milestone active">
-            <span class="ms-icon">⚙</span>
-            <div class="ms-label"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
-            <p class="ms-desc"><span data-lang="en">In development. Launches with Realms Phase 1.</span><span data-lang="es">En desarrollo. Lanza con Realms Fase 1.</span></p>
+          <div class="phase-milestone done">
+            <span class="ms-icon">✓</span>
+            <div class="ms-label"><span data-lang="en">Wallet Management Tool</span><span data-lang="es">Herramienta de Wallets</span></div>
+            <p class="ms-desc"><span data-lang="en">Multi-wallet inventory, cross-wallet transfers, OTC escrow, and asset overview. Live on Solana.</span><span data-lang="es">Inventario multi-wallet, transferencias, escrow OTC y vista general de activos. Disponible en Solana.</span></p>
           </div>
           <div class="phase-milestone active">
             <span class="ms-icon">⚙</span>
@@ -264,8 +264,18 @@ div[data-lang]{display:none}
           </div>
           <div class="phase-milestone">
             <span class="ms-icon">◯</span>
-            <div class="ms-label"><span data-lang="en">Route Optimizer</span><span data-lang="es">Optimizador de Rutas</span></div>
-            <p class="ms-desc"><span data-lang="en">Full cross-capital logistics planning tool.</span><span data-lang="es">Herramienta completa de planificación logística.</span></p>
+            <div class="ms-label"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
+            <p class="ms-desc"><span data-lang="en">Mount fuel cost estimator with real Phase 1 gameplay data.</span><span data-lang="es">Estimador de costos de fuel con datos reales de Fase 1.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Alchemy Tracker</span><span data-lang="es">Rastreador de Alquimia</span></div>
+            <p class="ms-desc"><span data-lang="en">Potion and liquid gem production efficiency tracker with profit margin calculator.</span><span data-lang="es">Rastreador de eficiencia para pociones y gemas líquidas con calculadora de margen.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Crafting Automation</span><span data-lang="es">Automatización de Crafting</span></div>
+            <p class="ms-desc"><span data-lang="en">Wallet Manager expansion — automated crafting workflows and resource routing via delegate wallet.</span><span data-lang="es">Expansión del Wallet Manager — flujos de crafting automatizados y enrutamiento de recursos vía wallet delegada.</span></p>
           </div>
           <div class="phase-milestone">
             <span class="ms-icon">◯</span>
@@ -303,6 +313,11 @@ div[data-lang]{display:none}
             <span class="ms-icon">◯</span>
             <div class="ms-label"><span data-lang="en">Multi-Game Expansion</span><span data-lang="es">Expansión Multi-Juego</span></div>
             <p class="ms-desc"><span data-lang="en">Apply proven model to additional games.</span><span data-lang="es">Aplicar modelo probado a juegos adicionales.</span></p>
+          </div>
+          <div class="phase-milestone">
+            <span class="ms-icon">◯</span>
+            <div class="ms-label"><span data-lang="en">Polaris Fuel DEX</span><span data-lang="es">DEX de Polaris Fuel</span></div>
+            <p class="ms-desc"><span data-lang="en">Decentralized resource and inventory marketplace for Polaris Fuel members — peer-to-peer asset trading without intermediaries.</span><span data-lang="es">Mercado descentralizado de recursos e inventario para miembros de Polaris Fuel — trading de activos entre pares sin intermediarios.</span></p>
           </div>
           <div class="phase-milestone">
             <span class="ms-icon">◯</span>
