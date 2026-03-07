@@ -1,0 +1,4 @@
+[submodule "wallet-manager"]
+	path = wallet-manager
+	url = https://github.com/Grimgorr/valannia-v2
+	branch = gh-pages
