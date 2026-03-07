@@ -85,47 +85,41 @@ div[data-lang]{display:none}
 .page-hero{padding:14rem 2rem 6rem;text-align:center;position:relative;overflow:hidden}
 .page-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.09) 0%,transparent 65%);pointer-events:none}
 .page-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--gold-pale);letter-spacing:.05em;opacity:0;animation:fadeUp .8s .3s forwards}
-.page-subtitle{font-size:1rem;color:var(--text-dim);line-height:1.9;max-width:520px;margin:.8rem auto 0;opacity:0;animation:fadeUp .8s .5s forwards}
+.page-subtitle{font-size:1rem;color:var(--text);line-height:1.9;max-width:520px;margin:.8rem auto 0;opacity:0;animation:fadeUp .8s .5s forwards}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
-/* CALCULATOR */
-#calculator{padding:8rem 2rem;max-width:900px;margin:0 auto}
-.calc-wrapper{position:relative}
-.calc-locked-overlay{position:absolute;inset:0;background:rgba(10,7,4,0.82);backdrop-filter:blur(4px);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.5rem;border:1px solid rgba(255,107,26,0.2)}
-.calc-locked-icon{font-size:2.5rem;filter:drop-shadow(0 0 15px rgba(255,107,26,0.5))}
-.calc-locked-title{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold-pale);letter-spacing:.15em;text-transform:uppercase}
-.calc-locked-sub{font-size:.88rem;color:var(--text-dim);line-height:1.8;max-width:320px}
-.calc-ui{padding:3rem;border:1px solid var(--border);background:var(--dark-card)}
-.calc-header{margin-bottom:2.5rem}
-.calc-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
-.calc-desc{font-size:.87rem;color:var(--text-dim);line-height:1.7}
-.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
-.calc-field{display:flex;flex-direction:column;gap:.5rem}
-.calc-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim)}
-.calc-input,.calc-select{background:var(--dark-surface);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;padding:.75rem 1rem;width:100%;transition:border-color .2s}
-.calc-input:focus,.calc-select:focus{outline:none;border-color:rgba(255,107,26,0.5)}
-.calc-select option{background:var(--dark)}
-.calc-result{margin-top:2rem;padding:1.5rem;border:1px solid rgba(255,107,26,0.2);background:rgba(255,107,26,0.04);display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center}
-.calc-result-item{}
-.calc-result-num{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;color:var(--fire);display:block}
-.calc-result-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+/* FEATURED TOOL — WALLET MANAGEMENT */
+#wallet-tool{padding:7rem 2rem;max-width:1100px;margin:0 auto}
+.wt-header{margin-bottom:4rem}
+.wt-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;padding:.3rem .9rem;border:1px solid rgba(74,222,128,0.35);color:#4ade80;background:rgba(74,222,128,0.06);margin-bottom:1.5rem}
+.wt-badge::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.wt-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
+.wt-desc{font-size:.95rem;color:var(--text);line-height:1.95;max-width:680px}
+.wt-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.wt-feature-card{padding:2rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden;transition:border-color .3s,background .3s}
+.wt-feature-card:hover{border-color:rgba(255,107,26,0.3);background:#1c1008}
+.wt-feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--fire),transparent);transform:scaleX(0);transition:transform .4s}
+.wt-feature-card:hover::before{transform:scaleX(1)}
+.wt-feature-icon{font-size:1.5rem;display:block;margin-bottom:1rem;filter:drop-shadow(0 0 8px rgba(255,107,26,0.35))}
+.wt-feature-title{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--gold-pale);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.wt-feature-desc{font-size:.87rem;line-height:1.85;color:var(--text)}
+.wt-solana-note{margin-top:2.5rem;padding:1.2rem 1.8rem;border-left:2px solid rgba(255,107,26,0.4);background:rgba(255,107,26,0.04);font-size:.85rem;color:var(--text);line-height:1.8}
+.wt-solana-note strong{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--fire)}
 
-/* TOOLS LIST */
-#tools-list{padding:8rem 2rem;max-width:1100px;margin:0 auto}
+/* COMING SOON TOOLS */
+#coming-tools{padding:7rem 2rem;max-width:1100px;margin:0 auto}
 .tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
 .tool-card{padding:2.5rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden;transition:border-color .3s,background .3s}
 .tool-card:hover{border-color:rgba(255,107,26,0.3);background:#1c1008}
 .tool-card-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid;margin-bottom:1.2rem}
-.tool-card-status.live{color:#4ade80;border-color:rgba(74,222,128,0.3);background:rgba(74,222,128,0.06)}
 .tool-card-status.soon{color:var(--fire);border-color:rgba(255,107,26,0.3);background:rgba(255,107,26,0.06)}
-.tool-card-status.live::before,.tool-card-status.soon::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:currentColor}
-.tool-card-status.live::before{animation:pulseDot 1.5s infinite}
-@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.tool-card-status.soon::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:currentColor}
 .tool-card-icon{font-size:1.8rem;display:block;margin-bottom:1rem;filter:drop-shadow(0 0 10px rgba(255,107,26,0.35))}
 .tool-card-title{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
-.tool-card-desc{font-size:.87rem;line-height:1.85;color:var(--text-dim);margin-bottom:1.5rem}
+.tool-card-desc{font-size:.87rem;line-height:1.85;color:var(--text);margin-bottom:1.5rem}
 .tool-card-features{display:flex;flex-direction:column;gap:.4rem}
-.tool-card-feature{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--text-dim)}
+.tool-card-feature{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--text)}
 .tool-card-feature::before{content:'→';color:var(--fire);font-size:.75rem;flex-shrink:0}
 
 /* NOTIFY FORM */
@@ -138,18 +132,7 @@ div[data-lang]{display:none}
 .notify-input:focus{outline:none;border-color:rgba(255,107,26,0.5)}
 .notify-note{margin-top:1rem;font-size:.75rem;color:var(--text-dim)}
 
-/* COMPARISON TABLE */
-#comparison{padding:8rem 2rem;max-width:900px;margin:0 auto}
-.comparison-table{width:100%;border-collapse:collapse;margin-top:3rem}
-.comparison-table th{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);padding:1rem;text-align:left;border-bottom:1px solid var(--border)}
-.comparison-table th:first-child{color:var(--fire)}
-.comparison-table td{padding:1.2rem 1rem;font-size:.88rem;color:var(--text);border-bottom:1px solid rgba(212,168,67,0.08);transition:background .2s}
-.comparison-table tr:hover td{background:rgba(255,107,26,0.03)}
-.comparison-table td:first-child{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase}
-.comparison-table .best{color:var(--fire);font-weight:600}
-.comparison-note{margin-top:1.5rem;font-size:.8rem;color:var(--text-dim);line-height:1.7;padding:1rem;border-left:2px solid rgba(255,107,26,0.3);background:rgba(255,107,26,0.03)}
-
-@media(max-width:900px){.calc-row{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}.calc-result{grid-template-columns:1fr;gap:.8rem}}
+@media(max-width:900px){.wt-layout{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -183,239 +166,145 @@ div[data-lang]{display:none}
     <span data-lang="es">Nuestras Herramientas</span>
   </div>
   <h1 class="page-title">
-    <span data-lang="en">Stop guessing.<br>Start calculating.</span>
-    <span data-lang="es">Deja de adivinar.<br>Empieza a calcular.</span>
+    <span data-lang="en">Tools built for<br>real coordination.</span>
+    <span data-lang="es">Herramientas para<br>coordinación real.</span>
   </h1>
   <p class="page-subtitle">
-    <span data-lang="en">Real data. Real calculations. No guesswork. All tools free to use.</span>
-    <span data-lang="es">Datos reales. Cálculos reales. Sin conjeturas. Todas las herramientas son gratuitas.</span>
+    <span data-lang="en">Practical tools for Valannia's economy. No speculation. No vaporware. Built as the game matures — and released when they're ready.</span>
+    <span data-lang="es">Herramientas prácticas para la economía de Valannia. Sin especulaciones. Sin humo. Construidas conforme el juego madura — y publicadas cuando estén listas.</span>
   </p>
 </section>
 
 <div class="divider"></div>
 
-<!-- CALCULATOR -->
-<section id="calculator">
-  <div class="section-label reveal">
-    <span data-lang="en">Fuel Calculator</span>
-    <span data-lang="es">Calculadora de Fuel</span>
+<!-- WALLET MANAGEMENT TOOL -->
+<section id="wallet-tool">
+  <div class="wt-header">
+    <div class="section-label reveal">
+      <span data-lang="en">Featured Tool</span>
+      <span data-lang="es">Herramienta Principal</span>
+    </div>
+    <div class="wt-badge reveal reveal-delay-1">
+      <span data-lang="en">Coming to Polaris Fuel</span>
+      <span data-lang="es">Próximamente en Polaris Fuel</span>
+    </div>
+    <h2 class="wt-title reveal reveal-delay-2">
+      <span data-lang="en">Wallet Management</span>
+      <span data-lang="es">Gestión de Wallets</span>
+    </h2>
+    <p class="wt-desc reveal reveal-delay-3">
+      <span data-lang="en">A multi-wallet asset management tool built for Valannia players on Solana. Manage resources across wallets, execute peer-to-peer trades with escrow protection, and get a unified view of your entire in-game portfolio — without handing over your keys.</span>
+      <span data-lang="es">Una herramienta de gestión de activos multi-wallet construida para jugadores de Valannia en Solana. Administra recursos entre wallets, ejecuta intercambios entre pares con protección de escrow y obtén una vista unificada de tu portafolio en el juego — sin ceder tus claves.</span>
+    </p>
   </div>
-  <h2 class="section-title reveal reveal-delay-1">
-    <span data-lang="en">Mount Fuel Estimator</span>
-    <span data-lang="es">Estimador de Combustible</span>
-  </h2>
-  <p class="section-sub reveal reveal-delay-2">
-    <span data-lang="en">Select your mount type and tier, enter your route distance, and get a complete fuel cost breakdown. Launching with Realms Phase 1.</span>
-    <span data-lang="es">Selecciona tu tipo de montura y nivel, ingresa la distancia de tu ruta y obtén un desglose completo del costo de combustible. Disponible con Realms Fase 1.</span>
-  </p>
-  <div class="calc-wrapper reveal reveal-delay-3" style="margin-top:3rem">
-    <div class="calc-locked-overlay">
-      <div class="calc-locked-icon">⛽</div>
-      <div class="calc-locked-title"><span data-lang="en">Coming March 2026</span><span data-lang="es">Marzo 2026</span></div>
-      <p class="calc-locked-sub"><span data-lang="en">The calculator launches with Realms Phase 1. Join Discord to get notified the moment it's live — and to access early data as we collect it.</span><span data-lang="es">La calculadora lanza con Realms Fase 1. Únete a Discord para ser notificado en cuanto esté disponible.</span></p>
-      <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="btn-primary"><span><span data-lang="en">Join Discord for Early Access →</span><span data-lang="es">Únete a Discord →</span></span></a>
+
+  <div class="wt-layout">
+
+    <div class="wt-feature-card reveal reveal-delay-1">
+      <span class="wt-feature-icon">🗂️</span>
+      <div class="wt-feature-title">
+        <span data-lang="en">Delegate Wallet Inventory</span>
+        <span data-lang="es">Inventario por Wallet Delegada</span>
+      </div>
+      <p class="wt-feature-desc">
+        <span data-lang="en">Manage your in-game resources through a delegate wallet. Full inventory visibility and control without exposing your main wallet's private keys at any point.</span>
+        <span data-lang="es">Administra tus recursos en el juego a través de una wallet delegada. Visibilidad y control total del inventario sin exponer las claves privadas de tu wallet principal en ningún momento.</span>
+      </p>
     </div>
-    <div class="calc-ui">
-      <div class="calc-header">
-        <div class="calc-title"><span data-lang="en">Fuel Calculator · MVP</span><span data-lang="es">Calculadora de Fuel · MVP</span></div>
-        <div class="calc-desc"><span data-lang="en">Preview version — values are illustrative. Real data loaded at launch.</span><span data-lang="es">Versión preliminar — los valores son ilustrativos. Datos reales al lanzamiento.</span></div>
+
+    <div class="wt-feature-card reveal reveal-delay-2">
+      <span class="wt-feature-icon">🔀</span>
+      <div class="wt-feature-title">
+        <span data-lang="en">Cross-Wallet Resource Transfers</span>
+        <span data-lang="es">Transferencias Entre Wallets</span>
       </div>
-      <div class="calc-row">
-        <div class="calc-field">
-          <label class="calc-label"><span data-lang="en">Mount Type</span><span data-lang="es">Tipo de Montura</span></label>
-          <select class="calc-select" id="c-mount">
-            <option value="" disabled selected>Select...</option>
-            <option value="hover" data-en="Hover Bike" data-es="Moto Flotante">Hover Bike</option>
-            <option value="beast" data-en="Beast Mount" data-es="Montura Bestia">Beast Mount</option>
-            <option value="mechanical" data-en="Mechanical" data-es="Mecánica">Mechanical</option>
-          </select>
-        </div>
-        <div class="calc-field">
-          <label class="calc-label"><span data-lang="en">Tier</span><span data-lang="es">Nivel</span></label>
-          <select class="calc-select" id="c-tier">
-            <option value="" disabled selected>Select...</option>
-            <option value="1">Tier 1</option>
-            <option value="2">Tier 2</option>
-            <option value="3">Tier 3</option>
-          </select>
-        </div>
-      </div>
-      <div class="calc-row">
-        <div class="calc-field">
-          <label class="calc-label"><span data-lang="en">Distance (Lyr)</span><span data-lang="es">Distancia (Lyr)</span></label>
-          <input type="number" class="calc-input" id="c-dist" placeholder="e.g. 500" min="0">
-        </div>
-        <div class="calc-field">
-          <label class="calc-label"><span data-lang="en">Cargo Load</span><span data-lang="es">Carga</span></label>
-          <select class="calc-select" id="c-cargo">
-            <option value="empty" data-en="Empty" data-es="Vacío">Empty</option>
-            <option value="half" data-en="Half Load" data-es="Media Carga">Half Load</option>
-            <option value="full" data-en="Full Load" data-es="Carga Completa">Full Load</option>
-          </select>
-        </div>
-      </div>
-      <div class="calc-result">
-        <div class="calc-result-item">
-          <span class="calc-result-num" id="res-fuel">—</span>
-          <span class="calc-result-label"><span data-lang="en">Fuel Required</span><span data-lang="es">Fuel Necesario</span></span>
-        </div>
-        <div class="calc-result-item">
-          <span class="calc-result-num" id="res-cost">—</span>
-          <span class="calc-result-label"><span data-lang="en">Est. Cost</span><span data-lang="es">Costo Est.</span></span>
-        </div>
-        <div class="calc-result-item">
-          <span class="calc-result-num" id="res-save">—</span>
-          <span class="calc-result-label"><span data-lang="en">vs. Baseline</span><span data-lang="es">vs. Base</span></span>
-        </div>
-      </div>
+      <p class="wt-feature-desc">
+        <span data-lang="en">Move resources between your own wallets cleanly and efficiently. No manual transaction juggling — structured transfers with a clear audit trail for each operation.</span>
+        <span data-lang="es">Mueve recursos entre tus propias wallets de forma limpia y eficiente. Sin malabarismos manuales — transferencias estructuradas con un historial claro para cada operación.</span>
+      </p>
     </div>
+
+    <div class="wt-feature-card reveal reveal-delay-3">
+      <span class="wt-feature-icon">🤝</span>
+      <div class="wt-feature-title">
+        <span data-lang="en">OTC Escrow Trading</span>
+        <span data-lang="es">Trading OTC con Escrow</span>
+      </div>
+      <p class="wt-feature-desc">
+        <span data-lang="en">Execute peer-to-peer trades with on-chain escrow protection. Both parties lock assets before the trade settles — no trust required, no third-party intermediary, no counterparty risk.</span>
+        <span data-lang="es">Ejecuta intercambios entre pares con protección de escrow on-chain. Ambas partes bloquean activos antes de que se liquide el intercambio — sin necesidad de confianza, sin intermediarios ni riesgo de contraparte.</span>
+      </p>
+    </div>
+
+    <div class="wt-feature-card reveal reveal-delay-4">
+      <span class="wt-feature-icon">📊</span>
+      <div class="wt-feature-title">
+        <span data-lang="en">Multi-Wallet Asset Overview</span>
+        <span data-lang="es">Vista General Multi-Wallet</span>
+      </div>
+      <p class="wt-feature-desc">
+        <span data-lang="en">A unified dashboard across all your connected wallets. See your full in-game asset picture in one place — resources, balances, and positions — without switching between accounts.</span>
+        <span data-lang="es">Un panel unificado de todas tus wallets conectadas. Ve toda tu cartera en el juego en un solo lugar — recursos, saldos y posiciones — sin cambiar entre cuentas.</span>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="wt-solana-note reveal">
+    <strong><span data-lang="en">Built on Solana</span><span data-lang="es">Construido en Solana</span></strong><br>
+    <span data-lang="en">All wallet operations run on Solana — fast finality, low transaction costs, and native compatibility with Valannia's on-chain economy. Your assets stay on-chain; the tool just makes them easier to manage.</span>
+    <span data-lang="es">Todas las operaciones de wallet se ejecutan en Solana — finalidad rápida, costos de transacción bajos y compatibilidad nativa con la economía on-chain de Valannia. Tus activos permanecen on-chain; la herramienta solo los hace más fáciles de gestionar.</span>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- MOUNT COMPARISON -->
-<section id="comparison">
-  <div class="section-label reveal">
-    <span data-lang="en">Mount Comparison</span>
-    <span data-lang="es">Comparación de Monturas</span>
-  </div>
-  <h2 class="section-title reveal reveal-delay-1">
-    <span data-lang="en">Which mount is right for you?</span>
-    <span data-lang="es">¿Qué montura es la adecuada para ti?</span>
-  </h2>
-  <p class="section-sub reveal reveal-delay-2">
-    <span data-lang="en">Preliminary data from Valannia's Phase 1 mechanics. Values subject to change at launch — updated in real-time as we collect gameplay data.</span>
-    <span data-lang="es">Datos preliminares de las mecánicas de Fase 1 de Valannia. Valores sujetos a cambios al lanzamiento — actualizados en tiempo real mientras recopilamos datos.</span>
-  </p>
-  <div class="reveal reveal-delay-3">
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th><span data-lang="en">Mount / Tier</span><span data-lang="es">Montura / Nivel</span></th>
-          <th><span data-lang="en">Fuel Rate (Lyr/u)</span><span data-lang="es">Tasa Fuel (Lyr/u)</span></th>
-          <th><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span></th>
-          <th><span data-lang="en">Cargo</span><span data-lang="es">Carga</span></th>
-          <th><span data-lang="en">Best For</span><span data-lang="es">Mejor Para</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Hover Bike · T1</td>
-          <td>1.0x <span data-lang="en">(baseline)</span><span data-lang="es">(base)</span></td>
-          <td><span data-lang="en">Medium</span><span data-lang="es">Medio</span></td>
-          <td><span data-lang="en">Light</span><span data-lang="es">Ligera</span></td>
-          <td><span data-lang="en">Short runs, solo</span><span data-lang="es">Rutas cortas</span></td>
-        </tr>
-        <tr>
-          <td>Hover Bike · T2</td>
-          <td class="best">0.88x</td>
-          <td><span data-lang="en">Medium-High</span><span data-lang="es">Medio-Alto</span></td>
-          <td><span data-lang="en">Light-Med</span><span data-lang="es">Ligera-Med</span></td>
-          <td><span data-lang="en">Daily runs, value</span><span data-lang="es">Rutas diarias</span></td>
-        </tr>
-        <tr>
-          <td>Beast Mount · T1</td>
-          <td>0.82x</td>
-          <td><span data-lang="en">Low-Medium</span><span data-lang="es">Bajo-Medio</span></td>
-          <td><span data-lang="en">Heavy</span><span data-lang="es">Pesada</span></td>
-          <td><span data-lang="en">Bulk cargo, extraction</span><span data-lang="es">Carga masiva</span></td>
-        </tr>
-        <tr>
-          <td>Beast Mount · T2</td>
-          <td class="best">0.71x</td>
-          <td><span data-lang="en">Medium</span><span data-lang="es">Medio</span></td>
-          <td><span data-lang="en">Very Heavy</span><span data-lang="es">Muy Pesada</span></td>
-          <td><span data-lang="en">Long-haul logistics</span><span data-lang="es">Logística larga distancia</span></td>
-        </tr>
-        <tr>
-          <td>Mechanical · T1</td>
-          <td>1.15x</td>
-          <td><span data-lang="en">High</span><span data-lang="es">Alto</span></td>
-          <td><span data-lang="en">Light</span><span data-lang="es">Ligera</span></td>
-          <td><span data-lang="en">Speed priority runs</span><span data-lang="es">Prioridad de velocidad</span></td>
-        </tr>
-        <tr>
-          <td>Mechanical · T3</td>
-          <td>0.80x</td>
-          <td><span data-lang="en">Very High</span><span data-lang="es">Muy Alto</span></td>
-          <td><span data-lang="en">Medium</span><span data-lang="es">Medio</span></td>
-          <td><span data-lang="en">Premium long routes</span><span data-lang="es">Rutas largas premium</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="comparison-note">
-      <span data-lang="en">⚠ Data is preliminary and based on pre-launch mechanics. Final values confirmed at Realms Phase 1 launch. We update this table in real-time as we gather data — join Discord for live updates.</span>
-      <span data-lang="es">⚠ Los datos son preliminares y basados en mecánicas pre-lanzamiento. Valores finales confirmados en el lanzamiento de Realms Fase 1. Actualizamos esta tabla en tiempo real — únete a Discord para actualizaciones en vivo.</span>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ALL TOOLS -->
-<section id="tools-list">
+<!-- COMING SOON TOOLS -->
+<section id="coming-tools">
   <div class="section-label reveal" style="justify-content:center">
-    <span data-lang="en">All Tools</span>
-    <span data-lang="es">Todas las Herramientas</span>
+    <span data-lang="en">Also in Development</span>
+    <span data-lang="es">También en Desarrollo</span>
   </div>
   <h2 class="section-title reveal reveal-delay-1" style="text-align:center">
-    <span data-lang="en">Phase 1 Tool Suite</span>
-    <span data-lang="es">Suite de Herramientas Fase 1</span>
+    <span data-lang="en">What's coming next</span>
+    <span data-lang="es">Lo que viene después</span>
   </h2>
   <div class="tools-grid">
+
     <div class="tool-card reveal reveal-delay-1">
       <div class="tool-card-status soon">
-        <span data-lang="en">Coming March 2026</span><span data-lang="es">Marzo 2026</span>
+        <span data-lang="en">In Development</span><span data-lang="es">En Desarrollo</span>
       </div>
       <span class="tool-card-icon">⛽</span>
       <div class="tool-card-title"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
-      <p class="tool-card-desc"><span data-lang="en">Input mount type, tier, and distance. Get exact fuel requirements, $VALAN cost estimate, and comparison against baseline efficiency.</span><span data-lang="es">Ingresa tipo de montura, nivel y distancia. Obtén requisitos exactos de fuel y costo estimado en $VALAN.</span></p>
+      <p class="tool-card-desc">
+        <span data-lang="en">Input mount type, tier, and distance. Get fuel requirements and cost estimates based on real gameplay data collected as Realms Phase 1 matures.</span>
+        <span data-lang="es">Ingresa tipo de montura, nivel y distancia. Obtén requisitos de fuel y estimaciones de costo basadas en datos reales recopilados conforme madura la Fase 1.</span>
+      </p>
       <div class="tool-card-features">
-        <div class="tool-card-feature"><span data-lang="en">All 3 mount types</span><span data-lang="es">Los 3 tipos de montura</span></div>
+        <div class="tool-card-feature"><span data-lang="en">All 3 mount types and tiers</span><span data-lang="es">Los 3 tipos de montura y niveles</span></div>
         <div class="tool-card-feature"><span data-lang="en">Cargo load variables</span><span data-lang="es">Variables de carga</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Real-time $VALAN pricing</span><span data-lang="es">Precio $VALAN en tiempo real</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Updated as real data comes in</span><span data-lang="es">Actualizado con datos reales</span></div>
       </div>
     </div>
+
     <div class="tool-card reveal reveal-delay-2">
-      <div class="tool-card-status live">
-        <span data-lang="en">Available · Discord</span><span data-lang="es">Disponible · Discord</span>
-      </div>
-      <span class="tool-card-icon">🤝</span>
-      <div class="tool-card-title"><span data-lang="en">Resource Matching</span><span data-lang="es">Coordinación de Recursos</span></div>
-      <p class="tool-card-desc"><span data-lang="en">Connect extractors with crafters. Post needs and offers in our Discord. Community-moderated, no fees. Manual coordination with human judgment — more reliable than pure automation.</span><span data-lang="es">Conecta extractores con artesanos. Publica necesidades y ofertas en nuestro Discord. Sin comisiones.</span></p>
-      <div class="tool-card-features">
-        <div class="tool-card-feature"><span data-lang="en">All 8 racial capitals</span><span data-lang="es">Las 8 capitales raciales</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Bulk + solo trades</span><span data-lang="es">Operaciones masivas y solitarias</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Community reputation system</span><span data-lang="es">Sistema de reputación comunitaria</span></div>
-      </div>
-    </div>
-    <div class="tool-card reveal reveal-delay-3">
       <div class="tool-card-status soon">
-        <span data-lang="en">Coming Q2 2026</span><span data-lang="es">Q2 2026</span>
-      </div>
-      <span class="tool-card-icon">🗺️</span>
-      <div class="tool-card-title"><span data-lang="en">Route Optimizer</span><span data-lang="es">Optimizador de Rutas</span></div>
-      <p class="tool-card-desc"><span data-lang="en">Input origin, destination, and cargo type. Get optimal route recommendations with fuel cost projections and Red Zone risk assessment.</span><span data-lang="es">Ingresa origen, destino y tipo de carga. Obtén rutas óptimas con proyecciones de costo de fuel y evaluación de riesgo en Zonas Rojas.</span></p>
-      <div class="tool-card-features">
-        <div class="tool-card-feature"><span data-lang="en">Red Zone risk flags</span><span data-lang="es">Indicadores de riesgo en Zonas Rojas</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Multi-stop route planning</span><span data-lang="es">Planificación de rutas múltiples</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Community-sourced hazard data</span><span data-lang="es">Datos de peligro de la comunidad</span></div>
-      </div>
-    </div>
-    <div class="tool-card reveal reveal-delay-4">
-      <div class="tool-card-status soon">
-        <span data-lang="en">Coming Q2 2026</span><span data-lang="es">Q2 2026</span>
+        <span data-lang="en">Planned</span><span data-lang="es">Planificado</span>
       </div>
       <span class="tool-card-icon">🧪</span>
       <div class="tool-card-title"><span data-lang="en">Alchemy Tracker</span><span data-lang="es">Rastreador de Alquimia</span></div>
-      <p class="tool-card-desc"><span data-lang="en">Track potion and liquid gem production efficiency. Calculate material inputs vs. output value. Identify the most profitable alchemy combinations per $VALAN spent.</span><span data-lang="es">Rastrea la eficiencia de producción de pociones y gemas líquidas. Calcula inputs vs. valor de salida.</span></p>
+      <p class="tool-card-desc">
+        <span data-lang="en">Track potion and liquid gem production efficiency. Calculate material inputs against output value to identify the most profitable combinations per $VALAN spent.</span>
+        <span data-lang="es">Rastrea la eficiencia de producción de pociones y gemas líquidas. Calcula inputs vs. valor de salida para identificar las combinaciones más rentables por $VALAN invertido.</span>
+      </p>
       <div class="tool-card-features">
         <div class="tool-card-feature"><span data-lang="en">Full material cost tracking</span><span data-lang="es">Seguimiento completo de costos</span></div>
         <div class="tool-card-feature"><span data-lang="en">Profit margin calculator</span><span data-lang="es">Calculadora de margen de ganancia</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Market price integration</span><span data-lang="es">Integración de precios de mercado</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Crafting automation research (Phase 2)</span><span data-lang="es">Automatización de crafting (Fase 2)</span></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -429,12 +318,12 @@ div[data-lang]{display:none}
       <span data-lang="es">Mantente Actualizado</span>
     </div>
     <h2 class="notify-title reveal reveal-delay-1">
-      <span data-lang="en">Get notified when the calculator launches</span>
-      <span data-lang="es">Sé notificado cuando la calculadora lance</span>
+      <span data-lang="en">Get notified when tools launch</span>
+      <span data-lang="es">Sé notificado cuando las herramientas lancen</span>
     </h2>
     <p class="notify-sub reveal reveal-delay-2">
-      <span data-lang="en">Drop your email or join Discord. We'll notify you the moment Phase 1 tools go live.</span>
-      <span data-lang="es">Deja tu email o únete a Discord. Te notificamos en cuanto las herramientas de Fase 1 estén disponibles.</span>
+      <span data-lang="en">Drop your email or join Discord. We'll notify you when the Wallet Management tool and Fuel Calculator go live.</span>
+      <span data-lang="es">Deja tu email o únete a Discord. Te notificamos cuando la herramienta de Wallets y la Calculadora de Fuel estén disponibles.</span>
     </p>
     <form class="notify-form reveal reveal-delay-3" id="notify-form">
       <input type="email" name="email" class="notify-input" placeholder="your@email.com" required>
@@ -483,33 +372,6 @@ const ham=document.getElementById('hamburger'),mob=document.getElementById('mobi
 if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
 </script>
 <script>
-// Simple calculator preview (locked but functional under overlay)
-function calcPreview(){
-  const mount = document.getElementById('c-mount')?.value;
-  const tier = document.getElementById('c-tier')?.value;
-  const dist = parseFloat(document.getElementById('c-dist')?.value) || 0;
-  if(!mount||!tier||!dist) return;
-  // Base rates (placeholder data — real values at launch)
-  const rates = {hover:{1:1.0,2:0.88,3:0.76},beast:{1:0.82,2:0.71,3:0.63},mechanical:{1:1.15,2:0.95,3:0.80}};
-  const rate = rates[mount]?.[parseInt(tier)] || 1.0;
-  const fuel = (dist * rate).toFixed(1);
-  const cost = (fuel * 0.42).toFixed(2); // placeholder $VALAN price
-  const savings = ((dist * 1.0 - parseFloat(fuel)) * 0.42).toFixed(2);
-  const fn = document.getElementById('res-fuel');
-  const cn = document.getElementById('res-cost');
-  const sn = document.getElementById('res-save');
-  if(fn) fn.textContent = fuel + ' u';
-  if(cn) cn.textContent = cost + ' $V';
-  if(sn) sn.textContent = Math.max(0,savings) + ' $V';
-}
-['c-mount','c-tier'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('change', calcPreview);
-});
-const distEl = document.getElementById('c-dist');
-if(distEl) distEl.addEventListener('input', calcPreview);
-
-// Notify form
 const nf = document.getElementById('notify-form');
 if(nf){
   nf.addEventListener('submit', async e => {
@@ -525,7 +387,7 @@ if(nf){
         headers:{'Accept':'application/json'}
       });
       if(res.ok){
-        nf.innerHTML = '<p style="font-family:Cinzel,serif;font-size:.75rem;letter-spacing:.2em;color:var(--fire);text-transform:uppercase">★ You're on the list. We'll notify you at launch. ★</p>';
+        nf.innerHTML = '<p style="font-family:Cinzel,serif;font-size:.75rem;letter-spacing:.2em;color:var(--fire);text-transform:uppercase">\u2605 You\'re on the list. We\'ll notify you at launch. \u2605</p>';
       }
     } catch(err){
       btn.disabled = false;
