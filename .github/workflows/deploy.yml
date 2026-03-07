@@ -17,15 +17,14 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-steps:
+    steps:
       - name: Checkout with submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
-      # 🟢 AÑADIR ESTE PASO NUEVO AQUÍ 🟢
-      - name: Forzar actualización del Wallet Manager
+      - name: Forzar actualizacion del Wallet Manager
         run: git submodule update --remote
 
       - name: Setup Pages
