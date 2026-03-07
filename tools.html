@@ -91,9 +91,55 @@ div[data-lang]{display:none}
 /* FEATURED TOOL — WALLET MANAGEMENT */
 #wallet-tool{padding:7rem 2rem;max-width:1100px;margin:0 auto}
 .wt-header{margin-bottom:4rem}
-.wt-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;padding:.3rem .9rem;border:1px solid rgba(74,222,128,0.35);color:#4ade80;background:rgba(74,222,128,0.06);margin-bottom:1.5rem}
-.wt-badge::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
-@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.wt-badge{display:none}
+/* LAUNCH BUTTON SYSTEM */
+.wt-launch-wrap{margin:2.5rem 0 2rem;display:flex;flex-direction:column;align-items:flex-start;gap:.8rem}
+.wt-launch-label{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,107,26,0.55);margin-bottom:.1rem}
+.wt-launch-container{position:relative;display:inline-block}
+.wt-launch-ring{position:absolute;inset:-10px;border:1px solid rgba(255,107,26,0.18);pointer-events:none;opacity:0;transition:opacity .5s ease}
+.wt-launch-container:hover .wt-launch-ring{opacity:1;animation:ringPulse 2s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,26,0.12)}50%{box-shadow:0 0 0 10px rgba(255,107,26,0)}}
+.wt-launch-btn{
+  position:relative;display:inline-flex;align-items:center;gap:1rem;
+  font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.38em;text-transform:uppercase;
+  padding:1.15rem 2.6rem 1.15rem 2rem;text-decoration:none;overflow:hidden;
+  color:#f0e0c0;
+  background:linear-gradient(135deg,rgba(255,107,26,0.12) 0%,rgba(15,8,2,0.9) 50%,rgba(212,168,67,0.06) 100%);
+  border:1px solid rgba(255,107,26,0.55);
+  box-shadow:0 0 35px rgba(255,107,26,0.12),inset 0 1px 0 rgba(255,255,255,0.03);
+  transition:all .45s ease;
+}
+.wt-launch-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,107,26,0.22) 0%,rgba(212,168,67,0.12) 100%);
+  opacity:0;transition:opacity .45s ease;
+}
+.wt-launch-btn::after{
+  content:'';position:absolute;top:0;left:-120%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,200,100,0.07),transparent);
+  transition:left .6s ease;
+}
+.wt-launch-btn:hover::before{opacity:1}
+.wt-launch-btn:hover::after{left:160%}
+.wt-launch-btn:hover{
+  border-color:rgba(255,107,26,1);
+  box-shadow:0 0 60px rgba(255,107,26,0.3),0 0 120px rgba(255,107,26,0.1),inset 0 0 40px rgba(255,107,26,0.07);
+  color:#fff;letter-spacing:.44em;
+}
+.btn-scanlines{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px);opacity:.5}
+.btn-text{position:relative;z-index:1}
+.btn-arrow{position:relative;z-index:1;display:flex;align-items:center;transition:transform .35s ease}
+.btn-arrow svg{width:16px;height:16px;stroke:var(--fire);fill:none;stroke-width:1.8}
+.wt-launch-btn:hover .btn-arrow{transform:translate(3px,-2px)}
+.wt-launch-corner{position:absolute;width:9px;height:9px;border-color:var(--fire);border-style:solid;opacity:.65;transition:all .4s ease;pointer-events:none}
+.wt-launch-corner.tl{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.wt-launch-corner.tr{top:-1px;right:-1px;border-width:2px 2px 0 0}
+.wt-launch-corner.bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px}
+.wt-launch-corner.br{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+.wt-launch-btn:hover .wt-launch-corner{width:14px;height:14px;opacity:1}
+.wt-launch-status{display:flex;align-items:center;gap:.55rem;font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(74,222,128,0.7);padding-left:.1rem}
+.wt-launch-status-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:statusPulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes statusPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,0.5)}50%{opacity:.4;box-shadow:0 0 0 4px rgba(74,222,128,0)}}
 .wt-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
 .wt-desc{font-size:.95rem;color:var(--text);line-height:1.95;max-width:680px}
 .wt-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
@@ -184,9 +230,36 @@ div[data-lang]{display:none}
       <span data-lang="en">Featured Tool</span>
       <span data-lang="es">Herramienta Principal</span>
     </div>
-    <div class="wt-badge reveal reveal-delay-1">
-      <span data-lang="en">Coming to Polaris Fuel</span>
-      <span data-lang="es">Próximamente en Polaris Fuel</span>
+    <div class="wt-launch-wrap reveal reveal-delay-1">
+      <div class="wt-launch-label">
+        <span data-lang="en">// System Online</span>
+        <span data-lang="es">// Sistema Activo</span>
+      </div>
+      <div class="wt-launch-container">
+        <div class="wt-launch-ring"></div>
+        <a href="/wallet-manager/" class="wt-launch-btn">
+          <div class="btn-scanlines"></div>
+          <span class="wt-launch-corner tl"></span>
+          <span class="wt-launch-corner tr"></span>
+          <span class="wt-launch-corner bl"></span>
+          <span class="wt-launch-corner br"></span>
+          <span class="btn-text">
+            <span data-lang="en">Launch Wallet Manager</span>
+            <span data-lang="es">Abrir Wallet Manager</span>
+          </span>
+          <span class="btn-arrow">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div class="wt-launch-status">
+        <span class="wt-launch-status-dot"></span>
+        <span data-lang="en">Live on Solana — No wallet required to browse</span>
+        <span data-lang="es">En vivo en Solana — No necesitas wallet para explorar</span>
+      </div>
     </div>
     <h2 class="wt-title reveal reveal-delay-2">
       <span data-lang="en">Wallet Management</span>
