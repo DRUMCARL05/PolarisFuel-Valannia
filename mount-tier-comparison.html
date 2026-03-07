@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Mount Tier Comparison: Fuel Cost & Efficiency — Polaris Fuel</title>
+  <meta name="description" content="A structured breakdown of Valannia's three mount types and three tiers. What's confirmed, what's still TBC, and how to think about fuel efficiency before Phase 1 data is live.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.section-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before,.section-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+/* ── ARTICLE-SPECIFIC STYLES ── */
+
+/* TBC BANNER */
+.tbc-banner{position:relative;z-index:2;margin-top:72px;padding:1rem 3rem;background:rgba(255,107,26,0.07);border-bottom:1px solid rgba(255,107,26,0.25);display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.tbc-banner-icon{font-size:1.1rem;flex-shrink:0}
+.tbc-banner-text{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;color:var(--ember);text-transform:uppercase;line-height:1.7}
+.tbc-banner-text strong{color:var(--gold-pale)}
+.tbc-banner-text a{color:var(--ember);text-decoration:underline;text-underline-offset:3px}
+
+/* ARTICLE HERO */
+.article-hero{padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
+.article-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.07) 0%,transparent 65%);pointer-events:none}
+.article-breadcrumb{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2rem;opacity:0;animation:fadeUp .7s .2s forwards}
+.article-breadcrumb a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.article-breadcrumb a:hover{color:var(--gold)}
+.article-breadcrumb-sep{color:var(--fire);opacity:.5}
+.article-meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;opacity:0;animation:fadeUp .7s .3s forwards}
+.article-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(255,107,26,0.35);color:var(--fire);background:rgba(255,107,26,0.06)}
+.article-readtime{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.article-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(74,222,128,0.3);color:#4ade80;background:rgba(74,222,128,0.06)}
+.article-status::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.article-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,3rem);font-weight:700;color:var(--gold-pale);letter-spacing:.04em;line-height:1.2;max-width:800px;margin:0 auto 1.2rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.article-subtitle{font-size:.98rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto;opacity:0;animation:fadeUp .8s .55s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ARTICLE LAYOUT */
+.article-body{max-width:780px;margin:0 auto;padding:5rem 2rem 6rem}
+
+/* TOC */
+.toc{padding:2rem 2.5rem;border:1px solid var(--border);background:var(--dark-card);margin-bottom:4rem}
+.toc-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.toc-list li{display:flex;align-items:baseline;gap:.7rem;font-size:.88rem}
+.toc-list li::before{content:attr(data-num);font-family:'Cinzel',serif;font-size:.55rem;color:var(--fire);opacity:.7;flex-shrink:0;letter-spacing:.1em}
+.toc-list a{color:var(--text);text-decoration:none;transition:color .2s;line-height:1.6}
+.toc-list a:hover{color:var(--gold)}
+
+/* ARTICLE SECTIONS */
+.article-section{margin-bottom:4.5rem}
+.article-section-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
+.article-section-label::after{content:'';display:block;flex:1;height:1px;background:rgba(255,107,26,0.2)}
+.article-h2{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;color:var(--gold-pale);letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.2rem;line-height:1.3}
+.article-h3{font-family:'Cinzel',serif;font-size:.9rem;font-weight:600;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin:2rem 0 .8rem}
+.article-p{font-size:.93rem;line-height:1.95;color:var(--text);margin-bottom:1.2rem}
+.article-p:last-child{margin-bottom:0}
+
+/* CALLOUT BOXES */
+.callout{padding:1.4rem 1.8rem;margin:1.8rem 0;border-left:2px solid;font-size:.88rem;line-height:1.85}
+.callout-info{border-color:rgba(212,168,67,0.5);background:rgba(212,168,67,0.04);color:var(--text)}
+.callout-info strong{color:var(--gold-pale)}
+.callout-tbc{border-color:rgba(255,107,26,0.4);background:rgba(255,107,26,0.04);color:var(--text)}
+.callout-tbc strong{color:var(--fire)}
+.callout-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.5rem;opacity:.8}
+
+/* MOUNT TYPE CARDS */
+.mount-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:2rem 0}
+.mount-card{padding:2rem 1.5rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden;transition:border-color .3s}
+.mount-card:hover{border-color:rgba(255,107,26,0.3)}
+.mount-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.6}
+.mount-card.arcane::before{background:linear-gradient(90deg,transparent,rgba(138,43,226,0.8),transparent)}
+.mount-card.animal::before{background:linear-gradient(90deg,transparent,rgba(74,222,128,0.6),transparent)}
+.mount-card.mechanic::before{background:linear-gradient(90deg,transparent,rgba(255,107,26,0.8),transparent)}
+.mount-card-rarity{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.8rem}
+.mount-card.arcane .mount-card-rarity{color:rgba(138,43,226,0.8)}
+.mount-card.animal .mount-card-rarity{color:#4ade80}
+.mount-card.mechanic .mount-card-rarity{color:var(--fire)}
+.mount-card-icon{font-size:2rem;display:block;margin-bottom:.8rem;filter:drop-shadow(0 0 10px rgba(255,107,26,0.3))}
+.mount-card-name{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem}
+.mount-card-example{font-size:.8rem;color:var(--fire);font-style:italic;margin-bottom:.8rem;opacity:.8}
+.mount-card-trait{font-size:.82rem;color:var(--text);line-height:1.7}
+
+/* TIER TABLE */
+.tier-table-wrap{overflow-x:auto;margin:2rem 0}
+.tier-table{width:100%;border-collapse:collapse}
+.tier-table th{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);padding:1rem 1.2rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.tier-table th:first-child{color:var(--fire)}
+.tier-table td{padding:1.1rem 1.2rem;font-size:.87rem;color:var(--text);border-bottom:1px solid rgba(212,168,67,0.07);transition:background .2s;vertical-align:top}
+.tier-table tr:hover td{background:rgba(255,107,26,0.025)}
+.tier-table td:first-child{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.tbc-cell{color:var(--fire);font-style:italic;font-size:.82rem}
+.tier-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.45rem;letter-spacing:.18em;text-transform:uppercase;padding:.18rem .5rem;border:1px solid;margin-bottom:.3rem}
+.tier-badge.t1{color:var(--text-dim);border-color:rgba(212,168,67,0.2)}
+.tier-badge.t2{color:var(--gold);border-color:rgba(212,168,67,0.4)}
+.tier-badge.t3{color:var(--fire);border-color:rgba(255,107,26,0.4)}
+
+/* FRAMEWORK GRID */
+.framework-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2rem 0}
+.framework-card{padding:1.8rem;border:1px solid var(--border);background:var(--dark-card)}
+.framework-card-title{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.framework-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.framework-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text);line-height:1.6}
+.framework-list li::before{content:'→';color:var(--fire);font-size:.75rem;flex-shrink:0;margin-top:.1rem}
+
+/* DECISION TABLE */
+.decision-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+.decision-table th{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);padding:.9rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+.decision-table th:first-child{color:var(--fire)}
+.decision-table td{padding:1rem;font-size:.85rem;color:var(--text);border-bottom:1px solid rgba(212,168,67,0.07)}
+.decision-table td:first-child{font-family:'Cinzel',serif;font-size:.75rem;color:var(--gold);letter-spacing:.06em}
+.rec-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;padding:.2rem .55rem;border:1px solid rgba(255,107,26,0.35);color:var(--fire);background:rgba(255,107,26,0.06)}
+
+/* ARTICLE DIVIDER */
+.article-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent);margin:3.5rem 0}
+
+/* UPDATE NOTICE */
+.update-notice{padding:2rem;border:1px solid rgba(212,168,67,0.2);background:rgba(212,168,67,0.03);text-align:center;margin-top:4rem}
+.update-notice-title{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--gold-pale);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.update-notice-text{font-size:.87rem;color:var(--text);line-height:1.8;margin-bottom:1.2rem}
+.update-notice a{color:var(--fire);text-decoration:none;border-bottom:1px solid rgba(255,107,26,0.3);transition:border-color .2s}
+.update-notice a:hover{border-color:var(--fire)}
+
+/* BACK LINK */
+.article-back{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;margin-bottom:3rem;transition:color .2s}
+.article-back:hover{color:var(--gold)}
+.article-back::before{content:'←';color:var(--fire)}
+
+@media(max-width:900px){
+  .mount-cards{grid-template-columns:1fr}
+  .framework-grid{grid-template-columns:1fr}
+  .tbc-banner{padding:1rem 1.5rem;margin-top:64px}
+}
+@media(max-width:600px){
+  .article-hero{padding:5rem 1.5rem 4rem}
+  .article-body{padding:3rem 1.5rem 4rem}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a>
+  <a href="../tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+  <a href="../roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="mobile-menu-discord">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="../index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="../tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- TBC BANNER -->
+<div class="tbc-banner">
+  <span class="tbc-banner-icon">⚠</span>
+  <div class="tbc-banner-text">
+    <span data-lang="en"><strong>Pre-launch edition.</strong> Exact fuel figures are marked [TBC] and will be updated with confirmed Phase 1 data. Structure is accurate; numbers are not yet live. <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Join Discord</a> to be notified when values are confirmed.</span>
+    <span data-lang="es"><strong>Edición pre-lanzamiento.</strong> Las cifras exactas de fuel están marcadas como [TBC] y se actualizarán con datos confirmados de Fase 1. La estructura es correcta; los números aún no están en vivo. <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Únete al Discord</a> para ser notificado.</span>
+  </div>
+</div>
+
+<!-- ARTICLE HERO -->
+<section class="article-hero">
+  <div class="article-hero-glow"></div>
+  <div class="article-breadcrumb">
+    <a href="../resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Mount Guides</span><span data-lang="es">Guías de Montura</span></span>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Tier Comparison</span><span data-lang="es">Comparación de Niveles</span></span>
+  </div>
+  <div class="article-meta-row">
+    <div class="article-status"><span data-lang="en">Live · Pre-launch</span><span data-lang="es">En vivo · Pre-lanzamiento</span></div>
+    <span class="article-tag">⛽ <span data-lang="en">Fuel</span><span data-lang="es">Fuel</span></span>
+    <span class="article-tag">🐾 <span data-lang="en">Mounts</span><span data-lang="es">Monturas</span></span>
+    <span class="article-readtime">~12 <span data-lang="en">min read</span><span data-lang="es">min lectura</span> · <span data-lang="en">Beginner–Intermediate</span><span data-lang="es">Principiante–Intermedio</span></span>
+  </div>
+  <h1 class="article-title">
+    <span data-lang="en">Mount Tier Comparison:<br>Fuel Cost & Efficiency</span>
+    <span data-lang="es">Comparación de Niveles de Montura:<br>Costo de Fuel y Eficiencia</span>
+  </h1>
+  <p class="article-subtitle">
+    <span data-lang="en">Everything confirmed about Valannia's three mount types and three tiers. How the fuel system works, what each tier changes, and how to think about your first purchase.</span>
+    <span data-lang="es">Todo lo confirmado sobre los tres tipos de montura y tres niveles de Valannia. Cómo funciona el sistema de fuel y cómo pensar en tu primera compra.</span>
+  </p>
+</section>
+
+<!-- ARTICLE BODY -->
+<main class="article-body">
+
+  <a href="../resources.html" class="article-back reveal">
+    <span data-lang="en">Back to Resources</span>
+    <span data-lang="es">Volver a Recursos</span>
+  </a>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc reveal reveal-delay-1">
+    <div class="toc-label"><span data-lang="en">In this guide</span><span data-lang="es">En esta guía</span></div>
+    <ul class="toc-list">
+      <li data-num="01"><a href="#mount-types"><span data-lang="en">The three mount types</span><span data-lang="es">Los tres tipos de montura</span></a></li>
+      <li data-num="02"><a href="#fuel-system"><span data-lang="en">How the fuel system works</span><span data-lang="es">Cómo funciona el sistema de fuel</span></a></li>
+      <li data-num="03"><a href="#tier-breakdown"><span data-lang="en">Tier breakdown: what changes at each level</span><span data-lang="es">Desglose por nivel: qué cambia en cada nivel</span></a></li>
+      <li data-num="04"><a href="#efficiency-framework"><span data-lang="en">Thinking about efficiency before data is live</span><span data-lang="es">Pensando en eficiencia antes de que los datos estén en vivo</span></a></li>
+      <li data-num="05"><a href="#first-purchase"><span data-lang="en">Which mount for your first purchase?</span><span data-lang="es">¿Qué montura para tu primera compra?</span></a></li>
+      <li data-num="06"><a href="#updates"><span data-lang="en">How this guide will be updated</span><span data-lang="es">Cómo se actualizará esta guía</span></a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: MOUNT TYPES -->
+  <div class="article-section reveal" id="mount-types">
+    <div class="article-section-label">
+      <span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">The Three Mount Types</span>
+      <span data-lang="es">Los Tres Tipos de Montura</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Valannia has three distinct mount types, each with its own rarity tier and confirmed role in the game world. All three were announced at Grand Assembly V and are limited edition at launch. Every hero can equip one mount.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Valannia tiene tres tipos de montura distintos, cada uno con su propio nivel de rareza y función confirmada en el mundo del juego. Los tres fueron anunciados en la Grand Assembly V y son edición limitada en el lanzamiento. Cada héroe puede equipar una montura.</p>
+    </div>
+
+    <div class="mount-cards">
+      <!-- ARCANE -->
+      <div class="mount-card arcane reveal reveal-delay-1">
+        <div class="mount-card-rarity"><span data-lang="en">✦ Mythic Rarity</span><span data-lang="es">✦ Rareza Mítica</span></div>
+        <span class="mount-card-icon">🔮</span>
+        <div class="mount-card-name"><span data-lang="en">Arcane Mount</span><span data-lang="es">Montura Arcana</span></div>
+        <p class="mount-card-trait">
+          <span data-lang="en">Magic-based. Highest rarity. Expected to offer unique advantages in speed or fuel efficiency — exact mechanics TBC.</span>
+          <span data-lang="es">Base mágica. Mayor rareza. Se espera que ofrezca ventajas únicas en velocidad o eficiencia de fuel — mecánicas exactas TBC.</span>
+        </p>
+      </div>
+      <!-- ANIMAL -->
+      <div class="mount-card animal reveal reveal-delay-2">
+        <div class="mount-card-rarity"><span data-lang="en">✦ Legendary Rarity</span><span data-lang="es">✦ Rareza Legendaria</span></div>
+        <span class="mount-card-icon">🐾</span>
+        <div class="mount-card-name"><span data-lang="en">Animal Mount</span><span data-lang="es">Montura Animal</span></div>
+        <p class="mount-card-trait">
+          <span data-lang="en">Beast-based. Mid-rarity. Classic MMO mount archetype. Likely balanced across speed and fuel cost.</span>
+          <span data-lang="es">Base animal. Rareza media. Arquetipo clásico de montura MMO. Probablemente equilibrado en velocidad y costo de fuel.</span>
+        </p>
+      </div>
+      <!-- MECHANIC -->
+      <div class="mount-card mechanic reveal reveal-delay-3">
+        <div class="mount-card-rarity"><span data-lang="en">✦ Rare Rarity</span><span data-lang="es">✦ Rareza Rara</span></div>
+        <span class="mount-card-icon">⚙️</span>
+        <div class="mount-card-name"><span data-lang="en">Mechanic Mount</span><span data-lang="es">Montura Mecánica</span></div>
+        <div class="mount-card-example">"Krazy Keg" (Steel Edition)</div>
+        <p class="mount-card-trait">
+          <span data-lang="en">Machine-based. Lowest rarity of the three. The Krazy Keg is the revealed example. Fire Juice is its fuel — and the connection to our specialization.</span>
+          <span data-lang="es">Base mecánica. Menor rareza de los tres. El Krazy Keg es el ejemplo revelado. El Fire Juice es su combustible — y la conexión con nuestra especialización.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">Note on Rarity</span><span data-lang="es">Nota sobre Rareza</span></div>
+      <div data-lang="en">Rarity classification (Mythic / Legendary / Rare) describes availability and scarcity, not necessarily in-game power. A Rare Mechanic mount at Tier 3 may outperform a Mythic Arcane at Tier 1 for specific use cases. We'll cover this in the tier section below.</div>
+      <div data-lang="es">La clasificación de rareza (Mítica / Legendaria / Rara) describe disponibilidad y escasez, no necesariamente el poder en el juego. Una montura Mecánica Rara en Nivel 3 puede superar a una Arcana Mítica en Nivel 1 para casos de uso específicos. Lo cubriremos en la sección de niveles a continuación.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 2: FUEL SYSTEM -->
+  <div class="article-section reveal" id="fuel-system">
+    <div class="article-section-label">
+      <span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">How the Fuel System Works</span>
+      <span data-lang="es">Cómo Funciona el Sistema de Fuel</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Mounts in Valannia are not free to operate. Movement consumes fuel — and the type and quantity of fuel depends on your mount type and how far you travel.</p>
+      <p class="article-p">Speed is measured in <strong>Lyr/h</strong> (Lyrias per hour). This is the official unit Valannia uses to express mount travel speed. The faster a mount moves, the more it covers in a given session — but faster movement may also increase fuel consumption rate. That tradeoff is the core of fuel economics.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Las monturas en Valannia no son gratuitas de operar. El movimiento consume fuel — y el tipo y cantidad de fuel depende del tipo de montura y qué tan lejos viajas.</p>
+      <p class="article-p">La velocidad se mide en <strong>Lyr/h</strong> (Lyrias por hora). Esta es la unidad oficial que Valannia usa para expresar la velocidad de viaje de las monturas. Cuanto más rápido se mueve una montura, más cubre en una sesión determinada — pero el movimiento más rápido también puede aumentar la tasa de consumo de fuel. Ese intercambio es el núcleo de la economía del fuel.</p>
+    </div>
+
+    <h3 class="article-h3"><span data-lang="en">Fire Juice: Confirmed Fuel Source</span><span data-lang="es">Fire Juice: Fuente de Combustible Confirmada</span></h3>
+
+    <div data-lang="en">
+      <p class="article-p">Fire Juice is officially confirmed as part of the mount fuel system. It was specifically mentioned alongside the mount announcement at Grand Assembly V — meaning the Alchemist profession's output connects directly to mount operation.</p>
+      <p class="article-p">This is the economic loop Polaris Fuel is built around: extractors gather raw materials → Alchemists craft Fire Juice → Fire Juice fuels mounts → mounts enable faster resource movement → economy circulates.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Fire Juice está confirmado oficialmente como parte del sistema de combustible de las monturas. Se mencionó específicamente junto con el anuncio de monturas en la Grand Assembly V — lo que significa que la producción de la profesión Alquimista se conecta directamente con la operación de las monturas.</p>
+      <p class="article-p">Este es el ciclo económico alrededor del cual está construido Polaris Fuel: los extractores reúnen materias primas → los Alquimistas elaboran Fire Juice → el Fire Juice alimenta las monturas → las monturas permiten un movimiento de recursos más rápido → la economía circula.</p>
+    </div>
+
+    <div class="callout callout-tbc">
+      <div class="callout-label">⚠ TBC</div>
+      <div data-lang="en">The following are <strong>not yet confirmed</strong> and will be updated when Phase 1 data is live: exact Fire Juice consumption per Lyr traveled, whether all three mount types use the same fuel source or different sources, whether zone type (Green / Yellow / Red) affects fuel consumption rate, and how cargo load interacts with fuel cost.</div>
+      <div data-lang="es">Lo siguiente <strong>aún no está confirmado</strong> y se actualizará cuando los datos de Fase 1 estén en vivo: el consumo exacto de Fire Juice por Lyr recorrida, si los tres tipos de montura usan la misma fuente de fuel o fuentes diferentes, si el tipo de zona (Verde / Amarilla / Roja) afecta la tasa de consumo de fuel, y cómo la carga de mercancías interactúa con el costo del fuel.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 3: TIER BREAKDOWN -->
+  <div class="article-section reveal" id="tier-breakdown">
+    <div class="article-section-label">
+      <span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Tier Breakdown: What Changes at Each Level</span>
+      <span data-lang="es">Desglose por Nivel: Qué Cambia en Cada Nivel</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Every mount type has three tiers. Tier 1 is the base version. Tiers 2 and 3 are upgrades. The structure below is confirmed; the specific values are TBC and will be filled in once Phase 1 is live.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada tipo de montura tiene tres niveles. El Nivel 1 es la versión base. Los Niveles 2 y 3 son mejoras. La estructura a continuación está confirmada; los valores específicos son TBC y se completarán una vez que la Fase 1 esté en vivo.</p>
+    </div>
+
+    <div class="tier-table-wrap">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Tier</span><span data-lang="es">Nivel</span></th>
+            <th><span data-lang="en">Speed (Lyr/h)</span><span data-lang="es">Velocidad (Lyr/h)</span></th>
+            <th><span data-lang="en">Fuel Cost / Lyr</span><span data-lang="es">Costo Fuel / Lyr</span></th>
+            <th><span data-lang="en">Efficiency vs. T1</span><span data-lang="es">Eficiencia vs. N1</span></th>
+            <th><span data-lang="en">Upgrade Cost ($VALAN)</span><span data-lang="es">Costo Mejora ($VALAN)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tier-badge t1">Tier 1</span><br><span data-lang="en">Base</span><span data-lang="es">Base</span></td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td><span data-lang="en">Baseline</span><span data-lang="es">Referencia</span></td>
+            <td><span data-lang="en">—</span><span data-lang="es">—</span></td>
+          </tr>
+          <tr>
+            <td><span class="tier-badge t2">Tier 2</span><br><span data-lang="en">Upgraded</span><span data-lang="es">Mejorado</span></td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+          </tr>
+          <tr>
+            <td><span class="tier-badge t3">Tier 3</span><br><span data-lang="en">Max</span><span data-lang="es">Máximo</span></td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">What we expect tiers to affect</span><span data-lang="es">Lo que esperamos que los niveles afecten</span></div>
+      <div data-lang="en">Based on the game design and how similar economies work in comparable MMOs: higher tiers should increase Lyr/h speed, and may improve fuel efficiency (less fuel per distance covered). The key question is whether the efficiency gain at Tier 2 and 3 justifies the upgrade cost — that math will be the first thing we publish once numbers are live.</div>
+      <div data-lang="es">Basándonos en el diseño del juego y cómo funcionan economías similares en MMOs comparables: los niveles más altos deberían aumentar la velocidad en Lyr/h, y pueden mejorar la eficiencia de fuel (menos fuel por distancia recorrida). La pregunta clave es si la ganancia de eficiencia en los Niveles 2 y 3 justifica el costo de mejora — ese cálculo será lo primero que publiquemos una vez que los números estén en vivo.</div>
+    </div>
+
+    <h3 class="article-h3"><span data-lang="en">Per-Type Comparison (Structure)</span><span data-lang="es">Comparación por Tipo (Estructura)</span></h3>
+
+    <div data-lang="en">
+      <p class="article-p">The table below shows the comparison framework. All numeric values are TBC. The structure — which mount types exist, what tiers they have — is accurate.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">La siguiente tabla muestra el marco de comparación. Todos los valores numéricos son TBC. La estructura — qué tipos de montura existen, qué niveles tienen — es precisa.</p>
+    </div>
+
+    <div class="tier-table-wrap">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Mount Type</span><span data-lang="es">Tipo de Montura</span></th>
+            <th>T1 Lyr/h</th>
+            <th>T2 Lyr/h</th>
+            <th>T3 Lyr/h</th>
+            <th><span data-lang="en">Fuel Source</span><span data-lang="es">Fuente de Fuel</span></th>
+            <th><span data-lang="en">Notes</span><span data-lang="es">Notas</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🔮 <span data-lang="en">Arcane (Mythic)</span><span data-lang="es">Arcana (Mítica)</span></td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell" style="font-size:.78rem"><span data-lang="en">Highest rarity</span><span data-lang="es">Mayor rareza</span></td>
+          </tr>
+          <tr>
+            <td>🐾 <span data-lang="en">Animal (Legendary)</span><span data-lang="es">Animal (Legendaria)</span></td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell" style="font-size:.78rem"><span data-lang="en">Mid rarity</span><span data-lang="es">Rareza media</span></td>
+          </tr>
+          <tr>
+            <td>⚙️ <span data-lang="en">Mechanic (Rare)</span><span data-lang="es">Mecánica (Rara)</span></td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td class="tbc-cell">[TBC]</td>
+            <td style="font-size:.85rem;color:var(--fire)">Fire Juice ✓</td>
+            <td class="tbc-cell" style="font-size:.78rem"><span data-lang="en">Confirmed fuel type</span><span data-lang="es">Tipo de fuel confirmado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 4: EFFICIENCY FRAMEWORK -->
+  <div class="article-section reveal" id="efficiency-framework">
+    <div class="article-section-label">
+      <span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Thinking About Efficiency Before Data Is Live</span>
+      <span data-lang="es">Pensando en Eficiencia Antes de que los Datos Estén en Vivo</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Without confirmed numbers, you can still build your decision framework. Fuel efficiency in Valannia will be driven by at minimum four variables. Understanding the variables matters more than knowing the exact values right now.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Sin números confirmados, aún puedes construir tu marco de decisión. La eficiencia de fuel en Valannia estará impulsada por al menos cuatro variables. Entender las variables importa más que conocer los valores exactos ahora mismo.</p>
+    </div>
+
+    <div class="framework-grid">
+      <div class="framework-card reveal reveal-delay-1">
+        <div class="framework-card-title"><span data-lang="en">Variable 1: Distance</span><span data-lang="es">Variable 1: Distancia</span></div>
+        <ul class="framework-list">
+          <li><span data-lang="en">Fuel cost scales with Lyrias traveled</span><span data-lang="es">El costo de fuel escala con las Lyrias recorridas</span></li>
+          <li><span data-lang="en">Short-haul routes favor lower-tier mounts (less upgrade investment for similar relative gain)</span><span data-lang="es">Las rutas cortas favorecen monturas de nivel inferior</span></li>
+          <li><span data-lang="en">Long-haul routes amplify efficiency differences between tiers</span><span data-lang="es">Las rutas largas amplifican las diferencias de eficiencia entre niveles</span></li>
+        </ul>
+      </div>
+      <div class="framework-card reveal reveal-delay-2">
+        <div class="framework-card-title"><span data-lang="en">Variable 2: Zone Risk</span><span data-lang="es">Variable 2: Riesgo de Zona</span></div>
+        <ul class="framework-list">
+          <li><span data-lang="en">Green Zone: safe, lower rewards</span><span data-lang="es">Zona Verde: segura, menores recompensas</span></li>
+          <li><span data-lang="en">Yellow Zone: light PvP risk</span><span data-lang="es">Zona Amarilla: riesgo PvP leve</span></li>
+          <li><span data-lang="en">Red Zone: NFT loss risk, highest rewards — speed matters more here</span><span data-lang="es">Zona Roja: riesgo de pérdida de NFT, mayores recompensas — la velocidad importa más aquí</span></li>
+        </ul>
+      </div>
+      <div class="framework-card reveal reveal-delay-3">
+        <div class="framework-card-title"><span data-lang="en">Variable 3: Cargo Load</span><span data-lang="es">Variable 3: Carga</span></div>
+        <ul class="framework-list">
+          <li><span data-lang="en">Heavier cargo likely increases fuel consumption</span><span data-lang="es">La carga más pesada probablemente aumenta el consumo de fuel</span></li>
+          <li><span data-lang="en">Bulk transport players will feel this most</span><span data-lang="es">Los jugadores de transporte masivo lo sentirán más</span></li>
+          <li><span data-lang="en">Exact modifier is TBC</span><span data-lang="es">El modificador exacto es TBC</span></li>
+        </ul>
+      </div>
+      <div class="framework-card reveal reveal-delay-4">
+        <div class="framework-card-title"><span data-lang="en">Variable 4: Fuel Price</span><span data-lang="es">Variable 4: Precio del Fuel</span></div>
+        <ul class="framework-list">
+          <li><span data-lang="en">Fire Juice price will fluctuate based on Alchemist supply</span><span data-lang="es">El precio del Fire Juice fluctuará según la oferta de Alquimistas</span></li>
+          <li><span data-lang="en">A mount that is "efficient" with expensive Fire Juice may be less so when fuel is cheap</span><span data-lang="es">Una montura "eficiente" con Fire Juice caro puede serlo menos cuando el combustible es barato</span></li>
+          <li><span data-lang="en">Polaris Fuel's market reports will track this weekly</span><span data-lang="es">Los reportes de mercado de Polaris Fuel rastrearán esto semanalmente</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">The real efficiency question</span><span data-lang="es">La pregunta real de eficiencia</span></div>
+      <div data-lang="en">Efficiency in Valannia is not just fuel-per-Lyr. It's <strong>profit-per-trip</strong>: (value of cargo delivered) minus (fuel cost) minus (time cost) minus (risk). A slower, cheaper mount on a safe short route can outperform a fast, expensive mount on a dangerous long route. That's the calculation we'll help you make once real numbers exist.</div>
+      <div data-lang="es">La eficiencia en Valannia no es solo fuel por Lyr. Es <strong>ganancia por viaje</strong>: (valor de la carga entregada) menos (costo de fuel) menos (costo de tiempo) menos (riesgo). Una montura más lenta y barata en una ruta corta y segura puede superar a una montura rápida y costosa en una ruta larga y peligrosa. Ese es el cálculo que te ayudaremos a hacer una vez que existan números reales.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 5: FIRST PURCHASE -->
+  <div class="article-section reveal" id="first-purchase">
+    <div class="article-section-label">
+      <span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Which Mount for Your First Purchase?</span>
+      <span data-lang="es">¿Qué Montura para Tu Primera Compra?</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">We can't give you exact recommendations without live data. What we can give you is a decision framework by profession and playstyle. Use this as a starting point — we'll refine it with real numbers after Phase 1.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">No podemos darte recomendaciones exactas sin datos en vivo. Lo que podemos darte es un marco de decisión por profesión y estilo de juego. Úsalo como punto de partida — lo refinaremos con números reales después de la Fase 1.</p>
+    </div>
+
+    <div class="tier-table-wrap">
+      <table class="decision-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Your Profile</span><span data-lang="es">Tu Perfil</span></th>
+            <th><span data-lang="en">Primary Need</span><span data-lang="es">Necesidad Principal</span></th>
+            <th><span data-lang="en">Starting Direction</span><span data-lang="es">Dirección Inicial</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Resource Extractor</span><span data-lang="es">Extractor de Recursos</span></td>
+            <td><span data-lang="en">Move raw materials fast from Red/Yellow zones</span><span data-lang="es">Mover materias primas rápido desde zonas Roja/Amarilla</span></td>
+            <td><span class="rec-badge"><span data-lang="en">Speed priority</span><span data-lang="es">Prioridad velocidad</span></span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Merchant / Trader</span><span data-lang="es">Mercader / Comerciante</span></td>
+            <td><span data-lang="en">High cargo volume on established routes</span><span data-lang="es">Alto volumen de carga en rutas establecidas</span></td>
+            <td><span class="rec-badge"><span data-lang="en">Efficiency priority</span><span data-lang="es">Prioridad eficiencia</span></span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Alchemist</span><span data-lang="es">Alquimista</span></td>
+            <td><span data-lang="en">Supply Fire Juice to mount operators</span><span data-lang="es">Suministrar Fire Juice a operadores de monturas</span></td>
+            <td><span class="rec-badge"><span data-lang="en">Mount optional at first</span><span data-lang="es">Montura opcional al inicio</span></span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Blacksmith / Crafter</span><span data-lang="es">Herrero / Artesano</span></td>
+            <td><span data-lang="en">Fetch materials, deliver finished goods</span><span data-lang="es">Buscar materiales, entregar bienes terminados</span></td>
+            <td><span class="rec-badge"><span data-lang="en">Balanced: T1 → T2 upgrade path</span><span data-lang="es">Equilibrado: ruta de mejora N1 → N2</span></span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Political / Guild Leader</span><span data-lang="es">Político / Líder de Gremio</span></td>
+            <td><span data-lang="en">Presence, coordination across capitals</span><span data-lang="es">Presencia, coordinación entre capitales</span></td>
+            <td><span class="rec-badge"><span data-lang="en">Speed priority, rarity matters</span><span data-lang="es">Prioridad velocidad, rareza importa</span></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-tbc">
+      <div class="callout-label">⚠ TBC</div>
+      <div data-lang="en">These direction labels will be replaced with specific mount type + tier recommendations once Phase 1 data is confirmed. We will not guess — we will calculate.</div>
+      <div data-lang="es">Estas etiquetas de dirección serán reemplazadas con recomendaciones específicas de tipo de montura + nivel una vez que se confirmen los datos de Fase 1. No adivinaremos — calcularemos.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 6: HOW THIS WILL BE UPDATED -->
+  <div class="article-section reveal" id="updates">
+    <div class="article-section-label">
+      <span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">How This Guide Will Be Updated</span>
+      <span data-lang="es">Cómo Se Actualizará Esta Guía</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">This guide is a living document. When Valannia Realms Phase 1 is live and we have confirmed data, we will update every [TBC] cell with real numbers — verified in-game, not estimated.</p>
+      <p class="article-p">The update sequence will be: (1) confirm base fuel consumption rates per mount type at Tier 1, (2) confirm tier upgrade multipliers, (3) confirm zone modifiers and cargo load impact, (4) publish a full efficiency comparison with recommended loadouts per profession. Each update will be announced on Discord.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Esta guía es un documento vivo. Cuando Valannia Realms Fase 1 esté en vivo y tengamos datos confirmados, actualizaremos cada celda [TBC] con números reales — verificados en el juego, no estimados.</p>
+      <p class="article-p">La secuencia de actualización será: (1) confirmar tasas base de consumo de fuel por tipo de montura en Nivel 1, (2) confirmar multiplicadores de mejora de nivel, (3) confirmar modificadores de zona e impacto de carga, (4) publicar una comparación completa de eficiencia con configuraciones recomendadas por profesión. Cada actualización será anunciada en Discord.</p>
+    </div>
+  </div>
+
+  <!-- UPDATE NOTICE / CTA -->
+  <div class="update-notice reveal">
+    <div class="update-notice-title">
+      <span data-lang="en">Get notified when this guide is updated</span>
+      <span data-lang="es">Recibe una notificación cuando esta guía se actualice</span>
+    </div>
+    <p class="update-notice-text">
+      <span data-lang="en">Phase 1 data will come from the community. Join our Discord to contribute findings, get notified on guide updates, and access real-time coordination during the early days of Realms.</span>
+      <span data-lang="es">Los datos de Fase 1 vendrán de la comunidad. Únete a nuestro Discord para contribuir con hallazgos, recibir notificaciones de actualizaciones de guías, y acceder a coordinación en tiempo real durante los primeros días de Realms.</span>
+    </p>
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;padding:.85rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;display:inline-block;font-weight:700;transition:transform .2s,box-shadow .2s">
+      <span data-lang="en">Join Discord</span><span data-lang="es">Únete al Discord</span>
+    </a>
+  </div>
+
+</main>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li>
+    <li><a href="../tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+// NAVBAR
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+// PARTICLES
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+// REVEAL
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+// LANGUAGE
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+// HAMBURGER
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+</body>
+</html>
