@@ -18,17 +18,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout with submodules
+      - name: Checkout main repo
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
 
-      # 🟢 ESTE ES EL PASO DE LIMPIEZA PROFUNDA 🟢
-      - name: Sincronizar y Forzar Submódulos
+      - name: Clone Wallet Manager directly
         run: |
-          git submodule sync --recursive
-          git submodule update --init --remote --recursive --force
+          rm -rf wallet-manager
+          git clone --branch gh-pages --depth 1 https://github.com/Grimgorr/valannia-v2.git wallet-manager
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
