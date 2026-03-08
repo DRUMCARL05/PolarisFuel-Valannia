@@ -2,42 +2,38 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+      branches: [main]
+        workflow_dispatch:
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+        jobs:
+          deploy:
+              runs-on: ubuntu-latest
+                  permissions:
+                        contents: read
+                              pages: write
+                                    id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+                                        environment:
+                                              name: github-pages
+                                                    url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Checkout with submodules
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
+                                                        steps:
+                                                              - name: Checkout main repo
+                                                                      uses: actions/checkout@v4
 
-      # 🟢 ESTE ES EL PASO DE LIMPIEZA PROFUNDA 🟢
-      - name: Sincronizar y Forzar Submódulos
-        run: |
-          git submodule sync --recursive
-          git submodule update --init --remote --recursive --force
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+                                                                            - name: Clone Wallet Manager directly
+                                                                                    run: |
+                                                                                              rm -rf wallet-manager
+                                                                                                        git clone --branch gh-pages --depth 1 https://github.com/Grimgorr/valannia-v2.git wallet-manager
+                                                                                                        
+                                                                                                              - name: Setup Pages
+                                                                                                                      uses: actions/configure-pages@v4
+                                                                                                                      
+                                                                                                                            - name: Upload artifact
+                                                                                                                                    uses: actions/upload-pages-artifact@v3
+                                                                                                                                            with:
+                                                                                                                                                      path: '.'
+                                                                                                                                                      
+                                                                                                                                                            - name: Deploy to GitHub Pages
+                                                                                                                                                                    id: deployment
+                                                                                                                                                                            uses: actions/deploy-pages@v4
