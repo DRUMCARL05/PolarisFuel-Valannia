@@ -2,22 +2,21 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-      branches: [main]
-        workflow_dispatch:
+    branches: [main]
+  workflow_dispatch:
 
-        jobs:
-          deploy:
-              runs-on: ubuntu-latest
-                  permissions:
-                        contents: read
-                              pages: write
-                                    id-token: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
-                                        environment:
-                                              name: github-pages
-                                                    url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-<<<<<<< HEAD
     steps:
       - name: Checkout main repo
         uses: actions/checkout@v4
@@ -33,30 +32,8 @@ on:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-=======
-                                                        steps:
-                                                              - name: Checkout main repo
-                                                                      uses: actions/checkout@v4
-
-                                                                            - name: Clone Wallet Manager directly
-                                                                                    run: |
-                                                                                              rm -rf wallet-manager
-                                                                                                        git clone --branch gh-pages --depth 1 https://github.com/Grimgorr/valannia-v2.git wallet-manager
-                                                                                                        
-                                                                                                              - name: Setup Pages
-                                                                                                                      uses: actions/configure-pages@v4
-                                                                                                                      
-                                                                                                                            - name: Upload artifact
-                                                                                                                                    uses: actions/upload-pages-artifact@v3
-                                                                                                                                            with:
-                                                                                                                                                      path: '.'
-                                                                                                                                                      
-                                                                                                                                                            - name: Deploy to GitHub Pages
-                                                                                                                                                                    id: deployment
-                                                                                                                                                                            uses: actions/deploy-pages@v4
->>>>>>> b80ccfbbadf518b5a4a3ae7e827fd990b7c2ce4e
