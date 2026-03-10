@@ -121,6 +121,23 @@ div[data-lang]{display:none}
 .toc-num{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--fire);width:2rem;flex-shrink:0}
 
 @media(max-width:900px){.guides-grid{grid-template-columns:1fr}.featured-card{grid-template-columns:1fr}}
+
+/* MARKET DASHBOARD */
+#market{padding:8rem 2rem;max-width:1100px;margin:0 auto}
+.market-header{text-align:center;margin-bottom:3rem}
+.dashboard-card{background:var(--dark-card);border:1px solid var(--border);padding:3rem;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start;position:relative;overflow:hidden;transition:border-color .3s}
+.dashboard-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.dashboard-card:hover{border-color:rgba(212,168,67,0.3)}
+.dashboard-icon{font-size:3rem;filter:drop-shadow(0 0 12px rgba(212,168,67,0.3));padding-top:.3rem}
+.dashboard-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.2rem .55rem;border:1px solid rgba(212,168,67,0.3);color:var(--gold);background:rgba(212,168,67,0.06);margin-bottom:1rem}
+.dashboard-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.dashboard-desc{font-size:.88rem;line-height:1.85;color:var(--text-dim);margin-bottom:1.5rem;max-width:580px}
+.dashboard-metrics{display:flex;gap:2rem;flex-wrap:wrap}
+.dashboard-metric{text-align:center;padding:1rem 1.5rem;border:1px solid var(--border);background:rgba(212,168,67,0.03)}
+.dashboard-metric-label{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:.4rem}
+.dashboard-metric-value{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold);opacity:.35}
+.dashboard-metric-note{font-size:.72rem;color:var(--text-dim);opacity:.5;display:block;margin-top:.2rem}
+@media(max-width:700px){.dashboard-card{grid-template-columns:1fr}.dashboard-icon{display:none}}
 </style>
 </head>
 <body>
@@ -170,17 +187,17 @@ div[data-lang]{display:none}
   <div class="featured-card reveal">
     <div>
       <div class="featured-label"><span data-lang="en">★ Featured Guide</span><span data-lang="es">★ Guía Destacada</span></div>
-      <div class="featured-title"><span data-lang="en">The Complete Mount Fuel Guide — Realms Phase 1</span><span data-lang="es">La Guía Completa de Fuel — Realms Fase 1</span></div>
-      <p class="featured-desc"><span data-lang="en">Everything you need to understand Valannia's mount fuel system from day one. Covers all three mount types, all three tiers, fuel consumption mechanics, Red Zone penalties, and optimization strategies. Based on pre-launch data — updated at launch.</span><span data-lang="es">Todo lo que necesitas para entender el sistema de fuel de monturas de Valannia desde el primer día. Cubre los tres tipos de monturas, los tres niveles, mecánicas de consumo, penalizaciones en Zonas Rojas y estrategias de optimización.</span></p>
-      <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="btn-primary"><span><span data-lang="en">Access Guide on Discord →</span><span data-lang="es">Acceder a Guía en Discord →</span></span></a>
+      <div class="featured-title"><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></div>
+      <p class="featured-desc"><span data-lang="en">Your profession in Valannia is permanent — changing it wipes all accumulated progress. This guide covers all 9 professions, the best race for each, how they interconnect in the fuel economy, and a decision framework to help you choose before you commit.</span><span data-lang="es">Tu profesión en Valannia es permanente — cambiarla borra todo el progreso acumulado. Esta guía cubre las 9 profesiones, la mejor raza para cada una, cómo se interconectan en la economía del fuel y un marco de decisión para ayudarte a elegir antes de comprometerte.</span></p>
+      <a href="profession-guide.html" class="btn-primary"><span><span data-lang="en">Read the Guide →</span><span data-lang="es">Leer la Guía →</span></span></a>
     </div>
     <div class="featured-preview">
       <div class="featured-preview-title"><span data-lang="en">Contents</span><span data-lang="es">Contenido</span></div>
-      <div class="toc-item"><span class="toc-num">01</span><span data-lang="en">How the fuel system works</span><span data-lang="es">Cómo funciona el sistema de fuel</span></div>
-      <div class="toc-item"><span class="toc-num">02</span><span data-lang="en">Mount types compared: hover, beast, mechanical</span><span data-lang="es">Tipos de montura comparados</span></div>
-      <div class="toc-item"><span class="toc-num">03</span><span data-lang="en">Tier progression: when is the upgrade worth it?</span><span data-lang="es">Progresión de niveles: ¿cuándo vale la mejora?</span></div>
-      <div class="toc-item"><span class="toc-num">04</span><span data-lang="en">Route planning and Red Zone avoidance</span><span data-lang="es">Planificación de rutas y zonas rojas</span></div>
-      <div class="toc-item"><span class="toc-num">05</span><span data-lang="en">Fuel cost optimization checklist</span><span data-lang="es">Lista de verificación de optimización</span></div>
+      <div class="toc-item"><span class="toc-num">01</span><span data-lang="en">Why profession choice is permanent</span><span data-lang="es">Por qué la elección de profesión es permanente</span></div>
+      <div class="toc-item"><span class="toc-num">02</span><span data-lang="en">All 9 professions — overview and difficulty</span><span data-lang="es">Las 9 profesiones — resumen y dificultad</span></div>
+      <div class="toc-item"><span class="toc-num">03</span><span data-lang="en">Race synergies — best race per profession</span><span data-lang="es">Sinergias de raza — mejor raza por profesión</span></div>
+      <div class="toc-item"><span class="toc-num">04</span><span data-lang="en">How professions connect to the fuel economy</span><span data-lang="es">Cómo las profesiones se conectan a la economía del fuel</span></div>
+      <div class="toc-item"><span class="toc-num">05</span><span data-lang="en">How to choose: decision framework by playstyle</span><span data-lang="es">Cómo elegir: marco de decisión por estilo de juego</span></div>
     </div>
   </div>
 </section>
@@ -243,12 +260,55 @@ div[data-lang]{display:none}
       <div class="guide-meta"><span data-lang="en">~18 min read · Advanced</span><span data-lang="es">~18 min lectura · Avanzado</span></div>
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
     </a>
-    <div class="guide-card reveal reveal-delay-3">
-      <div class="guide-status soon"><span data-lang="en">Coming Soon</span><span data-lang="es">Próximamente</span></div>
-      <span class="guide-icon">📊</span>
-      <div class="guide-title"><span data-lang="en">Weekly Fuel Market Report</span><span data-lang="es">Reporte Semanal del Mercado de Fuel</span></div>
-      <p class="guide-desc"><span data-lang="en">A recurring report on fuel price trends, supply/demand shifts, and what's changing in Valannia's economy week over week. Data-first, no speculation.</span><span data-lang="es">Un reporte recurrente sobre tendencias de precio del fuel, cambios en oferta/demanda y qué está cambiando en la economía de Valannia semana a semana.</span></p>
-      <div class="guide-meta"><span data-lang="en">Weekly · All levels</span><span data-lang="es">Semanal · Todos los niveles</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MARKET DASHBOARD -->
+<section id="market">
+  <div class="market-header">
+    <div class="section-label reveal" style="justify-content:center">
+      <span data-lang="en">Live Data</span>
+      <span data-lang="es">Datos en Tiempo Real</span>
+    </div>
+    <h2 class="section-title reveal reveal-delay-1">
+      <span data-lang="en">Fuel Market Dashboard</span>
+      <span data-lang="es">Dashboard del Mercado de Fuel</span>
+    </h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">
+      <span data-lang="en">Real-time market data is coming once Phase 1 generates enough price history to be meaningful.</span>
+      <span data-lang="es">Los datos del mercado en tiempo real llegarán una vez que Fase 1 genere suficiente historial de precios.</span>
+    </p>
+  </div>
+  <div class="dashboard-card reveal reveal-delay-2">
+    <div class="dashboard-icon">📈</div>
+    <div>
+      <div class="dashboard-status"><span data-lang="en">Awaiting Phase 1 Data</span><span data-lang="es">Esperando Datos de Fase 1</span></div>
+      <div class="dashboard-title"><span data-lang="en">Fuel Market Dashboard</span><span data-lang="es">Dashboard del Mercado de Fuel</span></div>
+      <p class="dashboard-desc"><span data-lang="en">When live, this dashboard will track Fire Juice prices, raw liquid supply, extraction volume, and week-over-week market shifts across all racial capitals. Data-first, updated continuously. No speculation — only what the chain confirms.</span><span data-lang="es">Cuando esté en vivo, este dashboard rastreará precios de Fire Juice, suministro de líquidos brutos, volumen de extracción y cambios semanales del mercado en todas las capitales raciales. Datos primero, actualizado continuamente. Sin especulación — solo lo que la cadena confirma.</span></p>
+      <div class="dashboard-metrics">
+        <div class="dashboard-metric">
+          <span class="dashboard-metric-label"><span data-lang="en">Fire Juice Price</span><span data-lang="es">Precio Fire Juice</span></span>
+          <span class="dashboard-metric-value">—</span>
+          <span class="dashboard-metric-note"><span data-lang="en">per unit · avg</span><span data-lang="es">por unidad · prom</span></span>
+        </div>
+        <div class="dashboard-metric">
+          <span class="dashboard-metric-label"><span data-lang="en">Weekly Volume</span><span data-lang="es">Volumen Semanal</span></span>
+          <span class="dashboard-metric-value">—</span>
+          <span class="dashboard-metric-note"><span data-lang="en">units traded</span><span data-lang="es">unidades intercambiadas</span></span>
+        </div>
+        <div class="dashboard-metric">
+          <span class="dashboard-metric-label"><span data-lang="en">Price Trend</span><span data-lang="es">Tendencia de Precio</span></span>
+          <span class="dashboard-metric-value">—</span>
+          <span class="dashboard-metric-note"><span data-lang="en">7-day change</span><span data-lang="es">cambio 7 días</span></span>
+        </div>
+        <div class="dashboard-metric">
+          <span class="dashboard-metric-label"><span data-lang="en">Last Updated</span><span data-lang="es">Última Actualización</span></span>
+          <span class="dashboard-metric-value">—</span>
+          <span class="dashboard-metric-note"><span data-lang="en">awaiting data</span><span data-lang="es">esperando datos</span></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
