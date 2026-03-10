@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://polarisfuel.app/join.html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FF6B1A">
 <meta name="description" content="Join Polaris Fuel — the mount fuel coordination community for Valannia.">
@@ -32,6 +33,9 @@
     --white: #FFFFFF;
   }
 
+    /* Skip link */
+    .skip-link{position:absolute;top:-100px;left:1rem;background:var(--fire);color:#0A0704;padding:.5rem 1rem;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;z-index:10000;transition:top .2s}
+    .skip-link:focus{top:1rem}
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
@@ -773,8 +777,17 @@
     .divider-line { margin: 0 24px; }
   }
 </style>
+  <meta property="og:image" content="https://polarisfuel.app/og-image.png">
+  <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
+  <meta property="og:title" content="Join — Polaris Fuel">
+  <meta property="og:description" content="Join Polaris Fuel — the mount fuel coordination community for Valannia.">
+  <meta property="og:url" content="https://polarisfuel.app/join.html">
+  <meta property="og:image" content="https://polarisfuel.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
 </head>
 <body>
+  <a href="#main-content" class="skip-link"><span data-lang="en">Skip to content</span><span data-lang="es">Ir al contenido</span></a>
 
 <!-- NAV -->
 <nav style="position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(14,12,10,0.96);border-bottom:1px solid rgba(212,160,48,0.15);backdrop-filter:blur(14px);">
@@ -791,6 +804,7 @@
 </nav>
 
 <!-- HERO -->
+<main id="main-content">
 <section id="hero" style="max-width:100%; padding:0; margin:0;">
   <div class="hero-bg"></div>
   <div class="embers" id="embers"></div>
@@ -1056,6 +1070,7 @@
 </section>
 
 <!-- FOOTER -->
+</main>
 <footer>
   <div class="footer-logo">POLARIS FUEL</div>
   <div class="footer-links">
