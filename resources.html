@@ -120,20 +120,6 @@ div[data-lang]{display:none}
 .toc-item:last-child{border-bottom:none}
 .toc-num{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--fire);width:2rem;flex-shrink:0}
 
-/* FAQ */
-#faq{padding:8rem 2rem;max-width:800px;margin:0 auto}
-.faq-header{text-align:center;margin-bottom:4rem}
-.faq-list{display:flex;flex-direction:column;gap:.5rem}
-.faq-item{border:1px solid var(--border);background:var(--dark-card);overflow:hidden;transition:border-color .3s}
-.faq-item.open{border-color:rgba(255,107,26,0.3)}
-.faq-q{padding:1.5rem 2rem;font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;color:var(--gold-pale);letter-spacing:.06em;cursor:none;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
-.faq-q:hover{color:var(--gold)}
-.faq-q-arrow{font-size:.7rem;color:var(--fire);transition:transform .3s;flex-shrink:0}
-.faq-item.open .faq-q-arrow{transform:rotate(180deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
-.faq-item.open .faq-a{max-height:300px}
-.faq-a-inner{padding:0 2rem 1.5rem;font-size:.9rem;color:var(--text-dim);line-height:1.9}
-
 @media(max-width:900px){.guides-grid{grid-template-columns:1fr}.featured-card{grid-template-columns:1fr}}
 </style>
 </head>
@@ -141,7 +127,7 @@ div[data-lang]{display:none}
 <div id="cursor"></div><div id="cursor-ring"></div>
 <canvas id="particle-canvas"></canvas>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a><a href="tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="about.html"><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a><a href="tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a><a href="join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
   <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="mobile-menu-discord">Discord</a>
   <div class="mobile-lang">
     <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
@@ -150,7 +136,7 @@ div[data-lang]{display:none}
 </div>
 <nav id="navbar">
   <a href="index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
-  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="about.html" ><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li><li><a href="tools.html" ><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li></ul>
+  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="about.html" ><span data-lang="en">About</span><span data-lang="es">Nosotros</span></a></li><li><a href="tools.html" ><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li><li><a href="join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li></ul>
   <div class="nav-right">
     <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener" class="nav-discord-btn">Discord</a>
     <div class="nav-lang">
@@ -267,66 +253,6 @@ div[data-lang]{display:none}
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- FAQ -->
-<section id="faq">
-  <div class="faq-header">
-    <div class="section-label reveal" style="justify-content:center">
-      <span data-lang="en">FAQ</span>
-      <span data-lang="es">Preguntas Frecuentes</span>
-    </div>
-    <h2 class="section-title reveal reveal-delay-1">
-      <span data-lang="en">The questions we get most.</span>
-      <span data-lang="es">Las preguntas que más recibimos.</span>
-    </h2>
-  </div>
-  <div class="faq-list reveal reveal-delay-2">
-    <div class="faq-item">
-      <div class="faq-q">
-        <span><span data-lang="en">Is Polaris Fuel free to join?</span><span data-lang="es">¿Es gratis unirse a Polaris Fuel?</span></span>
-        <span class="faq-q-arrow">▾</span>
-      </div>
-      <div class="faq-a"><div class="faq-a-inner"><span data-lang="en">Yes. All Phase 1 services — guides, calculator, resource coordination — are completely free. We prove value before asking for anything. Our long-term model may include optional membership tiers for premium features, but the core tools will always have a free tier.</span><span data-lang="es">Sí. Todos los servicios de Fase 1 — guías, calculadora, coordinación de recursos — son completamente gratuitos. Demostramos valor antes de pedir algo.</span></div></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">
-        <span><span data-lang="en">Do I need to own a mount to benefit from Polaris Fuel?</span><span data-lang="es">¿Necesito una montura para beneficiarme?</span></span>
-        <span class="faq-q-arrow">▾</span>
-      </div>
-      <div class="faq-a"><div class="faq-a-inner"><span data-lang="en">No. Our guides on Valannia's economic systems, professions, and alchemy are useful for any player at any stage. The fuel calculator and optimization tools become especially valuable once you're planning your first mount purchase — that's exactly when they help most.</span><span data-lang="es">No. Nuestras guías sobre los sistemas económicos de Valannia son útiles para cualquier jugador en cualquier etapa. Las herramientas de optimización se vuelven especialmente valiosas cuando planeas tu primera compra de montura.</span></div></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">
-        <span><span data-lang="en">Is Polaris Fuel officially affiliated with Valannia Studio?</span><span data-lang="es">¿Está Polaris Fuel afiliado oficialmente con el estudio?</span></span>
-        <span class="faq-q-arrow">▾</span>
-      </div>
-      <div class="faq-a"><div class="faq-a-inner"><span data-lang="en">We're an independent community organization building in collaboration with Valannia Studio. The studio has confirmed openness to working together on guides, education, and community content. We're not an official studio partner, but we have a direct working relationship with the team.</span><span data-lang="es">Somos una organización comunitaria independiente construyendo en colaboración con el estudio de Valannia. El estudio ha confirmado apertura a trabajar juntos en guías, educación y contenido comunitario.</span></div></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">
-        <span><span data-lang="en">Do I need Web3 or crypto experience to join?</span><span data-lang="es">¿Necesito experiencia en Web3 o cripto?</span></span>
-        <span class="faq-q-arrow">▾</span>
-      </div>
-      <div class="faq-a"><div class="faq-a-inner"><span data-lang="en">Not to benefit from our content. Valannia is a blockchain game, so eventually you'll interact with wallets and $VALAN — but we explain everything from first principles. If you understand how to play an RPG with a player economy, you have enough context to start.</span><span data-lang="es">No para beneficiarte de nuestro contenido. Valannia es un juego blockchain, así que eventualmente interactuarás con wallets y $VALAN — pero lo explicamos todo desde los principios básicos.</span></div></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">
-        <span><span data-lang="en">When will the fuel calculator be available?</span><span data-lang="es">¿Cuándo estará disponible la calculadora?</span></span>
-        <span class="faq-q-arrow">▾</span>
-      </div>
-      <div class="faq-a"><div class="faq-a-inner"><span data-lang="en">The calculator is in active development. It requires real in-game data to be accurate, so we're building it as Realms Phase 1 data becomes available — not estimates. Join Discord to be notified when it launches.</span><span data-lang="es">La calculadora está en desarrollo activo. Requiere datos reales del juego para ser precisa, por lo que la construimos conforme los datos de Realms Fase 1 están disponibles. Únete a Discord para ser notificado.</span></div></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">
-        <span><span data-lang="en">Is there a Spanish-speaking community section?</span><span data-lang="es">¿Hay una sección para la comunidad hispanohablante?</span></span>
-        <span class="faq-q-arrow">▾</span>
-      </div>
-      <div class="faq-a"><div class="faq-a-inner"><span data-lang="en">Yes. Our Discord has dedicated Spanish-language channels, and all guides and tools are available in Spanish. This is a core commitment — not an afterthought. The Latin American gaming community is underserved by most Web3 projects.</span><span data-lang="es">Sí. Nuestro Discord tiene canales dedicados en español, y todas las guías y herramientas están disponibles en español. Este es un compromiso central — no una ocurrencia tardía.</span></div></div>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="footer-left">
     <div class="footer-logo-text">Polaris Fuel</div>
@@ -338,6 +264,7 @@ div[data-lang]{display:none}
     <li><a href="tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
     <li><a href="resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
     <li><a href="roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
     <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener">Discord</a></li>
     <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener">X / Twitter</a></li>
   </ul>
@@ -361,16 +288,6 @@ function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');doc
 const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
 const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
 if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
-</script>
-<script>
-document.querySelectorAll('.faq-q').forEach(q => {
-  q.addEventListener('click', () => {
-    const item = q.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if(!isOpen) item.classList.add('open');
-  });
-});
 </script>
 </body>
 </html>
