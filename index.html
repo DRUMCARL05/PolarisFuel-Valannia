@@ -115,7 +115,7 @@
     .hero-stat-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim)}
     .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1s forwards}
     .hero-phase{margin-top:2rem;opacity:0;animation:fadeUp .8s 1.2s forwards}
-    .scroll-indicator{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1s 2s forwards}
+    .scroll-indicator{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1s 2s forwards;z-index:10}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     .scroll-indicator span{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;color:var(--text-dim);text-transform:uppercase}
     .scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--fire),transparent);animation:scrollPulse 2s ease-in-out infinite}
@@ -508,7 +508,11 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
 animCursor();
 const nb=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const scrollInd=document.querySelector('.scroll-indicator');
+window.addEventListener('scroll',()=>{
+  if(nb)nb.classList.toggle('scrolled',window.scrollY>60);
+  if(scrollInd){const hide=window.scrollY>window.innerHeight*0.4;scrollInd.style.opacity=hide?'0':'';scrollInd.style.pointerEvents=hide?'none':'';}
+});
 const canvas=document.getElementById('particle-canvas');
 if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
 for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
