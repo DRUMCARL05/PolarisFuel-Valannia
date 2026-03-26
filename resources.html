@@ -84,10 +84,21 @@ div[data-lang]{display:none}
 </style>
 <style>
 .page-hero{padding:14rem 2rem 6rem;text-align:center;position:relative;overflow:hidden}
-.page-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.09) 0%,transparent 65%);pointer-events:none}
+.page-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(188,178,134,0.07) 0%,rgba(1,9,17,0.18) 50%,transparent 70%);pointer-events:none}
+.hero-valannia-wordmark{width:clamp(140px,22vw,240px);height:auto;opacity:.55;margin-bottom:1.8rem;display:block;margin-left:auto;margin-right:auto;mix-blend-mode:screen;filter:drop-shadow(0 0 14px rgba(188,178,134,0.25))}
 .page-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--gold-pale);letter-spacing:.05em;opacity:0;animation:fadeUp .8s .3s forwards}
 .page-subtitle{font-size:1rem;color:var(--text-dim);line-height:1.9;max-width:520px;margin:.8rem auto 0;opacity:0;animation:fadeUp .8s .5s forwards}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+/* VALANNIA CO-BRANDING — resources.html only */
+.section-label{color:#BCB286}
+.section-label::before,.section-label::after{background:#BCB286}
+.valan-banner{max-width:1100px;margin:0 auto;padding:3.5rem 2rem 4rem;text-align:center}
+.valan-banner-logo{width:72px;height:72px;object-fit:contain;margin:0 auto 1.2rem;display:block;opacity:.82;filter:drop-shadow(0 0 18px rgba(188,178,134,0.3))}
+.valan-banner-wordmark{width:clamp(100px,16vw,170px);height:auto;display:block;margin:0 auto .9rem;opacity:.55;mix-blend-mode:screen}
+.valan-banner-text{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(188,178,134,0.55);line-height:2}
+.valan-banner-text strong{color:rgba(188,178,134,0.8);font-weight:700}
+.valan-banner-rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(188,178,134,0.3),transparent);margin:.9rem auto 0}
+.powered-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(188,178,134,0.4);margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(188,178,134,0.1)}
+.powered-badge img{width:14px;height:14px;object-fit:contain;opacity:.5}
 
 /* GUIDES */
 #guides{padding:8rem 2rem;max-width:1100px;margin:0 auto}
@@ -150,7 +161,6 @@ div[data-lang]{display:none}
   <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
 </head>
 <body>
-  <a href="#main-content" class="skip-link"><span data-lang="en">Skip to content</span><span data-lang="es">Ir al contenido</span></a>
 <div id="cursor"></div><div id="cursor-ring"></div>
 <canvas id="particle-canvas"></canvas>
 <div class="mobile-menu" id="mobile-menu">
@@ -177,6 +187,7 @@ div[data-lang]{display:none}
 <main id="main-content">
 <section class="page-hero">
   <div class="page-hero-glow"></div>
+  <img src="Valannia_mate_ns.png" alt="Valannia" class="hero-valannia-wordmark" style="opacity:0;animation:fadeUp .8s .15s forwards">
   <div class="section-label" style="justify-content:center;opacity:0;animation:fadeUp .7s .2s forwards">
     <span data-lang="en">Knowledge Base</span>
     <span data-lang="es">Base de Conocimiento</span>
@@ -192,6 +203,17 @@ div[data-lang]{display:none}
 </section>
 
 <div class="divider"></div>
+
+<!-- VALANNIA CO-BRANDING BANNER -->
+<div class="valan-banner reveal">
+  <img src="V_valan_logo_Q512.png" alt="Valannia" class="valan-banner-logo">
+  <img src="Valannia_mate_ns.png" alt="Valannia" class="valan-banner-wordmark">
+  <p class="valan-banner-text">
+    <span data-lang="en"><strong>Powered by Valannia</strong> · Independent player guides<br>Written by Polaris Fuel specialists · Not official studio content</span>
+    <span data-lang="es"><strong>Impulsado por Valannia</strong> · Guías independientes de jugadores<br>Escritas por especialistas de Polaris Fuel · No son contenido oficial del estudio</span>
+  </p>
+  <div class="valan-banner-rule"></div>
+</div>
 
 <!-- FEATURED GUIDE -->
 <section id="featured">
@@ -233,6 +255,7 @@ div[data-lang]{display:none}
       <p class="guide-desc"><span data-lang="en">Everything confirmed about Valannia's three mount types and three tiers. How the fuel system works, what each tier changes, and how to think about your first purchase.</span><span data-lang="es">Todo lo confirmado sobre los tres tipos de montura y tres niveles. Cómo funciona el sistema de fuel y cómo pensar en tu primera compra.</span></p>
       <div class="guide-meta"><span data-lang="en">~12 min read · Beginner–Intermediate</span><span data-lang="es">~12 min lectura · Principiante–Intermedio</span></div>
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </a>
     <a href="resources/profession-guide.html" class="guide-card reveal reveal-delay-2">
       <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
@@ -241,6 +264,7 @@ div[data-lang]{display:none}
       <p class="guide-desc"><span data-lang="en">Your profession in Valannia is permanent. All 9 professions covered — difficulty, best race synergy, what each one produces, and how they fit into the fuel economy. Read before you commit.</span><span data-lang="es">Tu profesión en Valannia es permanente. Las 9 profesiones cubiertas — dificultad, sinergia de raza, qué produce cada una y cómo encajan en la economía del fuel. Lee antes de comprometerte.</span></p>
       <div class="guide-meta"><span data-lang="en">~15 min read · Beginner</span><span data-lang="es">~15 min lectura · Principiante</span></div>
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </a>
     <div class="guide-card reveal reveal-delay-3">
       <div class="guide-status soon"><span data-lang="en">Coming Soon</span><span data-lang="es">Próximamente</span></div>
@@ -248,6 +272,7 @@ div[data-lang]{display:none}
       <div class="guide-title"><span data-lang="en">Which Mount Should You Buy?</span><span data-lang="es">¿Qué Montura Debes Comprar?</span></div>
       <p class="guide-desc"><span data-lang="en">A decision-tree guide for first-time mount buyers. Based on your profession, typical route distances, and budget. Cuts through the noise with clear recommendations.</span><span data-lang="es">Una guía de árbol de decisión para compradores de primera vez. Basada en profesión, distancias típicas y presupuesto.</span></p>
       <div class="guide-meta"><span data-lang="en">~10 min read · Beginner</span><span data-lang="es">~10 min lectura · Principiante</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </div>
     <div class="guide-card reveal reveal-delay-3">
       <div class="guide-status soon"><span data-lang="en">Early 2026</span><span data-lang="es">Inicios de 2026</span></div>
@@ -255,6 +280,7 @@ div[data-lang]{display:none}
       <div class="guide-title"><span data-lang="en">Alchemy Primer</span><span data-lang="es">Introducción a la Alquimia</span></div>
       <p class="guide-desc"><span data-lang="en">How Valannia's alchemy profession works, what potions and liquid gems do, and why they're central to the fuel economy. No prior knowledge needed.</span><span data-lang="es">Cómo funciona la profesión de alquimia en Valannia, qué hacen las pociones y gemas líquidas, y por qué son centrales para la economía del fuel.</span></p>
       <div class="guide-meta"><span data-lang="en">~15 min read · Beginner</span><span data-lang="es">~15 min lectura · Principiante</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </div>
     <div class="guide-card reveal reveal-delay-1">
       <div class="guide-status soon"><span data-lang="en">Coming Soon</span><span data-lang="es">Próximamente</span></div>
@@ -262,6 +288,7 @@ div[data-lang]{display:none}
       <div class="guide-title"><span data-lang="en">Red Zone Survival Guide</span><span data-lang="es">Guía de Supervivencia en Zonas Rojas</span></div>
       <p class="guide-desc"><span data-lang="en">Raw materials move through dangerous Red Zones. This guide covers fuel penalties, risk assessment, escort coordination, and when to avoid vs. engage.</span><span data-lang="es">Los materiales brutos pasan por peligrosas Zonas Rojas. Esta guía cubre penalizaciones de fuel, evaluación de riesgo y coordinación de escolta.</span></p>
       <div class="guide-meta"><span data-lang="en">~12 min read · Intermediate</span><span data-lang="es">~12 min lectura · Intermedio</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </div>
     <a href="resources/race-leader-elections.html" class="guide-card reveal reveal-delay-2">
       <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
@@ -270,6 +297,7 @@ div[data-lang]{display:none}
       <p class="guide-desc"><span data-lang="en">How Valannia's governance system works, what Race Leaders control, and why political coordination matters for economic outcomes. Covers all 8 races, capital access, influence building, and strategy by playstyle.</span><span data-lang="es">Cómo funciona el sistema de gobernanza de Valannia, qué controlan los Líderes de Raza y por qué la coordinación política importa. Cubre las 8 razas, acceso a capitales, construcción de influencia y estrategia por estilo de juego.</span></p>
       <div class="guide-meta"><span data-lang="en">~18 min read · Advanced</span><span data-lang="es">~18 min lectura · Avanzado</span></div>
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </a>
   </div>
 </section>
