@@ -178,6 +178,13 @@
     .social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.06)}
     .social-icon{font-size:1rem}
     @media(max-width:900px){.pain-grid{grid-template-columns:1fr}.services-grid{grid-template-columns:1fr}.why-inner{grid-template-columns:1fr;gap:3rem}}
+    /* VIDEO EMBED */
+    .homepage-video{max-width:900px;margin:4rem auto 0}
+    .homepage-video-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:1rem}
+    .homepage-video-label::before,.homepage-video-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+    .video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border:1px solid var(--border)}
+    .video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .video-caption{margin-top:.9rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);text-align:center}
   </style>
   <script type="application/ld+json">
   {
@@ -329,6 +336,23 @@
         <p class="pain-card-text"><span data-lang="en">I'm flying blind on economic decisions. I want data, not Discord guesses.</span><span data-lang="es">Tomo decisiones económicas a ciegas. Quiero datos, no conjeturas en Discord.</span></p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- VIDEO: MOUNT SHOWCASE -->
+<section id="mount-video" style="padding:0 2rem 6rem">
+  <div class="homepage-video reveal">
+    <div class="homepage-video-label">
+      <span data-lang="en">See It In Action</span>
+      <span data-lang="es">Míralo en Acción</span>
+    </div>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/14IL1EpFcnE?si=IAJPcI_r2mRT2C3e" title="Valannia Mounts — Official Showcase" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <p class="video-caption">
+      <span data-lang="en">Official Valannia video — mount system live in the browser-based 3D world · Sale: April 2, 2026</span>
+      <span data-lang="es">Video oficial de Valannia — sistema de monturas en vivo en el mundo 3D · Venta: 2 de Abril, 2026</span>
+    </p>
   </div>
 </section>
 
