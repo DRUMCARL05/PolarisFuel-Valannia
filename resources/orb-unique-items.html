@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>ORB Sale & Unique Items — Polaris Fuel · Valannia</title>
+  <meta name="description" content="Everything confirmed about the April 2, 2026 Mount ORB sale — Silver Orb, Golden Orb, the first collection of 1,888 mounts, and Valannia's supply-of-1 unique items.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.section-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before,.section-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+/* ── ARTICLE-SPECIFIC STYLES ── */
+
+/* URGENCY BANNER */
+.urgency-banner{position:relative;z-index:2;margin-top:72px;padding:1rem 3rem;background:rgba(255,107,26,0.1);border-bottom:1px solid rgba(255,107,26,0.35);display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.urgency-banner-icon{font-size:1.1rem;flex-shrink:0}
+.urgency-banner-text{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;color:var(--ember);text-transform:uppercase;line-height:1.7}
+.urgency-banner-text strong{color:var(--gold-pale)}
+.urgency-banner-text a{color:var(--ember);text-decoration:underline;text-underline-offset:3px}
+
+/* ARTICLE HERO */
+.article-hero{padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
+.article-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.07) 0%,transparent 65%);pointer-events:none}
+.article-breadcrumb{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2rem;opacity:0;animation:fadeUp .7s .2s forwards}
+.article-breadcrumb a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.article-breadcrumb a:hover{color:var(--gold)}
+.article-breadcrumb-sep{color:var(--fire);opacity:.5}
+.article-meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;opacity:0;animation:fadeUp .7s .3s forwards}
+.article-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(255,107,26,0.35);color:var(--fire);background:rgba(255,107,26,0.06)}
+.article-readtime{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.article-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(74,222,128,0.3);color:#4ade80;background:rgba(74,222,128,0.06)}
+.article-status::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.article-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,3rem);font-weight:700;color:var(--gold-pale);letter-spacing:.04em;line-height:1.2;max-width:800px;margin:0 auto 1.2rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.article-subtitle{font-size:.98rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto;opacity:0;animation:fadeUp .8s .55s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ARTICLE LAYOUT */
+.article-body{max-width:780px;margin:0 auto;padding:5rem 2rem 6rem}
+
+/* TOC */
+.toc{padding:2rem 2.5rem;border:1px solid var(--border);background:var(--dark-card);margin-bottom:4rem}
+.toc-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.toc-list li{display:flex;align-items:baseline;gap:.7rem;font-size:.88rem}
+.toc-list li::before{content:attr(data-num);font-family:'Cinzel',serif;font-size:.55rem;color:var(--fire);opacity:.7;flex-shrink:0;letter-spacing:.1em}
+.toc-list a{color:var(--text);text-decoration:none;transition:color .2s;line-height:1.6}
+.toc-list a:hover{color:var(--gold)}
+
+/* ARTICLE SECTIONS */
+.article-section{margin-bottom:4.5rem}
+.article-section-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.38em;text-transform:uppercase;color:var(--fire);opacity:.7;margin-bottom:.9rem}
+.article-h2{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:700;color:var(--gold-pale);letter-spacing:.06em;margin-bottom:1.8rem;line-height:1.4}
+.article-p{font-size:.96rem;line-height:1.95;color:var(--text);margin-bottom:1.2rem}
+.article-p strong{color:var(--gold-pale);font-weight:700}
+.article-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.18),transparent);margin:4rem 0}
+
+/* CALLOUTS */
+.callout{padding:1.5rem 2rem;border-left:3px solid var(--gold);background:rgba(212,168,67,0.05);margin:2rem 0}
+.callout-info{border-left-color:var(--gold)}
+.callout-fire{border-left-color:var(--fire);background:rgba(255,107,26,0.05)}
+.callout-rare{border-left-color:#a78bfa;background:rgba(167,139,250,0.05)}
+.callout-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;opacity:.8}
+.callout-fire .callout-label{color:var(--fire)}
+.callout-rare .callout-label{color:#a78bfa}
+
+/* ORB CARDS */
+.orb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0}
+.orb-card{padding:2rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden}
+.orb-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.orb-card.silver::before{background:linear-gradient(90deg,transparent,rgba(192,192,220,0.6),transparent)}
+.orb-card.golden::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.orb-card-name{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.orb-card.silver .orb-card-name{color:#c0c0dc}
+.orb-card.golden .orb-card-name{color:var(--gold)}
+.orb-card-desc{font-size:.88rem;color:var(--text);line-height:1.8}
+.orb-card-highlight{display:inline-block;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:.25rem .7rem;margin-top:.9rem}
+.orb-card.silver .orb-card-highlight{border:1px solid rgba(192,192,220,0.3);color:#c0c0dc;background:rgba(192,192,220,0.05)}
+.orb-card.golden .orb-card-highlight{border:1px solid rgba(212,168,67,0.4);color:var(--gold);background:rgba(212,168,67,0.06)}
+@media(max-width:600px){.orb-grid{grid-template-columns:1fr}}
+
+/* UNIQUE ITEM CARDS */
+.unique-grid{display:flex;flex-direction:column;gap:1.2rem;margin:2rem 0}
+.unique-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.5rem;padding:1.5rem 2rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden}
+.unique-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,0.4),transparent)}
+.unique-card-icon{font-size:1.8rem;line-height:1}
+.unique-card-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;letter-spacing:.1em;color:var(--gold-pale);margin-bottom:.35rem}
+.unique-card-desc{font-size:.86rem;color:var(--text);line-height:1.7}
+.unique-card-badge{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid rgba(167,139,250,0.35);color:#a78bfa;background:rgba(167,139,250,0.06);white-space:nowrap;align-self:flex-start}
+.unique-card-sub{font-size:.78rem;color:var(--text-dim);margin-top:.2rem}
+@media(max-width:600px){.unique-card{grid-template-columns:auto 1fr;}.unique-card-badge{display:none}}
+
+/* RARITY TIER BLOCKS */
+.rarity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:2rem 0}
+.rarity-card{padding:1.5rem;border:1px solid var(--border);background:var(--dark-card);text-align:center}
+.rarity-label{font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem}
+.rarity-card.rare .rarity-label{color:#60a5fa}
+.rarity-card.legendary .rarity-label{color:var(--gold)}
+.rarity-card.mythic .rarity-label{color:#a78bfa}
+.rarity-type{font-size:.82rem;color:var(--text);margin-bottom:.3rem}
+.rarity-tiers{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;color:var(--text-dim);text-transform:uppercase}
+@media(max-width:600px){.rarity-grid{grid-template-columns:1fr}}
+
+/* STAT ROW */
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid rgba(212,168,67,0.08)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.stat-value{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--gold-pale)}
+
+/* SPEED BAR */
+.speed-bar-wrap{margin:2rem 0}
+.speed-bar-item{display:flex;align-items:center;gap:1rem;margin-bottom:.9rem}
+.speed-bar-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);width:180px;flex-shrink:0}
+.speed-bar-track{flex:1;height:6px;background:rgba(212,168,67,0.1);border-radius:2px;overflow:hidden}
+.speed-bar-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.speed-bar-fill.base{background:rgba(212,168,67,0.3);width:9%}
+.speed-bar-fill.min{background:rgba(255,107,26,0.5);width:30%}
+.speed-bar-fill.keg{background:var(--fire);width:68%}
+.speed-bar-fill.max{background:var(--ember);width:73%}
+.speed-bar-fill.divine{background:linear-gradient(90deg,var(--gold),var(--ember));width:100%}
+.speed-bar-val{font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;color:var(--gold-pale);width:80px;text-align:right}
+
+/* UPDATE NOTICE */
+.update-notice{padding:2.5rem 3rem;border:1px solid rgba(255,107,26,0.3);background:rgba(255,107,26,0.04);text-align:center;margin:3rem 0}
+.update-notice-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.1em;color:var(--gold-pale);margin-bottom:1rem}
+.update-notice-text{font-size:.9rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto 1.8rem}
+
+/* TIER TABLE */
+.tier-table-wrap{overflow-x:auto;margin:2rem 0}
+.tier-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.tier-table th{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);padding:.9rem 1.2rem;text-align:left;background:var(--dark-card);border:1px solid var(--border)}
+.tier-table td{padding:.85rem 1.2rem;border:1px solid rgba(212,168,67,0.08);color:var(--text);vertical-align:top;line-height:1.7}
+.tier-table tr:hover td{background:rgba(212,168,67,0.03)}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="navbar">
+  <a href="../valannia-index.html" class="nav-logo">
+    <span class="nav-logo-text">Polaris Fuel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem;letter-spacing:.13em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu" class="mobile-menu">
+  <a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+  <a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
+  <a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" class="mobile-menu-discord" target="_blank" rel="noopener noreferrer">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- URGENCY BANNER -->
+<div class="urgency-banner">
+  <span class="urgency-banner-icon">🔥</span>
+  <div class="urgency-banner-text">
+    <span data-lang="en"><strong>Mount Sale: April 2, 2026.</strong> The first collection of 1,888 mounts sells via ORB waves — closed collection, never regenerated. First 100 ORB minters are eligible for a unique mount award. <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Join Discord</a> to coordinate.</span>
+    <span data-lang="es"><strong>Venta de Monturas: 2 de abril de 2026.</strong> La primera colección de 1.888 monturas se vende mediante oleadas de ORB — colección cerrada, nunca regenerada. Los primeros 100 acuñadores de ORB son elegibles para un sorteo de montura única. <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Únete al Discord</a> para coordinar.</span>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- ARTICLE HERO -->
+<section class="article-hero">
+  <div class="article-hero-glow"></div>
+  <div class="article-breadcrumb">
+    <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Mount Guides</span><span data-lang="es">Guías de Montura</span></span>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">ORB Sale & Unique Items</span><span data-lang="es">Venta de ORB y Objetos Únicos</span></span>
+  </div>
+  <div class="article-meta-row">
+    <div class="article-status"><span data-lang="en">Live · Phase 1</span><span data-lang="es">En vivo · Fase 1</span></div>
+    <span class="article-tag">💎 <span data-lang="en">ORBs</span><span data-lang="es">ORBs</span></span>
+    <span class="article-tag">🐾 <span data-lang="en">Mounts</span><span data-lang="es">Monturas</span></span>
+    <span class="article-tag">⭐ <span data-lang="en">Unique Items</span><span data-lang="es">Objetos Únicos</span></span>
+    <span class="article-readtime">~12 <span data-lang="en">min read · Beginner</span><span data-lang="es">min lectura · Principiante</span></span>
+  </div>
+  <h1 class="article-title">
+    <span data-lang="en">ORB Sale & Unique Items</span>
+    <span data-lang="es">Venta de ORB y Objetos Únicos</span>
+  </h1>
+  <p class="article-subtitle">
+    <span data-lang="en">Everything confirmed about Valannia's first mount collection — 1,888 mounts, two ORB types, a 50% discount wave, and the supply-of-1 items that exist only once in the entire game world.</span>
+    <span data-lang="es">Todo lo confirmado sobre la primera colección de monturas de Valannia — 1.888 monturas, dos tipos de ORB, una oleada con 50% de descuento, y los objetos de suministro-1 que existen solo una vez en todo el mundo del juego.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<main class="article-body">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <div class="toc-label"><span data-lang="en">Contents</span><span data-lang="es">Contenido</span></div>
+    <ul class="toc-list">
+      <li data-num="01"><a href="#first-collection"><span data-lang="en">The First Collection — What You're Buying</span><span data-lang="es">La Primera Colección — Qué Estás Comprando</span></a></li>
+      <li data-num="02"><a href="#orb-types"><span data-lang="en">Silver Orb vs. Golden Orb — How the Sale Works</span><span data-lang="es">Orbe de Plata vs. Orbe Dorado — Cómo Funciona la Venta</span></a></li>
+      <li data-num="03"><a href="#speed-data"><span data-lang="en">Confirmed Speed Data</span><span data-lang="es">Datos de Velocidad Confirmados</span></a></li>
+      <li data-num="04"><a href="#mount-rarities"><span data-lang="en">Mount Rarities & Tiers</span><span data-lang="es">Rareza y Niveles de Montura</span></a></li>
+      <li data-num="05"><a href="#unique-items"><span data-lang="en">Supply-of-1 Unique Items</span><span data-lang="es">Objetos Únicos de Suministro 1</span></a></li>
+      <li data-num="06"><a href="#strategy"><span data-lang="en">How to Approach the Sale</span><span data-lang="es">Cómo Abordar la Venta</span></a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: FIRST COLLECTION -->
+  <div class="article-section reveal" id="first-collection">
+    <div class="article-section-label">
+      <span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">The First Collection — What You're Buying</span>
+      <span data-lang="es">La Primera Colección — Qué Estás Comprando</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">On April 2, 2026, Valannia releases its first official mount collection. This is not a typical game item drop — these are <strong>limited NFTs on Solana, permanently scarce by design</strong>. Once the 1,888 mounts in this collection are minted, no more will ever be generated. They are not craftable. There is no second wave of the same collection.</p>
+      <p class="article-p">Every hero can equip one mount. Mounts multiply movement speed dramatically — the base hero walks at roughly 1 Lyria per hour. Even the lowest-tier mount in this collection starts at 3.3 Lyrias per hour. That's a 3× floor. The top of the collection reaches 8 Lyrias per hour, and the single rarest mount in the game hits 11.</p>
+      <p class="article-p">For a game built around real-time movement, territorial extraction, and time-sensitive logistics, that speed gap is not cosmetic — it is economic.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">El 2 de abril de 2026, Valannia lanza su primera colección oficial de monturas. Esto no es un drop típico de objetos de juego — son <strong>NFTs limitados en Solana, permanentemente escasos por diseño</strong>. Una vez acuñadas las 1.888 monturas de esta colección, no se generarán más. No son fabricables. No hay una segunda oleada de la misma colección.</p>
+      <p class="article-p">Cada héroe puede equipar una montura. Las monturas multiplican dramáticamente la velocidad de movimiento — el héroe base camina aproximadamente 1 Lyria por hora. Incluso la montura de nivel más bajo de esta colección comienza en 3.3 Lyrias por hora. Eso es un piso 3×. El tope de la colección llega a 8 Lyrias por hora, y la montura más rara del juego alcanza 11.</p>
+      <p class="article-p">Para un juego construido en torno al movimiento en tiempo real, la extracción territorial y la logística sensible al tiempo, esa brecha de velocidad no es cosmética — es económica.</p>
+    </div>
+
+    <div class="callout callout-fire">
+      <div class="callout-label"><span data-lang="en">Why scarcity matters here</span><span data-lang="es">Por qué la escasez importa aquí</span></div>
+      <div data-lang="en">Most items in Valannia can be crafted or re-purchased. These 1,888 mounts cannot. When the collection sells out, the only way to acquire one is through player-to-player trade. The longer the game runs, the more attrition reduces that supply — lost heroes, dormant wallets, and permanent NFT loss in Red Zone deaths all shrink the pool.</div>
+      <div data-lang="es">La mayoría de los objetos en Valannia se pueden fabricar o volver a comprar. Estas 1.888 monturas no. Cuando la colección se agote, la única forma de adquirir una es mediante el comercio entre jugadores. Cuanto más tiempo pase el juego, más reducirá el desgaste ese suministro — héroes perdidos, billeteras inactivas y pérdidas permanentes de NFT en muertes en Zonas Rojas reducen el conjunto.</div>
+    </div>
+
+    <div style="margin:2rem 0">
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Total Supply</span><span data-lang="es">Suministro Total</span></span>
+        <span class="stat-value">1,888 mounts</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Craftable?</span><span data-lang="es">¿Fabricable?</span></span>
+        <span class="stat-value"><span data-lang="en">No — closed collection</span><span data-lang="es">No — colección cerrada</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Sale Date</span><span data-lang="es">Fecha de Venta</span></span>
+        <span class="stat-value">April 2, 2026</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Sale Mechanism</span><span data-lang="es">Mecanismo de Venta</span></span>
+        <span class="stat-value"><span data-lang="en">ORB waves</span><span data-lang="es">Oleadas de ORB</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Blockchain</span><span data-lang="es">Blockchain</span></span>
+        <span class="stat-value">Solana</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Speed Range</span><span data-lang="es">Rango de Velocidad</span></span>
+        <span class="stat-value">3.3 → 8.0 Lyr/h</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Unique Mounts (Supply of 1)</span><span data-lang="es">Monturas Únicas (Suministro de 1)</span></span>
+        <span class="stat-value">3 total</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 2: ORB TYPES -->
+  <div class="article-section reveal" id="orb-types">
+    <div class="article-section-label">
+      <span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Silver Orb vs. Golden Orb — How the Sale Works</span>
+      <span data-lang="es">Orbe de Plata vs. Orbe Dorado — Cómo Funciona la Venta</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">The collection is distributed through two ORB types, each corresponding to different rarity tiers. You don't buy a mount directly — you purchase an ORB, which reveals a mount when opened. The rarity of your ORB determines the tier of mount inside.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">La colección se distribuye a través de dos tipos de ORB, cada uno correspondiente a diferentes niveles de rareza. No compras una montura directamente — compras un ORB que revela una montura al abrirlo. La rareza de tu ORB determina el nivel de montura que contiene.</p>
+    </div>
+
+    <div class="orb-grid reveal reveal-delay-1">
+      <div class="orb-card silver">
+        <div class="orb-card-name">⬡ <span data-lang="en">Silver Orb</span><span data-lang="es">Orbe de Plata</span></div>
+        <div class="orb-card-desc">
+          <span data-lang="en">Entry-level ORB for the first collection. Available as individual mint or in bulk. Contains mounts from the Rare tier — mechanical mounts including the Krazy Keg variants.</span>
+          <span data-lang="es">ORB de nivel inicial para la primera colección. Disponible como acuñación individual o en lote. Contiene monturas del nivel Raro — monturas mecánicas incluyendo las variantes Krazy Keg.</span>
+        </div>
+        <div class="orb-card-highlight"><span data-lang="en">Individual or 10-pack</span><span data-lang="es">Individual o paquete de 10</span></div>
+      </div>
+      <div class="orb-card golden">
+        <div class="orb-card-name">◆ <span data-lang="en">Golden Orb — Wave 1</span><span data-lang="es">Orbe Dorado — Oleada 1</span></div>
+        <div class="orb-card-desc">
+          <span data-lang="en">Higher-tier ORB with a significant launch discount. Wave 1 10-pack carries a 50% discount — the best entry price available at launch. Contains mounts from Legendary and Mythic tiers.</span>
+          <span data-lang="es">ORB de nivel superior con un descuento de lanzamiento significativo. El paquete de 10 de la Oleada 1 tiene un 50% de descuento — el mejor precio de entrada disponible en el lanzamiento. Contiene monturas de los niveles Legendario y Mítico.</span>
+        </div>
+        <div class="orb-card-highlight"><span data-lang="en">10-pack · 50% off — Wave 1 only</span><span data-lang="es">Paquete de 10 · 50% dto. — Solo Oleada 1</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">The 50% Wave 1 window</span><span data-lang="es">La ventana del 50% Oleada 1</span></div>
+      <div data-lang="en">The Golden Orb Wave 1 discount applies to the 10-pack only and is a launch-window offer — it will not persist beyond Wave 1. If you are planning to acquire multiple mounts at the higher tiers, Wave 1 is the most cost-efficient entry point available. After Wave 1 closes, pricing reverts to standard.</div>
+      <div data-lang="es">El descuento del Orbe Dorado Oleada 1 aplica solo al paquete de 10 y es una oferta de ventana de lanzamiento — no persistirá más allá de la Oleada 1. Si planeas adquirir múltiples monturas en los niveles superiores, la Oleada 1 es el punto de entrada más rentable disponible. Después de que cierre la Oleada 1, los precios vuelven al estándar.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 3: SPEED DATA -->
+  <div class="article-section reveal" id="speed-data">
+    <div class="article-section-label">
+      <span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Confirmed Speed Data</span>
+      <span data-lang="es">Datos de Velocidad Confirmados</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Speed in Valannia is measured in <strong>Lyrias per hour (Lyr/h)</strong> — the distance across the full Lyria map per hour of travel. Below is every confirmed speed value as of the April 2026 sale. Fuel consumption rates and terrain affinity data for the full collection are still pending live Phase 1 data.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">La velocidad en Valannia se mide en <strong>Lyrias por hora (Lyr/h)</strong> — la distancia a través del mapa completo de Lyria por hora de viaje. A continuación se muestran todos los valores de velocidad confirmados para la venta de abril de 2026. Las tasas de consumo de fuel y los datos de afinidad de terreno para la colección completa aún están pendientes de datos en vivo de Fase 1.</p>
+    </div>
+
+    <div class="speed-bar-wrap reveal reveal-delay-1">
+      <div class="speed-bar-item">
+        <div class="speed-bar-label"><span data-lang="en">Base Hero (no mount)</span><span data-lang="es">Héroe Base (sin montura)</span></div>
+        <div class="speed-bar-track"><div class="speed-bar-fill base"></div></div>
+        <div class="speed-bar-val">~1.0 Lyr/h</div>
+      </div>
+      <div class="speed-bar-item">
+        <div class="speed-bar-label"><span data-lang="en">Collection Minimum</span><span data-lang="es">Mínimo de Colección</span></div>
+        <div class="speed-bar-track"><div class="speed-bar-fill min"></div></div>
+        <div class="speed-bar-val">3.3 Lyr/h</div>
+      </div>
+      <div class="speed-bar-item">
+        <div class="speed-bar-label">Krazy Keg Steel Edition</div>
+        <div class="speed-bar-track"><div class="speed-bar-fill keg"></div></div>
+        <div class="speed-bar-val">7.45 Lyr/h</div>
+      </div>
+      <div class="speed-bar-item">
+        <div class="speed-bar-label"><span data-lang="en">Collection Maximum</span><span data-lang="es">Máximo de Colección</span></div>
+        <div class="speed-bar-track"><div class="speed-bar-fill max"></div></div>
+        <div class="speed-bar-val">8.0 Lyr/h</div>
+      </div>
+      <div class="speed-bar-item">
+        <div class="speed-bar-label">Qwemzi Divine Sun ⭐</div>
+        <div class="speed-bar-track"><div class="speed-bar-fill divine"></div></div>
+        <div class="speed-bar-val">11.0 Lyr/h</div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:2rem">
+      <div class="callout-label"><span data-lang="en">Terrain matters — confirmed example</span><span data-lang="es">El terreno importa — ejemplo confirmado</span></div>
+      <div data-lang="en">The Krazy Keg Steel Edition (7.45 Lyr/h) has a confirmed <strong>+5% Desert Affinity</strong> and a <strong>−20% Forest Penalty</strong>. On forested routes, its effective speed drops significantly — potentially making it slower than a lower-tier mount without terrain penalties. Terrain data for the full collection is pending. Do not buy a mount purely on speed without factoring in your primary routes.</div>
+      <div data-lang="es">El Krazy Keg Steel Edition (7.45 Lyr/h) tiene una confirmada <strong>Afinidad Desierto +5%</strong> y una <strong>Penalización Bosque −20%</strong>. En rutas con bosques, su velocidad efectiva cae significativamente — potencialmente haciéndola más lenta que una montura de nivel inferior sin penalizaciones de terreno. Los datos de terreno para la colección completa están pendientes. No compres una montura puramente por velocidad sin considerar tus rutas principales.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 4: MOUNT RARITIES -->
+  <div class="article-section reveal" id="mount-rarities">
+    <div class="article-section-label">
+      <span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Mount Rarities & Tiers</span>
+      <span data-lang="es">Rareza y Niveles de Montura</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">The collection spans three rarity categories, each with three upgrade tiers. Rarity determines the mount's <strong>type, base speed range, fuel requirements, and terrain behavior</strong>. Tier determines upgrades available within that type.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">La colección abarca tres categorías de rareza, cada una con tres niveles de mejora. La rareza determina el <strong>tipo de montura, rango de velocidad base, requisitos de fuel y comportamiento en terreno</strong>. El nivel determina las mejoras disponibles dentro de ese tipo.</p>
+    </div>
+
+    <div class="rarity-grid reveal reveal-delay-1">
+      <div class="rarity-card rare">
+        <div class="rarity-label"><span data-lang="en">Rare</span><span data-lang="es">Raro</span></div>
+        <div class="rarity-type"><span data-lang="en">⚙️ Mechanic Mount</span><span data-lang="es">⚙️ Montura Mecánica</span></div>
+        <div class="rarity-tiers"><span data-lang="en">3 tiers · Steel Edition variant</span><span data-lang="es">3 niveles · Variante Steel Edition</span></div>
+      </div>
+      <div class="rarity-card legendary">
+        <div class="rarity-label"><span data-lang="en">Legendary</span><span data-lang="es">Legendario</span></div>
+        <div class="rarity-type"><span data-lang="en">🐾 Animal Mount</span><span data-lang="es">🐾 Montura Animal</span></div>
+        <div class="rarity-tiers"><span data-lang="en">3 tiers</span><span data-lang="es">3 niveles</span></div>
+      </div>
+      <div class="rarity-card mythic">
+        <div class="rarity-label"><span data-lang="en">Mythic</span><span data-lang="es">Mítico</span></div>
+        <div class="rarity-type"><span data-lang="en">✨ Arcane Mount</span><span data-lang="es">✨ Montura Arcana</span></div>
+        <div class="rarity-tiers"><span data-lang="en">3 tiers · Highest tier</span><span data-lang="es">3 niveles · Nivel más alto</span></div>
+      </div>
+    </div>
+
+    <div data-lang="en">
+      <p class="article-p" style="margin-top:1.5rem">Each mount category uses different fuel. Mechanical mounts run on <strong>Fire Juice</strong> — the alchemical resource produced by the Chemist specialization, requiring liquid resource deposits, Extraction Towers, and a full production chain. Animal and Arcane mounts use simpler fuel types. The exact fuel mechanics per category are still pending confirmed Phase 1 data.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p" style="margin-top:1.5rem">Cada categoría de montura usa fuel diferente. Las monturas mecánicas funcionan con <strong>Fire Juice</strong> — el recurso alquímico producido por la especialización Chemist, que requiere depósitos de recursos líquidos, Torres de Extracción y toda una cadena de producción. Las monturas animales y arcanas usan tipos de fuel más simples. Los mecanismos exactos de fuel por categoría aún están pendientes de datos confirmados de Fase 1.</p>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">Mounts can be upgraded — tier is not permanent</span><span data-lang="es">Las monturas se pueden mejorar — el nivel no es permanente</span></div>
+      <div data-lang="en">Rarity is fixed. Tier is upgradeable. A Tier 1 mount of any rarity can be upgraded to Tier 2 and then Tier 3 through in-game mechanics. The resource cost and $VALAN cost for tier upgrades are pending live data — but building toward a Tier 3 over time is a viable strategy for players who acquire a lower-tier mount at launch.</div>
+      <div data-lang="es">La rareza es fija. El nivel es mejorable. Una montura de Nivel 1 de cualquier rareza puede mejorarse a Nivel 2 y luego a Nivel 3 mediante mecánicas del juego. El coste de recursos y $VALAN para las mejoras de nivel están pendientes de datos en vivo — pero construir hacia un Nivel 3 con el tiempo es una estrategia viable para los jugadores que adquieren una montura de nivel inferior en el lanzamiento.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 5: UNIQUE ITEMS -->
+  <div class="article-section reveal" id="unique-items">
+    <div class="article-section-label">
+      <span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Supply-of-1 Unique Items</span>
+      <span data-lang="es">Objetos Únicos de Suministro 1</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Valannia has a category of items with a total supply of <strong>one</strong> — not one per server, not one per race. One in the entire game. These exist as true one-of-a-kind NFTs. Some are tied to specific events, others to the ORB sale, and others to discovery mechanics not yet fully revealed.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Valannia tiene una categoría de objetos con un suministro total de <strong>uno</strong> — no uno por servidor, no uno por raza. Uno en todo el juego. Estos existen como NFTs auténticamente únicos. Algunos están vinculados a eventos específicos, otros a la venta de ORB, y otros a mecánicas de descubrimiento aún no completamente reveladas.</p>
+    </div>
+
+    <div class="unique-grid reveal reveal-delay-1">
+
+      <div class="unique-card">
+        <div class="unique-card-icon">☀️</div>
+        <div>
+          <div class="unique-card-name">Qwemzi Divine Sun</div>
+          <div class="unique-card-desc">
+            <span data-lang="en">The fastest mount in existence. Named after the alien Qwemzi civilization — the founders of Eldorath. At 11 Lyrias per hour, it is nearly 40% faster than the top of the standard collection.</span>
+            <span data-lang="es">La montura más rápida que existe. Nombrada por la civilización alienígena Qwemzi — los fundadores de Eldorath. A 11 Lyrias por hora, es casi un 40% más rápida que el tope de la colección estándar.</span>
+          </div>
+          <div class="unique-card-sub"><span data-lang="en">11 Lyr/h · Mount · <strong>Awarded randomly to one of first 100 ORB minters</strong></span><span data-lang="es">11 Lyr/h · Montura · <strong>Sorteada aleatoriamente entre los primeros 100 acuñadores de ORB</strong></span></div>
+        </div>
+        <div class="unique-card-badge"><span data-lang="en">⭐ Supply 1</span><span data-lang="es">⭐ Suministro 1</span></div>
+      </div>
+
+      <div class="unique-card">
+        <div class="unique-card-icon">⚔️</div>
+        <div>
+          <div class="unique-card-name">Lost Valannium Greatsword</div>
+          <div class="unique-card-desc">
+            <span data-lang="en">An 8-ingredient secret recipe weapon. Four ingredients have been publicly revealed: Valannite, Processed Valannite, Luminite Ingot, and Luminite Ore. The remaining four are unknown. The weapon's power stat has not been officially disclosed.</span>
+            <span data-lang="es">Un arma con receta secreta de 8 ingredientes. Cuatro ingredientes han sido revelados públicamente: Valannite, Processed Valannite, Luminite Ingot y Luminite Ore. Los cuatro restantes son desconocidos. El stat de poder del arma no ha sido divulgado oficialmente.</span>
+          </div>
+          <div class="unique-card-sub"><span data-lang="en">8-slot crafted weapon · 4/8 ingredients known</span><span data-lang="es">Arma fabricada de 8 slots · 4/8 ingredientes conocidos</span></div>
+        </div>
+        <div class="unique-card-badge"><span data-lang="en">⭐ Supply 1</span><span data-lang="es">⭐ Suministro 1</span></div>
+      </div>
+
+      <div class="unique-card">
+        <div class="unique-card-icon">🎸</div>
+        <div>
+          <div class="unique-card-name">Haleihun's Battle Harp</div>
+          <div class="unique-card-desc">
+            <span data-lang="en">A weapon of exceptional power from the December 2025 Christmas event. The highest-power item from that event cycle.</span>
+            <span data-lang="es">Un arma de poder excepcional del evento de Navidad de diciembre de 2025. El objeto de mayor poder del ciclo de ese evento.</span>
+          </div>
+          <div class="unique-card-sub"><span data-lang="en">25.0 Power · Weapon · December 2025 Christmas event</span><span data-lang="es">25.0 de Poder · Arma · Evento Navidad diciembre 2025</span></div>
+        </div>
+        <div class="unique-card-badge"><span data-lang="en">⭐ Supply 1</span><span data-lang="es">⭐ Suministro 1</span></div>
+      </div>
+
+      <div class="unique-card">
+        <div class="unique-card-icon">🗡️</div>
+        <div>
+          <div class="unique-card-name">Simmermite Prophecy Dagger</div>
+          <div class="unique-card-desc">
+            <span data-lang="en">A high-power dagger from the December 2025 Christmas event rewards.</span>
+            <span data-lang="es">Una daga de alto poder de las recompensas del evento de Navidad de diciembre de 2025.</span>
+          </div>
+          <div class="unique-card-sub"><span data-lang="en">21.2 Power · Weapon · December 2025 Christmas event</span><span data-lang="es">21.2 de Poder · Arma · Evento Navidad diciembre 2025</span></div>
+        </div>
+        <div class="unique-card-badge"><span data-lang="en">⭐ Supply 1</span><span data-lang="es">⭐ Suministro 1</span></div>
+      </div>
+
+      <div class="unique-card">
+        <div class="unique-card-icon">🔬</div>
+        <div>
+          <div class="unique-card-name">Head-Popper Prototype</div>
+          <div class="unique-card-desc">
+            <span data-lang="en">An unusual weapon from the December 2025 Christmas event with a name that hints at engineering origins. Lowest power of the Christmas trio but still a supply-of-1 collectible.</span>
+            <span data-lang="es">Un arma inusual del evento de Navidad de diciembre de 2025 con un nombre que sugiere orígenes en ingeniería. El menor poder del trío navideño pero aún así un coleccionable de suministro 1.</span>
+          </div>
+          <div class="unique-card-sub"><span data-lang="en">19.3 Power · Weapon · December 2025 Christmas event</span><span data-lang="es">19.3 de Poder · Arma · Evento Navidad diciembre 2025</span></div>
+        </div>
+        <div class="unique-card-badge"><span data-lang="en">⭐ Supply 1</span><span data-lang="es">⭐ Suministro 1</span></div>
+      </div>
+
+      <div class="unique-card">
+        <div class="unique-card-icon">📖</div>
+        <div>
+          <div class="unique-card-name">Kurangi Spellbook</div>
+          <div class="unique-card-desc">
+            <span data-lang="en">Named after Kurangi — the last Qwemzi survivor who founded Eldorath and bound his life essence into the Sanctuary Seal. A secret recipe item requiring 5+ ingredients. Full recipe and effects are not publicly known.</span>
+            <span data-lang="es">Nombrado en honor a Kurangi — el último superviviente Qwemzi que fundó Eldorath y vinculó su esencia vital en el Sello Santuario. Un objeto con receta secreta que requiere 5+ ingredientes. La receta completa y los efectos no son conocidos públicamente.</span>
+          </div>
+          <div class="unique-card-sub"><span data-lang="en">Secret recipe · 5+ ingredients · Item</span><span data-lang="es">Receta secreta · 5+ ingredientes · Objeto</span></div>
+        </div>
+        <div class="unique-card-badge"><span data-lang="en">⭐ Supply 1</span><span data-lang="es">⭐ Suministro 1</span></div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-rare">
+      <div class="callout-label"><span data-lang="en">Two more unique mounts exist</span><span data-lang="es">Existen dos monturas únicas más</span></div>
+      <div data-lang="en">Three unique mounts are part of the April 2 ORB sale — all awarded randomly among the first 100 minters. Only the Qwemzi Divine Sun has been officially named and its speed disclosed. The other two unique mounts remain unannounced. All three have a supply of 1.</div>
+      <div data-lang="es">Tres monturas únicas forman parte de la venta de ORB del 2 de abril — todas sorteadas aleatoriamente entre los primeros 100 acuñadores. Solo el Qwemzi Divine Sun ha sido nombrado oficialmente y su velocidad divulgada. Las otras dos monturas únicas permanecen sin anunciar. Las tres tienen un suministro de 1.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 6: STRATEGY -->
+  <div class="article-section reveal" id="strategy">
+    <div class="article-section-label">
+      <span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">How to Approach the Sale</span>
+      <span data-lang="es">Cómo Abordar la Venta</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">A few things worth keeping in mind as you plan your approach to the April 2 sale.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Algunas cosas a tener en cuenta al planificar tu enfoque para la venta del 2 de abril.</p>
+    </div>
+
+    <div class="tier-table-wrap reveal reveal-delay-1">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Consideration</span><span data-lang="es">Consideración</span></th>
+            <th><span data-lang="en">What It Means</span><span data-lang="es">Qué Significa</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><span data-lang="en">Be in the first 100</span><span data-lang="es">Estar entre los primeros 100</span></strong></td>
+            <td><span data-lang="en">The three unique mounts are distributed randomly among the first 100 ORB minters only. If you want a chance at a supply-of-1 mount — including the Qwemzi Divine Sun — you need to mint early on April 2.</span><span data-lang="es">Las tres monturas únicas se distribuyen aleatoriamente solo entre los primeros 100 acuñadores de ORB. Si quieres una oportunidad de obtener una montura de suministro 1 — incluyendo el Qwemzi Divine Sun — necesitas acuñar temprano el 2 de abril.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span data-lang="en">Wave 1 Golden Orb discount is limited</span><span data-lang="es">El descuento Orbe Dorado Oleada 1 es limitado</span></strong></td>
+            <td><span data-lang="en">The 50% discount on the Golden Orb 10-pack applies to Wave 1 only. This is the best price for Legendary and Mythic tier mounts available at launch. If budget allows and you want higher-rarity mounts, Wave 1 is the window.</span><span data-lang="es">El descuento del 50% en el paquete de 10 del Orbe Dorado aplica solo a la Oleada 1. Este es el mejor precio para monturas de nivel Legendario y Mítico disponible en el lanzamiento. Si el presupuesto lo permite y quieres monturas de mayor rareza, la Oleada 1 es la ventana.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span data-lang="en">Know your routes before buying</span><span data-lang="es">Conoce tus rutas antes de comprar</span></strong></td>
+            <td><span data-lang="en">Terrain affinity data is only confirmed for the Krazy Keg Steel Edition. The rest of the collection's terrain modifiers will be established through Phase 1 play. Speed on paper may differ significantly from effective speed on your specific routes.</span><span data-lang="es">Los datos de afinidad de terreno solo están confirmados para el Krazy Keg Steel Edition. Los modificadores de terreno del resto de la colección se establecerán durante el juego de Fase 1. La velocidad en papel puede diferir significativamente de la velocidad efectiva en tus rutas específicas.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span data-lang="en">Tier 1 is not the ceiling</span><span data-lang="es">El Nivel 1 no es el tope</span></strong></td>
+            <td><span data-lang="en">Every mount in this collection can be upgraded through three tiers. A lower-rarity mount acquired at launch has a long upgrade runway. Starting with a Rare tier mount and upgrading it is a valid long-term strategy.</span><span data-lang="es">Cada montura de esta colección puede mejorarse a través de tres niveles. Una montura de menor rareza adquirida en el lanzamiento tiene una larga trayectoria de mejora. Comenzar con una montura de nivel Raro y mejorarla es una estrategia válida a largo plazo.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span data-lang="en">Coordinate with your guild</span><span data-lang="es">Coordina con tu gremio</span></strong></td>
+            <td><span data-lang="en">Fire Juice supply is a profession-level effort requiring Explorers, Engineers, Miners, Transporters, and Alchemists. Mechanical mount operators who are not also Alchemists will depend on supply networks. Planning your fuel chain before you buy a mechanical mount is as important as the mount decision itself.</span><span data-lang="es">El suministro de Fire Juice es un esfuerzo a nivel de profesión que requiere Exploradores, Ingenieros, Mineros, Transportadores y Alquimistas. Los operadores de monturas mecánicas que no son también Alquimistas dependerán de redes de suministro. Planificar tu cadena de fuel antes de comprar una montura mecánica es tan importante como la decisión de montura en sí.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="update-notice reveal">
+    <div class="update-notice-title">
+      <span data-lang="en">Coordinating for the April 2 sale?</span>
+      <span data-lang="es">¿Coordinando para la venta del 2 de abril?</span>
+    </div>
+    <p class="update-notice-text">
+      <span data-lang="en">Polaris Fuel is organizing community coordination around the mount sale — from timing the first 100 ORB window to mapping profession-based fuel networks. Join Discord to participate and get updates as more collection data is confirmed.</span>
+      <span data-lang="es">Polaris Fuel está organizando la coordinación comunitaria en torno a la venta de monturas — desde coordinar la ventana de los primeros 100 ORB hasta mapear redes de fuel basadas en profesiones. Únete al Discord para participar y recibir actualizaciones a medida que se confirmen más datos de la colección.</span>
+    </p>
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;padding:.85rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;display:inline-block;font-weight:700;transition:transform .2s,box-shadow .2s">
+      <span data-lang="en">Join Discord</span><span data-lang="es">Únete al Discord</span>
+    </a>
+  </div>
+
+</main>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+// NAVBAR
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+// PARTICLES
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+// REVEAL
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+// LANGUAGE
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+// HAMBURGER
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+</body>
+</html>

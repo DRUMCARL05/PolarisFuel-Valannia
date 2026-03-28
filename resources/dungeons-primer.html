@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Dungeons Primer — Polaris Fuel · Valannia</title>
+  <meta name="description" content="How Valannia's dungeon system works — access requirements, stage mechanics, durability costs, rewards, and how to prepare your hero before entering.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.section-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before,.section-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+/* ── ARTICLE-SPECIFIC STYLES ── */
+
+.article-hero{padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
+.article-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.07) 0%,transparent 65%);pointer-events:none}
+.article-breadcrumb{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2rem;opacity:0;animation:fadeUp .7s .2s forwards}
+.article-breadcrumb a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.article-breadcrumb a:hover{color:var(--gold)}
+.article-breadcrumb-sep{color:var(--fire);opacity:.5}
+.article-meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;opacity:0;animation:fadeUp .7s .3s forwards}
+.article-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(255,107,26,0.35);color:var(--fire);background:rgba(255,107,26,0.06)}
+.article-readtime{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.article-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(74,222,128,0.3);color:#4ade80;background:rgba(74,222,128,0.06)}
+.article-status::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.article-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,3rem);font-weight:700;color:var(--gold-pale);letter-spacing:.04em;line-height:1.2;max-width:800px;margin:0 auto 1.2rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.article-subtitle{font-size:.98rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto;opacity:0;animation:fadeUp .8s .55s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+.article-body{max-width:780px;margin:0 auto;padding:5rem 2rem 6rem}
+
+.toc{padding:2rem 2.5rem;border:1px solid var(--border);background:var(--dark-card);margin-bottom:4rem}
+.toc-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.toc-list li{display:flex;align-items:baseline;gap:.7rem;font-size:.88rem}
+.toc-list li::before{content:attr(data-num);font-family:'Cinzel',serif;font-size:.55rem;color:var(--fire);opacity:.7;flex-shrink:0;letter-spacing:.1em}
+.toc-list a{color:var(--text);text-decoration:none;transition:color .2s;line-height:1.6}
+.toc-list a:hover{color:var(--gold)}
+
+.article-section{margin-bottom:4.5rem}
+.article-section-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.38em;text-transform:uppercase;color:var(--fire);opacity:.7;margin-bottom:.9rem}
+.article-h2{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:700;color:var(--gold-pale);letter-spacing:.06em;margin-bottom:1.8rem;line-height:1.4}
+.article-p{font-size:.96rem;line-height:1.95;color:var(--text);margin-bottom:1.2rem}
+.article-p strong{color:var(--gold-pale);font-weight:700}
+.article-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.18),transparent);margin:4rem 0}
+
+.callout{padding:1.5rem 2rem;border-left:3px solid var(--gold);background:rgba(212,168,67,0.05);margin:2rem 0}
+.callout-info{border-left-color:var(--gold)}
+.callout-fire{border-left-color:var(--fire);background:rgba(255,107,26,0.05)}
+.callout-danger{border-left-color:#f87171;background:rgba(248,113,113,0.05)}
+.callout-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;opacity:.8}
+.callout-fire .callout-label{color:var(--fire)}
+.callout-danger .callout-label{color:#f87171}
+
+/* DUNGEON CARDS */
+.dungeon-grid{display:flex;flex-direction:column;gap:1.5rem;margin:2rem 0}
+.dungeon-card{border:1px solid var(--border);background:var(--dark-card);overflow:hidden;position:relative}
+.dungeon-card-header{padding:1.6rem 2rem 1.2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;border-bottom:1px solid rgba(212,168,67,0.08)}
+.dungeon-card-header-left{flex:1}
+.dungeon-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.08em;color:var(--gold-pale);margin-bottom:.4rem}
+.dungeon-subtitle{font-size:.84rem;color:var(--text-dim);font-style:italic}
+.dungeon-access{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem}
+.access-badge{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid;white-space:nowrap}
+.access-badge.available{color:#4ade80;border-color:rgba(74,222,128,0.3);background:rgba(74,222,128,0.06)}
+.access-badge.soul{color:var(--ember);border-color:rgba(255,154,0,0.35);background:rgba(255,154,0,0.06)}
+.access-badge.tbd{color:var(--text-dim);border-color:rgba(122,106,84,0.3);background:rgba(122,106,84,0.05)}
+.dungeon-card-body{padding:1.4rem 2rem 1.6rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.dungeon-detail-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.35rem}
+.dungeon-detail-value{font-size:.88rem;color:var(--text);line-height:1.7}
+@media(max-width:600px){.dungeon-card-body{grid-template-columns:1fr}.dungeon-card-header{flex-direction:column}.dungeon-access{align-items:flex-start}}
+
+/* STAGE FLOW */
+.stage-flow{display:flex;flex-direction:column;gap:.8rem;margin:2rem 0}
+.stage-item{display:grid;grid-template-columns:48px 1fr;gap:1.2rem;align-items:start}
+.stage-num{font-family:'Cinzel Decorative',serif;font-size:1.4rem;font-weight:700;color:rgba(212,168,67,0.25);line-height:1;padding-top:.15rem}
+.stage-content{padding:.2rem 0}
+.stage-title{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:.4rem}
+.stage-desc{font-size:.88rem;color:var(--text);line-height:1.75}
+.stage-connector{width:1px;height:20px;background:rgba(212,168,67,0.15);margin-left:24px}
+
+/* OUTCOME GRID */
+.outcome-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+.outcome-card{padding:1.6rem;border:1px solid var(--border);background:var(--dark-card)}
+.outcome-card.win{border-top:2px solid rgba(74,222,128,0.4)}
+.outcome-card.lose{border-top:2px solid rgba(248,113,113,0.4)}
+.outcome-label{font-family:'Cinzel',serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.8rem}
+.outcome-card.win .outcome-label{color:#4ade80}
+.outcome-card.lose .outcome-label{color:#f87171}
+.outcome-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.outcome-list li{font-size:.86rem;color:var(--text);line-height:1.6;padding-left:1.1rem;position:relative}
+.outcome-list li::before{position:absolute;left:0}
+.outcome-card.win .outcome-list li::before{content:'✓';color:#4ade80;opacity:.7}
+.outcome-card.lose .outcome-list li::before{content:'✗';color:#f87171;opacity:.7}
+@media(max-width:500px){.outcome-grid{grid-template-columns:1fr}}
+
+/* STAT ROW */
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid rgba(212,168,67,0.08)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.stat-value{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--gold-pale)}
+
+/* TIER TABLE */
+.tier-table-wrap{overflow-x:auto;margin:2rem 0}
+.tier-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.tier-table th{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);padding:.9rem 1.2rem;text-align:left;background:var(--dark-card);border:1px solid var(--border)}
+.tier-table td{padding:.85rem 1.2rem;border:1px solid rgba(212,168,67,0.08);color:var(--text);vertical-align:top;line-height:1.7}
+.tier-table tr:hover td{background:rgba(212,168,67,0.03)}
+
+/* PREP CHECKLIST */
+.prep-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:1.5rem 0}
+.prep-list li{display:flex;align-items:flex-start;gap:1rem;font-size:.9rem;color:var(--text);line-height:1.7;padding:.8rem 1.2rem;border:1px solid rgba(212,168,67,0.08);background:var(--dark-card)}
+.prep-list li::before{content:'⬡';color:var(--fire);opacity:.7;font-size:.75rem;flex-shrink:0;margin-top:.15rem}
+
+/* UPDATE NOTICE */
+.update-notice{padding:2.5rem 3rem;border:1px solid rgba(255,107,26,0.3);background:rgba(255,107,26,0.04);text-align:center;margin:3rem 0}
+.update-notice-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.1em;color:var(--gold-pale);margin-bottom:1rem}
+.update-notice-text{font-size:.9rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto 1.8rem}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="navbar">
+  <a href="../valannia-index.html" class="nav-logo">
+    <span class="nav-logo-text">Polaris Fuel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem;letter-spacing:.13em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu" class="mobile-menu">
+  <a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+  <a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
+  <a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" class="mobile-menu-discord" target="_blank" rel="noopener noreferrer">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<main id="main-content">
+
+<section class="article-hero" style="margin-top:72px">
+  <div class="article-hero-glow"></div>
+  <div class="article-breadcrumb">
+    <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Combat Guides</span><span data-lang="es">Guías de Combate</span></span>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Dungeons Primer</span><span data-lang="es">Introducción a las Mazmorras</span></span>
+  </div>
+  <div class="article-meta-row">
+    <div class="article-status"><span data-lang="en">Live · Phase 1</span><span data-lang="es">En vivo · Fase 1</span></div>
+    <span class="article-tag">⚔️ <span data-lang="en">Combat</span><span data-lang="es">Combate</span></span>
+    <span class="article-tag">🏰 <span data-lang="en">Dungeons</span><span data-lang="es">Mazmorras</span></span>
+    <span class="article-tag">💎 <span data-lang="en">Rewards</span><span data-lang="es">Recompensas</span></span>
+    <span class="article-readtime">~10 <span data-lang="en">min read · Beginner–Intermediate</span><span data-lang="es">min lectura · Principiante–Intermedio</span></span>
+  </div>
+  <h1 class="article-title">
+    <span data-lang="en">Dungeons Primer</span>
+    <span data-lang="es">Introducción a las Mazmorras</span>
+  </h1>
+  <p class="article-subtitle">
+    <span data-lang="en">How Valannia's dungeon system works — access requirements, the three-stage structure, what happens when you win or lose, gear durability costs, and how to prepare before you enter.</span>
+    <span data-lang="es">Cómo funciona el sistema de mazmorras de Valannia — requisitos de acceso, la estructura de tres fases, qué sucede cuando ganas o pierdes, el costo de durabilidad del equipo y cómo prepararse antes de entrar.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<div class="article-body">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <div class="toc-label"><span data-lang="en">Contents</span><span data-lang="es">Contenido</span></div>
+    <ul class="toc-list">
+      <li data-num="01"><a href="#overview"><span data-lang="en">How Dungeons Work — The Core Loop</span><span data-lang="es">Cómo Funcionan las Mazmorras — El Loop Principal</span></a></li>
+      <li data-num="02"><a href="#dungeons"><span data-lang="en">The Three Dungeons — Access & Details</span><span data-lang="es">Las Tres Mazmorras — Acceso y Detalles</span></a></li>
+      <li data-num="03"><a href="#win-lose"><span data-lang="en">Win & Lose Outcomes</span><span data-lang="es">Resultados de Victoria y Derrota</span></a></li>
+      <li data-num="04"><a href="#durability"><span data-lang="en">Gear Durability — The Hidden Cost</span><span data-lang="es">Durabilidad del Equipo — El Costo Oculto</span></a></li>
+      <li data-num="05"><a href="#success-factors"><span data-lang="en">What Determines Success</span><span data-lang="es">Qué Determina el Éxito</span></a></li>
+      <li data-num="06"><a href="#preparation"><span data-lang="en">How to Prepare Before You Enter</span><span data-lang="es">Cómo Prepararse Antes de Entrar</span></a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="article-section reveal" id="overview">
+    <div class="article-section-label">
+      <span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">How Dungeons Work — The Core Loop</span>
+      <span data-lang="es">Cómo Funcionan las Mazmorras — El Loop Principal</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Dungeons are Valannia's primary PvE combat system. Each dungeon has <strong>three sequential stages</strong>. You advance through them one per day — meaning a full dungeon clear takes a minimum of three days. Combat is resolved instantly when you enter a stage; you don't watch a real-time fight, you receive an outcome.</p>
+      <p class="article-p">The system is built on patience and preparation, not reaction speed. Your hero's level, equipment, and pet determine how likely you are to succeed — and every attempt, win or lose, costs your weapon one point of durability.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Las mazmorras son el sistema principal de combate PvE de Valannia. Cada mazmorra tiene <strong>tres fases secuenciales</strong>. Avanzas por ellas una por día — lo que significa que completar una mazmorra entera tarda un mínimo de tres días. El combate se resuelve instantáneamente al entrar en una fase; no ves una pelea en tiempo real, recibes un resultado.</p>
+      <p class="article-p">El sistema está construido sobre la paciencia y la preparación, no la velocidad de reacción. El nivel de tu héroe, su equipo y su mascota determinan la probabilidad de éxito — y cada intento, victoria o derrota, le cuesta a tu arma un punto de durabilidad.</p>
+    </div>
+
+    <div style="margin:2rem 0">
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Stages per dungeon</span><span data-lang="es">Fases por mazmorra</span></span>
+        <span class="stat-value">3</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Max stages per day</span><span data-lang="es">Máx. fases por día</span></span>
+        <span class="stat-value"><span data-lang="en">1 per hero</span><span data-lang="es">1 por héroe</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Combat resolution</span><span data-lang="es">Resolución de combate</span></span>
+        <span class="stat-value"><span data-lang="en">Instant</span><span data-lang="es">Instantáneo</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Weapon durability cost per stage</span><span data-lang="es">Costo de durabilidad por fase</span></span>
+        <span class="stat-value"><span data-lang="en">−1 point (win or lose)</span><span data-lang="es">−1 punto (victoria o derrota)</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Completion reward</span><span data-lang="es">Recompensa por completar</span></span>
+        <span class="stat-value"><span data-lang="en">Exclusive gem + random item</span><span data-lang="es">Gema exclusiva + objeto aleatorio</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Legendary drop chance</span><span data-lang="es">Probabilidad de drop legendario</span></span>
+        <span class="stat-value"><span data-lang="en">Extremely rare</span><span data-lang="es">Extremadamente rara</span></span>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">Dungeons and hero evolution</span><span data-lang="es">Mazmorras y evolución del héroe</span></div>
+      <div data-lang="en">Access to dungeons is tied to your hero's <strong>evolution stage</strong>, not just their level. Risen Heroes evolve through three stages — Shattered RISEN, Soul RISEN, and full RISEN. Each stage unlocks new areas and dungeons. You cannot bypass this progression with high stats alone.</div>
+      <div data-lang="es">El acceso a las mazmorras está vinculado a la <strong>etapa de evolución</strong> de tu héroe, no solo a su nivel. Los Héroes Risen evolucionan a través de tres etapas — Shattered RISEN, Soul RISEN y RISEN completo. Cada etapa desbloquea nuevas áreas y mazmorras. No puedes evitar esta progresión solo con estadísticas altas.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 2: THE DUNGEONS -->
+  <div class="article-section reveal" id="dungeons">
+    <div class="article-section-label">
+      <span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">The Three Dungeons — Access & Details</span>
+      <span data-lang="es">Las Tres Mazmorras — Acceso y Detalles</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Three dungeons are confirmed. Two are currently accessible, tied to the first two hero evolution stages. The third has had its concept revealed but full mechanics are not yet published.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Se confirman tres mazmorras. Dos son actualmente accesibles, vinculadas a las primeras dos etapas de evolución del héroe. La tercera ha tenido su concepto revelado, pero los mecanismos completos aún no han sido publicados.</p>
+    </div>
+
+    <div class="dungeon-grid reveal reveal-delay-1">
+
+      <div class="dungeon-card">
+        <div class="dungeon-card-header">
+          <div class="dungeon-card-header-left">
+            <div class="dungeon-name">⚱️ Zeraphy, the Eternal Pyramid</div>
+            <div class="dungeon-subtitle">
+              <span data-lang="en">The first dungeon. Entry point for all new heroes in Realms.</span>
+              <span data-lang="es">La primera mazmorra. Punto de entrada para todos los nuevos héroes en Realms.</span>
+            </div>
+          </div>
+          <div class="dungeon-access">
+            <span class="access-badge available"><span data-lang="en">✓ Live</span><span data-lang="es">✓ En Vivo</span></span>
+          </div>
+        </div>
+        <div class="dungeon-card-body">
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Hero Requirement</span><span data-lang="es">Requisito del Héroe</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">Shattered RISEN — Level 1+. The starting evolution stage. Available to all heroes in the Realms phase from their very first session.</span>
+              <span data-lang="es">Shattered RISEN — Nivel 1+. La etapa de evolución inicial. Disponible para todos los héroes en la fase Realms desde su primera sesión.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">World Access at This Stage</span><span data-lang="es">Acceso al Mundo en Esta Etapa</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">Zeraphy, Vortex, Nook Merchant, Kurangi area. Limited to these zones until evolution to Soul RISEN.</span>
+              <span data-lang="es">Zeraphy, Vortex, Mercader Nook, área de Kurangi. Limitado a estas zonas hasta la evolución a Soul RISEN.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Stages</span><span data-lang="es">Fases</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">3 — one per day max. Winning all 3 completes the dungeon and rewards an exclusive gem + random item drop.</span>
+              <span data-lang="es">3 — máximo una por día. Ganar las 3 completa la mazmorra y recompensa con una gema exclusiva + caída de objeto aleatorio.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang-en="en">Strategic Note</span><span data-lang="es">Nota Estratégica</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">This dungeon is your primary XP and gear progression loop while Shattered. Clear it consistently to reach Soul RISEN and unlock the wider world.</span>
+              <span data-lang="es">Esta mazmorra es tu principal loop de progresión de XP y equipo mientras eres Shattered. Complétala consistentemente para alcanzar Soul RISEN y desbloquear el mundo más amplio.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dungeon-card">
+        <div class="dungeon-card-header">
+          <div class="dungeon-card-header-left">
+            <div class="dungeon-name">🐺 Descent into the Wendigo's Lair</div>
+            <div class="dungeon-subtitle">
+              <span data-lang="en">The second dungeon. Harder, better rewards, gated behind evolution.</span>
+              <span data-lang="es">La segunda mazmorra. Más difícil, mejores recompensas, bloqueada tras la evolución.</span>
+            </div>
+          </div>
+          <div class="dungeon-access">
+            <span class="access-badge soul"><span data-lang="en">Soul RISEN</span><span data-lang="es">Soul RISEN</span></span>
+          </div>
+        </div>
+        <div class="dungeon-card-body">
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Hero Requirement</span><span data-lang="es">Requisito del Héroe</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">Soul RISEN — Level 7+. Requires completing the Shattered RISEN progression and evolving to the second hero stage. Cannot be accessed with a Shattered hero regardless of level.</span>
+              <span data-lang="es">Soul RISEN — Nivel 7+. Requiere completar la progresión Shattered RISEN y evolucionar a la segunda etapa de héroe. No se puede acceder con un héroe Shattered independientemente del nivel.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">World Access at This Stage</span><span data-lang="es">Acceso al Mundo en Esta Etapa</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">All Shattered zones plus Wendigo dungeon access. Full world unlocks only on reaching full RISEN.</span>
+              <span data-lang="es">Todas las zonas Shattered más el acceso a la mazmorra del Wendigo. El mundo completo se desbloquea al alcanzar el RISEN completo.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Stages</span><span data-lang="es">Fases</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">3 — same one-per-day structure as Zeraphy. Higher difficulty, better loot potential, same exclusive gem + random item completion reward.</span>
+              <span data-lang="es">3 — misma estructura de una por día que Zeraphy. Mayor dificultad, mejor potencial de botín, misma recompensa de finalización de gema exclusiva + objeto aleatorio.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Strategic Note</span><span data-lang="es">Nota Estratégica</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">Preparing gear and level before attempting this dungeon is critical. The difficulty spike from Zeraphy is real — do not enter under-equipped expecting to progress at the same rate.</span>
+              <span data-lang="es">Preparar el equipo y el nivel antes de intentar esta mazmorra es fundamental. El salto de dificultad desde Zeraphy es real — no entres mal equipado esperando progresar al mismo ritmo.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dungeon-card" style="opacity:.7">
+        <div class="dungeon-card-header">
+          <div class="dungeon-card-header-left">
+            <div class="dungeon-name">❓ <span data-lang="en">Third Dungeon</span><span data-lang="es">Tercera Mazmorra</span> <span style="font-family:'Cinzel',serif;font-size:.7rem;color:var(--text-dim);font-weight:400">(unnamed)</span></div>
+            <div class="dungeon-subtitle">
+              <span data-lang="en">Concept revealed April 2025. Full mechanics not yet published.</span>
+              <span data-lang="es">Concepto revelado en abril de 2025. Mecánicas completas aún no publicadas.</span>
+            </div>
+          </div>
+          <div class="dungeon-access">
+            <span class="access-badge tbd">TBD</span>
+          </div>
+        </div>
+        <div class="dungeon-card-body">
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Hero Requirement</span><span data-lang="es">Requisito del Héroe</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">Unknown — likely tied to full RISEN evolution stage.</span>
+              <span data-lang="es">Desconocido — probablemente vinculado a la etapa de evolución RISEN completo.</span>
+            </div>
+          </div>
+          <div>
+            <div class="dungeon-detail-label"><span data-lang="en">Known Information</span><span data-lang="es">Información Conocida</span></div>
+            <div class="dungeon-detail-value">
+              <span data-lang="en">Concept teased in April 2025. Described as having different mechanics from the first two dungeons. No name, access requirements, or reward structure confirmed.</span>
+              <span data-lang="es">Concepto adelantado en abril de 2025. Descrito como con mecánicas diferentes a las primeras dos mazmorras. Sin nombre, requisitos de acceso ni estructura de recompensas confirmados.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 3: WIN/LOSE -->
+  <div class="article-section reveal" id="win-lose">
+    <div class="article-section-label">
+      <span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Win & Lose Outcomes</span>
+      <span data-lang="es">Resultados de Victoria y Derrota</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Every dungeon stage has a binary outcome: you win or you lose. Neither outcome is free — both cost your weapon one durability point. What separates them is what happens next.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada fase de mazmorra tiene un resultado binario: ganas o pierdes. Ningún resultado es gratuito — ambos le cuestan a tu arma un punto de durabilidad. Lo que los separa es lo que sucede después.</p>
+    </div>
+
+    <div class="outcome-grid reveal reveal-delay-1">
+      <div class="outcome-card win">
+        <div class="outcome-label">⚔️ <span data-lang="en">Victory</span><span data-lang="es">Victoria</span></div>
+        <ul class="outcome-list">
+          <li><span data-lang="en">Stage cleared — advance to next stage</span><span data-lang="es">Fase superada — avanza a la siguiente</span></li>
+          <li><span data-lang="en">Wait 24 hours before the next stage</span><span data-lang="es">Espera 24 horas antes de la siguiente fase</span></li>
+          <li><span data-lang="en">After Stage 3: exclusive gem + random item</span><span data-lang="es">Tras la Fase 3: gema exclusiva + objeto aleatorio</span></li>
+          <li><span data-lang="en">Legendary item drop possible (extremely rare)</span><span data-lang="es">Caída de objeto legendario posible (extremadamente rara)</span></li>
+          <li><span data-lang="en">Weapon durability: −1</span><span data-lang="es">Durabilidad del arma: −1</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card lose">
+        <div class="outcome-label">💀 <span data-lang="en">Defeat</span><span data-lang="es">Derrota</span></div>
+        <ul class="outcome-list">
+          <li><span data-lang="en">Stage not cleared — must retry same stage</span><span data-lang="es">Fase no superada — debe reintentarse la misma fase</span></li>
+          <li><span data-lang="en">Hero HP decreases with each failed attempt</span><span data-lang="es">Los HP del héroe disminuyen con cada intento fallido</span></li>
+          <li><span data-lang="en">Can retry — but each attempt costs durability</span><span data-lang="es">Puede reintentarse — pero cada intento cuesta durabilidad</span></li>
+          <li><span data-lang="en">Hero below 20% HP: cannot take any actions</span><span data-lang="es">Héroe por debajo del 20% HP: no puede realizar ninguna acción</span></li>
+          <li><span data-lang="en">Weapon durability: −1</span><span data-lang="es">Durabilidad del arma: −1</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-danger">
+      <div class="callout-label"><span data-lang="en">The HP spiral — know when to stop</span><span data-lang="es">La espiral de HP — sabe cuándo parar</span></div>
+      <div data-lang="en">Losing a dungeon stage does not end your run — but it costs HP and weapon durability each time. Heroes below 20% HP cannot take any actions at all. If your hero's HP is dropping from repeated failures, retreat to a Green Zone to recover before re-entering. Burning through your weapon's durability in a losing streak is an expensive mistake to recover from.</div>
+      <div data-lang="es">Perder una fase de mazmorra no termina tu partida — pero cada vez cuesta HP y durabilidad del arma. Los héroes por debajo del 20% HP no pueden realizar ninguna acción en absoluto. Si el HP de tu héroe está bajando por fallos repetidos, retrocede a una Zona Verde para recuperarte antes de volver a entrar. Quemar la durabilidad de tu arma en una racha de derrotas es un error costoso de recuperar.</div>
+    </div>
+
+    <div data-lang="en">
+      <p class="article-p">The 24-hour lockout after winning is a meaningful pacing mechanic. You cannot rush through all three stages in a single session even with maximum stats — the dungeon system is designed to be a consistent daily routine, not a one-shot clear.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">El bloqueo de 24 horas tras la victoria es una mecánica de ritmo significativa. No puedes avanzar por las tres fases en una sola sesión incluso con estadísticas máximas — el sistema de mazmorras está diseñado para ser una rutina diaria consistente, no una limpieza en un solo intento.</p>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 4: DURABILITY -->
+  <div class="article-section reveal" id="durability">
+    <div class="article-section-label">
+      <span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Gear Durability — The Hidden Cost</span>
+      <span data-lang="es">Durabilidad del Equipo — El Costo Oculto</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Every dungeon attempt drains your weapon's durability by 1 point — win or lose, every time. This is not a trivial cost. Gear at zero durability stops providing <strong>all bonuses</strong>, including speed. A zero-durability weapon is unusable until repaired.</p>
+      <p class="article-p">Durability decay also affects all gear during combat, not just weapons. The rate for each gear slot is pending confirmed Phase 1 data — but the principle is the same: combat wears your gear down, and worn gear costs you in both stats and money to repair.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada intento en mazmorra drena la durabilidad de tu arma en 1 punto — victoria o derrota, cada vez. Este no es un costo trivial. El equipo con durabilidad cero deja de proporcionar <strong>todos los bonificadores</strong>, incluida la velocidad. Un arma con durabilidad cero es inutilizable hasta ser reparada.</p>
+      <p class="article-p">El deterioro de durabilidad también afecta a todo el equipo durante el combate, no solo a las armas. La tasa para cada ranura de equipo está pendiente de datos confirmados de Fase 1 — pero el principio es el mismo: el combate desgasta tu equipo, y el equipo desgastado tiene un costo en estadísticas y dinero para reparar.</p>
+    </div>
+
+    <div class="tier-table-wrap reveal reveal-delay-1">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Durability Event</span><span data-lang="es">Evento de Durabilidad</span></th>
+            <th><span data-lang="en">Cost</span><span data-lang="es">Costo</span></th>
+            <th><span data-lang="en">Notes</span><span data-lang="es">Notas</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Dungeon stage — win</span><span data-lang="es">Fase de mazmorra — victoria</span></td>
+            <td><strong>−1</strong> <span data-lang="en">weapon durability</span><span data-lang="es">durabilidad de arma</span></td>
+            <td><span data-lang="en">Confirmed. Applies per stage.</span><span data-lang="es">Confirmado. Aplica por fase.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Dungeon stage — loss</span><span data-lang="es">Fase de mazmorra — derrota</span></td>
+            <td><strong>−1</strong> <span data-lang="en">weapon durability</span><span data-lang="es">durabilidad de arma</span></td>
+            <td><span data-lang="en">Confirmed. Same cost as a win.</span><span data-lang="es">Confirmado. El mismo costo que una victoria.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">All gear during combat</span><span data-lang="es">Todo el equipo durante el combate</span></td>
+            <td><span data-lang="en">Degrades</span><span data-lang="es">Se degrada</span></td>
+            <td><span data-lang="en">Exact decay rates per slot — pending Phase 1 data</span><span data-lang="es">Tasas de deterioro exactas por ranura — pendientes de datos de Fase 1</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Gear at 0 durability</span><span data-lang="es">Equipo con 0 durabilidad</span></td>
+            <td><span data-lang="en">All bonuses lost</span><span data-lang="es">Todos los bonificadores perdidos</span></td>
+            <td><span data-lang="en">Weapon unusable until repaired. All stat contributions zero.</span><span data-lang="es">Arma inutilizable hasta ser reparada. Todas las contribuciones de estadísticas en cero.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Weapon repair</span><span data-lang="es">Reparación de arma</span></td>
+            <td><span data-lang="en">Gorb Toolbox</span><span data-lang="es">Gorb Toolbox</span></td>
+            <td><span data-lang="en">Crafted with 1 copper ingot (reduced from 2). Exact repair cost structure — pending Phase 1 data.</span><span data-lang="es">Fabricado con 1 lingote de cobre (reducido de 2). Estructura exacta de costo de reparación — pendiente de datos de Fase 1.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-fire">
+      <div class="callout-label"><span data-lang="en">Managing your weapon supply</span><span data-lang="es">Gestionando tu suministro de armas</span></div>
+      <div data-lang="en">A dungeon clear costs 3 weapon durability minimum (one per stage, all wins). A difficult clear with repeated failures on any stage costs more. Budget your weapon durability accordingly — and ensure you either have a Gorb Toolbox in inventory or access to someone who crafts them. Running out of durability mid-dungeon progression is avoidable with planning.</div>
+      <div data-lang="es">Una limpieza de mazmorra cuesta un mínimo de 3 de durabilidad del arma (uno por fase, todas victorias). Una limpieza difícil con fallos repetidos en cualquier fase cuesta más. Presupuesta la durabilidad de tu arma en consecuencia — y asegúrate de tener un Gorb Toolbox en el inventario o acceso a alguien que los fabrique. Quedarse sin durabilidad a mitad de la progresión en mazmorras es evitable con planificación.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 5: SUCCESS FACTORS -->
+  <div class="article-section reveal" id="success-factors">
+    <div class="article-section-label">
+      <span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">What Determines Success</span>
+      <span data-lang="es">Qué Determina el Éxito</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Combat resolution is instant — the outcome is calculated from your hero's stats, equipment, and pet when you enter the stage. Three factors are explicitly confirmed as success determinants.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">La resolución de combate es instantánea — el resultado se calcula a partir de las estadísticas, el equipo y la mascota de tu héroe al entrar en la fase. Tres factores están explícitamente confirmados como determinantes del éxito.</p>
+    </div>
+
+    <div class="stage-flow reveal reveal-delay-1">
+      <div class="stage-item">
+        <div class="stage-num">I</div>
+        <div class="stage-content">
+          <div class="stage-title"><span data-lang="en">Hero Level</span><span data-lang="es">Nivel del Héroe</span></div>
+          <div class="stage-desc">
+            <span data-lang="en">Higher level means more stat points allocated. Each level-up grants 5 points to distribute freely across HP, Power, Defense, Movement Speed, Stamina, and Leadership. Power directly scales weapon damage and determines how hard you hit relative to dungeon enemy resistance. Defense and HP determine survivability. Invest in the stats that match your class and playstyle before pushing into a new dungeon.</span>
+            <span data-lang="es">Mayor nivel significa más puntos de estadísticas asignados. Cada subida de nivel otorga 5 puntos para distribuir libremente entre HP, Poder, Defensa, Velocidad de Movimiento, Estamina y Liderazgo. El Poder escala directamente el daño del arma y determina qué tan fuerte golpeas en relación con la resistencia del enemigo de la mazmorra. La Defensa y el HP determinan la supervivencia. Invierte en las estadísticas que coincidan con tu clase y estilo de juego antes de avanzar a una nueva mazmorra.</span>
+          </div>
+        </div>
+      </div>
+      <div class="stage-connector"></div>
+      <div class="stage-item">
+        <div class="stage-num">II</div>
+        <div class="stage-content">
+          <div class="stage-title"><span data-lang="en">Equipment</span><span data-lang="es">Equipo</span></div>
+          <div class="stage-desc">
+            <span data-lang="en">Your gear contributes Defense, Power, Speed, and resistance stats. Every piece of gear has a durability value — at zero, it contributes nothing. Before entering a dungeon, verify all equipped items are in working condition. Weapon synergy (matching weapon type to your hero class) provides an immediate bonus; building proficiency over time with a specific weapon can eventually outperform the synergy advantage. Enchantments, ORB slots, and set bonuses layer additional power on top of base gear stats.</span>
+            <span data-lang="es">Tu equipo contribuye con Defensa, Poder, Velocidad y estadísticas de resistencia. Cada pieza de equipo tiene un valor de durabilidad — en cero, no contribuye nada. Antes de entrar a una mazmorra, verifica que todos los objetos equipados estén en condiciones de funcionamiento. La sinergia de arma (hacer coincidir el tipo de arma con tu clase de héroe) proporciona un bonificador inmediato; desarrollar proficiencia con el tiempo con un arma específica puede eventualmente superar la ventaja de sinergia. Los encantamientos, las ranuras de ORB y los bonificadores de set añaden poder adicional sobre las estadísticas base del equipo.</span>
+          </div>
+        </div>
+      </div>
+      <div class="stage-connector"></div>
+      <div class="stage-item">
+        <div class="stage-num">III</div>
+        <div class="stage-content">
+          <div class="stage-title"><span data-lang="en">Pet</span><span data-lang="es">Mascota</span></div>
+          <div class="stage-desc">
+            <span data-lang="en">Pets contribute to dungeon success rate. Hunting pets are produced by the Explorer profession's Hunter specialization — they are a tradeable asset, and having an active pet in your lineup before dungeon attempts is a meaningful edge. The exact mechanics of how pets influence the combat calculation are not yet fully published, but their role as a success factor is confirmed.</span>
+            <span data-lang="es">Las mascotas contribuyen a la tasa de éxito en mazmorras. Las mascotas de caza son producidas por la especialización Hunter de la profesión Explorer — son un activo intercambiable, y tener una mascota activa en tu plantilla antes de los intentos en mazmorras es una ventaja significativa. Los mecanismos exactos de cómo las mascotas influyen en el cálculo de combate aún no están completamente publicados, pero su papel como factor de éxito está confirmado.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">Damage types and resistances</span><span data-lang="es">Tipos de daño y resistencias</span></div>
+      <div data-lang="en">Combat in Valannia uses four damage types — Physical, Elemental, Magical, and Psychic. Each hero class has different base resistances. Mages start with 20% Magic Resistance and 15% Psychic Resistance but 0% physical protection. Tanks have no non-physical resistance but maximum physical defense through full metal gear. Knowing your class's weaknesses helps you prioritize the right gear enchantments and ORB effects before dungeon encounters.</div>
+      <div data-lang="es">El combate en Valannia usa cuatro tipos de daño — Físico, Elemental, Mágico y Psíquico. Cada clase de héroe tiene diferentes resistencias base. Los Magos comienzan con 20% de Resistencia Mágica y 15% de Resistencia Psíquica, pero 0% de protección física. Los Tanks no tienen resistencia no-física, pero tienen defensa física máxima a través del equipo de metal completo. Conocer las debilidades de tu clase te ayuda a priorizar los encantamientos de equipo correctos y los efectos de ORB antes de los encuentros en mazmorras.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 6: PREPARATION -->
+  <div class="article-section reveal" id="preparation">
+    <div class="article-section-label">
+      <span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">How to Prepare Before You Enter</span>
+      <span data-lang="es">Cómo Prepararse Antes de Entrar</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Dungeon attempts are limited to one per day and each one costs durability. There are no free attempts. Going in underprepared compounds the cost — failed attempts drain HP and weapon durability without advancing you. The following checklist covers everything confirmed that affects dungeon readiness.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Los intentos en mazmorras están limitados a uno por día y cada uno cuesta durabilidad. No hay intentos gratuitos. Entrar sin preparación multiplica el costo — los intentos fallidos drenan HP y durabilidad del arma sin hacerte avanzar. La siguiente lista de verificación cubre todo lo confirmado que afecta la preparación para mazmorras.</p>
+    </div>
+
+    <ul class="prep-list reveal reveal-delay-1">
+      <li>
+        <span data-lang="en"><strong>Verify hero evolution stage.</strong> Confirm you meet the access requirement for the dungeon you're entering. Zeraphy requires Shattered RISEN (Level 1+). Wendigo requires Soul RISEN (Level 7+). Attempting a dungeon your hero cannot access will block your entry entirely.</span>
+        <span data-lang="es"><strong>Verifica la etapa de evolución del héroe.</strong> Confirma que cumples el requisito de acceso para la mazmorra que vas a entrar. Zeraphy requiere Shattered RISEN (Nivel 1+). Wendigo requiere Soul RISEN (Nivel 7+). Intentar entrar a una mazmorra a la que tu héroe no puede acceder bloqueará completamente tu entrada.</span>
+      </li>
+      <li>
+        <span data-lang="en"><strong>Check all gear durability.</strong> Every piece of equipped gear should be well above zero before entering. A weapon at zero durability renders you effectively unarmed. Check helmet, armor, boots, and weapon before each attempt — not just after a losing streak.</span>
+        <span data-lang="es"><strong>Verifica la durabilidad de todo el equipo.</strong> Cada pieza del equipo equipado debe estar bien por encima de cero antes de entrar. Un arma con durabilidad cero te deja efectivamente desarmado. Revisa el casco, la armadura, las botas y el arma antes de cada intento — no solo después de una racha de derrotas.</span>
+      </li>
+      <li>
+        <span data-lang="en"><strong>Carry a Gorb Toolbox or know where to get one.</strong> Weapon repair is handled by the Gorb Toolbox (crafted with 1 copper ingot). If you are not a Blacksmith yourself, source them from the market or coordinate with a crafter in your network before dungeon sessions. Running out of durability without a repair option is avoidable.</span>
+        <span data-lang="es"><strong>Lleva un Gorb Toolbox o sabe dónde conseguir uno.</strong> La reparación de armas se realiza con el Gorb Toolbox (fabricado con 1 lingote de cobre). Si no eres Herrero, consíguelos en el mercado o coordina con un artesano en tu red antes de las sesiones de mazmorra. Quedarse sin durabilidad sin una opción de reparación es evitable.</span>
+      </li>
+      <li>
+        <span data-lang="en"><strong>Restore HP to full before entering.</strong> Carry food (+5 HP every 30 seconds), health potions (+25 HP instantly), or rest at your land if you own it. Never enter a dungeon at reduced HP — your safety margin during a bad stage is everything.</span>
+        <span data-lang="es"><strong>Restaura el HP a máximo antes de entrar.</strong> Lleva comida (+5 HP cada 30 segundos), pociones de salud (+25 HP instantáneamente) o descansa en tu tierra si la tienes. Nunca entres a una mazmorra con HP reducido — tu margen de seguridad durante una fase difícil lo es todo.</span>
+      </li>
+      <li>
+        <span data-lang="en"><strong>Equip a pet if you have one.</strong> Pets are a confirmed success factor. If you have a hunting pet in your inventory, equip it before entering. If you don't, consider sourcing one through the player market or coordinating with an Explorer in your network.</span>
+        <span data-lang="es"><strong>Equipa una mascota si tienes una.</strong> Las mascotas son un factor de éxito confirmado. Si tienes una mascota de caza en tu inventario, equípala antes de entrar. Si no tienes, considera conseguir una a través del mercado de jugadores o coordinando con un Explorer en tu red.</span>
+      </li>
+      <li>
+        <span data-lang="en"><strong>Match your weapon to your class.</strong> Weapon synergy (class-matched weapon type) provides an immediate combat bonus. If you are using a weapon outside your class, build proficiency through consistent use — high proficiency can eventually exceed the synergy advantage, but it takes time.</span>
+        <span data-lang="es"><strong>Haz coincidir tu arma con tu clase.</strong> La sinergia de arma (tipo de arma que coincide con la clase) proporciona un bonificador de combate inmediato. Si estás usando un arma fuera de tu clase, desarrolla proficiencia a través del uso consistente — la proficiencia alta puede eventualmente superar la ventaja de sinergia, pero lleva tiempo.</span>
+      </li>
+    </ul>
+
+    <div class="callout callout-info" style="margin-top:2rem">
+      <div class="callout-label"><span data-lang="en">The bigger picture</span><span data-lang="es">El panorama general</span></div>
+      <div data-lang="en">Clearing all three stages of a dungeon rewards an <strong>exclusive gem</strong> plus a random item, with an extremely rare chance of a legendary drop. Gems feed directly into the Jewelry profession — Core Binders use gem magical essence to craft ORBs, which are slotted into gear to add resistances, damage reduction, and damage reflect. Every dungeon clear you complete feeds the broader player economy.</div>
+      <div data-lang="es">Completar las tres fases de una mazmorra recompensa con una <strong>gema exclusiva</strong> más un objeto aleatorio, con una probabilidad extremadamente rara de una caída legendaria. Las gemas se alimentan directamente a la profesión de Joyería — los Core Binders usan la esencia mágica de las gemas para fabricar ORBs, que se insertan en el equipo para añadir resistencias, reducción de daño y reflejo de daño. Cada limpieza de mazmorra que completes alimenta la economía más amplia de los jugadores.</div>
+    </div>
+  </div>
+
+  <div class="update-notice reveal">
+    <div class="update-notice-title">
+      <span data-lang="en">Coordinating dungeon runs?</span>
+      <span data-lang="es">¿Coordinando mazmorras?</span>
+    </div>
+    <p class="update-notice-text">
+      <span data-lang="en">Polaris Fuel tracks dungeon data as Phase 1 progresses — drop rates, success patterns by class and level, and repair cost benchmarks. Join Discord to share your findings, access coordination channels, and get notified when this guide is updated with live data.</span>
+      <span data-lang="es">Polaris Fuel rastrea datos de mazmorras a medida que avanza la Fase 1 — tasas de caída, patrones de éxito por clase y nivel, y referencias de costos de reparación. Únete al Discord para compartir tus hallazgos, acceder a canales de coordinación y recibir notificaciones cuando esta guía se actualice con datos en vivo.</span>
+    </p>
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;padding:.85rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;display:inline-block;font-weight:700;transition:transform .2s,box-shadow .2s">
+      <span data-lang="en">Join Discord</span><span data-lang="es">Únete al Discord</span>
+    </a>
+  </div>
+
+</div><!-- end article-body -->
+</main>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+// NAVBAR
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+// PARTICLES
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+// REVEAL
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+// LANGUAGE
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+// HAMBURGER
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+</body>
+</html>
