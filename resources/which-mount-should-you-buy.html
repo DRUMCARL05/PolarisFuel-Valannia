@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Which Mount Should You Buy? — Polaris Fuel · Valannia</title>
+  <meta name="description" content="A decision-tree guide to choosing the right Valannia mount. Based on your profession, terrain, fuel access, and budget — with full confirmed data from the first collection.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.section-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem}
+.section-label::before,.section-label::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+/* ── ARTICLE STYLES ── */
+.article-hero{padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden;margin-top:72px}
+.article-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.07) 0%,transparent 65%);pointer-events:none}
+.article-breadcrumb{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2rem;opacity:0;animation:fadeUp .7s .2s forwards}
+.article-breadcrumb a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.article-breadcrumb a:hover{color:var(--gold)}
+.article-breadcrumb-sep{color:var(--fire);opacity:.5}
+.article-meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;opacity:0;animation:fadeUp .7s .3s forwards}
+.article-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(255,107,26,0.35);color:var(--fire);background:rgba(255,107,26,0.06)}
+.article-readtime{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.article-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(74,222,128,0.3);color:#4ade80;background:rgba(74,222,128,0.06)}
+.article-status::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.article-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,3rem);font-weight:700;color:var(--gold-pale);letter-spacing:.04em;line-height:1.2;max-width:800px;margin:0 auto 1.2rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.article-subtitle{font-size:.98rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto;opacity:0;animation:fadeUp .8s .55s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.article-body{max-width:780px;margin:0 auto;padding:5rem 2rem 6rem}
+.toc{padding:2rem 2.5rem;border:1px solid var(--border);background:var(--dark-card);margin-bottom:4rem}
+.toc-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.toc-list li{display:flex;align-items:baseline;gap:.7rem;font-size:.88rem}
+.toc-list li::before{content:attr(data-num);font-family:'Cinzel',serif;font-size:.55rem;color:var(--fire);opacity:.7;flex-shrink:0;letter-spacing:.1em}
+.toc-list a{color:var(--text);text-decoration:none;transition:color .2s;line-height:1.6}
+.toc-list a:hover{color:var(--gold)}
+.article-section{margin-bottom:4.5rem}
+.article-section-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.38em;text-transform:uppercase;color:var(--fire);opacity:.7;margin-bottom:.9rem}
+.article-h2{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:700;color:var(--gold-pale);letter-spacing:.06em;margin-bottom:1.8rem;line-height:1.4}
+.article-h3{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin:2.5rem 0 1rem}
+.article-p{font-size:.96rem;line-height:1.95;color:var(--text);margin-bottom:1.2rem}
+.article-p strong{color:var(--gold-pale);font-weight:700}
+.article-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.18),transparent);margin:4rem 0}
+.callout{padding:1.5rem 2rem;border-left:3px solid var(--gold);background:rgba(212,168,67,0.05);margin:2rem 0}
+.callout-info{border-left-color:var(--gold)}
+.callout-fire{border-left-color:var(--fire);background:rgba(255,107,26,0.05)}
+.callout-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;opacity:.8}
+.callout-fire .callout-label{color:var(--fire)}
+
+/* DECISION TREE */
+.decision-step{margin-bottom:3rem}
+.decision-question{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);padding:1.2rem 1.5rem;border:1px solid rgba(212,168,67,0.3);background:rgba(212,168,67,0.04);margin-bottom:1rem}
+.decision-options{display:flex;flex-direction:column;gap:.8rem}
+.decision-option{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.2rem;padding:1.2rem 1.5rem;border:1px solid var(--border);background:var(--dark-card);text-decoration:none;transition:border-color .25s,background .25s}
+.decision-option:hover{border-color:rgba(255,107,26,0.3);background:#1c1008}
+.decision-option-key{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--fire);letter-spacing:.12em;flex-shrink:0}
+.decision-option-text{font-size:.88rem;color:var(--text);line-height:1.6}
+.decision-option-arrow{font-size:.7rem;color:var(--text-dim);flex-shrink:0}
+
+/* RECOMMENDATION CARDS */
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2rem 0}
+.rec-card{padding:1.8rem;border:1px solid var(--border);background:var(--dark-card);position:relative;overflow:hidden}
+.rec-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.rec-card.mechanic::before{background:linear-gradient(90deg,transparent,var(--fire),transparent)}
+.rec-card.animal::before{background:linear-gradient(90deg,transparent,rgba(74,222,128,0.6),transparent)}
+.rec-card.arcane::before{background:linear-gradient(90deg,transparent,rgba(167,139,250,0.6),transparent)}
+.rec-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:.8rem}
+.rec-card-name{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;color:var(--gold-pale)}
+.rec-card-speed{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700}
+.rec-card.mechanic .rec-card-speed{color:var(--fire)}
+.rec-card.animal .rec-card-speed{color:#4ade80}
+.rec-card.arcane .rec-card-speed{color:#a78bfa}
+.rec-card-stat{font-size:.78rem;color:var(--text-dim);margin-bottom:.35rem}
+.rec-card-stat strong{color:var(--text)}
+.rec-card-best{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-top:.9rem;padding-top:.7rem;border-top:1px solid rgba(255,107,26,0.15)}
+@media(max-width:600px){.rec-grid{grid-template-columns:1fr}}
+
+/* COMPARISON TABLE */
+.tier-table-wrap{overflow-x:auto;margin:2rem 0}
+.tier-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.tier-table th{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);padding:.9rem 1.2rem;text-align:left;background:var(--dark-card);border:1px solid var(--border)}
+.tier-table td{padding:.85rem 1.2rem;border:1px solid rgba(212,168,67,0.08);color:var(--text);vertical-align:top;line-height:1.7}
+.tier-table tr:hover td{background:rgba(212,168,67,0.03)}
+
+/* UPDATE NOTICE */
+.update-notice{padding:2.5rem 3rem;border:1px solid rgba(255,107,26,0.3);background:rgba(255,107,26,0.04);text-align:center;margin:3rem 0}
+.update-notice-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.1em;color:var(--gold-pale);margin-bottom:1rem}
+.update-notice-text{font-size:.9rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto 1.8rem}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../valannia-resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+  <a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
+  <a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="mobile-menu-discord">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<nav id="navbar">
+  <a href="../valannia-index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
+  <ul class="nav-links">
+    <li><a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="color:var(--text-dim);opacity:.6;font-size:.58rem;letter-spacing:.15em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main id="main-content">
+<section class="article-hero">
+  <div class="article-hero-glow"></div>
+  <div class="article-breadcrumb">
+    <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Mount Guides</span><span data-lang="es">Guías de Montura</span></span>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Which Mount Should You Buy?</span><span data-lang="es">¿Qué Montura Debes Comprar?</span></span>
+  </div>
+  <div class="article-meta-row">
+    <div class="article-status"><span data-lang="en">Live · Phase 1</span><span data-lang="es">En vivo · Fase 1</span></div>
+    <span class="article-tag">🐾 <span data-lang="en">Mounts</span><span data-lang="es">Monturas</span></span>
+    <span class="article-tag">⛽ <span data-lang="en">Fuel</span><span data-lang="es">Fuel</span></span>
+    <span class="article-tag">🗺️ <span data-lang="en">Decision Guide</span><span data-lang="es">Guía de Decisión</span></span>
+    <span class="article-readtime">~10 <span data-lang="en">min read · Beginner</span><span data-lang="es">min lectura · Principiante</span></span>
+  </div>
+  <h1 class="article-title">
+    <span data-lang="en">Which Mount Should You Buy?</span>
+    <span data-lang="es">¿Qué Montura Debes Comprar?</span>
+  </h1>
+  <p class="article-subtitle">
+    <span data-lang="en">A step-by-step decision guide based on your profession, primary routes, terrain, fuel access, and budget. Full first-collection data confirmed.</span>
+    <span data-lang="es">Una guía de decisión paso a paso basada en tu profesión, rutas principales, terreno, acceso a fuel y presupuesto. Datos completos de la primera colección confirmados.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<div class="article-body">
+
+  <div class="toc reveal">
+    <div class="toc-label"><span data-lang="en">In this guide</span><span data-lang="es">En esta guía</span></div>
+    <ul class="toc-list">
+      <li data-num="01"><a href="#before-you-decide"><span data-lang="en">Three questions to answer first</span><span data-lang="es">Tres preguntas que responder primero</span></a></li>
+      <li data-num="02"><a href="#by-profession"><span data-lang="en">Recommendation by profession</span><span data-lang="es">Recomendación por profesión</span></a></li>
+      <li data-num="03"><a href="#by-terrain"><span data-lang="en">Recommendation by terrain & route</span><span data-lang="es">Recomendación por terreno y ruta</span></a></li>
+      <li data-num="04"><a href="#by-budget"><span data-lang="en">Recommendation by budget & fuel access</span><span data-lang="es">Recomendación por presupuesto y acceso a fuel</span></a></li>
+      <li data-num="05"><a href="#family-profiles"><span data-lang="en">Full mount family profiles</span><span data-lang="es">Perfiles completos de familia de monturas</span></a></li>
+      <li data-num="06"><a href="#the-one-number"><span data-lang="en">The one number that matters most</span><span data-lang="es">El único número que más importa</span></a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: THREE QUESTIONS -->
+  <div class="article-section reveal" id="before-you-decide">
+    <div class="article-section-label">
+      <span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Three Questions to Answer First</span>
+      <span data-lang="es">Tres Preguntas que Responder Primero</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Before looking at any mount, answer these three questions. They cut through most of the noise and point you at the right family in under a minute.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Antes de mirar cualquier montura, responde estas tres preguntas. Eliminan la mayor parte del ruido y te señalan la familia correcta en menos de un minuto.</p>
+    </div>
+
+    <div class="decision-step">
+      <div class="decision-question">
+        <span data-lang="en">1. Do you have reliable access to Fire Juice or Liquid Valannite?</span>
+        <span data-lang="es">1. ¿Tienes acceso confiable a Fire Juice o Valannite Líquida?</span>
+      </div>
+      <div class="decision-options">
+        <div class="decision-option">
+          <span class="decision-option-key">YES</span>
+          <span class="decision-option-text"><span data-lang="en">You're fueled for Krazy Keg (Fire Juice) or Arcane Chariot (Liq. Valannite) — the highest-performing mount families. Continue to Question 2.</span><span data-lang="es">Tienes fuel para el Krazy Keg (Fire Juice) o el Arcane Chariot (Valannite Líquida) — las familias de monturas de mayor rendimiento. Continúa a la Pregunta 2.</span></span>
+          <span class="decision-option-arrow">→</span>
+        </div>
+        <div class="decision-option">
+          <span class="decision-option-key">NO</span>
+          <span class="decision-option-text"><span data-lang="en">Go Animal. Gorren (Water) or Vaelgrun (Stormwater) run on simpler fuel that doesn't require a full production chain. Lower speed ceiling but far easier to self-sustain.</span><span data-lang="es">Elige Animal. Los Gorren (Agua) o Vaelgrun (Agua Tormenta) funcionan con fuel más simple que no requiere una cadena de producción completa. Techo de velocidad más bajo, pero mucho más fácil de autosostener.</span></span>
+          <span class="decision-option-arrow">→ <span data-lang="en">Skip to Section 04 Budget</span><span data-lang="es">Ir a Sección 04 Presupuesto</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-step">
+      <div class="decision-question">
+        <span data-lang="en">2. Are your primary routes short and fast, or long-distance hauls?</span>
+        <span data-lang="es">2. ¿Tus rutas principales son cortas y rápidas, o de largo recorrido?</span>
+      </div>
+      <div class="decision-options">
+        <div class="decision-option">
+          <span class="decision-option-key"><span data-lang="en">SHORT</span><span data-lang="es">CORTO</span></span>
+          <span class="decision-option-text"><span data-lang="en">Krazy Keg. 20 Lyr range on a full tank is fine for sprint loops. 7.45–8.0 Lyr/h speed — fastest standard mount in the collection. Needs refueling every 20 Lyrias but consumes only 0.5 Fire Juice/Lyr.</span><span data-lang="es">Krazy Keg. 20 Lyr de rango con el tanque lleno es suficiente para loops de sprint. 7.45–8.0 Lyr/h de velocidad — la montura estándar más rápida de la colección. Necesita reabastecimiento cada 20 Lyrias pero consume solo 0.5 Fire Juice/Lyr.</span></span>
+          <span class="decision-option-arrow">→ ⚙️</span>
+        </div>
+        <div class="decision-option">
+          <span class="decision-option-key"><span data-lang="en">LONG</span><span data-lang="es">LARGO</span></span>
+          <span class="decision-option-text"><span data-lang="en">Arcane Chariot. 60 Lyr tank — travels 60 Lyrias before needing fuel. Moderate speed (3.81–4.15 Lyr/h) but uninterrupted range, high cargo, and Defense bonus.</span><span data-lang="es">Arcane Chariot. Tanque de 60 Lyr — recorre 60 Lyrias antes de necesitar fuel. Velocidad moderada (3.81–4.15 Lyr/h) pero rango ininterrumpido, alta carga y bonus de Defensa.</span></span>
+          <span class="decision-option-arrow">→ 🔮</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-step">
+      <div class="decision-question">
+        <span data-lang="en">3. What terrain do you primarily travel through?</span>
+        <span data-lang="es">3. ¿Qué terreno recorres principalmente?</span>
+      </div>
+      <div class="decision-options">
+        <div class="decision-option">
+          <span class="decision-option-key"><span data-lang="en">Desert / Open</span><span data-lang="es">Desierto / Abierto</span></span>
+          <span class="decision-option-text"><span data-lang="en">Krazy Keg thrives here. Desert +5% affinity bonus stacks on top of base speed. Open terrain negates the forest penalty entirely.</span><span data-lang="es">El Krazy Keg prospera aquí. El bonus de afinidad Desierto +5% se suma a la velocidad base. El terreno abierto niega la penalización forestal por completo.</span></span>
+          <span class="decision-option-arrow">→ ⚙️</span>
+        </div>
+        <div class="decision-option">
+          <span class="decision-option-key"><span data-lang="en">Forest / Woodland</span><span data-lang="es">Bosque / Arbolado</span></span>
+          <span class="decision-option-text"><span data-lang="en">Avoid the Krazy Keg (−20% penalty). Gorren (+10% Forest affinity) is the right call. Its lower base speed is partially recovered, and it runs on simple Water fuel.</span><span data-lang="es">Evita el Krazy Keg (penalización −20%). El Gorren (afinidad Bosque +10%) es la elección correcta. Su menor velocidad base se recupera parcialmente, y funciona con simple Agua como fuel.</span></span>
+          <span class="decision-option-arrow">→ 🐾 Gorren</span>
+        </div>
+        <div class="decision-option">
+          <span class="decision-option-key"><span data-lang="en">Valley / Lowland</span><span data-lang="es">Valle / Llanura</span></span>
+          <span class="decision-option-text"><span data-lang="en">Vaelgrun family. Valley +15% affinity pushes their 3.28–3.65 Lyr/h base into the 3.7–4.2 range. They also grant significant Power and Extra Cargo bonuses.</span><span data-lang="es">Familia Vaelgrun. Afinidad Valle +15% eleva su base de 3.28–3.65 Lyr/h al rango de 3.7–4.2. También otorgan importantes bonificaciones de Poder y Cargo Extra.</span></span>
+          <span class="decision-option-arrow">→ 🐾 Vaelgrun</span>
+        </div>
+        <div class="decision-option">
+          <span class="decision-option-key"><span data-lang="en">Volcanic / Elemental</span><span data-lang="es">Volcánico / Elemental</span></span>
+          <span class="decision-option-text"><span data-lang="en">Arcane Chariot. Volcanic +10% affinity combined with long range and cargo makes these the dominant long-distance mount on volcanic/elemental routes.</span><span data-lang="es">Arcane Chariot. La afinidad Volcánico +10% combinada con largo rango y carga los convierte en la montura dominante de largo recorrido en rutas volcánicas/elementales.</span></span>
+          <span class="decision-option-arrow">→ 🔮</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 2: BY PROFESSION -->
+  <div class="article-section reveal" id="by-profession">
+    <div class="article-section-label">
+      <span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Recommendation by Profession</span>
+      <span data-lang="es">Recomendación por Profesión</span>
+    </h2>
+
+    <div class="tier-table-wrap">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Profession</span><span data-lang="es">Profesión</span></th>
+            <th><span data-lang="en">Primary Need</span><span data-lang="es">Necesidad Principal</span></th>
+            <th><span data-lang="en">Recommended Mount</span><span data-lang="es">Montura Recomendada</span></th>
+            <th><span data-lang="en">Reason</span><span data-lang="es">Razón</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Explorer</strong></td>
+            <td><span data-lang="en">Cover maximum ground, reach rare deposits</span><span data-lang="es">Cubrir máximo terreno, alcanzar depósitos raros</span></td>
+            <td style="color:var(--fire)">⚙️ Krazy Keg Steel</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Fastest in the collection for open/desert terrain. Low fuel cost (0.5/Lyr) keeps running costs down.</span><span data-lang="es">La más rápida de la colección para terreno abierto/desierto. Bajo costo de fuel (0.5/Lyr) mantiene bajos los costos operativos.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Miner</strong></td>
+            <td><span data-lang="en">Haul extracted materials to capital</span><span data-lang="es">Transportar materiales extraídos a la capital</span></td>
+            <td style="color:#4ade80">🐾 Vaelgrun Bluegaze</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">+12 Power bonus complements combat in risky zones. Valley affinity +15% for mine-to-capital routes. Stormwater fuel is accessible.</span><span data-lang="es">El bonus de +12 Poder complementa el combate en zonas arriesgadas. Afinidad Valle +15% para rutas mina-capital. Fuel Agua Tormenta accesible.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Alchemist</strong></td>
+            <td><span data-lang="en">Move Fire Juice supply efficiently</span><span data-lang="es">Mover el suministro de Fire Juice eficientemente</span></td>
+            <td style="color:var(--fire)">⚙️ Krazy Keg Steel</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Alchemists produce Fire Juice — they can fuel their own mount. 0.5/Lyr consumption means they spend less of their own product on travel.</span><span data-lang="es">Los Alquimistas producen Fire Juice — pueden alimentar su propia montura. El consumo de 0.5/Lyr significa que gastan menos de su propio producto en viajes.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Engineer</strong></td>
+            <td><span data-lang="en">Reach Extraction Tower sites, transport blueprints</span><span data-lang="es">Llegar a sitios de Torre de Extracción, transportar planos</span></td>
+            <td style="color:var(--fire)">⚙️ Krazy Keg (any tier)</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Engineers are in the Fire Juice production chain — they have proximity to fuel. High speed serves site-to-site mobility.</span><span data-lang="es">Los Ingenieros están en la cadena de producción de Fire Juice — tienen proximidad al fuel. Alta velocidad sirve para la movilidad sitio-a-sitio.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Merchant / Transporter</strong></td>
+            <td><span data-lang="en">Max cargo, long distance, minimal fuel stops</span><span data-lang="es">Máximo cargo, larga distancia, mínimas paradas de fuel</span></td>
+            <td style="color:#a78bfa">🔮 Arcane Chariot Wayweaver</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">60 Lyr tank, +10 Defense, +12 Extra Cargo. Built for long-haul trade. Volcanic terrain affinity for elemental zone routes.</span><span data-lang="es">Tanque de 60 Lyr, +10 Defensa, +12 Cargo Extra. Diseñado para comercio de largo recorrido. Afinidad terreno volcánico para rutas de zonas elementales.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Blacksmith / Artisan</strong></td>
+            <td><span data-lang="en">Fetch raw materials, deliver finished goods</span><span data-lang="es">Obtener materias primas, entregar bienes terminados</span></td>
+            <td style="color:#4ade80">🐾 Cruiser Gorren</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Crafteable and unlimited supply — lowest barrier to entry. Water fuel. 60 Lyr tank. Forest +10% for woodland resource routes. Ideal starter while saving for an upgrade.</span><span data-lang="es">Fabricable y suministro ilimitado — menor barrera de entrada. Fuel Agua. Tanque 60 Lyr. Bosque +10% para rutas de recursos boscosos. Ideal de inicio mientras ahorras para una mejora.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Architect / Builder</strong></td>
+            <td><span data-lang="en">Move construction materials, reach build sites</span><span data-lang="es">Mover materiales de construcción, llegar a sitios de construcción</span></td>
+            <td style="color:#a78bfa">🔮 Arcane Chariot Spellrider</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">+15 Defense + 15 Extra Cargo — high durability for extended travel with heavy loads. 60 Lyr range means infrequent stops on long construction projects.</span><span data-lang="es">+15 Defensa + 15 Cargo Extra — alta durabilidad para viajes prolongados con cargas pesadas. Rango 60 Lyr significa paradas poco frecuentes en proyectos de construcción largos.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Jeweler</strong></td>
+            <td><span data-lang="en">Rapid capital-to-capital runs for gem trade</span><span data-lang="es">Carreras rápidas capital-a-capital para comercio de gemas</span></td>
+            <td style="color:var(--fire)">⚙️ Krazy Keg Eonite Edition</td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">7.7 Lyr/h at Legendary rarity. Gem trade routes tend to be shorter and higher value — speed multiplies profit per trip on short premium runs.</span><span data-lang="es">7.7 Lyr/h a rareza Legendaria. Las rutas de comercio de gemas tienden a ser más cortas y de mayor valor — la velocidad multiplica la ganancia por viaje en carreras cortas premium.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 3: BY TERRAIN -->
+  <div class="article-section reveal" id="by-terrain">
+    <div class="article-section-label">
+      <span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Recommendation by Terrain & Route</span>
+      <span data-lang="es">Recomendación por Terreno y Ruta</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Terrain modifiers can swing effective speed by 15–25%. The right mount on the right terrain outperforms a nominally faster mount on the wrong one. Match your primary route first, then optimize within that family.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Los modificadores de terreno pueden cambiar la velocidad efectiva en un 15–25%. La montura correcta en el terreno correcto supera a una montura nominalmente más rápida en el terreno equivocado. Combina tu ruta principal primero, luego optimiza dentro de esa familia.</p>
+    </div>
+
+    <div class="tier-table-wrap">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Primary Terrain</span><span data-lang="es">Terreno Principal</span></th>
+            <th><span data-lang="en">Best Mount Family</span><span data-lang="es">Mejor Familia</span></th>
+            <th><span data-lang="en">Effective Speed Boost</span><span data-lang="es">Boost de Velocidad Efectivo</span></th>
+            <th><span data-lang="en">Avoid</span><span data-lang="es">Evitar</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Desert / Open</span><span data-lang="es">Desierto / Abierto</span></td>
+            <td style="color:var(--fire)">⚙️ Krazy Keg</td>
+            <td>+5% <span data-lang="en">on base speed</span><span data-lang="es">sobre velocidad base</span></td>
+            <td style="font-size:.82rem;color:var(--text-dim)">Gorren, Vaelgrun (<span data-lang="en">no desert bonus</span><span data-lang="es">sin bonus desierto</span>)</td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Forest / Woodland</span><span data-lang="es">Bosque / Arbolado</span></td>
+            <td style="color:#4ade80">🐾 Gorren</td>
+            <td>+10% <span data-lang="en">on base speed</span><span data-lang="es">sobre velocidad base</span></td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Krazy Keg (−20%), Arcane Chariot (neutral)</span><span data-lang="es">Krazy Keg (−20%), Arcane Chariot (neutro)</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Valley / Lowland</span><span data-lang="es">Valle / Llanura</span></td>
+            <td style="color:#4ade80">🐾 Vaelgrun</td>
+            <td>+15% <span data-lang="en">on base speed</span><span data-lang="es">sobre velocidad base</span></td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Krazy Keg (neutral, but avoids forest)</span><span data-lang="es">Krazy Keg (neutro, pero evita bosque)</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Volcanic / Elemental</span><span data-lang="es">Volcánico / Elemental</span></td>
+            <td style="color:#a78bfa">🔮 Arcane Chariot</td>
+            <td>+10% <span data-lang="en">on base speed</span><span data-lang="es">sobre velocidad base</span></td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">Animal mounts (no volcanic bonus)</span><span data-lang="es">Monturas animales (sin bonus volcánico)</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Mountain / Highland</span><span data-lang="es">Montaña / Tierras Altas</span></td>
+            <td style="color:#a78bfa">🐾 Ophalyss of Zel'Tharis ⭐</td>
+            <td>+20% <span data-lang="en">on base speed</span><span data-lang="es">sobre velocidad base</span></td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">All standard families (no mountain bonus)</span><span data-lang="es">Todas las familias estándar (sin bonus montaña)</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Urban / City zones</span><span data-lang="es">Zonas Urbanas / Ciudad</span></td>
+            <td style="color:#a78bfa">☀️ Qwemzi Divine Sun ⭐</td>
+            <td>+20% <span data-lang="en">on base speed</span><span data-lang="es">sobre velocidad base</span></td>
+            <td style="font-size:.82rem;color:var(--text-dim)"><span data-lang="en">All standard families (no city bonus)</span><span data-lang="es">Todas las familias estándar (sin bonus ciudad)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-fire">
+      <div class="callout-label"><span data-lang="en">The terrain penalty math on Krazy Keg</span><span data-lang="es">El cálculo de penalización de terreno en el Krazy Keg</span></div>
+      <div data-lang="en">The Krazy Keg Steel Edition at 7.45 Lyr/h with a −20% forest penalty runs at <strong>5.96 Lyr/h</strong> in forest terrain. A Gorren Cruiser at 1.56 Lyr/h with a +10% forest affinity runs at <strong>1.72 Lyr/h</strong>. The Keg is still faster — but the gap drops from 4.77× to 3.46×. For long forest routes with frequent stops, the Gorren's far simpler fuel supply chain may make it the better operational choice.</div>
+      <div data-lang="es">El Krazy Keg Steel Edition a 7.45 Lyr/h con una penalización forestal del −20% corre a <strong>5.96 Lyr/h</strong> en terreno forestal. Un Gorren Cruiser a 1.56 Lyr/h con afinidad forestal +10% corre a <strong>1.72 Lyr/h</strong>. El Keg sigue siendo más rápido — pero la brecha cae de 4.77× a 3.46×. Para rutas forestales largas con paradas frecuentes, la cadena de suministro de fuel mucho más simple del Gorren puede hacerlo la mejor elección operacional.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 4: BY BUDGET -->
+  <div class="article-section reveal" id="by-budget">
+    <div class="article-section-label">
+      <span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Recommendation by Budget & Fuel Access</span>
+      <span data-lang="es">Recomendación por Presupuesto y Acceso a Fuel</span>
+    </h2>
+
+    <div class="rec-grid reveal reveal-delay-1">
+
+      <div class="rec-card animal">
+        <div class="rec-card-header">
+          <div class="rec-card-name">🐾 Common Gorren</div>
+          <div class="rec-card-speed">1.51 Lyr/h</div>
+        </div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Budget:</span><span data-lang="es">Presupuesto:</span></strong> <span data-lang="en">Lowest — crafteable, unlimited supply</span><span data-lang="es">Más bajo — fabricable, suministro ilimitado</span></div>
+        <div class="rec-card-stat"><strong>Fuel:</strong> Water · 1/Lyr · 60 Lyr tank</div>
+        <div class="rec-card-stat"><strong>Repair:</strong> 1 Meat = Full</div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Terrain:</span><span data-lang="es">Terreno:</span></strong> Forest +10% · Swamp −25%</div>
+        <div class="rec-card-best"><span data-lang="en">Best for: New players, Forest routes, self-sufficient starters</span><span data-lang="es">Mejor para: Nuevos jugadores, rutas forestales, iniciadores autosuficientes</span></div>
+      </div>
+
+      <div class="rec-card animal">
+        <div class="rec-card-header">
+          <div class="rec-card-name">🐾 Vaelgrun Bluegaze</div>
+          <div class="rec-card-speed">3.28 Lyr/h</div>
+        </div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Budget:</span><span data-lang="es">Presupuesto:</span></strong> <span data-lang="en">Mid — 344 supply, limited</span><span data-lang="es">Medio — 344 unidades, limitado</span></div>
+        <div class="rec-card-stat"><strong>Fuel:</strong> Stormwater · 1/Lyr · 27 Lyr tank</div>
+        <div class="rec-card-stat"><strong>Repair:</strong> 1 Meat = Full</div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Attribute:</span><span data-lang="es">Atributo:</span></strong> +12 Power / +5 Extra Cargo</div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Terrain:</span><span data-lang="es">Terreno:</span></strong> Valley +15% · Desert −10%</div>
+        <div class="rec-card-best"><span data-lang="en">Best for: Valley routes, combat-adjacent playstyles, moderate budget</span><span data-lang="es">Mejor para: Rutas de valle, estilos de juego adyacentes al combate, presupuesto moderado</span></div>
+      </div>
+
+      <div class="rec-card mechanic">
+        <div class="rec-card-header">
+          <div class="rec-card-name">⚙️ Krazy Keg Steel Edition</div>
+          <div class="rec-card-speed">7.45 Lyr/h</div>
+        </div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Budget:</span><span data-lang="es">Presupuesto:</span></strong> <span data-lang="en">Mid — 700 supply (largest limited batch)</span><span data-lang="es">Medio — 700 unidades (lote limitado más grande)</span></div>
+        <div class="rec-card-stat"><strong>Fuel:</strong> Fire Juice · 0.5/Lyr · 10 Lyr tank (20 Lyr range)</div>
+        <div class="rec-card-stat"><strong>Repair:</strong> 1 Gorb Toolbox = Full</div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Terrain:</span><span data-lang="es">Terreno:</span></strong> Desert +5% · Forest −20%</div>
+        <div class="rec-card-best"><span data-lang="en">Best for: Alchemists (self-fuel), desert/open routes, speed-priority players with Fire Juice access</span><span data-lang="es">Mejor para: Alquimistas (auto-fuel), rutas desierto/abiertas, jugadores con prioridad de velocidad con acceso a Fire Juice</span></div>
+      </div>
+
+      <div class="rec-card arcane">
+        <div class="rec-card-header">
+          <div class="rec-card-name">🔮 Arcane Chariot Wayweaver</div>
+          <div class="rec-card-speed">3.81 Lyr/h</div>
+        </div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Budget:</span><span data-lang="es">Presupuesto:</span></strong> <span data-lang="en">High — 165 supply, Legendary rarity</span><span data-lang="es">Alto — 165 unidades, rareza Legendaria</span></div>
+        <div class="rec-card-stat"><strong>Fuel:</strong> Liq. Valannite · 1/Lyr · 60 Lyr tank</div>
+        <div class="rec-card-stat"><strong>Repair:</strong> Tyxen Toolkit + 150 Repairs</div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Attribute:</span><span data-lang="es">Atributo:</span></strong> +10 Defense / +12 Extra Cargo</div>
+        <div class="rec-card-stat"><strong><span data-lang="en">Terrain:</span><span data-lang="es">Terreno:</span></strong> Volcanic +10% · Swamp −20%</div>
+        <div class="rec-card-best"><span data-lang="en">Best for: Long-haul merchants, volcanic/elemental routes, defense-focused builds with Liq. Valannite supply</span><span data-lang="es">Mejor para: Mercaderes de largo recorrido, rutas volcánicas/elementales, builds defensivos con suministro de Valannite Líquida</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 5: FAMILY PROFILES -->
+  <div class="article-section reveal" id="family-profiles">
+    <div class="article-section-label">
+      <span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">Full Mount Family Profiles</span>
+      <span data-lang="es">Perfiles Completos de Familia de Monturas</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Quick-reference for each family's full speed range, fuel chain, and operational characteristics. For complete stats on all 14 individual mounts, see the <a href="mount-tier-comparison.html" style="color:var(--fire)">Mount Tier Comparison</a> guide.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Referencia rápida para el rango de velocidad completo, cadena de fuel y características operacionales de cada familia. Para estadísticas completas de las 14 monturas individuales, consulta la guía de <a href="mount-tier-comparison.html" style="color:var(--fire)">Comparación de Niveles de Montura</a>.</p>
+    </div>
+
+    <div class="tier-table-wrap">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Family</span><span data-lang="es">Familia</span></th>
+            <th><span data-lang="en">Speed Range</span><span data-lang="es">Rango Velocidad</span></th>
+            <th><span data-lang="en">Fuel Supply Chain</span><span data-lang="es">Cadena de Suministro</span></th>
+            <th><span data-lang="en">Range/Tank</span><span data-lang="es">Rango/Tanque</span></th>
+            <th><span data-lang="en">Repair Source</span><span data-lang="es">Fuente Reparación</span></th>
+            <th><span data-lang="en">Bonus Stats</span><span data-lang="es">Stats Bonus</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🐾 Gorren</td>
+            <td>1.51–1.56</td>
+            <td style="font-size:.8rem;color:var(--text-dim)"><span data-lang="en">Water — simple gathering, unlimited</span><span data-lang="es">Agua — recolección simple, ilimitado</span></td>
+            <td>60 Lyr</td>
+            <td style="font-size:.8rem">1 Meat</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>🐾 Vaelgrun</td>
+            <td>3.28–3.65</td>
+            <td style="font-size:.8rem;color:var(--text-dim)"><span data-lang="en">Stormwater — biome-specific gathering</span><span data-lang="es">Agua Tormenta — recolección de bioma específico</span></td>
+            <td>27 Lyr</td>
+            <td style="font-size:.8rem">1 Meat</td>
+            <td style="font-size:.8rem">Power + Cargo</td>
+          </tr>
+          <tr>
+            <td>⚙️ Krazy Keg</td>
+            <td>7.45–8.00</td>
+            <td style="font-size:.8rem;color:var(--text-dim)"><span data-lang="en">Fire Juice — full Alchemy chain required</span><span data-lang="es">Fire Juice — cadena de Alquimia completa requerida</span></td>
+            <td>20 Lyr <span style="font-size:.75rem;color:var(--text-dim)">(10 tank × 0.5)</span></td>
+            <td style="font-size:.8rem">Gorb Toolbox</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>🔮 Arcane Chariot</td>
+            <td>3.81–4.15</td>
+            <td style="font-size:.8rem;color:var(--text-dim)"><span data-lang="en">Liq. Valannite — premium, likely Alchemy-adjacent</span><span data-lang="es">Valannite Líquida — premium, probable relación con Alquimia</span></td>
+            <td>60 Lyr</td>
+            <td style="font-size:.8rem">Tyxen Toolkit</td>
+            <td style="font-size:.8rem">Defense + Cargo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 6: THE ONE NUMBER -->
+  <div class="article-section reveal" id="the-one-number">
+    <div class="article-section-label">
+      <span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span>
+    </div>
+    <h2 class="article-h2">
+      <span data-lang="en">The One Number That Matters Most</span>
+      <span data-lang="es">El Único Número que Más Importa</span>
+    </h2>
+
+    <div data-lang="en">
+      <p class="article-p">Every mount decision comes down to a single calculation: <strong>profit per trip</strong>.</p>
+      <p class="article-p">Profit per trip = (value of cargo delivered) − (fuel cost for the route) − (repair cost per session) − (time cost) − (risk exposure in the zone).</p>
+      <p class="article-p">The fastest mount is not automatically the most profitable. A Krazy Keg Valannium at 8.0 Lyr/h on a desert route with Fire Juice supply nearby can be extraordinarily profitable. The same mount on a long forest route with no Fire Juice supply nearby — running at 6.4 Lyr/h effective with a 20 Lyr tank — requires more planning and more fuel stops to stay profitable.</p>
+      <p class="article-p">A Cruiser Gorren at 1.56 Lyr/h on a forest route with Water available everywhere, 60 Lyrias of range, and Meat for repair is much simpler to make profitable from day one.</p>
+      <p class="article-p">Know your route. Know your fuel source. Then pick the fastest mount that fits both constraints.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada decisión de montura se reduce a un único cálculo: <strong>ganancia por viaje</strong>.</p>
+      <p class="article-p">Ganancia por viaje = (valor de la carga entregada) − (costo de fuel para la ruta) − (costo de reparación por sesión) − (costo de tiempo) − (exposición al riesgo en la zona).</p>
+      <p class="article-p">La montura más rápida no es automáticamente la más rentable. Un Krazy Keg Valannium a 8.0 Lyr/h en una ruta de desierto con suministro de Fire Juice cercano puede ser extraordinariamente rentable. La misma montura en una ruta forestal larga sin suministro de Fire Juice cercano — corriendo a 6.4 Lyr/h efectivo con un tanque de 20 Lyr — requiere más planificación y más paradas de fuel para seguir siendo rentable.</p>
+      <p class="article-p">Un Gorren Cruiser a 1.56 Lyr/h en una ruta forestal con Agua disponible en todas partes, 60 Lyrias de rango y Carne para reparación es mucho más simple de hacer rentable desde el primer día.</p>
+      <p class="article-p">Conoce tu ruta. Conoce tu fuente de fuel. Luego elige la montura más rápida que se ajuste a ambas restricciones.</p>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">Still unsure? Join the coordination network</span><span data-lang="es">¿Aún no estás seguro? Únete a la red de coordinación</span></div>
+      <div data-lang="en">Polaris Fuel maps fuel supply chains, coordinates mount operators, and tracks route efficiency across Valannia. If you're not sure which mount fits your situation, join Discord and tell us your profession, typical routes, and fuel access — we'll help you calculate.</div>
+      <div data-lang="es">Polaris Fuel mapea cadenas de suministro de fuel, coordina operadores de monturas y rastrea la eficiencia de rutas en toda Valannia. Si no estás seguro de qué montura se adapta a tu situación, únete al Discord y cuéntanos tu profesión, rutas típicas y acceso a fuel — te ayudaremos a calcular.</div>
+    </div>
+  </div>
+
+  <div class="update-notice reveal">
+    <div class="update-notice-title">
+      <span data-lang="en">Coordinate with Polaris Fuel</span>
+      <span data-lang="es">Coordina con Polaris Fuel</span>
+    </div>
+    <p class="update-notice-text">
+      <span data-lang="en">We organize Fire Juice supply networks, bulk fuel contracts, and escort coordination across Valannia. Your mount decision is only one part of the equation — fuel supply is the other.</span>
+      <span data-lang="es">Organizamos redes de suministro de Fire Juice, contratos de fuel a granel y coordinación de escolta en toda Valannia. La decisión de tu montura es solo una parte de la ecuación — el suministro de fuel es la otra.</span>
+    </p>
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;padding:.85rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;display:inline-block;font-weight:700">
+      <span data-lang="en">Join Discord</span><span data-lang="es">Únete al Discord</span>
+    </a>
+  </div>
+
+</div>
+</main>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../valannia-index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+</body>
+</html>
