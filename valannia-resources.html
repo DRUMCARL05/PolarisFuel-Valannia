@@ -133,23 +133,6 @@ div[data-lang]{display:none}
 .toc-num{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--fire);width:2rem;flex-shrink:0}
 
 @media(max-width:900px){.guides-grid{grid-template-columns:1fr}.featured-card{grid-template-columns:1fr}}
-
-/* MARKET DASHBOARD */
-#market{padding:8rem 2rem;max-width:1100px;margin:0 auto}
-.market-header{text-align:center;margin-bottom:3rem}
-.dashboard-card{background:var(--dark-card);border:1px solid var(--border);padding:3rem;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start;position:relative;overflow:hidden;transition:border-color .3s}
-.dashboard-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.dashboard-card:hover{border-color:rgba(212,168,67,0.3)}
-.dashboard-icon{font-size:3rem;filter:drop-shadow(0 0 12px rgba(212,168,67,0.3));padding-top:.3rem}
-.dashboard-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.2rem .55rem;border:1px solid rgba(212,168,67,0.3);color:var(--gold);background:rgba(212,168,67,0.06);margin-bottom:1rem}
-.dashboard-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
-.dashboard-desc{font-size:.88rem;line-height:1.85;color:var(--text-dim);margin-bottom:1.5rem;max-width:580px}
-.dashboard-metrics{display:flex;gap:2rem;flex-wrap:wrap}
-.dashboard-metric{text-align:center;padding:1rem 1.5rem;border:1px solid var(--border);background:rgba(212,168,67,0.03)}
-.dashboard-metric-label{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:.4rem}
-.dashboard-metric-value{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold);opacity:.35}
-.dashboard-metric-note{font-size:.72rem;color:var(--text-dim);opacity:.5;display:block;margin-top:.2rem}
-@media(max-width:700px){.dashboard-card{grid-template-columns:1fr}.dashboard-icon{display:none}}
 </style>
   <meta property="og:image" content="https://polarisfuel.app/og-image.png">
   <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
@@ -218,18 +201,19 @@ div[data-lang]{display:none}
 <section id="featured">
   <div class="featured-card reveal">
     <div>
-      <div class="featured-label"><span data-lang="en">★ Featured Guide</span><span data-lang="es">★ Guía Destacada</span></div>
-      <div class="featured-title"><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></div>
-      <p class="featured-desc"><span data-lang="en">Your profession in Valannia is permanent — changing it wipes all accumulated progress. This guide covers all 9 professions, the best race for each, how they interconnect in the fuel economy, and a decision framework to help you choose before you commit.</span><span data-lang="es">Tu profesión en Valannia es permanente — cambiarla borra todo el progreso acumulado. Esta guía cubre las 9 profesiones, la mejor raza para cada una, cómo se interconectan en la economía del fuel y un marco de decisión para ayudarte a elegir antes de comprometerte.</span></p>
-      <a href="resources/profession-guide.html" class="btn-primary"><span><span data-lang="en">Read the Guide →</span><span data-lang="es">Leer la Guía →</span></span></a>
+      <div class="featured-label"><span data-lang="en">🔥 Time-Sensitive · April 2, 2026</span><span data-lang="es">🔥 Urgente · 2 de Abril, 2026</span></div>
+      <div class="featured-title"><span data-lang="en">ORB Sale & Unique Items</span><span data-lang="es">Venta de ORB y Objetos Únicos</span></div>
+      <p class="featured-desc"><span data-lang="en">The first collection of 1,888 mounts sells on April 2 — closed collection, never regenerated. This guide covers the Silver and Golden Orb sale structure, the 50% Wave 1 discount window, confirmed speed data, mount rarities, and every supply-of-1 unique item in the game. Read before the sale opens.</span><span data-lang="es">La primera colección de 1.888 monturas se vende el 2 de abril — colección cerrada, nunca regenerada. Esta guía cubre la estructura de venta del Orbe de Plata y Dorado, la ventana de 50% de descuento de la Oleada 1, datos de velocidad confirmados, rarezas de monturas y cada objeto único de suministro 1 en el juego. Lee antes de que abra la venta.</span></p>
+      <a href="resources/orb-unique-items.html" class="btn-primary"><span><span data-lang="en">Read the Guide →</span><span data-lang="es">Leer la Guía →</span></span></a>
     </div>
     <div class="featured-preview">
       <div class="featured-preview-title"><span data-lang="en">Contents</span><span data-lang="es">Contenido</span></div>
-      <div class="toc-item"><span class="toc-num">01</span><span data-lang="en">Why profession choice is permanent</span><span data-lang="es">Por qué la elección de profesión es permanente</span></div>
-      <div class="toc-item"><span class="toc-num">02</span><span data-lang="en">All 9 professions — overview and difficulty</span><span data-lang="es">Las 9 profesiones — resumen y dificultad</span></div>
-      <div class="toc-item"><span class="toc-num">03</span><span data-lang="en">Race synergies — best race per profession</span><span data-lang="es">Sinergias de raza — mejor raza por profesión</span></div>
-      <div class="toc-item"><span class="toc-num">04</span><span data-lang="en">How professions connect to the fuel economy</span><span data-lang="es">Cómo las profesiones se conectan a la economía del fuel</span></div>
-      <div class="toc-item"><span class="toc-num">05</span><span data-lang="en">How to choose: decision framework by playstyle</span><span data-lang="es">Cómo elegir: marco de decisión por estilo de juego</span></div>
+      <div class="toc-item"><span class="toc-num">01</span><span data-lang="en">The first collection — what you're buying</span><span data-lang="es">La primera colección — qué estás comprando</span></div>
+      <div class="toc-item"><span class="toc-num">02</span><span data-lang="en">Silver Orb vs. Golden Orb — how the sale works</span><span data-lang="es">Orbe de Plata vs. Dorado — cómo funciona la venta</span></div>
+      <div class="toc-item"><span class="toc-num">03</span><span data-lang="en">Confirmed speed data for the first collection</span><span data-lang="es">Datos de velocidad confirmados de la primera colección</span></div>
+      <div class="toc-item"><span class="toc-num">04</span><span data-lang="en">Mount rarities & tiers</span><span data-lang="es">Rareza y niveles de montura</span></div>
+      <div class="toc-item"><span class="toc-num">05</span><span data-lang="en">Supply-of-1 unique items — full list</span><span data-lang="es">Objetos únicos de suministro 1 — lista completa</span></div>
+      <div class="toc-item"><span class="toc-num">06</span><span data-lang="en">How to approach the sale</span><span data-lang="es">Cómo abordar la venta</span></div>
     </div>
   </div>
 </section>
@@ -247,7 +231,16 @@ div[data-lang]{display:none}
     </h2>
   </div>
   <div class="guides-grid">
-    <a href="resources/mount-tier-comparison.html" class="guide-card reveal reveal-delay-1">
+    <a href="resources/orb-unique-items.html" class="guide-card reveal reveal-delay-1">
+      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+      <span class="guide-icon">💎</span>
+      <div class="guide-title"><span data-lang="en">ORB Sale & Unique Items</span><span data-lang="es">Venta de ORB y Objetos Únicos</span></div>
+      <p class="guide-desc"><span data-lang="en">Everything confirmed about the April 2 mount sale — 1,888 mounts, Silver vs. Golden Orb, the 50% Wave 1 discount, and every supply-of-1 unique item in Valannia.</span><span data-lang="es">Todo lo confirmado sobre la venta de monturas del 2 de abril — 1.888 monturas, Orbe de Plata vs. Dorado, el 50% de descuento de la Oleada 1 y cada objeto único de suministro 1.</span></p>
+      <div class="guide-meta"><span data-lang="en">~12 min read · Beginner</span><span data-lang="es">~12 min lectura · Principiante</span></div>
+      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
+      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
+    </a>
+    <a href="resources/mount-tier-comparison.html" class="guide-card reveal reveal-delay-2">
       <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
       <span class="guide-icon">⛽</span>
       <div class="guide-title"><span data-lang="en">Mount Tier Comparison: Fuel Cost & Efficiency</span><span data-lang="es">Comparación de Niveles de Montura: Costo de Fuel y Eficiencia</span></div>
@@ -256,7 +249,7 @@ div[data-lang]{display:none}
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
       <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </a>
-    <a href="resources/profession-guide.html" class="guide-card reveal reveal-delay-2">
+    <a href="resources/profession-guide.html" class="guide-card reveal reveal-delay-3">
       <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
       <span class="guide-icon">⚗️</span>
       <div class="guide-title"><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></div>
@@ -265,35 +258,29 @@ div[data-lang]{display:none}
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
       <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
     </a>
-    <div class="guide-card reveal reveal-delay-3">
-      <div class="guide-status soon"><span data-lang="en">Coming Soon</span><span data-lang="es">Próximamente</span></div>
-      <span class="guide-icon">🐾</span>
-      <div class="guide-title"><span data-lang="en">Which Mount Should You Buy?</span><span data-lang="es">¿Qué Montura Debes Comprar?</span></div>
-      <p class="guide-desc"><span data-lang="en">A decision-tree guide for first-time mount buyers. Based on your profession, typical route distances, and budget. Cuts through the noise with clear recommendations.</span><span data-lang="es">Una guía de árbol de decisión para compradores de primera vez. Basada en profesión, distancias típicas y presupuesto.</span></p>
-      <div class="guide-meta"><span data-lang="en">~10 min read · Beginner</span><span data-lang="es">~10 min lectura · Principiante</span></div>
+    <a href="resources/eldorath-city-guide.html" class="guide-card reveal reveal-delay-1">
+      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+      <span class="guide-icon">🏙️</span>
+      <div class="guide-title"><span data-lang="en">Eldorath City Guide</span><span data-lang="es">Guía de la Ciudad de Eldorath</span></div>
+      <p class="guide-desc"><span data-lang="en">Valannia's only neutral city — the Sanctuary Seal, key locations, daily and weekend POIs, land ownership districts, and the events that bring every race together.</span><span data-lang="es">La única ciudad neutral de Valannia — el Sello Santuario, ubicaciones clave, POIs diarios y de fin de semana, distritos de tierras y los eventos que reúnen a todas las razas.</span></p>
+      <div class="guide-meta"><span data-lang="en">~12 min read · Beginner</span><span data-lang="es">~12 min lectura · Principiante</span></div>
+      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
       <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </div>
-    <div class="guide-card reveal reveal-delay-3">
-      <div class="guide-status soon"><span data-lang="en">Early 2026</span><span data-lang="es">Inicios de 2026</span></div>
-      <span class="guide-icon">🧪</span>
-      <div class="guide-title"><span data-lang="en">Alchemy Primer</span><span data-lang="es">Introducción a la Alquimia</span></div>
-      <p class="guide-desc"><span data-lang="en">How Valannia's alchemy profession works, what potions and liquid gems do, and why they're central to the fuel economy. No prior knowledge needed.</span><span data-lang="es">Cómo funciona la profesión de alquimia en Valannia, qué hacen las pociones y gemas líquidas, y por qué son centrales para la economía del fuel.</span></p>
-      <div class="guide-meta"><span data-lang="en">~15 min read · Beginner</span><span data-lang="es">~15 min lectura · Principiante</span></div>
+    </a>
+    <a href="resources/dungeons-primer.html" class="guide-card reveal reveal-delay-2">
+      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+      <span class="guide-icon">⚔️</span>
+      <div class="guide-title"><span data-lang="en">Dungeons Primer</span><span data-lang="es">Introducción a las Mazmorras</span></div>
+      <p class="guide-desc"><span data-lang="en">How Valannia's dungeon system works — access requirements by hero evolution stage, the three-stage structure, win/lose outcomes, gear durability costs, and how to prepare before you enter.</span><span data-lang="es">Cómo funciona el sistema de mazmorras de Valannia — requisitos de acceso por etapa de evolución, la estructura de tres fases, resultados, costos de durabilidad y cómo prepararse antes de entrar.</span></p>
+      <div class="guide-meta"><span data-lang="en">~10 min read · Beginner–Intermediate</span><span data-lang="es">~10 min lectura · Principiante–Intermedio</span></div>
+      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
       <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </div>
-    <div class="guide-card reveal reveal-delay-1">
-      <div class="guide-status soon"><span data-lang="en">Coming Soon</span><span data-lang="es">Próximamente</span></div>
-      <span class="guide-icon">🏔️</span>
-      <div class="guide-title"><span data-lang="en">Red Zone Survival Guide</span><span data-lang="es">Guía de Supervivencia en Zonas Rojas</span></div>
-      <p class="guide-desc"><span data-lang="en">Raw materials move through dangerous Red Zones. This guide covers fuel penalties, risk assessment, escort coordination, and when to avoid vs. engage.</span><span data-lang="es">Los materiales brutos pasan por peligrosas Zonas Rojas. Esta guía cubre penalizaciones de fuel, evaluación de riesgo y coordinación de escolta.</span></p>
-      <div class="guide-meta"><span data-lang="en">~12 min read · Intermediate</span><span data-lang="es">~12 min lectura · Intermedio</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </div>
-    <a href="resources/race-leader-elections.html" class="guide-card reveal reveal-delay-2">
+    </a>
+    <a href="resources/race-leader-elections.html" class="guide-card reveal reveal-delay-3">
       <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
       <span class="guide-icon">🗳️</span>
       <div class="guide-title"><span data-lang="en">Race Leader Elections</span><span data-lang="es">Elecciones de Líder de Raza</span></div>
-      <p class="guide-desc"><span data-lang="en">How Valannia's governance system works, what Race Leaders control, and why political coordination matters for economic outcomes. Covers all 8 races, capital access, influence building, and strategy by playstyle.</span><span data-lang="es">Cómo funciona el sistema de gobernanza de Valannia, qué controlan los Líderes de Raza y por qué la coordinación política importa. Cubre las 8 razas, acceso a capitales, construcción de influencia y estrategia por estilo de juego.</span></p>
+      <p class="guide-desc"><span data-lang="en">How Valannia's governance system works, what Race Leaders control, and why political coordination matters for economic outcomes. Covers all 8 races, capital access, influence building, and strategy by playstyle.</span><span data-lang="es">Cómo funciona el sistema de gobernanza de Valannia, qué controlan los Líderes de Raza y por qué la coordinación política importa. Cubre las 8 razas, acceso a capitales, construcción de influencia y estrategia.</span></p>
       <div class="guide-meta"><span data-lang="en">~18 min read · Advanced</span><span data-lang="es">~18 min lectura · Avanzado</span></div>
       <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
       <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
@@ -301,55 +288,6 @@ div[data-lang]{display:none}
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- MARKET DASHBOARD -->
-<section id="market">
-  <div class="market-header">
-    <div class="section-label reveal" style="justify-content:center">
-      <span data-lang="en">Live Data</span>
-      <span data-lang="es">Datos en Tiempo Real</span>
-    </div>
-    <h2 class="section-title reveal reveal-delay-1">
-      <span data-lang="en">Fuel Market Dashboard</span>
-      <span data-lang="es">Dashboard del Mercado de Fuel</span>
-    </h2>
-    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">
-      <span data-lang="en">Real-time market data is coming once Phase 1 generates enough price history to be meaningful.</span>
-      <span data-lang="es">Los datos del mercado en tiempo real llegarán una vez que Fase 1 genere suficiente historial de precios.</span>
-    </p>
-  </div>
-  <div class="dashboard-card reveal reveal-delay-2">
-    <div class="dashboard-icon">📈</div>
-    <div>
-      <div class="dashboard-status"><span data-lang="en">Awaiting Phase 1 Data</span><span data-lang="es">Esperando Datos de Fase 1</span></div>
-      <div class="dashboard-title"><span data-lang="en">Fuel Market Dashboard</span><span data-lang="es">Dashboard del Mercado de Fuel</span></div>
-      <p class="dashboard-desc"><span data-lang="en">When live, this dashboard will track Fire Juice prices, raw liquid supply, extraction volume, and week-over-week market shifts across all racial capitals. Data-first, updated continuously. No speculation — only what the chain confirms.</span><span data-lang="es">Cuando esté en vivo, este dashboard rastreará precios de Fire Juice, suministro de líquidos brutos, volumen de extracción y cambios semanales del mercado en todas las capitales raciales. Datos primero, actualizado continuamente. Sin especulación — solo lo que la cadena confirma.</span></p>
-      <div class="dashboard-metrics">
-        <div class="dashboard-metric">
-          <span class="dashboard-metric-label"><span data-lang="en">Fire Juice Price</span><span data-lang="es">Precio Fire Juice</span></span>
-          <span class="dashboard-metric-value">—</span>
-          <span class="dashboard-metric-note"><span data-lang="en">per unit · avg</span><span data-lang="es">por unidad · prom</span></span>
-        </div>
-        <div class="dashboard-metric">
-          <span class="dashboard-metric-label"><span data-lang="en">Weekly Volume</span><span data-lang="es">Volumen Semanal</span></span>
-          <span class="dashboard-metric-value">—</span>
-          <span class="dashboard-metric-note"><span data-lang="en">units traded</span><span data-lang="es">unidades intercambiadas</span></span>
-        </div>
-        <div class="dashboard-metric">
-          <span class="dashboard-metric-label"><span data-lang="en">Price Trend</span><span data-lang="es">Tendencia de Precio</span></span>
-          <span class="dashboard-metric-value">—</span>
-          <span class="dashboard-metric-note"><span data-lang="en">7-day change</span><span data-lang="es">cambio 7 días</span></span>
-        </div>
-        <div class="dashboard-metric">
-          <span class="dashboard-metric-label"><span data-lang="en">Last Updated</span><span data-lang="es">Última Actualización</span></span>
-          <span class="dashboard-metric-value">—</span>
-          <span class="dashboard-metric-note"><span data-lang="en">awaiting data</span><span data-lang="es">esperando datos</span></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 </main>
 <footer>
@@ -359,7 +297,6 @@ div[data-lang]{display:none}
   </div>
   <ul class="footer-nav">
     <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
-    <li></li>
     <li><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
     <li><a href="valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
     <li><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
