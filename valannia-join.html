@@ -731,23 +731,6 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
 
-  /* ── LANGUAGE TOGGLE ── */
-  body span[data-lang] { display:none }
-  body:not(.lang-es) span[data-lang="en"] { display:inline }
-  body.lang-es span[data-lang="es"] { display:inline }
-  body:not(.lang-es) div[data-lang="en"] { display:block }
-  body.lang-es div[data-lang="es"] { display:block }
-  div[data-lang] { display:none }
-
-  .lang-toggle { display:flex; gap:4px; align-items:center; }
-  .lang-btn {
-    font-family:'Cinzel',serif; font-size:.55rem; font-weight:700; letter-spacing:.12em;
-    padding:4px 8px; border:1px solid rgba(212,160,48,0.3); background:transparent;
-    color:var(--smoke); cursor:pointer; transition:all .2s; text-transform:uppercase;
-  }
-  .lang-btn.active { border-color:var(--fire); color:var(--fire); }
-  .lang-btn:hover { color:var(--parchment); border-color:var(--parchment); }
-
   /* Responsive */
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
@@ -760,6 +743,17 @@
     .footer-links { flex-wrap: wrap; justify-content: center; }
     .divider-line { margin: 0 24px; }
   }
+  /* ── BILINGUAL ── */
+  body span[data-lang]{display:none}
+  body:not(.lang-es) span[data-lang="en"]{display:inline}
+  body.lang-es span[data-lang="es"]{display:inline}
+  body:not(.lang-es) div[data-lang="en"]{display:block}
+  body.lang-es div[data-lang="es"]{display:block}
+  div[data-lang]{display:none}
+  .lang-toggle{display:flex;gap:4px;align-items:center}
+  .lang-btn{font-family:'Cinzel',serif;font-size:.55rem;font-weight:700;letter-spacing:.12em;padding:4px 8px;border:1px solid rgba(212,160,48,0.3);background:transparent;color:#7A6A54;cursor:pointer;transition:all .2s;text-transform:uppercase}
+  .lang-btn.active{border-color:#FF6B1A;color:#FF6B1A}
+  .lang-btn:hover{color:#D4C4A8;border-color:#D4C4A8}
 </style>
   <meta property="og:image" content="https://polarisfuel.app/og-image.png">
   <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
@@ -781,10 +775,9 @@
     <li><a href="valannia-tools.html" style="font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:#7A6A54;text-decoration:none;"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
     <li><a href="valannia-resources.html" style="font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:#7A6A54;text-decoration:none;"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
     <li><a href="valannia-roadmap.html" style="font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:#7A6A54;text-decoration:none;"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
-    <li><a href="valannia-join.html" style="font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:#FF6B1A;text-decoration:none;"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li>
-    <li><a href="https://polarisfuel.app/index.html" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:#7A6A54;text-decoration:none;opacity:.6;"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="valannia-join.html" style="font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:#FF6B1A;text-decoration:none;"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li><li><a href="https://polarisfuel.app/index.html" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:#7A6A54;text-decoration:none;opacity:.6;"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:12px;">
+  <div style="display:flex;align-items:center;gap:1rem;">
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-es" onclick="setLang('es')">ES</button>
@@ -801,14 +794,10 @@
 
   <p class="hero-eyebrow"><span data-lang="en">Economic Coordination · Valannia Phase 1 · Confirmed Omen Games Collaboration</span><span data-lang="es">Coordinación Económica · Valannia Fase 1 · Colaboración Confirmada con Omen Games</span></p>
   <h1>
-    <span data-lang="en">Build the infrastructure<span class="fire-word">everyone else runs on.</span></span>
-    <span data-lang="es">Construye la infraestructura<span class="fire-word">sobre la que todos operan.</span></span>
+    <span data-lang="en">Build the infrastructure <span class="fire-word">everyone else runs on.</span></span><span data-lang="es">Construye la infraestructura <span class="fire-word">sobre la que todos operan.</span></span>
   </h1>
   <p class="hero-sub">
-    <span data-lang="en">Polaris Fuel is Valannia's <strong>economic coordination layer</strong> — from Fire Juice supply chains to mount logistics, profession networks, and community infrastructure across the entire game economy.
-    <br><br>Now recruiting the builders who make it work.</span>
-    <span data-lang="es">Polaris Fuel es la <strong>capa de coordinación económica</strong> de Valannia — desde las cadenas de suministro de Fire Juice hasta la logística de monturas, redes de profesiones e infraestructura comunitaria en toda la economía del juego.
-    <br><br>Ahora reclutamos a los constructores que lo hacen posible.</span>
+    <span data-lang="en">Polaris Fuel is Valannia's <strong>economic coordination layer</strong> — from Fire Juice supply chains to mount logistics, profession networks, and community infrastructure across the entire game economy.<br><br>Now recruiting the builders who make it work.</span><span data-lang="es">Polaris Fuel es la <strong>capa de coordinación económica</strong> de Valannia — desde cadenas de suministro de Fire Juice hasta logística de monturas, redes de profesiones e infraestructura comunitaria en toda la economía del juego.<br><br>Ahora reclutando a los constructores que lo hacen posible.</span>
   </p>
   <div class="hero-cta-group">
     <a href="#roles" class="btn-primary"><span data-lang="en">Find Your Role</span><span data-lang="es">Encuentra Tu Rol</span></a>
@@ -823,14 +812,9 @@
 <div id="chain">
   <div class="inner">
     <p class="eyebrow reveal"><span data-lang="en">The Fire Juice Chain</span><span data-lang="es">La Cadena de Fire Juice</span></p>
-    <h2 class="reveal reveal-delay-1"><span data-lang="en">Five professions. One chain.<br>Zero single points of failure.</span><span data-lang="es">Cinco profesiones. Una cadena.<br>Sin puntos únicos de fallo.</span></h2>
+    <h2 class="reveal reveal-delay-1"><span data-lang="en">Five professions. One chain.<br>Zero single points of failure.</span><span data-lang="es">Cinco profesiones. Una cadena.<br>Cero puntos únicos de fallo.</span></h2>
     <p class="section-intro reveal reveal-delay-2">
-      <span data-lang="en">Fire Juice is one of Valannia's most critical resources — required for mechanical mount operation, 
-      Red Zone survival, and combat enhancement. Its production chain spans five professions. 
-      This is the foundation Polaris Fuel is built on. Beyond the chain, we coordinate all nine professions across the full game economy.</span>
-      <span data-lang="es">El Fire Juice es uno de los recursos más críticos de Valannia — necesario para operar monturas mecánicas, 
-      sobrevivir en la Zona Roja y potenciar el combate. Su cadena de producción abarca cinco profesiones. 
-      Esta es la base sobre la que se construye Polaris Fuel. Más allá de la cadena, coordinamos las nueve profesiones en toda la economía del juego.</span>
+      <span data-lang="en">Fire Juice is one of Valannia's most critical resources — required for mechanical mount operation, Red Zone survival, and combat enhancement. Its production chain spans five professions. This is the foundation Polaris Fuel is built on. Beyond the chain, we coordinate all nine professions across the full game economy.</span><span data-lang="es">El Fire Juice es uno de los recursos más críticos de Valannia — necesario para operar monturas mecánicas, sobrevivir en la Zona Roja y potenciar el combate. Su cadena de producción abarca cinco profesiones. Esta es la base sobre la que se construye Polaris Fuel. Más allá de la cadena, coordinamos las nueve profesiones en toda la economía del juego.</span>
     </p>
 
     <div class="chain-viz reveal">
@@ -838,19 +822,19 @@
         <span class="chain-icon">🗺</span>
         <div class="chain-title"><span data-lang="en">Explorer</span><span data-lang="es">Explorador</span></div>
         <div class="chain-race"><span data-lang="en">Best: Altari</span><span data-lang="es">Mejor: Altari</span></div>
-        <div class="chain-desc"><span data-lang="en">Scouts territories, locates hidden liquid deposits, generates maps for Miners</span><span data-lang="es">Explora territorios, localiza depósitos de líquidos ocultos y genera mapas para Mineros</span></div>
+        <div class="chain-desc"><span data-lang="en">Scouts territories, locates hidden liquid deposits, generates maps for Miners</span><span data-lang="es">Explora territorios, localiza depósitos líquidos ocultos, genera mapas para Mineros</span></div>
       </div>
       <div class="chain-node">
         <span class="chain-icon">⛏</span>
         <div class="chain-title"><span data-lang="en">Miner</span><span data-lang="es">Minero</span></div>
         <div class="chain-race"><span data-lang="en">Best: Glorb / Lerathi</span><span data-lang="es">Mejor: Glorb / Lerathi</span></div>
-        <div class="chain-desc"><span data-lang="en">Extracts raw liquid resources from Engineer-built Extraction Towers</span><span data-lang="es">Extrae recursos líquidos crudos de las Torres de Extracción construidas por Ingenieros</span></div>
+        <div class="chain-desc"><span data-lang="en">Extracts raw liquid resources from Engineer-built Extraction Towers</span><span data-lang="es">Extrae recursos líquidos brutos de las Torres de Extracción construidas por Ingenieros</span></div>
       </div>
       <div class="chain-node">
         <span class="chain-icon">🚚</span>
-        <div class="chain-title"><span data-lang="en">Transporter</span><span data-lang="es">Transportista</span></div>
-        <div class="chain-race"><span data-lang="en">Any Race</span><span data-lang="es">Cualquier Raza</span></div>
-        <div class="chain-desc"><span data-lang="en">Moves raw liquids to the national capital for processing</span><span data-lang="es">Transporta líquidos crudos a la capital nacional para su procesamiento</span></div>
+        <div class="chain-title"><span data-lang="en">Transporter</span><span data-lang="es">Transportador</span></div>
+        <div class="chain-race"><span data-lang="en">Any Race · Logistics Role</span><span data-lang="es">Cualquier Raza · Rol Logístico</span></div>
+        <div class="chain-desc"><span data-lang="en">Moves raw liquids to the national capital for processing</span><span data-lang="es">Traslada los líquidos brutos a la capital nacional para su procesamiento</span></div>
       </div>
       <div class="chain-node">
         <span class="chain-icon">⚙️</span>
@@ -862,16 +846,16 @@
         <span class="chain-icon">⚗️</span>
         <div class="chain-title"><span data-lang="en">Alchemist</span><span data-lang="es">Alquimista</span></div>
         <div class="chain-race"><span data-lang="en">Best: Lerathi</span><span data-lang="es">Mejor: Lerathi</span></div>
-        <div class="chain-desc"><span data-lang="en">Filters raw liquids and crafts Fire Juice in the Alchemist's Laboratory</span><span data-lang="es">Filtra líquidos crudos y elabora Fire Juice en el Laboratorio del Alquimista</span></div>
+        <div class="chain-desc"><span data-lang="en">Filters raw liquids and crafts Fire Juice in the Alchemist's Laboratory</span><span data-lang="es">Filtra los líquidos brutos y elabora Fire Juice en el Laboratorio del Alquimista</span></div>
       </div>
       <div class="chain-result">
         <span class="chain-icon">🔥</span>
         <div class="chain-title">Fire Juice</div>
-        <div class="chain-desc" style="color:#D4A843; font-size:13px; margin-top:8px;"><span data-lang="en">The fuel that powers everything</span><span data-lang="es">El combustible que impulsa todo</span></div>
+        <div class="chain-desc" style="color:#D4A843; font-size:13px; margin-top:8px;"><span data-lang="en">The fuel that powers everything</span><span data-lang="es">El combustible que mueve todo</span></div>
       </div>
     </div>
 
-    <p class="chain-tagline reveal">"<span data-lang="en">No single player completes this alone. <strong>That's the point.</strong></span><span data-lang="es">Ningún jugador completa esto solo. <strong>Ese es el objetivo.</strong></span>"</p>
+    <p class="chain-tagline reveal">"<span data-lang="en">No single player completes this alone. <strong>That's the point.</strong></span><span data-lang="es">Ningún jugador completa esto solo. <strong>Ese es el punto.</strong></span>"</p>
   </div>
 </div>
 
@@ -882,10 +866,7 @@
   <p class="eyebrow reveal"><span data-lang="en">Open Roles</span><span data-lang="es">Roles Disponibles</span></p>
   <h2 class="reveal reveal-delay-1"><span data-lang="en">Your position in the economy.</span><span data-lang="es">Tu posición en la economía.</span></h2>
   <p class="section-intro reveal reveal-delay-2">
-    <span data-lang="en">We're building across all nine Valannia professions. Each one has a defined function and real economic impact. 
-    Priority recruits are the professions that unlock the Fire Juice chain — but every profession has a place in the network.</span>
-    <span data-lang="es">Estamos construyendo en las nueve profesiones de Valannia. Cada una tiene una función definida e impacto económico real. 
-    Los reclutas prioritarios son las profesiones que desbloquean la cadena de Fire Juice — pero cada profesión tiene un lugar en la red.</span>
+    <span data-lang="en">We're building across all nine Valannia professions. Each one has a defined function and real economic impact. Priority recruits are the professions that unlock the Fire Juice chain — but every profession has a place in the network.</span><span data-lang="es">Estamos construyendo en las nueve profesiones de Valannia. Cada una tiene una función definida e impacto económico real. Los reclutas prioritarios son las profesiones que desbloquean la cadena de Fire Juice — pero toda profesión tiene un lugar en la red.</span>
   </p>
 
   <div class="roles-grid">
@@ -896,32 +877,22 @@
       <div class="role-race"><span data-lang="en">Best Race: Lerathi (+10% potion speed, +10% mining bonus)</span><span data-lang="es">Mejor Raza: Lerathi (+10% velocidad de pociones, +10% bonus de minería)</span></div>
       <div class="role-perk">★ <span data-lang="en">Priority Recruit</span><span data-lang="es">Recluta Prioritario</span></div>
       <p class="role-desc">
-        <span data-lang="en">The final and most critical node in the Fire Juice chain. Only the Alchemist profession can produce Fire Juice.
-        Lerathi alchemists are uniquely powerful — their mining bonus lets them gather their own liquid resources when needed.
-        Also produces Liquid Valannite, the fuel for Arcane Chariot mounts.</span>
-        <span data-lang="es">El nodo final y más crítico en la cadena de Fire Juice. Solo la profesión Alquimista puede producir Fire Juice.
-        Los alquimistas Lerathi son excepcionalmente poderosos — su bonus de minería les permite recoger sus propios recursos líquidos cuando es necesario.
-        También produce Valannite Líquido, el combustible para las monturas Arcane Chariot.</span>
+        <span data-lang="en">The final and most critical node in the Fire Juice chain. Only the Alchemist profession can produce Fire Juice. Lerathi alchemists are uniquely powerful — their mining bonus lets them gather their own liquid resources when needed. Also produces Liquid Valannite, the fuel for Arcane Chariot mounts.</span><span data-lang="es">El nodo final y más crítico de la cadena de Fire Juice. Solo la profesión Alquimista puede producir Fire Juice. Los alquimistas Lerathi son especialmente poderosos — su bonus de minería les permite recolectar sus propios recursos líquidos cuando lo necesitan. También produce Valannita Líquida, el combustible para las monturas Carro Arcano.</span>
       </p>
-      <p class="role-impact">"<span data-lang="en">You step into a fully built chain. Explorer, Tower, Transport already operational. You bring the craft.</span><span data-lang="es">Entras en una cadena completamente construida. Explorador, Torre, Transporte ya operativos. Tú aportas el oficio.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Alchemist</span><span data-lang="es">Construiré un Alquimista</span></a>
+      <p class="role-impact">"<span data-lang="en">You step into a fully built chain. Explorer, Tower, Transport already operational. You bring the craft.</span><span data-lang="es">Entras a una cadena ya construida. Explorador, Torre, Transporte ya operativos. Tú aportas el oficio.</span>"</p>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Alchemist</span><span data-lang="es">Voy a ser Alquimista</span></a>
     </div>
 
     <div class="role-card reveal reveal-delay-1">
       <span class="role-icon">⚙️</span>
       <div class="role-title"><span data-lang="en">Engineer</span><span data-lang="es">Ingeniero</span></div>
-      <div class="role-race"><span data-lang="en">Best Race: Tyxen (+10% engineering craft speed)</span><span data-lang="es">Mejor Raza: Tyxen (+10% velocidad de fabricación de ingeniería)</span></div>
+      <div class="role-race"><span data-lang="en">Best Race: Tyxen (+10% engineering craft speed)</span><span data-lang="es">Mejor Raza: Tyxen (+10% velocidad de ingeniería)</span></div>
       <div class="role-perk">★ <span data-lang="en">Priority Recruit</span><span data-lang="es">Recluta Prioritario</span></div>
       <p class="role-desc">
-        <span data-lang="en">Without an Engineer, there is no Extraction Tower. Without a Tower, there is no raw liquid.
-        Engineers are the infrastructure layer — the only profession that can unlock the chain at its source.
-        Also builds and maintains mechanical mounts.</span>
-        <span data-lang="es">Sin un Ingeniero, no hay Torre de Extracción. Sin una Torre, no hay líquido crudo.
-        Los Ingenieros son la capa de infraestructura — la única profesión que puede desbloquear la cadena en su origen.
-        También construye y mantiene monturas mecánicas.</span>
+        <span data-lang="en">Without an Engineer, there is no Extraction Tower. Without a Tower, there is no raw liquid. Engineers are the infrastructure layer — the only profession that can unlock the chain at its source. Also builds and maintains mechanical mounts.</span><span data-lang="es">Sin un Ingeniero, no hay Torre de Extracción. Sin Torre, no hay líquido bruto. Los Ingenieros son la capa de infraestructura — la única profesión que puede desbloquear la cadena en su origen. También construye y mantiene monturas mecánicas.</span>
       </p>
-      <p class="role-impact">"<span data-lang="en">Tyxen lore is literally built around technology and fire. This is your native role in Valannia.</span><span data-lang="es">El lore Tyxen está literalmente construido alrededor de la tecnología y el fuego. Este es tu rol nativo en Valannia.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Engineer</span><span data-lang="es">Construiré un Ingeniero</span></a>
+      <p class="role-impact">"<span data-lang="en">Tyxen lore is literally built around technology and fire. This is your native role in Valannia.</span><span data-lang="es">El lore Tyxen está literalmente construido alrededor de la tecnología y el fuego. Este es tu rol natural en Valannia.</span>"</p>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Engineer</span><span data-lang="es">Voy a ser Ingeniero</span></a>
     </div>
 
     <div class="role-card reveal reveal-delay-2">
@@ -930,15 +901,10 @@
       <div class="role-race"><span data-lang="en">Best Race: Glorb (+5% resources, +5% rare mineral find)</span><span data-lang="es">Mejor Raza: Glorb (+5% recursos, +5% hallazgo de minerales raros)</span></div>
       <div class="role-perk">★ <span data-lang="en">Priority Recruit</span><span data-lang="es">Recluta Prioritario</span></div>
       <p class="role-desc">
-        <span data-lang="en">Miners extract everything — solid resources, liquid resources, and gems. The Fluid Extractor 
-        specialization is the key high-level role in the Fire Juice chain. Glorb miners pull more 
-        per run and find rare minerals that add value beyond the base chain.</span>
-        <span data-lang="es">Los Mineros extraen todo — recursos sólidos, recursos líquidos y gemas. La especialización 
-        Fluid Extractor es el rol clave de alto nivel en la cadena de Fire Juice. Los mineros Glorb extraen más 
-        por recorrido y encuentran minerales raros que añaden valor más allá de la cadena base.</span>
+        <span data-lang="en">Miners extract everything — solid resources, liquid resources, and gems. The Fluid Extractor specialization is the key high-level role in the Fire Juice chain. Glorb miners pull more per run and find rare minerals that add value beyond the base chain.</span><span data-lang="es">Los Mineros extraen todo — recursos sólidos, líquidos y gemas. La especialización Extractor de Fluidos es el rol clave de alto nivel en la cadena de Fire Juice. Los mineros Glorb extraen más por turno y encuentran minerales raros que añaden valor más allá de la cadena base.</span>
       </p>
-      <p class="role-impact">"<span data-lang="en">Consistent Miners are worth their weight in Fire Juice. Volume is everything in this chain.</span><span data-lang="es">Los Mineros consistentes valen su peso en Fire Juice. El volumen lo es todo en esta cadena.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Miner</span><span data-lang="es">Construiré un Minero</span></a>
+      <p class="role-impact">"<span data-lang="en">Consistent Miners are worth their weight in Fire Juice. Volume is everything in this chain.</span><span data-lang="es">Los Mineros constantes valen su peso en Fire Juice. El volumen lo es todo en esta cadena.</span>"</p>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Miner</span><span data-lang="es">Voy a ser Minero</span></a>
     </div>
 
     <div class="role-card reveal">
@@ -947,49 +913,34 @@
       <div class="role-race"><span data-lang="en">Best Race: Altari (+10% scouting effectiveness)</span><span data-lang="es">Mejor Raza: Altari (+10% efectividad de exploración)</span></div>
       <div class="role-perk"><span data-lang="en">Open</span><span data-lang="es">Disponible</span></div>
       <p class="role-desc">
-        <span data-lang="en">Every extraction starts with a deposit. Explorers find them — and generate the maps
-        that Miners need to operate. The Hunter specialization also produces hunting pets, which
-        improve dungeon success rates and provide Meat for animal mount repair.</span>
-        <span data-lang="es">Toda extracción comienza con un depósito. Los Exploradores los encuentran — y generan los mapas
-        que los Mineros necesitan para operar. La especialización Hunter también produce mascotas de caza, que
-        mejoran las tasas de éxito en mazmorras y proporcionan Carne para reparar monturas animales.</span>
+        <span data-lang="en">Every extraction starts with a deposit. Explorers find them — and generate the maps that Miners need to operate. The Hunter specialization also produces hunting pets, which improve dungeon success rates and provide Meat for animal mount repair.</span><span data-lang="es">Toda extracción comienza con un depósito. Los Exploradores los encuentran — y generan los mapas que los Mineros necesitan para operar. La especialización Cazador también produce mascotas de caza, que mejoran las tasas de éxito en mazmorras y proporcionan Carne para reparar monturas animales.</span>
       </p>
       <p class="role-impact">"<span data-lang="en">Altari are Valannia's master scouts. If you want to know the map before anyone else — this is your role.</span><span data-lang="es">Los Altari son los exploradores maestros de Valannia. Si quieres conocer el mapa antes que nadie — este es tu rol.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Explorer</span><span data-lang="es">Construiré un Explorador</span></a>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Explorer</span><span data-lang="es">Voy a ser Explorador</span></a>
     </div>
 
     <div class="role-card reveal reveal-delay-1">
       <span class="role-icon">💎</span>
       <div class="role-title"><span data-lang="en">Jeweler</span><span data-lang="es">Joyero</span></div>
-      <div class="role-race"><span data-lang="en">Best Race: Feyrune (+10% craft speed, +1% extra item)</span><span data-lang="es">Mejor Raza: Feyrune (+10% velocidad de fabricación, +1% objeto extra)</span></div>
+      <div class="role-race"><span data-lang="en">Best Race: Feyrune (+10% craft speed, +1% extra item)</span><span data-lang="es">Mejor Raza: Feyrune (+10% velocidad de artesanía, +1% artículo extra)</span></div>
       <div class="role-perk"><span data-lang="en">Open</span><span data-lang="es">Disponible</span></div>
       <p class="role-desc">
-        <span data-lang="en">The only profession that can craft ORBs — the Core Binder specialization converts gem magical essence 
-        into ORBs that slot into equipment for stat bonuses. Jewelers also produce the highest-level jewelry 
-        and enchantment scrolls that buff heroes across every profession.</span>
-        <span data-lang="es">La única profesión que puede fabricar ORBs — la especialización Core Binder convierte la esencia mágica de gemas 
-        en ORBs que se insertan en el equipo para obtener bonus de estadísticas. Los Joyeros también producen las joyas 
-        de mayor nivel y pergaminos de encantamiento que potencian a héroes en todas las profesiones.</span>
+        <span data-lang="en">The only profession that can craft ORBs — the Core Binder specialization converts gem magical essence into ORBs that slot into equipment for stat bonuses. Jewelers also produce the highest-level jewelry and enchantment scrolls that buff heroes across every profession.</span><span data-lang="es">La única profesión que puede fabricar ORBs — la especialización Enlazador de Núcleos convierte la esencia mágica de las gemas en ORBs que se insertan en el equipo para obtener bonuses de estadísticas. Los Joyeros también producen joyería de alto nivel y pergaminos de encantamiento que potencian a los héroes de todas las profesiones.</span>
       </p>
       <p class="role-impact">"<span data-lang="en">ORBs are how heroes upgrade gear. Every hero needs them. Feyrune jewelers are the only source.</span><span data-lang="es">Los ORBs son como los héroes mejoran su equipo. Todos los héroes los necesitan. Los joyeros Feyrune son la única fuente.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Jeweler</span><span data-lang="es">Construiré un Joyero</span></a>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Jeweler</span><span data-lang="es">Voy a ser Joyero</span></a>
     </div>
 
     <div class="role-card reveal reveal-delay-2">
       <span class="role-icon">🪵</span>
       <div class="role-title"><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></div>
-      <div class="role-race"><span data-lang="en">Best Race: Pirith (+10% resource collection, faster natural professions)</span><span data-lang="es">Mejor Raza: Pirith (+10% recolección de recursos, profesiones naturales más rápidas)</span></div>
+      <div class="role-race"><span data-lang="en">Best Race: Pirith (+10% resource collection, faster natural professions)</span><span data-lang="es">Mejor Raza: Pirith (+10% recolección de recursos, más rápido en profesiones naturales)</span></div>
       <div class="role-perk"><span data-lang="en">Open</span><span data-lang="es">Disponible</span></div>
       <p class="role-desc">
-        <span data-lang="en">Produces wood, cloth, leather, herbs, and paper — the foundational materials that feed 
-        Blacksmiths, Architects, and Enchanters. The Wildwood Herbalist specialization sources 
-        the finest ingredients for the alchemy chain.</span>
-        <span data-lang="es">Produce madera, tela, cuero, hierbas y papel — los materiales fundamentales que abastecen 
-        a Herreros, Arquitectos y Encantadores. La especialización Wildwood Herbalist obtiene 
-        los mejores ingredientes para la cadena de alquimia.</span>
+        <span data-lang="en">Gathers fiber and wood to produce cloth, leather, paper, and decorative items — foundational materials that feed Blacksmiths and Architects. Cloth and leather are the armor materials for Mages and Rangers, making Artisans a steady supply source across the full gear economy.</span><span data-lang="es">Recolecta fibra y madera para producir tela, cuero, papel y objetos decorativos — materiales fundamentales que abastecen a Herreros y Arquitectos. La tela y el cuero son los materiales de armadura para Magos y Rangers, convirtiendo a los Artesanos en una fuente estable de suministro en toda la economía de equipo.</span>
       </p>
       <p class="role-impact">"<span data-lang="en">The economy runs on materials. Artisans are where it all starts.</span><span data-lang="es">La economía funciona con materiales. Los Artesanos son donde todo comienza.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Artisan</span><span data-lang="es">Construiré un Artesano</span></a>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Artisan</span><span data-lang="es">Voy a ser Artesano</span></a>
     </div>
 
     <div class="role-card reveal">
@@ -998,49 +949,33 @@
       <div class="role-race"><span data-lang="en">Best Race: Humans (+15% forge craft speed — highest in the game)</span><span data-lang="es">Mejor Raza: Humanos (+15% velocidad de forja — la más alta del juego)</span></div>
       <div class="role-perk"><span data-lang="en">Open</span><span data-lang="es">Disponible</span></div>
       <p class="role-desc">
-        <span data-lang="en">Produces weapons, armor, and the Gorb Toolbox used for mechanical mount repair. 
-        Human Blacksmiths have the highest forge craft speed in the game. 
-        Essential for any hero preparing for dungeons or Red Zone operations.</span>
-        <span data-lang="es">Produce armas, armaduras y el Gorb Toolbox utilizado para reparar monturas mecánicas. 
-        Los Herreros Humanos tienen la mayor velocidad de forja del juego. 
-        Esencial para cualquier héroe que se prepare para mazmorras u operaciones en la Zona Roja.</span>
+        <span data-lang="en">Forges weapons, armor, and the gathering tools that Miners depend on to extract resources. Without a Blacksmith keeping tools in supply, the Fire Juice chain stalls before it starts. Human Blacksmiths have the highest single-profession forge speed bonus in the game. Essential for any hero preparing for dungeons or Red Zone operations.</span><span data-lang="es">Forja armas, armaduras y las herramientas de recolección de las que dependen los Mineros para extraer recursos. Sin un Herrero manteniendo las herramientas disponibles, la cadena de Fire Juice se detiene antes de comenzar. Los Herreros Humanos tienen el mayor bonus de velocidad de forja por profesión del juego. Esencial para cualquier héroe que se prepare para mazmorras u operaciones en la Zona Roja.</span>
       </p>
-      <p class="role-impact">"<span data-lang="en">Every hero needs gear. Every mount needs repair tools. Blacksmiths touch every part of the economy.</span><span data-lang="es">Cada héroe necesita equipo. Cada montura necesita herramientas de reparación. Los Herreros tocan cada parte de la economía.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Blacksmith</span><span data-lang="es">Construiré un Herrero</span></a>
+      <p class="role-impact">"<span data-lang="en">Every hero needs gear. Every Miner needs tools. Blacksmiths touch every part of the economy.</span><span data-lang="es">Todo héroe necesita equipo. Todo Minero necesita herramientas. Los Herreros tocan cada parte de la economía.</span>"</p>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Blacksmith</span><span data-lang="es">Voy a ser Herrero</span></a>
     </div>
 
     <div class="role-card reveal reveal-delay-1">
       <span class="role-icon">🏰</span>
       <div class="role-title"><span data-lang="en">Architect</span><span data-lang="es">Arquitecto</span></div>
-      <div class="role-race"><span data-lang="en">Best Race: Zan'Thar (+5% build speed, +10% Initiate reputation)</span><span data-lang="es">Mejor Raza: Zan'Thar (+5% velocidad de construcción, +10% reputación Iniciado)</span></div>
+      <div class="role-race"><span data-lang="en">Best Race: Zan'Thar (+5% build speed)</span><span data-lang="es">Mejor Raza: Zan'Thar (+5% velocidad de construcción)</span></div>
       <div class="role-perk"><span data-lang="en">Open</span><span data-lang="es">Disponible</span></div>
       <p class="role-desc">
-        <span data-lang="en">Builds strongholds, castles, outposts, and citadels. The Fortification Master specialization 
-        constructs military structures in neutral territories. Architects are the foundation of guild 
-        territorial presence — without them, there are no bases to defend or coordinate from.</span>
-        <span data-lang="es">Construye fortalezas, castillos, puestos avanzados y ciudadelas. La especialización Fortification Master 
-        construye estructuras militares en territorios neutrales. Los Arquitectos son la base de la 
-        presencia territorial del gremio — sin ellos, no hay bases que defender ni desde las que coordinar.</span>
+        <span data-lang="en">Builds strongholds, castles, outposts, and citadels. Architects are the only players who can build castles. Building a guild Stronghold requires a Level 7 Architect — without one, your guild cannot unlock its skill trees. Architects are the foundation of guild territorial presence.</span><span data-lang="es">Construye bastiones, castillos, puestos avanzados y ciudadelas. Los Arquitectos son los únicos jugadores que pueden construir castillos. Construir el Bastión del gremio requiere un Arquitecto de Nivel 7 — sin uno, tu gremio no puede desbloquear sus árboles de habilidades. Los Arquitectos son la base de la presencia territorial del gremio.</span>
       </p>
       <p class="role-impact">"<span data-lang="en">Territory is power. Architects are the ones who build the structures that make territory worth holding.</span><span data-lang="es">El territorio es poder. Los Arquitectos son quienes construyen las estructuras que hacen que el territorio valga la pena defender.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Architect</span><span data-lang="es">Construiré un Arquitecto</span></a>
+      <a href="#apply" class="role-cta"><span data-lang="en">I'm building an Architect</span><span data-lang="es">Voy a ser Arquitecto</span></a>
     </div>
 
-    <div class="role-card reveal reveal-delay-2">
+    <div class="role-card reveal reveal-delay-2" style="border-color:rgba(212,168,67,0.1);opacity:.85">
       <span class="role-icon">🚚</span>
-      <div class="role-title"><span data-lang="en">Transporter</span><span data-lang="es">Transportista</span></div>
-      <div class="role-race"><span data-lang="en">Any Race — mount choice matters most</span><span data-lang="es">Cualquier Raza — la elección de montura es lo más importante</span></div>
-      <div class="role-perk"><span data-lang="en">Open</span><span data-lang="es">Disponible</span></div>
+      <div class="role-title"><span data-lang="en">Transporter <span style="font-size:.7em;color:var(--smoke);font-family:'Lato',sans-serif;font-weight:300;letter-spacing:0;text-transform:none;">(Logistics Role)</span></span><span data-lang="es">Transportador <span style="font-size:.7em;color:var(--smoke);font-family:'Lato',sans-serif;font-weight:300;letter-spacing:0;text-transform:none;">(Rol Logístico)</span></span></div>
+      <div class="role-race"><span data-lang="en">Any Race — mount choice matters most</span><span data-lang="es">Cualquier Raza — la montura es lo más importante</span></div>
+      <div class="role-perk" style="color:var(--smoke)"><span data-lang="en">Open to All Heroes</span><span data-lang="es">Abierto a Todos los Héroes</span></div>
       <p class="role-desc">
-        <span data-lang="en">Moves raw materials between extraction sites and national capitals. Every production chain 
-        in Valannia passes through a Transporter. Mount selection is critical for this role — 
-        fuel efficiency, terrain affinity, and cargo capacity all directly affect profitability.</span>
-        <span data-lang="es">Mueve materiales crudos entre sitios de extracción y capitales nacionales. Cada cadena de producción 
-        en Valannia pasa por un Transportista. La selección de montura es crítica para este rol — 
-        la eficiencia de combustible, la afinidad con el terreno y la capacidad de carga afectan directamente la rentabilidad.</span>
+        <span data-lang="en">Transporter is not a separate profession — it is a logistics role any hero can fill. Moving raw materials between extraction sites and national capitals is player-driven and requires specific transportation units. Liquid resources require different transport than solid ones, and distance affects cost. When few players fill this role, it becomes highly profitable due to supply and demand.</span><span data-lang="es">Transportador no es una profesión separada — es un rol logístico que cualquier héroe puede desempeñar. Mover materiales brutos entre los sitios de extracción y las capitales nacionales es dirigido por jugadores y requiere unidades de transporte específicas. Los recursos líquidos requieren un transporte diferente al de los sólidos, y la distancia afecta el costo. Cuando pocos jugadores ocupan este rol, se vuelve muy rentable por la oferta y la demanda.</span>
       </p>
-      <p class="role-impact">"<span data-lang="en">The chain only works if materials move. Transporters are the connective tissue of the economy.</span><span data-lang="es">La cadena solo funciona si los materiales se mueven. Los Transportistas son el tejido conectivo de la economía.</span>"</p>
-      <a href="#apply" class="role-cta"><span data-lang="en">I'm building a Transporter</span><span data-lang="es">Construiré un Transportista</span></a>
+      <p class="role-impact">"<span data-lang="en">The chain only works if materials move. Any hero can be the connective tissue.</span><span data-lang="es">La cadena solo funciona si los materiales se mueven. Cualquier héroe puede ser el tejido conectivo.</span>"</p>
     </div>
 
   </div>
@@ -1052,12 +987,9 @@
 <div id="why">
   <section class="reveal">
     <p class="eyebrow"><span data-lang="en">Why Polaris Fuel</span><span data-lang="es">Por Qué Polaris Fuel</span></p>
-    <h2><span data-lang="en">The case for builders over fighters.</span><span data-lang="es">El argumento a favor de los constructores frente a los combatientes.</span></h2>
+    <h2><span data-lang="en">The case for builders over fighters.</span><span data-lang="es">El argumento de los constructores sobre los guerreros.</span></h2>
     <p class="section-intro">
-      <span data-lang="en">Most guilds recruit for combat power. We recruit for chain coverage. 
-      Here's what that means in practice.</span>
-      <span data-lang="es">La mayoría de los gremios reclutan por poder de combate. Nosotros reclutamos por cobertura de la cadena. 
-      Esto es lo que significa en la práctica.</span>
+      <span data-lang="en">Most guilds recruit for combat power. We recruit for chain coverage. Here's what that means in practice.</span><span data-lang="es">La mayoría de los gremios reclutan por poder de combate. Nosotros reclutamos por cobertura de cadena. Esto es lo que significa en la práctica.</span>
     </p>
 
     <div class="pillars">
@@ -1065,25 +997,15 @@
         <div class="pillar-num">01</div>
         <div class="pillar-title"><span data-lang="en">A Defined Role</span><span data-lang="es">Un Rol Definido</span></div>
         <p class="pillar-text">
-          <span data-lang="en">You're not joining a Discord server with vague promises. You join with a specific 
-          profession, a specific chain position, and a specific function. 
-          Your work has a direct output: Fire Juice reaching heroes who need it.</span>
-          <span data-lang="es">No estás uniéndote a un servidor de Discord con promesas vagas. Te unes con una profesión específica, 
-          una posición específica en la cadena y una función específica. 
-          Tu trabajo tiene un resultado directo: Fire Juice llegando a los héroes que lo necesitan.</span>
+          <span data-lang="en">You're not joining a Discord server with vague promises. You join with a specific profession, a specific chain position, and a specific function. Your work has a direct output: Fire Juice reaching heroes who need it.</span><span data-lang="es">No estás uniéndote a un servidor de Discord con promesas vagas. Te unes con una profesión específica, una posición específica en la cadena y una función específica. Tu trabajo tiene un resultado directo: Fire Juice llegando a los héroes que lo necesitan.</span>
         </p>
       </div>
 
       <div class="reveal reveal-delay-2">
         <div class="pillar-num">02</div>
-        <div class="pillar-title"><span data-lang="en">Real Economic Leverage</span><span data-lang="es">Apalancamiento Económico Real</span></div>
+        <div class="pillar-title"><span data-lang="en">Real Economic Leverage</span><span data-lang="es">Influencia Económica Real</span></div>
         <p class="pillar-text">
-          <span data-lang="en">Fire Juice is required for Red Zone survival — where NFT assets are permanently at 
-          risk. That creates genuine, high-stakes demand. The team that owns the supply chain 
-          owns the negotiating table. We're building that position from Phase 1.</span>
-          <span data-lang="es">El Fire Juice es necesario para sobrevivir en la Zona Roja — donde los activos NFT están permanentemente en 
-          riesgo. Eso crea una demanda genuina y de alto riesgo. El equipo que controla la cadena de suministro 
-          controla la mesa de negociación. Estamos construyendo esa posición desde la Fase 1.</span>
+          <span data-lang="en">Fire Juice is required for Red Zone survival — where NFT assets are permanently at risk. That creates genuine, high-stakes demand. The team that owns the supply chain owns the negotiating table. We're building that position from Phase 1.</span><span data-lang="es">El Fire Juice es necesario para sobrevivir en la Zona Roja — donde los activos NFT están permanentemente en riesgo. Eso crea una demanda genuina y de alto riesgo. El equipo que controla la cadena de suministro controla la mesa de negociación. Estamos construyendo esa posición desde la Fase 1.</span>
         </p>
       </div>
 
@@ -1091,12 +1013,7 @@
         <div class="pillar-num">03</div>
         <div class="pillar-title"><span data-lang="en">Builder Culture</span><span data-lang="es">Cultura de Constructores</span></div>
         <p class="pillar-text">
-          <span data-lang="en">No hype. No overpromising. We're honest about where we are and where we're building 
-          toward. Genuine value before monetization. If you want a team that thinks long-term 
-          and executes quietly — this is it.</span>
-          <span data-lang="es">Sin hype. Sin promesas exageradas. Somos honestos sobre dónde estamos y hacia dónde nos dirigimos. 
-          Valor genuino antes de la monetización. Si buscas un equipo que piensa a largo plazo 
-          y ejecuta en silencio — este es.</span>
+          <span data-lang="en">No hype. No overpromising. We're honest about where we are and where we're building toward. Genuine value before monetization. If you want a team that thinks long-term and executes quietly — this is it.</span><span data-lang="es">Sin hype. Sin promesas exageradas. Somos honestos sobre dónde estamos y hacia dónde construimos. Valor genuino antes de la monetización. Si buscas un equipo que piense a largo plazo y ejecute en silencio — este es.</span>
         </p>
       </div>
     </div>
@@ -1110,16 +1027,13 @@
   <p class="eyebrow reveal"><span data-lang="en">Join the Chain</span><span data-lang="es">Únete a la Cadena</span></p>
   <h2 class="reveal reveal-delay-1"><span data-lang="en">Find your role.<br>Start building.</span><span data-lang="es">Encuentra tu rol.<br>Empieza a construir.</span></h2>
   <p class="section-intro reveal reveal-delay-2">
-    <span data-lang="en">Tell us your profession of choice and we'll reach out within 24 hours. 
-    Profession choice in Valannia is permanent — we take your pick seriously.</span>
-    <span data-lang="es">Dinos tu profesión de elección y nos pondremos en contacto contigo en 24 horas. 
-    La elección de profesión en Valannia es permanente — tomamos tu elección en serio.</span>
+    <span data-lang="en">Tell us your profession of choice and we'll reach out within 24 hours. Profession choice in Valannia is permanent — we take your pick seriously.</span><span data-lang="es">Cuéntanos tu profesión elegida y nos pondremos en contacto en menos de 24 horas. La elección de profesión en Valannia es permanente — tomamos tu decisión en serio.</span>
   </p>
 
   <form class="apply-form reveal" action="https://formspree.io/f/xaqdjrzk" method="POST">
     <div class="form-row">
       <div class="form-group">
-        <label for="name"><span data-lang="en">Name / Handle</span><span data-lang="es">Nombre / Apodo</span></label>
+        <label for="name"><span data-lang="en">Name / Handle</span><span data-lang="es">Nombre / Usuario</span></label>
         <input type="text" id="name" name="name" placeholder="Your in-game name" required>
       </div>
       <div class="form-group">
@@ -1132,7 +1046,7 @@
       <div class="form-group">
         <label for="race"><span data-lang="en">Race</span><span data-lang="es">Raza</span></label>
         <select id="race" name="race" required>
-          <option value="" disabled selected><span data-lang="en">Select your race</span><span data-lang="es">Selecciona tu raza</span></option>
+          <option value="" disabled selected data-en="Select your race" data-es="Selecciona tu raza">Select your race</option>
           <option value="Lerathi">Lerathi — <span data-lang="en">Alchemist / Miner</span><span data-lang="es">Alquimista / Minero</span></option>
           <option value="Tyxen">Tyxen — <span data-lang="en">Engineer</span><span data-lang="es">Ingeniero</span></option>
           <option value="Glorb">Glorb — <span data-lang="en">Miner</span><span data-lang="es">Minero</span></option>
@@ -1140,14 +1054,14 @@
           <option value="Humans"><span data-lang="en">Humans</span><span data-lang="es">Humanos</span> — <span data-lang="en">Blacksmith</span><span data-lang="es">Herrero</span></option>
           <option value="Zan'Thar">Zan'Thar — <span data-lang="en">Architect</span><span data-lang="es">Arquitecto</span></option>
           <option value="Feyrune">Feyrune — <span data-lang="en">Jeweler</span><span data-lang="es">Joyero</span></option>
-          <option value="Pirith">Pirith — <span data-lang="en">Artisan / Alchemy</span><span data-lang="es">Artesano / Alquimia</span></option>
-          <option value="Undecided"><span data-lang="en">Not decided yet</span><span data-lang="es">Aún no lo he decidido</span></option>
+          <option value="Pirith">Pirith — <span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></option>
+          <option value="Undecided"><span data-lang="en">Not decided yet</span><span data-lang="es">Aún no lo sé</span></option>
         </select>
       </div>
       <div class="form-group">
         <label for="profession"><span data-lang="en">Profession of Choice</span><span data-lang="es">Profesión Elegida</span></label>
         <select id="profession" name="profession" required>
-          <option value="" disabled selected><span data-lang="en">Select profession</span><span data-lang="es">Selecciona profesión</span></option>
+          <option value="" disabled selected data-en="Select profession" data-es="Selecciona profesión">Select profession</option>
           <optgroup label="★ Priority Recruit">
             <option value="Alchemist"><span data-lang="en">Alchemist</span><span data-lang="es">Alquimista</span></option>
             <option value="Engineer"><span data-lang="en">Engineer</span><span data-lang="es">Ingeniero</span></option>
@@ -1159,9 +1073,8 @@
             <option value="Artisan"><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></option>
             <option value="Blacksmith"><span data-lang="en">Blacksmith</span><span data-lang="es">Herrero</span></option>
             <option value="Architect"><span data-lang="en">Architect</span><span data-lang="es">Arquitecto</span></option>
-            <option value="Transporter"><span data-lang="en">Transporter</span><span data-lang="es">Transportista</span></option>
           </optgroup>
-          <option value="Undecided"><span data-lang="en">Not decided yet</span><span data-lang="es">Aún no lo he decidido</span></option>
+          <option value="Undecided"><span data-lang="en">Not decided yet</span><span data-lang="es">Aún no lo sé</span></option>
         </select>
       </div>
     </div>
@@ -1171,14 +1084,11 @@
       <textarea id="message" name="message" placeholder="Playstyle, goals, questions — anything you want us to know..."></textarea>
     </div>
 
-    <button type="submit" class="submit-btn"><span data-lang="en">Apply to Polaris Fuel →</span><span data-lang="es">Solicitar unirse a Polaris Fuel →</span></button>
+    <button type="submit" class="submit-btn"><span data-lang="en">Apply to Polaris Fuel →</span><span data-lang="es">Aplicar a Polaris Fuel →</span></button>
   </form>
 
   <div class="form-alt reveal">
-    <span data-lang="en">Prefer Discord? Find us at <a href="https://polarisfuel.app" target="_blank" rel="noopener noreferrer">polarisfuel.app</a> 
-    or DM <strong>Drumcarlos</strong> directly in the Valannia server.</span>
-    <span data-lang="es">¿Prefieres Discord? Encuéntranos en <a href="https://polarisfuel.app" target="_blank" rel="noopener noreferrer">polarisfuel.app</a> 
-    o envíale un mensaje directo a <strong>Drumcarlos</strong> en el servidor de Valannia.</span>
+    <span data-lang="en">Prefer Discord? Find us at <a href="https://polarisfuel.app" target="_blank" rel="noopener noreferrer">polarisfuel.app</a> or DM <strong>Drumcarlos</strong> directly in the Valannia server.</span><span data-lang="es">¿Prefieres Discord? Encuéntranos en <a href="https://polarisfuel.app" target="_blank" rel="noopener noreferrer">polarisfuel.app</a> o envía un DM a <strong>Drumcarlos</strong> directamente en el servidor de Valannia.</span>
   </div>
 </section>
 
@@ -1190,7 +1100,7 @@
     <a href="https://polarisfuel.app"><span data-lang="en">Website</span><span data-lang="es">Sitio Web</span></a>
     <a href="#chain"><span data-lang="en">The Chain</span><span data-lang="es">La Cadena</span></a>
     <a href="#roles"><span data-lang="en">Open Roles</span><span data-lang="es">Roles Disponibles</span></a>
-    <a href="#apply"><span data-lang="en">Apply</span><span data-lang="es">Solicitar</span></a>
+    <a href="#apply"><span data-lang="en">Apply</span><span data-lang="es">Aplicar</span></a>
   </div>
   <div class="footer-copy">
     © 2026 Polaris Fuel · Fire &amp; Metal Logistics · <span data-lang="en">Built for Valannia</span><span data-lang="es">Construido para Valannia</span>
@@ -1203,12 +1113,13 @@
     document.body.classList.toggle('lang-es', l === 'es');
     document.getElementById('btn-en').classList.toggle('active', l === 'en');
     document.getElementById('btn-es').classList.toggle('active', l === 'es');
+    document.querySelectorAll('select option[data-en]').forEach(opt => {
+      opt.textContent = l === 'es' ? opt.dataset.es : opt.dataset.en;
+    });
     localStorage.setItem('pf-lang', l);
   }
   const savedLang = localStorage.getItem('pf-lang');
   if (savedLang) setLang(savedLang);
-
-  // Embers
   const container = document.getElementById('embers');
   for (let i = 0; i < 24; i++) {
     const e = document.createElement('div');
