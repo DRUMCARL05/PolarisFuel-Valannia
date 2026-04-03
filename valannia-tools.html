@@ -175,8 +175,9 @@ div[data-lang]{display:none}
 .notify-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
 .notify-sub{font-size:.9rem;color:var(--text-dim);line-height:1.8;margin-bottom:2rem}
 .notify-form{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}
-.notify-input{flex:1;min-width:200px;background:var(--dark-card);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;padding:.85rem 1.2rem;transition:border-color .2s}
-.notify-input:focus{outline:none;border-color:rgba(255,107,26,0.5)}
+.notify-input{flex:1;min-width:200px;background:var(--dark-card);border:1px solid rgba(212,168,67,0.35);color:var(--text);font-family:'Lato',sans-serif;font-size:.9rem;padding:.85rem 1.2rem;transition:border-color .2s, box-shadow .2s}
+.notify-input:focus{outline:none;border-color:var(--fire);box-shadow:0 0 0 2px rgba(255,107,26,0.15)}
+.notify-input:hover{border-color:rgba(212,168,67,0.6)}
 .notify-note{margin-top:1rem;font-size:.75rem;color:var(--text-dim)}
 
 /* TOOL SHORTCUTS */
@@ -196,8 +197,8 @@ div[data-lang]{display:none}
 .fc-results{background:var(--dark-card);border:1px solid var(--border);padding:2rem}
 .fc-field{margin-bottom:1.4rem}
 .fc-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.5rem;display:block}
-.fc-select,.fc-input-num{width:100%;background:var(--dark);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.88rem;padding:.65rem 1rem;transition:border-color .2s;appearance:none}
-.fc-select:focus,.fc-input-num:focus{outline:none;border-color:rgba(255,107,26,0.5)}
+.fc-select,.fc-input-num{width:100%;background:var(--dark);border:1px solid rgba(212,168,67,0.35);color:var(--text);font-family:'Lato',sans-serif;font-size:.88rem;padding:.65rem 1rem;transition:border-color .2s, box-shadow .2s;appearance:none}
+.fc-select:focus,.fc-input-num:focus{outline:none;border-color:var(--fire);box-shadow:0 0 0 2px rgba(255,107,26,0.15)}
 .fc-result-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid rgba(212,168,67,0.07)}
 .fc-result-row:last-child{border-bottom:none}
 .fc-result-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
@@ -306,12 +307,13 @@ div[data-lang]{display:none}
   text-transform:uppercase; color:var(--text-dim); display:block; margin-bottom:.5rem;
 }
 .fc-select, .fc-input {
-  width:100%; background:rgba(10,7,4,0.7); border:1px solid rgba(212,168,67,0.2);
+  width:100%; background:rgba(10,7,4,0.7); border:1px solid rgba(212,168,67,0.35);
   color:var(--text); font-family:'Lato',sans-serif; font-size:.87rem;
-  padding:.65rem 1rem; transition:border-color .2s; appearance:none;
+  padding:.65rem 1rem; transition:border-color .2s, box-shadow .2s; appearance:none;
 }
-.fc-select:focus,.fc-input:focus { outline:none; border-color:rgba(255,107,26,.5); }
-.fc-select { cursor:pointer; }
+.fc-select:focus,.fc-input:focus { outline:none; border-color:var(--fire); box-shadow:0 0 0 2px rgba(255,107,26,0.15); }
+.fc-select:hover,.fc-input:hover { border-color:rgba(212,168,67,0.6); }
+.fc-select { cursor:pointer; padding-right:2.2rem; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4A843' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right .85rem center; }
 
 .fc-results-panel { position:relative; }
 .fc-result-glow {
@@ -349,20 +351,22 @@ div[data-lang]{display:none}
 @media(max-width:640px){ .dash-top { grid-template-columns:1fr; } }
 .dash-search-wrap { position:relative; }
 .dash-search {
-  width:100%; background:rgba(10,7,4,.8); border:1px solid rgba(212,168,67,.25);
+  width:100%; background:rgba(10,7,4,.8); border:1px solid rgba(212,168,67,.35);
   color:var(--text); font-family:'Lato',sans-serif; font-size:.9rem;
-  padding:.75rem 1rem .75rem 2.4rem; transition:border-color .2s;
+  padding:.75rem 1rem .75rem 2.4rem; transition:border-color .2s, box-shadow .2s;
 }
-.dash-search:focus { outline:none; border-color:rgba(255,107,26,.5); }
+.dash-search:focus { outline:none; border-color:var(--fire); box-shadow:0 0 0 2px rgba(255,107,26,0.15); }
+.dash-search:hover { border-color:rgba(212,168,67,.6); }
 .dash-search-icon { position:absolute; left:.85rem; top:50%; transform:translateY(-50%); color:var(--text-dim); font-size:.85rem; pointer-events:none; }
 .dash-qty-wrap { display:flex; align-items:center; gap:.8rem; }
 .dash-qty-label { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); white-space:nowrap; }
 .dash-qty {
-  width:80px; background:rgba(10,7,4,.8); border:1px solid rgba(212,168,67,.25);
+  width:80px; background:rgba(10,7,4,.8); border:1px solid rgba(212,168,67,.35);
   color:var(--text); font-family:'Lato',sans-serif; font-size:.9rem;
-  padding:.75rem .75rem; text-align:center; transition:border-color .2s;
+  padding:.75rem .75rem; text-align:center; transition:border-color .2s, box-shadow .2s;
 }
-.dash-qty:focus { outline:none; border-color:rgba(255,107,26,.5); }
+.dash-qty:focus { outline:none; border-color:var(--fire); box-shadow:0 0 0 2px rgba(255,107,26,0.15); }
+.dash-qty:hover { border-color:rgba(212,168,67,.6); }
 
 /* Recipe list */
 .recipe-list {
@@ -798,16 +802,16 @@ div[data-lang]{display:none}
       <div class="tool-card-status soon">
         <span data-lang="en">In Development</span><span data-lang="es">En Desarrollo</span>
       </div>
-      <span class="tool-card-icon">⛽</span>
-      <div class="tool-card-title"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
+      <span class="tool-card-icon">⚙️</span>
+      <div class="tool-card-title"><span data-lang="en">Crafting Automation Tool</span><span data-lang="es">Herramienta de Automatización de Crafting</span></div>
       <p class="tool-card-desc">
-        <span data-lang="en">Input mount type, tier, and distance. Get fuel requirements and cost estimates based on real gameplay data collected as Realms Phase 1 matures.</span>
-        <span data-lang="es">Ingresa tipo de montura, nivel y distancia. Obtén requisitos de fuel y estimaciones de costo basadas en datos reales recopilados conforme madura la Fase 1.</span>
+        <span data-lang="en">Queue and schedule crafting jobs across professions. Track active timers, manage material pipelines, and coordinate multi-step recipes without juggling spreadsheets.</span>
+        <span data-lang="es">Organiza y programa trabajos de crafting entre profesiones. Controla temporizadores activos, gestiona pipelines de materiales y coordina recetas de múltiples pasos sin necesidad de hojas de cálculo.</span>
       </p>
       <div class="tool-card-features">
-        <div class="tool-card-feature"><span data-lang="en">All 3 mount types and tiers</span><span data-lang="es">Los 3 tipos de montura y niveles</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Cargo load variables</span><span data-lang="es">Variables de carga</span></div>
-        <div class="tool-card-feature"><span data-lang="en">Updated as real data comes in</span><span data-lang="es">Actualizado con datos reales</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Multi-profession job queue</span><span data-lang="es">Cola de trabajos multi-profesión</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Active craft timer tracking</span><span data-lang="es">Seguimiento de temporizadores activos</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Material pipeline planning</span><span data-lang="es">Planificación de pipeline de materiales</span></div>
       </div>
     </div>
 
@@ -845,8 +849,8 @@ div[data-lang]{display:none}
       <span data-lang="es">Sé notificado cuando las herramientas lancen</span>
     </h2>
     <p class="notify-sub reveal reveal-delay-2">
-      <span data-lang="en">Drop your email or join Discord. We'll notify you when the Wallet Management tool and Fuel Calculator go live.</span>
-      <span data-lang="es">Deja tu email o únete a Discord. Te notificamos cuando la herramienta de Wallets y la Calculadora de Fuel estén disponibles.</span>
+      <span data-lang="en">Drop your email or join Discord. We'll notify you when the Crafting Automation Tool and other upcoming tools go live.</span>
+      <span data-lang="es">Deja tu email o únete a Discord. Te notificamos cuando la Herramienta de Automatización de Crafting y otras herramientas estén disponibles.</span>
     </p>
     <form class="notify-form reveal reveal-delay-3" id="notify-form">
       <input type="email" name="email" class="notify-input" placeholder="your@email.com" required>
