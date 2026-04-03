@@ -552,7 +552,9 @@ div[data-lang]{display:none}
             <option value="vaelgrun"     data-fuel="Stormwater"     data-consume="1"   data-tank="27">🐾 Vaelgrun — Stormwater · 27 Lyr range</option>
             <option value="krazykeg"     data-fuel="Fire Juice"     data-consume="0.5" data-tank="10">⚙️ Krazy Keg — Fire Juice · 20 Lyr range</option>
             <option value="arcane"       data-fuel="Liquid Valannite" data-consume="1" data-tank="20">🔮 Arcane Chariot — Liq. Valannite · 20 Lyr range</option>
-            <option value="qwemzi"       data-fuel="Arcane Energy"  data-consume="?"   data-tank="?">☀️ Qwemzi Divine Sun — Fuel TBC</option>
+            <option value="qwemzi"       data-fuel="Gem-Set Conduits (Arcane)" data-consume="?" data-tank="?">☀️ Qwemzi Divine Sun — Rate TBC</option>
+            <option value="glorb"        data-fuel="Liquid Celespar"  data-consume="?" data-tank="?">⚙️ Glorb Turboscrap — Liquid Celespar · Rate TBC</option>
+            <option value="ophalyss"     data-fuel="Arcane Saddle (Telepathic)" data-consume="?" data-tank="?">🐾 Ophalyss of Zel'Tharis — Rate TBC</option>
           </select>
         </div>
         <div class="fc-field">
@@ -630,42 +632,42 @@ div[data-lang]{display:none}
 <div class="dev-note">
   <!--
   EXPANSION NOTES — DO NOT PUBLISH
-  Last updated: April 2026
+  Last updated: April 2026 (gap fill pass from NotebookLM)
 
-  DATA GAPS TO FILL WHEN CONFIRMED:
-  1. Qwemzi Divine Sun, Glorb Turboscrap, Ophalyss — fuel type, consumption rate, tank size
-  2. Artisan wearable full recipes (Apprentice set pieces beyond boots confirmed)
-  3. Blacksmith armor full piece list (Ironrot, Petalsteel — chestplate missing)
-  4. Petalsteel Chestplate recipe
-  5. Heartspire set full list (Hat, Tunic, Pants, Chestguard missing)
-  6. Heartspire Tool Grip Artisan recipe (only Blacksmith consumption confirmed)
-  7. Architecture handle recipes beyond softwood (T2+ assumed by pattern, not confirmed)
-  8. Exploration recipe list (maps confirmed conceptually, specific recipes not captured)
-  9. Mining extraction yields/times — gathered quantities per session not confirmed
-  10. Alchemy processed intermediates recipes (Processed Honey Drop etc. confirmed exist but recipes not captured)
-  11. Infused ingot recipes (some confirmed, full set not captured)
-  12. Potions full recipe list (Swiftstride Serum, Wipe Memory Potion partial only)
-  13. Liquid Astralite recipe not captured
-  14. ORB ingredients sources (Mirrormist etc. mining details needed)
-  15. Stronghold Tower recipe
-  16. Nightwood Cloth recipe (pattern assumed, direct recipe not confirmed)
+  RESOLVED IN THIS PASS:
+  - Rare ingredient sources: Valannite (Frozen Forest/Zeraphy), Honey Drop (Temple of Time/Wendigo),
+    Dragon Breath (Dragon Valley), Celespar (Dragon Valley/dungeon), Astralite (Abyssal Vault/Troll Settlement),
+    Vipharine (Troll Settlement boss 50% drop)
+  - Glass craft time: 6h confirmed
+  - Rose Glass craft time: 9h confirmed
+  - Liquid Astralite recipe: Cinnabar Ore x4, Blackblood x2, Meldstone x2, Astralite x2 — 6h
+  - All potion recipes: Swiftstride Serum, Wipe Memory, Potion of Strength, Stamina, Health
+  - All infused ingot recipes: Copper, Iron, QS (Liquid Valannite), Luminite (Liquid Astralite)
+  - Apprentice set full recipes (Hat, Tunic, Pants, Gloves, Cape)
+  - Heartspire Tool Grip: Heartspire Cloth x1 — 2h
+  - Nightwood Cloth: Nightwood Fibers x4 — 2h
+  - Full Ironrot armor set (all 5 pieces)
+  - Petalsteel Chestplate confirmed
+  - Full Luminglade armor set (all 5 pieces — this is the T4 "Heartspire" set)
+  - Architecture handles T2-T5 all confirmed
+  - Stronghold Tower: Traveler's Tent x5 + Brick x100 + Tyxen Toolkit x10 + Plumhide x10 + Stairs x10 + Glass x20 — 1 day
+  - Exploration map recipes T1-T5 confirmed
+  - Mining yields/times: T1 = 22-26 units / 2h, T3 = 15-18 / 2h, T5 = 15-18 / 2.5h
+  - Glorb Turboscrap fuel type: Liquid Celespar (rate TBC)
+  - Qwemzi fuel type: Gem-set conduits/arcane (rate TBC)
+  - Ophalyss fuel type: Arcane saddle/telepathic design (rate TBC)
 
-  TO ADD NEW RECIPE: add entry to RECIPES array in JS below.
-  Format:
-  {
-    id: 'unique-id',
-    name: 'Item Name',
-    nameEs: 'Nombre en Español',
-    category: 'alchemy|blacksmith|engineering|architecture|artisan|jewelry|mining',
-    profession: 'Profession Name',
-    professionEs: 'Profesión',
-    craftTime: 60, // minutes
-    ingredients: [
-      { qty: 1, name: 'Material', source: 'Profession/Source', craftTime: 0, gap: false }
-    ],
-    gap: false, // true if recipe is incomplete
-    gapNote: '' // note for incomplete recipes
-  }
+  STILL OPEN:
+  1. Unique mount fuel consumption rates and tank sizes (Qwemzi, Glorb Turboscrap, Ophalyss) — not documented in any source
+  2. Brick and Stairs craft times — not captured
+  3. Exploration map T1/T2 reference "Small Paper" and "Medium Paper" — these items not in recipe DB yet
+  4. Mining T2/T4 unlocks perks instead of new extraction tier — perk system details not in DB
+  5. Alchemy Discovery outputs Natron/Limestone/Rose Dust — Discovery only, no direct craft recipe
+  6. Luminglade Boots/Gauntlets require Heartspire Boots/Gloves as inputs — those Artisan recipes not captured
+  7. Beam II (Level 12/16, 150min) and any beams beyond Level 16 — not captured
+
+  TO ADD NEW RECIPE: add entry to RECIPES array above.
+  Format: { id, name, nameEs, category, profession, professionEs, craftTime (minutes|null), ingredients:[{qty,name,source,craftTime,gap?}], gapNote? }
   -->
 </div>
 
@@ -909,72 +911,155 @@ const RECIPES = [
       {qty:4, name:'Copper Ore', source:'Mining T1 (Pickaxe)', craftTime:0},
       {qty:2, name:'Water', source:'Mining T1 (Bucket)', craftTime:0},
       {qty:2, name:'Charcoal', source:'Mining T1 (Shovel)', craftTime:0},
-      {qty:1, name:'Valannite', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
-    ], gapNote:'Valannite raw source unconfirmed — likely Artisan/Exploration gathering.'
+      {qty:1, name:'Valannite', source:'Exploration — Frozen Forest biome / Zeraphy dungeon drop', craftTime:0}
+    ]
   },
   { id:'liquid-honey-drop', name:'Liquid Honey Drop', nameEs:'Gota de Miel Líquida', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
     craftTime:240,
     ingredients:[
-      {qty:4, name:'Copper Ore', source:'Mining T1', craftTime:0},
-      {qty:2, name:'Water', source:'Mining T1', craftTime:0},
-      {qty:2, name:'Charcoal', source:'Mining T1', craftTime:0},
-      {qty:2, name:'Honey Drop', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
-    ], gapNote:'Honey Drop raw source unconfirmed.'
+      {qty:4, name:'Copper Ore', source:'Mining T1 (Pickaxe)', craftTime:0},
+      {qty:2, name:'Water', source:'Mining T1 (Bucket)', craftTime:0},
+      {qty:2, name:'Charcoal', source:'Mining T1 (Shovel)', craftTime:0},
+      {qty:2, name:'Honey Drop', source:'Exploration — Temple of Time / Wendigo dungeon drop', craftTime:0}
+    ]
   },
   { id:'liquid-dragon-breath', name:'Liquid Dragon Breath', nameEs:'Aliento de Dragón Líquido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
     craftTime:240,
     ingredients:[
-      {qty:4, name:'Iron Ore', source:'Mining T2 (Pickaxe)', craftTime:0},
-      {qty:2, name:'Stormwater', source:'Mining T2 (Bucket)', craftTime:0},
-      {qty:2, name:'Coal', source:'Mining T2 (Shovel)', craftTime:0},
-      {qty:2, name:'Dragon Breath', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
-    ], gapNote:'Dragon Breath raw source unconfirmed.'
+      {qty:4, name:'Iron Ore', source:'Mining T3 (Pickaxe)', craftTime:0},
+      {qty:2, name:'Stormwater', source:'Mining T3 (Bucket)', craftTime:0},
+      {qty:2, name:'Coal', source:'Mining T3 (Shovel)', craftTime:0},
+      {qty:2, name:'Dragon Breath', source:'Exploration — Dragon Valley biome', craftTime:0}
+    ]
   },
   { id:'liquid-celespar', name:'Liquid Celespar', nameEs:'Celespar Líquido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
     craftTime:300,
     ingredients:[
-      {qty:4, name:'Iron Ore', source:'Mining T2', craftTime:0},
-      {qty:2, name:'Stormwater', source:'Mining T2', craftTime:0},
-      {qty:2, name:'Coal', source:'Mining T2', craftTime:0},
-      {qty:2, name:'Celespar', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
-    ], gapNote:'Celespar raw source unconfirmed.'
+      {qty:4, name:'Iron Ore', source:'Mining T3 (Pickaxe)', craftTime:0},
+      {qty:2, name:'Stormwater', source:'Mining T3 (Bucket)', craftTime:0},
+      {qty:2, name:'Coal', source:'Mining T3 (Shovel)', craftTime:0},
+      {qty:2, name:'Celespar', source:'Exploration — Dragon Valley / 10% Dragon Valley dungeon drop', craftTime:0}
+    ]
+  },
+  { id:'liquid-astralite', name:'Liquid Astralite', nameEs:'Astralite Líquida', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:360,
+    ingredients:[
+      {qty:4, name:'Cinnabar Ore', source:'Mining T5 (Pickaxe)', craftTime:0},
+      {qty:2, name:'Blackblood', source:'Mining T5 (Bucket)', craftTime:0},
+      {qty:2, name:'Meldstone', source:'Mining T5 (Shovel)', craftTime:0},
+      {qty:2, name:'Astralite', source:'Dragon Valley dungeon (6% drop) / Troll Settlement boss (guaranteed 1x)', craftTime:0}
+    ]
   },
   { id:'glass', name:'Glass', nameEs:'Vidrio', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
-    craftTime:null,
+    craftTime:360,
     ingredients:[
       {qty:1, name:'Natron', source:'Alchemy Discovery T1', craftTime:0},
       {qty:1, name:'Limestone', source:'Alchemy Discovery T1', craftTime:0},
-      {qty:1, name:'Coal', source:'Mining T2', craftTime:0}
-    ], gapNote:'Glass craft time not captured.'
+      {qty:1, name:'Coal', source:'Mining T2 (Shovel)', craftTime:0}
+    ]
   },
   { id:'rose-glass', name:'Rose Glass', nameEs:'Vidrio Rosa', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
-    craftTime:null,
+    craftTime:540,
     ingredients:[
       {qty:1, name:'Rose Dust', source:'Alchemy Discovery T2', craftTime:0},
-      {qty:1, name:'Meld Ash', source:'Alchemy — Meldstone x1 + Blackblood x1 (2h)', craftTime:120},
-      {qty:1, name:'Processed Celespar', source:'Jewelry', craftTime:120},
+      {qty:1, name:'Meld Ash', source:'Alchemy — 2h', craftTime:120},
+      {qty:1, name:'Processed Celespar', source:'Jewelry — 2h', craftTime:120},
       {qty:1, name:'Quicksilver Ingot', source:'Blacksmith smelting', craftTime:0}
-    ], gapNote:'Rose Glass total craft time not confirmed.'
+    ]
   },
   { id:'meld-ash', name:'Meld Ash', nameEs:'Ceniza de Fusión', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
     craftTime:120,
     ingredients:[
-      {qty:1, name:'Meldstone', source:'Mining T3', craftTime:0},
-      {qty:1, name:'Blackblood', source:'Mining T3 (liquid)', craftTime:0}
+      {qty:1, name:'Meldstone', source:'Mining T5 (Shovel)', craftTime:0},
+      {qty:1, name:'Blackblood', source:'Mining T5 (Bucket)', craftTime:0}
     ]
   },
   { id:'luminous-powder', name:'Luminous Powder', nameEs:'Polvo Luminoso', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
     craftTime:180,
     ingredients:[
-      {qty:1, name:'Luminite Ore', source:'Mining T4', craftTime:0},
-      {qty:1, name:'Mirrormist', source:'Mining T4 (liquid)', craftTime:0}
+      {qty:1, name:'Luminite Ore', source:'Mining T4 (Pickaxe)', craftTime:0},
+      {qty:1, name:'Mirrormist', source:'Mining T4 (Bucket)', craftTime:0}
     ]
   },
   { id:'moon-ash', name:'Moon Ash', nameEs:'Ceniza de Luna', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
     craftTime:180,
     ingredients:[
-      {qty:1, name:'Moonslate', source:'Mining T4', craftTime:0},
-      {qty:1, name:'Mirrormist', source:'Mining T4 (liquid)', craftTime:0}
+      {qty:1, name:'Moonslate', source:'Mining T4 (Shovel)', craftTime:0},
+      {qty:1, name:'Mirrormist', source:'Mining T4 (Bucket)', craftTime:0}
+    ]
+  },
+  { id:'swiftstride', name:'Swiftstride Serum', nameEs:'Suero de Paso Veloz', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:120,
+    ingredients:[
+      {qty:1, name:'Cinnabar Ore', source:'Mining T5 (Pickaxe)', craftTime:0},
+      {qty:1, name:'Natron', source:'Alchemy Discovery T1', craftTime:0},
+      {qty:1, name:'Processed Celespar', source:'Jewelry — 2h', craftTime:120},
+      {qty:1, name:'Hideleaf', source:'Artisan T3 — 90min', craftTime:90}
+    ]
+  },
+  { id:'wipe-memory', name:'Wipe Memory Potion', nameEs:'Poción de Borrar Memoria', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:300,
+    ingredients:[
+      {qty:2, name:'Meld Ash', source:'Alchemy — 2h each', craftTime:120},
+      {qty:2, name:'Liquid Honey Drop', source:'Alchemy — 4h', craftTime:240},
+      {qty:3, name:'Blackblood', source:'Mining T5 (Bucket)', craftTime:0},
+      {qty:1, name:'Cinnabar Ore', source:'Mining T5 (Pickaxe)', craftTime:0}
+    ]
+  },
+  { id:'potion-strength', name:'Potion of Strength', nameEs:'Poción de Fuerza', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Paper', source:'Artisan T1 — 1h per 3', craftTime:60},
+      {qty:1, name:'Water', source:'Mining T1 (Bucket)', craftTime:0},
+      {qty:1, name:'Natron', source:'Alchemy Discovery T1', craftTime:0},
+      {qty:1, name:'Processed Valannite', source:'Jewelry — 1h', craftTime:60}
+    ]
+  },
+  { id:'potion-stamina', name:'Potion of Stamina', nameEs:'Poción de Estamina', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:120,
+    ingredients:[
+      {qty:1, name:'Processed Honey Drop', source:'Jewelry — 1h', craftTime:60},
+      {qty:1, name:'Limestone', source:'Alchemy Discovery T1', craftTime:0},
+      {qty:1, name:'Luminous Powder', source:'Alchemy — 3h', craftTime:180},
+      {qty:1, name:'Moon Ash', source:'Alchemy — 3h', craftTime:180},
+      {qty:1, name:'Alchemical Flask', source:'Engineering — 90min', craftTime:90}
+    ]
+  },
+  { id:'potion-health', name:'Potion of Health', nameEs:'Poción de Salud', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Canvas Paper', source:'Artisan T2 — 1h per 3', craftTime:60},
+      {qty:1, name:'Stormwater', source:'Mining T3 (Bucket)', craftTime:0},
+      {qty:1, name:'Natron', source:'Alchemy Discovery T1', craftTime:0},
+      {qty:1, name:'Processed Dragon Breath', source:'Jewelry — 2h', craftTime:120}
+    ]
+  },
+  { id:'infused-copper', name:'Infused Copper Ingot', nameEs:'Lingote de Cobre Infundido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:60,
+    ingredients:[
+      {qty:2, name:'Copper Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Liquid Valannite', source:'Alchemy — 4h', craftTime:240}
+    ]
+  },
+  { id:'infused-iron', name:'Infused Iron Ingot', nameEs:'Lingote de Hierro Infundido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:60,
+    ingredients:[
+      {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Liquid Valannite', source:'Alchemy — 4h', craftTime:240}
+    ]
+  },
+  { id:'infused-qs', name:'Infused QS Ingot', nameEs:'Lingote QS Infundido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:120,
+    ingredients:[
+      {qty:2, name:'Quicksilver Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Liquid Valannite', source:'Alchemy — 4h', craftTime:240}
+    ]
+  },
+  { id:'infused-luminite', name:'Infused Luminite Ingot', nameEs:'Lingote de Luminite Infundido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:150,
+    ingredients:[
+      {qty:1, name:'Luminite Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Liquid Astralite', source:'Alchemy — 6h', craftTime:360}
     ]
   },
 
@@ -982,41 +1067,41 @@ const RECIPES = [
   { id:'proc-valannite', name:'Processed Valannite', nameEs:'Valannite Procesada', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
     craftTime:60,
     ingredients:[
-      {qty:3, name:'Charcoal', source:'Mining T1', craftTime:0},
+      {qty:3, name:'Charcoal', source:'Mining T1 (Shovel)', craftTime:0},
       {qty:1, name:'Liquid Valannite', source:'Alchemy — 4h', craftTime:240},
-      {qty:1, name:'Valannite', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+      {qty:1, name:'Valannite', source:'Exploration — Frozen Forest / Zeraphy dungeon', craftTime:0}
     ]
   },
   { id:'proc-honey-drop', name:'Processed Honey Drop', nameEs:'Gota de Miel Procesada', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
     craftTime:60,
     ingredients:[
-      {qty:3, name:'Charcoal', source:'Mining T1', craftTime:0},
+      {qty:3, name:'Charcoal', source:'Mining T1 (Shovel)', craftTime:0},
       {qty:1, name:'Liquid Honey Drop', source:'Alchemy — 4h', craftTime:240},
-      {qty:1, name:'Honey Drop', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+      {qty:1, name:'Honey Drop', source:'Exploration — Temple of Time / Wendigo dungeon', craftTime:0}
     ]
   },
   { id:'proc-dragon-breath', name:'Processed Dragon Breath', nameEs:'Aliento de Dragón Procesado', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
     craftTime:120,
     ingredients:[
-      {qty:3, name:'Coal', source:'Mining T2', craftTime:0},
+      {qty:3, name:'Coal', source:'Mining T3 (Shovel)', craftTime:0},
       {qty:1, name:'Liquid Dragon Breath', source:'Alchemy — 4h', craftTime:240},
-      {qty:2, name:'Dragon Breath', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+      {qty:2, name:'Dragon Breath', source:'Exploration — Dragon Valley biome', craftTime:0}
     ]
   },
   { id:'proc-celespar', name:'Processed Celespar', nameEs:'Celespar Procesado', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
     craftTime:120,
     ingredients:[
-      {qty:3, name:'Coal', source:'Mining T2', craftTime:0},
+      {qty:3, name:'Coal', source:'Mining T3 (Shovel)', craftTime:0},
       {qty:1, name:'Liquid Celespar', source:'Alchemy — 5h', craftTime:300},
-      {qty:2, name:'Celespar', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+      {qty:2, name:'Celespar', source:'Exploration — Dragon Valley / 10% dungeon drop', craftTime:0}
     ]
   },
   { id:'proc-vipharine', name:'Processed Vipharine', nameEs:'Vipharine Procesada', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
     craftTime:180,
     ingredients:[
-      {qty:3, name:'Moonslate', source:'Mining T4', craftTime:0},
+      {qty:3, name:'Moonslate', source:'Mining T5 (Shovel)', craftTime:0},
       {qty:1, name:'Liquid Vipharine', source:'Alchemy — 6h', craftTime:360},
-      {qty:2, name:'Vipharine', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+      {qty:2, name:'Vipharine', source:'Troll Settlement boss — 50% drop', craftTime:0}
     ]
   },
   { id:'copper-ring-val', name:'Copper Ring of Valannite', nameEs:'Anillo de Cobre de Valannite', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
@@ -1031,7 +1116,7 @@ const RECIPES = [
     craftTime:120,
     ingredients:[
       {qty:5, name:'Processed Valannite', source:'Jewelry — 1h each', craftTime:60},
-      {qty:5, name:'Mirrormist', source:'Mining T4 (liquid)', craftTime:0},
+      {qty:5, name:'Mirrormist', source:'Mining T4 (Bucket)', craftTime:0},
       {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60}
     ]
   },
@@ -1039,8 +1124,8 @@ const RECIPES = [
     craftTime:150,
     ingredients:[
       {qty:5, name:'Processed Honey Drop', source:'Jewelry — 1h each', craftTime:60},
-      {qty:5, name:'Luminite Ore', source:'Mining T4', craftTime:0},
-      {qty:1, name:'Luminite Toolkit', source:'Blacksmith', craftTime:90}
+      {qty:5, name:'Luminite Ore', source:'Mining T4 (Pickaxe)', craftTime:0},
+      {qty:1, name:'Luminite Toolkit', source:'Blacksmith — 90min', craftTime:90}
     ]
   },
 
@@ -1049,7 +1134,7 @@ const RECIPES = [
     craftTime:180,
     ingredients:[
       {qty:2, name:'Softwood', source:'Artisan gathering', craftTime:0},
-      {qty:2, name:'Softwood Fibers', source:'Artisan T1 processing', craftTime:60},
+      {qty:2, name:'Softwood Fibers', source:'Artisan T1 processing — 1h', craftTime:60},
       {qty:2, name:'Copper Ingot', source:'Blacksmith smelting', craftTime:0},
       {qty:1, name:'Softwood Handle', source:'Architecture T1', craftTime:0},
       {qty:1, name:'Processed Honey Drop', source:'Jewelry — 1h', craftTime:60},
@@ -1063,7 +1148,7 @@ const RECIPES = [
       {qty:2, name:'Hardwood', source:'Artisan T2 gathering', craftTime:0},
       {qty:2, name:'Twisted Cord', source:'Artisan T2 — 1h', craftTime:60},
       {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
-      {qty:1, name:'Hardwood Handle', source:'Architecture T2', craftTime:0},
+      {qty:1, name:'Hardwood Handle', source:'Architecture T2 — 1h', craftTime:60},
       {qty:1, name:'Processed Dragon Breath', source:'Jewelry — 2h', craftTime:120},
       {qty:1, name:'Canvas Tool Grip', source:'Artisan T2 — 1h', craftTime:60},
       {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
@@ -1075,7 +1160,7 @@ const RECIPES = [
       {qty:2, name:'Plumhide', source:'Artisan T3 gathering', craftTime:0},
       {qty:2, name:'Braided Line', source:'Artisan T3 — 84min', craftTime:84},
       {qty:2, name:'QS Ingot', source:'Blacksmith smelting', craftTime:0},
-      {qty:1, name:'Plumhide Handle', source:'Architecture T3', craftTime:0},
+      {qty:1, name:'Plumhide Handle', source:'Architecture T3 — 2h', craftTime:120},
       {qty:1, name:'Processed Celespar', source:'Jewelry — 2h', craftTime:120},
       {qty:1, name:'Leather Tool Grip', source:'Artisan T3 — 108min', craftTime:108},
       {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60}
@@ -1086,7 +1171,7 @@ const RECIPES = [
   { id:'iron-pickaxe', name:'Iron Pickaxe', nameEs:'Pico de Hierro', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
     craftTime:60,
     ingredients:[
-      {qty:1, name:'Hardwood Handle', source:'Architecture T2', craftTime:0},
+      {qty:1, name:'Hardwood Handle', source:'Architecture T2 — 1h', craftTime:60},
       {qty:1, name:'Canvas Tool Grip', source:'Artisan T2 — 1h', craftTime:60},
       {qty:1, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
       {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
@@ -1095,7 +1180,7 @@ const RECIPES = [
   { id:'iron-shovel', name:'Iron Shovel', nameEs:'Pala de Hierro', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
     craftTime:60,
     ingredients:[
-      {qty:1, name:'Hardwood Handle', source:'Architecture T2', craftTime:0},
+      {qty:1, name:'Hardwood Handle', source:'Architecture T2 — 1h', craftTime:60},
       {qty:1, name:'Canvas Tool Grip', source:'Artisan T2 — 1h', craftTime:60},
       {qty:1, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
       {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
@@ -1113,6 +1198,99 @@ const RECIPES = [
     ingredients:[
       {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
       {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
+    ]
+  },
+
+  // ── BLACKSMITH — ARMOR ──
+  { id:'ironrot-chestplate', name:'Ironrot Chestplate', nameEs:'Pechera Ironrot', category:'blacksmith', profession:'Blacksmith (T2)', professionEs:'Herrería (T2)',
+    craftTime:360,
+    ingredients:[
+      {qty:6, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:3, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60},
+      {qty:3, name:'Canvas', source:'Artisan T2 — 1h each', craftTime:60}
+    ]
+  },
+  { id:'ironrot-helmet', name:'Ironrot Helmet', nameEs:'Casco Ironrot', category:'blacksmith', profession:'Blacksmith (T2)', professionEs:'Herrería (T2)',
+    craftTime:240,
+    ingredients:[
+      {qty:3, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:2, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60},
+      {qty:2, name:'Canvas', source:'Artisan T2 — 1h each', craftTime:60}
+    ]
+  },
+  { id:'ironrot-pants', name:'Ironrot Pants', nameEs:'Pantalones Ironrot', category:'blacksmith', profession:'Blacksmith (T2)', professionEs:'Herrería (T2)',
+    craftTime:300,
+    ingredients:[
+      {qty:4, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:2, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60},
+      {qty:3, name:'Canvas', source:'Artisan T2 — 1h each', craftTime:60}
+    ]
+  },
+  { id:'ironrot-boots', name:'Ironrot Boots', nameEs:'Botas Ironrot', category:'blacksmith', profession:'Blacksmith (T2)', professionEs:'Herrería (T2)',
+    craftTime:240,
+    ingredients:[
+      {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60},
+      {qty:2, name:'Canvas', source:'Artisan T2 — 1h each', craftTime:60},
+      {qty:1, name:'Boots', source:'Artisan T2 — 1h', craftTime:60}
+    ]
+  },
+  { id:'ironrot-gauntlets', name:'Ironrot Gauntlets', nameEs:'Guanteletes Ironrot', category:'blacksmith', profession:'Blacksmith (T2)', professionEs:'Herrería (T2)',
+    craftTime:180,
+    ingredients:[
+      {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60},
+      {qty:2, name:'Canvas', source:'Artisan T2 — 1h each', craftTime:60}
+    ]
+  },
+  { id:'petalsteel-chestplate', name:'Petalsteel Chestplate', nameEs:'Pechera Petalsteel', category:'blacksmith', profession:'Blacksmith (T3)', professionEs:'Herrería (T3)',
+    craftTime:420,
+    ingredients:[
+      {qty:6, name:'QS Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:3, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60},
+      {qty:3, name:'Leather', source:'Artisan T3 — 90min each', craftTime:90}
+    ]
+  },
+  { id:'luminglade-chestplate', name:'Luminglade Chestplate', nameEs:'Pechera Luminglade', category:'blacksmith', profession:'Blacksmith (T4)', professionEs:'Herrería (T4)',
+    craftTime:420,
+    ingredients:[
+      {qty:6, name:'Luminite Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:3, name:'Luminite Toolkit', source:'Blacksmith — 90min each', craftTime:90},
+      {qty:3, name:'Heartspire Cloth', source:'Artisan T4 — 2h each', craftTime:120}
+    ]
+  },
+  { id:'luminglade-helmet', name:'Luminglade Helmet', nameEs:'Casco Luminglade', category:'blacksmith', profession:'Blacksmith (T4)', professionEs:'Herrería (T4)',
+    craftTime:420,
+    ingredients:[
+      {qty:3, name:'Luminite Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:2, name:'Luminite Toolkit', source:'Blacksmith — 90min each', craftTime:90},
+      {qty:2, name:'Heartspire Cloth', source:'Artisan T4 — 2h each', craftTime:120}
+    ]
+  },
+  { id:'luminglade-pants', name:'Luminglade Pants', nameEs:'Pantalones Luminglade', category:'blacksmith', profession:'Blacksmith (T4)', professionEs:'Herrería (T4)',
+    craftTime:420,
+    ingredients:[
+      {qty:4, name:'Luminite Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:2, name:'Luminite Toolkit', source:'Blacksmith — 90min each', craftTime:90},
+      {qty:2, name:'Heartspire Cloth', source:'Artisan T4 — 2h each', craftTime:120}
+    ]
+  },
+  { id:'luminglade-boots', name:'Luminglade Boots', nameEs:'Botas Luminglade', category:'blacksmith', profession:'Blacksmith (T4)', professionEs:'Herrería (T4)',
+    craftTime:420,
+    ingredients:[
+      {qty:2, name:'Luminite Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Luminite Toolkit', source:'Blacksmith — 90min', craftTime:90},
+      {qty:2, name:'Heartspire Cloth', source:'Artisan T4 — 2h each', craftTime:120},
+      {qty:1, name:'Heartspire Boots', source:'Artisan T4', craftTime:0}
+    ]
+  },
+  { id:'luminglade-gauntlets', name:'Luminglade Gauntlets', nameEs:'Guanteletes Luminglade', category:'blacksmith', profession:'Blacksmith (T4)', professionEs:'Herrería (T4)',
+    craftTime:420,
+    ingredients:[
+      {qty:2, name:'Luminite Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Luminite Toolkit', source:'Blacksmith — 90min', craftTime:90},
+      {qty:2, name:'Heartspire Cloth', source:'Artisan T4 — 2h each', craftTime:120},
+      {qty:1, name:'Heartspire Gloves', source:'Artisan T4', craftTime:0}
     ]
   },
 
@@ -1138,7 +1316,7 @@ const RECIPES = [
   { id:'tome', name:'Tome of Constructive Order', nameEs:'Tomo del Orden Constructivo', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
     craftTime:180,
     ingredients:[
-      {qty:2, name:'Leather', source:'Artisan T3 — 90min', craftTime:90},
+      {qty:2, name:'Leather', source:'Artisan T3 — 90min each', craftTime:90},
       {qty:15, name:'Paper', source:'Artisan T1 — 1h per 3', craftTime:60},
       {qty:1, name:'Braided Line', source:'Artisan T3 — 84min', craftTime:84}
     ]
@@ -1146,22 +1324,60 @@ const RECIPES = [
   { id:'alchemical-flask', name:'Alchemical Flask', nameEs:'Frasco Alquímico', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
     craftTime:90,
     ingredients:[
-      {qty:1, name:'Glass', source:'Alchemy', craftTime:0},
+      {qty:1, name:'Glass', source:'Alchemy — 6h', craftTime:360},
       {qty:1, name:'Blueprint', source:'Engineering T3', craftTime:0},
       {qty:1, name:'Plumhide', source:'Artisan T3 gathering', craftTime:0}
     ]
   },
 
   // ── ARCHITECTURE ──
-  { id:'softwood-beam', name:'Softwood Beam', nameEs:'Viga de Madera Blanda', category:'architecture', profession:'Architecture', professionEs:'Arquitectura',
+  { id:'softwood-handle', name:'Softwood Handle', nameEs:'Mango de Madera Blanda', category:'architecture', profession:'Architecture (T1)', professionEs:'Arquitectura (T1)',
     craftTime:null,
-    ingredients:[{qty:2, name:'Softwood', source:'Artisan T1 gathering', craftTime:0}],
-    gapNote:'Softwood Beam craft time not confirmed.'
+    ingredients:[{qty:1, name:'Softwood', source:'Artisan T1 gathering', craftTime:0}],
+    gapNote:'Softwood Handle craft time not confirmed.'
   },
-  { id:'hardwood-beam', name:'Hardwood Beam', nameEs:'Viga de Madera Dura', category:'architecture', profession:'Architecture', professionEs:'Arquitectura',
-    craftTime:null,
-    ingredients:[{qty:2, name:'Hardwood', source:'Artisan T2 gathering', craftTime:0}],
-    gapNote:'Hardwood Beam craft time not confirmed.'
+  { id:'hardwood-handle', name:'Hardwood Handle', nameEs:'Mango de Madera Dura', category:'architecture', profession:'Architecture (T2)', professionEs:'Arquitectura (T2)',
+    craftTime:60,
+    ingredients:[{qty:1, name:'Hardwood', source:'Artisan T2 gathering', craftTime:0}]
+  },
+  { id:'plumhide-handle', name:'Plumhide Handle', nameEs:'Mango de Plumhide', category:'architecture', profession:'Architecture (T3)', professionEs:'Arquitectura (T3)',
+    craftTime:120,
+    ingredients:[{qty:1, name:'Plumhide', source:'Artisan T3 gathering', craftTime:0}]
+  },
+  { id:'heartspire-handle', name:'Heartspire Handle', nameEs:'Mango de Corazón Etéreo', category:'architecture', profession:'Architecture (T4)', professionEs:'Arquitectura (T4)',
+    craftTime:120,
+    ingredients:[{qty:1, name:'Heartspire', source:'Artisan T4 gathering', craftTime:0}]
+  },
+  { id:'nightwood-handle', name:'Nightwood Handle', nameEs:'Mango de Madera Nocturna', category:'architecture', profession:'Architecture (T5)', professionEs:'Arquitectura (T5)',
+    craftTime:135,
+    ingredients:[{qty:1, name:'Nightwood', source:'Artisan T5 gathering', craftTime:0}]
+  },
+  { id:'softwood-beam', name:'Softwood Beam', nameEs:'Viga de Madera Blanda', category:'architecture', profession:'Architecture (T1)', professionEs:'Arquitectura (T1)',
+    craftTime:60,
+    ingredients:[{qty:2, name:'Softwood', source:'Artisan T1 gathering', craftTime:0}]
+  },
+  { id:'hardwood-beam', name:'Hardwood Beam', nameEs:'Viga de Madera Dura', category:'architecture', profession:'Architecture (T3)', professionEs:'Arquitectura (T3)',
+    craftTime:60,
+    ingredients:[{qty:2, name:'Hardwood', source:'Artisan T2 gathering', craftTime:0}]
+  },
+  { id:'heartspire-beam', name:'Heartspire Beam', nameEs:'Viga de Corazón Etéreo', category:'architecture', profession:'Architecture (T8)', professionEs:'Arquitectura (T8)',
+    craftTime:120,
+    ingredients:[{qty:2, name:'Heartspire', source:'Artisan T4 gathering', craftTime:0}]
+  },
+  { id:'nightwood-beam', name:'Nightwood Beam', nameEs:'Viga de Madera Nocturna', category:'architecture', profession:'Architecture (T9)', professionEs:'Arquitectura (T9)',
+    craftTime:135,
+    ingredients:[{qty:2, name:'Nightwood', source:'Artisan T5 gathering', craftTime:0}]
+  },
+  { id:'stronghold-tower', name:'Stronghold Tower', nameEs:'Torre del Bastión', category:'architecture', profession:'Architecture (Lvl 10)', professionEs:'Arquitectura (Niv. 10)',
+    craftTime:1440,
+    ingredients:[
+      {qty:5, name:"Traveler's Tent", source:'Architecture', craftTime:0},
+      {qty:100, name:'Brick', source:'Architecture T2', craftTime:0},
+      {qty:10, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60},
+      {qty:10, name:'Plumhide', source:'Artisan T3 gathering', craftTime:0},
+      {qty:10, name:'Stairs', source:'Architecture', craftTime:0},
+      {qty:20, name:'Glass', source:'Alchemy — 6h each', craftTime:360}
+    ]
   },
   { id:'wall', name:'Stronghold Wall', nameEs:'Muro del Bastión', category:'architecture', profession:'Architecture', professionEs:'Arquitectura',
     craftTime:null,
@@ -1170,7 +1386,7 @@ const RECIPES = [
       {qty:50, name:'Clay', source:'Mining', craftTime:0},
       {qty:10, name:'Stairs', source:'Architecture', craftTime:0},
       {qty:5, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60}
-    ], gapNote:'Brick craft time not confirmed. Stairs recipe not captured.'
+    ], gapNote:'Brick and Stairs craft times not confirmed.'
   },
 
   // ── ARTISAN ──
@@ -1198,32 +1414,38 @@ const RECIPES = [
     craftTime:120,
     ingredients:[{qty:4, name:'Heartspire Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
   },
+  { id:'nightwood-cloth', name:'Nightwood Cloth', nameEs:'Tela de Madera Nocturna', category:'artisan', profession:'Artisan (T5)', professionEs:'Artesanía (T5)',
+    craftTime:120,
+    ingredients:[{qty:4, name:'Nightwood Fibers', source:'Artisan processing — 90min per wood', craftTime:90}]
+  },
   { id:'paper', name:'Paper', nameEs:'Papel', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
-    craftTime:60,
-    note:'Yields x3 per craft',
+    craftTime:60, note:'Yields x3 per craft',
     ingredients:[
-      {qty:1, name:'Softwood Fibers', source:'Artisan processing', craftTime:60},
-      {qty:1, name:'Water', source:'Mining T1', craftTime:0}
+      {qty:1, name:'Softwood Fibers', source:'Artisan processing — 1h', craftTime:60},
+      {qty:1, name:'Water', source:'Mining T1 (Bucket)', craftTime:0}
     ]
   },
   { id:'canvas-paper', name:'Canvas Paper', nameEs:'Papel de Lona', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
-    craftTime:60,
-    note:'Yields x3 per craft',
+    craftTime:60, note:'Yields x3 per craft',
     ingredients:[
-      {qty:1, name:'Hardwood Fibers', source:'Artisan processing', craftTime:60},
-      {qty:1, name:'Water', source:'Mining T1', craftTime:0},
+      {qty:1, name:'Hardwood Fibers', source:'Artisan processing — 1h', craftTime:60},
+      {qty:1, name:'Water', source:'Mining T1 (Bucket)', craftTime:0},
       {qty:1, name:'Canvas', source:'Artisan T2 — 1h', craftTime:60}
     ]
   },
-  { id:'heartspire-scroll', name:'Heartspire Scroll', nameEs:'Pergamino de Corazón Etéreo', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+  { id:'heartspire-scroll', name:'Heartspire Scroll', nameEs:'Pergamino de Corazón Etéreo', category:'artisan', profession:'Artisan (T4)', professionEs:'Artesanía (T4)',
     craftTime:90,
     ingredients:[
-      {qty:1, name:'Heartspire Fibers', source:'Artisan processing', craftTime:60},
-      {qty:1, name:'Blackblood', source:'Mining T3 (liquid)', craftTime:0},
+      {qty:1, name:'Heartspire Fibers', source:'Artisan processing — 1h', craftTime:60},
+      {qty:1, name:'Blackblood', source:'Mining T5 (Bucket)', craftTime:0},
       {qty:1, name:'Heartspire Cloth', source:'Artisan T4 — 2h', craftTime:120}
     ]
   },
-  { id:'guild-banner', name:'Guild Banner', nameEs:'Estandarte del Gremio', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+  { id:'heartspire-tool-grip', name:'Heartspire Tool Grip', nameEs:'Mango de Herramienta de Corazón Etéreo', category:'artisan', profession:'Artisan (T4)', professionEs:'Artesanía (T4)',
+    craftTime:120,
+    ingredients:[{qty:1, name:'Heartspire Cloth', source:'Artisan T4 — 2h', craftTime:120}]
+  },
+  { id:'guild-banner', name:'Guild Banner', nameEs:'Estandarte del Gremio', category:'artisan', profession:'Artisan (T4)', professionEs:'Artesanía (T4)',
     craftTime:720,
     ingredients:[
       {qty:2, name:'Hardwood Beam', source:'Architecture T2', craftTime:0},
@@ -1245,6 +1467,32 @@ const RECIPES = [
   { id:'leather-grip', name:'Leather Tool Grip', nameEs:'Mango de Cuero', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
     craftTime:108,
     ingredients:[{qty:1, name:'Leather', source:'Artisan T3 — 90min', craftTime:90}]
+  },
+  { id:'apprentice-hat', name:"Apprentice's Hat", nameEs:'Sombrero de Aprendiz', category:'artisan', profession:'Artisan (T1)', professionEs:'Artesanía (T1)',
+    craftTime:120,
+    ingredients:[
+      {qty:2, name:'Cloth', source:'Artisan T1 — 1h each', craftTime:60},
+      {qty:1, name:'Softwood Fibers', source:'Artisan processing — 1h', craftTime:60}
+    ]
+  },
+  { id:'apprentice-tunic', name:"Apprentice's Tunic", nameEs:'Túnica de Aprendiz', category:'artisan', profession:'Artisan (T1)', professionEs:'Artesanía (T1)',
+    craftTime:120,
+    ingredients:[{qty:3, name:'Cloth', source:'Artisan T1 — 1h each', craftTime:60}]
+  },
+  { id:'apprentice-pants', name:"Apprentice's Pants", nameEs:'Pantalones de Aprendiz', category:'artisan', profession:'Artisan (T1)', professionEs:'Artesanía (T1)',
+    craftTime:120,
+    ingredients:[
+      {qty:3, name:'Cloth', source:'Artisan T1 — 1h each', craftTime:60},
+      {qty:2, name:'Softwood Fibers', source:'Artisan processing — 1h', craftTime:60}
+    ]
+  },
+  { id:'apprentice-gloves', name:"Apprentice's Gloves", nameEs:'Guantes de Aprendiz', category:'artisan', profession:'Artisan (T1)', professionEs:'Artesanía (T1)',
+    craftTime:120,
+    ingredients:[{qty:2, name:'Cloth', source:'Artisan T1 — 1h each', craftTime:60}]
+  },
+  { id:'apprentice-cape', name:"Apprentice's Cape", nameEs:'Capa de Aprendiz', category:'artisan', profession:'Artisan (T1)', professionEs:'Artesanía (T1)',
+    craftTime:120,
+    ingredients:[{qty:4, name:'Cloth', source:'Artisan T1 — 1h each', craftTime:60}]
   }
 ];
 
