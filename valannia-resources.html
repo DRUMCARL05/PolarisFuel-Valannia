@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#FF6B1A">
-  <title>Resources — Polaris Fuel</title>
+  <title>Guides — Polaris Fuel · Valannia</title>
   <meta name="description" content="Free guides on Valannia mount fuel, alchemy, and economic optimization. Written by Polaris Fuel specialists.">
 <style>
 :root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
@@ -101,24 +101,31 @@ div[data-lang]{display:none}
 .powered-badge img{width:14px;height:14px;object-fit:contain;opacity:.5}
 
 /* GUIDES */
-#guides{padding:8rem 2rem;max-width:1100px;margin:0 auto}
-.guides-header{text-align:center;margin-bottom:5rem}
-.guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.guide-card{background:var(--dark-card);border:1px solid var(--border);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:border-color .3s,background .3s;text-decoration:none;display:block}
+#guides{padding:5rem 2rem 8rem;max-width:900px;margin:0 auto}
+.guides-header{text-align:center;margin-bottom:3.5rem}
+.guide-category{margin-bottom:3rem}
+.guide-category-label{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);opacity:.65;margin-bottom:.9rem;display:flex;align-items:center;gap:.8rem}
+.guide-category-label::after{content:'';flex:1;height:1px;background:rgba(255,107,26,0.12)}
+.guide-list{display:flex;flex-direction:column;gap:.4rem}
+.guide-card{background:var(--dark-card);border:1px solid var(--border);padding:1rem 1.3rem;display:grid;grid-template-columns:2rem 1fr auto;align-items:center;gap:1rem;position:relative;overflow:hidden;transition:border-color .25s,background .25s;text-decoration:none}
 .guide-card:hover{border-color:rgba(255,107,26,0.35);background:#1c1008}
-.guide-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--fire),transparent);transform:scaleX(0);transition:transform .4s}
-.guide-card:hover::before{transform:scaleX(1)}
-.guide-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.2rem .55rem;border:1px solid;margin-bottom:1.2rem}
+.guide-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--fire);transform:scaleY(0);transform-origin:bottom;transition:transform .28s}
+.guide-card:hover::before{transform:scaleY(1)}
+.guide-icon{font-size:1.2rem;line-height:1;text-align:center;filter:drop-shadow(0 0 5px rgba(255,107,26,0.2))}
+.guide-card-body{min-width:0}
+.guide-title{font-family:'Cinzel',serif;font-size:.76rem;font-weight:700;color:var(--gold-pale);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.guide-desc{font-size:.81rem;line-height:1.4;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.guide-card-right{display:flex;flex-direction:column;align-items:flex-end;gap:.35rem;flex-shrink:0}
+.guide-status{display:inline-flex;align-items:center;gap:.3rem;font-family:'Cinzel',serif;font-size:.45rem;letter-spacing:.18em;text-transform:uppercase;padding:.15rem .45rem;border:1px solid;white-space:nowrap}
 .guide-status.live{color:#4ade80;border-color:rgba(74,222,128,0.3);background:rgba(74,222,128,0.06)}
-.guide-status.live::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+.guide-status.live::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
 .guide-status.soon{color:var(--fire);border-color:rgba(255,107,26,0.3);background:rgba(255,107,26,0.06)}
 @keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
-.guide-icon{font-size:1.8rem;display:block;margin-bottom:1rem;filter:drop-shadow(0 0 8px rgba(255,107,26,0.3))}
-.guide-title{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.7rem}
-.guide-desc{font-size:.87rem;line-height:1.85;color:var(--text-dim);margin-bottom:1.2rem}
-.guide-meta{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);opacity:.7}
-.guide-read{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);text-decoration:none;margin-top:1rem;transition:gap .2s}
-.guide-card:hover .guide-read{gap:.8rem}
+.guide-meta{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap}
+.guide-arrow{font-size:.8rem;color:var(--fire);opacity:0;transition:opacity .18s,transform .18s;transform:translateX(-4px)}
+.guide-card:hover .guide-arrow{opacity:1;transform:translateX(0)}
+.powered-badge{display:none}
+@media(max-width:600px){.guide-desc{display:none}.guide-card{padding:.85rem 1rem;gap:.7rem}.guide-card-right{gap:.25rem}}
 
 /* FEATURED */
 #featured{padding:0 2rem 8rem;max-width:1100px;margin:0 auto}
@@ -132,11 +139,11 @@ div[data-lang]{display:none}
 .toc-item:last-child{border-bottom:none}
 .toc-num{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--fire);width:2rem;flex-shrink:0}
 
-@media(max-width:900px){.guides-grid{grid-template-columns:1fr}.featured-card{grid-template-columns:1fr}}
+@media(max-width:900px){.featured-card{grid-template-columns:1fr}}
 </style>
   <meta property="og:image" content="https://polarisfuel.app/og-image.png">
   <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
-  <meta property="og:title" content="Resources — Polaris Fuel">
+  <meta property="og:title" content="Guides — Polaris Fuel · Valannia">
   <meta property="og:description" content="Player guides for Valannia's fuel system, mounts, professions, and race elections.">
   <meta property="og:url" content="https://polarisfuel.app/resources.html">
   <meta property="og:image" content="https://polarisfuel.app/og-image.png">
@@ -147,7 +154,7 @@ div[data-lang]{display:none}
 <div id="cursor"></div><div id="cursor-ring"></div>
 <canvas id="particle-canvas"></canvas>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
   <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="mobile-menu-discord">Discord</a>
   <div class="mobile-lang">
     <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
@@ -156,7 +163,7 @@ div[data-lang]{display:none}
 </div>
 <nav id="navbar">
   <a href="index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
-  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="valannia-tools.html" ><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="valannia-resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="valannia-roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li><li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li><li><a href="https://polarisfuel.app/index.html" style="color:var(--text-dim);opacity:.6;font-size:.58rem;letter-spacing:.15em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li></ul>
+  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="valannia-tools.html" ><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="valannia-resources.html" class="active"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li><li><a href="valannia-roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li><li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li><li><a href="https://polarisfuel.app/index.html" style="color:var(--text-dim);opacity:.6;font-size:.58rem;letter-spacing:.15em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li></ul>
   <div class="nav-right">
     <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
     <div class="nav-lang">
@@ -230,80 +237,139 @@ div[data-lang]{display:none}
       <span data-lang="es">Base de Conocimiento Fase 1</span>
     </h2>
   </div>
-  <div class="guides-grid">
-    <a href="resources/orb-unique-items.html" class="guide-card reveal reveal-delay-1">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">💎</span>
-      <div class="guide-title"><span data-lang="en">ORB Sale & Unique Items</span><span data-lang="es">Venta de ORB y Objetos Únicos</span></div>
-      <p class="guide-desc"><span data-lang="en">4-wave sale structure, USDC pricing, drop ratios for every mount variant, and all three supply-of-1 unique mounts fully revealed — Qwemzi Divine Sun, Glorb Turboscrap, and Ophalyss of Zel'Tharis.</span><span data-lang="es">Estructura de 4 oleadas, precios en USDC, proporciones de drop de cada variante, y las tres monturas únicas de suministro 1 completamente reveladas — Qwemzi Divine Sun, Glorb Turboscrap y Ophalyss of Zel'Tharis.</span></p>
-      <div class="guide-meta"><span data-lang="en">~12 min read · Beginner</span><span data-lang="es">~12 min lectura · Principiante</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/mount-tier-comparison.html" class="guide-card reveal reveal-delay-2">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">⛽</span>
-      <div class="guide-title"><span data-lang="en">Mount Tier Comparison: Fuel & Efficiency</span><span data-lang="es">Comparación de Niveles: Fuel y Eficiencia</span></div>
-      <p class="guide-desc"><span data-lang="en">Complete data for all 14 mount variants — fuel types, consumption rates, tank sizes, terrain affinities, HP, and repair costs. Fully updated with Phase 1 confirmed numbers.</span><span data-lang="es">Datos completos de las 14 variantes de montura — tipos de fuel, tasas de consumo, tamaños de tanque, afinidades de terreno, HP y costos de reparación. Completamente actualizado con números confirmados de Fase 1.</span></p>
-      <div class="guide-meta"><span data-lang="en">~14 min read · Beginner–Intermediate</span><span data-lang="es">~14 min lectura · Principiante–Intermedio</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/which-mount-should-you-buy.html" class="guide-card reveal reveal-delay-3">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">🐾</span>
-      <div class="guide-title"><span data-lang="en">Which Mount Should You Buy?</span><span data-lang="es">¿Qué Montura Debes Comprar?</span></div>
-      <p class="guide-desc"><span data-lang="en">Step-by-step decision guide based on your profession, primary terrain, fuel access, and budget. Direct recommendations for 8 professions and 6 terrain types using full confirmed data.</span><span data-lang="es">Guía de decisión paso a paso basada en tu profesión, terreno principal, acceso a fuel y presupuesto. Recomendaciones directas para 8 profesiones y 6 tipos de terreno con datos completamente confirmados.</span></p>
-      <div class="guide-meta"><span data-lang="en">~10 min read · Beginner</span><span data-lang="es">~10 min lectura · Principiante</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/profession-guide.html" class="guide-card reveal reveal-delay-1">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">⚗️</span>
-      <div class="guide-title"><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></div>
-      <p class="guide-desc"><span data-lang="en">Your profession in Valannia is permanent. All 9 professions covered — difficulty, best race synergy, what each one produces, and how they fit into the fuel economy. Read before you commit.</span><span data-lang="es">Tu profesión en Valannia es permanente. Las 9 profesiones cubiertas — dificultad, sinergia de raza, qué produce cada una y cómo encajan en la economía del fuel. Lee antes de comprometerte.</span></p>
-      <div class="guide-meta"><span data-lang="en">~15 min read · Beginner</span><span data-lang="es">~15 min lectura · Principiante</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/eldorath-city-guide.html" class="guide-card reveal reveal-delay-2">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">🏙️</span>
-      <div class="guide-title"><span data-lang="en">Eldorath City Guide</span><span data-lang="es">Guía de la Ciudad de Eldorath</span></div>
-      <p class="guide-desc"><span data-lang="en">Valannia's only neutral city — the Sanctuary Seal, key locations, daily and weekend POIs, land ownership districts, and the events that bring every race together.</span><span data-lang="es">La única ciudad neutral de Valannia — el Sello Santuario, ubicaciones clave, POIs diarios y de fin de semana, distritos de tierras y los eventos que reúnen a todas las razas.</span></p>
-      <div class="guide-meta"><span data-lang="en">~12 min read · Beginner</span><span data-lang="es">~12 min lectura · Principiante</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/dungeons-primer.html" class="guide-card reveal reveal-delay-3">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">⚔️</span>
-      <div class="guide-title"><span data-lang="en">Dungeons Primer</span><span data-lang="es">Introducción a las Mazmorras</span></div>
-      <p class="guide-desc"><span data-lang="en">How Valannia's dungeon system works — access requirements by hero evolution stage, the three-stage structure, win/lose outcomes, gear durability costs, and how to prepare before you enter.</span><span data-lang="es">Cómo funciona el sistema de mazmorras de Valannia — requisitos de acceso por etapa de evolución, la estructura de tres fases, resultados, costos de durabilidad y cómo prepararse antes de entrar.</span></p>
-      <div class="guide-meta"><span data-lang="en">~10 min read · Beginner–Intermediate</span><span data-lang="es">~10 min lectura · Principiante–Intermedio</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/race-leader-elections.html" class="guide-card reveal reveal-delay-1">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">🗳️</span>
-      <div class="guide-title"><span data-lang="en">Race Leader Elections</span><span data-lang="es">Elecciones de Líder de Raza</span></div>
-      <p class="guide-desc"><span data-lang="en">How Valannia's governance system works, what Race Leaders control, and why political coordination matters for economic outcomes. Covers all 8 races, capital access, influence building, and strategy by playstyle.</span><span data-lang="es">Cómo funciona el sistema de gobernanza de Valannia, qué controlan los Líderes de Raza y por qué la coordinación política importa. Cubre las 8 razas, acceso a capitales, construcción de influencia y estrategia.</span></p>
-      <div class="guide-meta"><span data-lang="en">~18 min read · Advanced</span><span data-lang="es">~18 min lectura · Avanzado</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
-    <a href="resources/troops-combat.html" class="guide-card reveal reveal-delay-2">
-      <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
-      <span class="guide-icon">🛡️</span>
-      <div class="guide-title"><span data-lang="en">Troops & Combat</span><span data-lang="es">Tropas y Combate</span></div>
-      <p class="guide-desc"><span data-lang="en">Complete troop roster for all 8 races — every unit, every Troop Point cost. Plus hero class base resistances, the four damage types, and how army coordination works in Valannia.</span><span data-lang="es">Roster completo de tropas para las 8 razas — cada unidad, cada costo en Puntos de Tropa. Más resistencias base de clases de héroe, los cuatro tipos de daño y cómo funciona la coordinación de ejércitos en Valannia.</span></p>
-      <div class="guide-meta"><span data-lang="en">~15 min read · Intermediate</span><span data-lang="es">~15 min lectura · Intermedio</span></div>
-      <div class="guide-read"><span data-lang="en">Read Guide →</span><span data-lang="es">Leer Guía →</span></div>
-      <div class="powered-badge"><img src="V_valan_logo_Q-512.png" alt=""><span data-lang="en">Powered by Valannia · Independent guide</span><span data-lang="es">Impulsado por Valannia · Guía independiente</span></div>
-    </a>
+
+  <!-- CATEGORY: MOUNTS -->
+  <div class="guide-category reveal">
+    <div class="guide-category-label">
+      <span data-lang="en">Mounts & Movement</span><span data-lang="es">Monturas y Movimiento</span>
+    </div>
+    <div class="guide-list">
+      <a href="resources/orb-unique-items.html" class="guide-card">
+        <span class="guide-icon">💎</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">ORB Sale & Unique Items</span><span data-lang="es">Venta de ORB y Objetos Únicos</span></div>
+          <div class="guide-desc"><span data-lang="en">4-wave structure, USDC pricing, drop ratios, all three supply-of-1 unique mounts revealed.</span><span data-lang="es">Estructura de 4 oleadas, precios USDC, proporciones de drop, las tres monturas únicas reveladas.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~12 min · <span data-lang="en">Beginner</span><span data-lang="es">Principiante</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+      <a href="resources/mount-tier-comparison.html" class="guide-card">
+        <span class="guide-icon">⛽</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Mount Tier Comparison</span><span data-lang="es">Comparación de Niveles de Montura</span></div>
+          <div class="guide-desc"><span data-lang="en">All 14 variants — fuel types, consumption, tank sizes, terrain affinities, HP, repair costs.</span><span data-lang="es">Las 14 variantes — fuel, consumo, tanques, afinidades de terreno, HP y reparación.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~14 min · <span data-lang="en">Beginner–Int.</span><span data-lang="es">Princ.–Int.</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+      <a href="resources/which-mount-should-you-buy.html" class="guide-card">
+        <span class="guide-icon">🐾</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Which Mount Should You Buy?</span><span data-lang="es">¿Qué Montura Debes Comprar?</span></div>
+          <div class="guide-desc"><span data-lang="en">Decision guide by profession, terrain, fuel access, and budget — direct recommendations.</span><span data-lang="es">Guía de decisión por profesión, terreno, acceso a fuel y presupuesto — recomendaciones directas.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~10 min · <span data-lang="en">Beginner</span><span data-lang="es">Principiante</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+    </div>
   </div>
+
+  <!-- CATEGORY: ECONOMY -->
+  <div class="guide-category reveal">
+    <div class="guide-category-label">
+      <span data-lang="en">Economy & Professions</span><span data-lang="es">Economía y Profesiones</span>
+    </div>
+    <div class="guide-list">
+      <a href="resources/profession-guide.html" class="guide-card">
+        <span class="guide-icon">⚗️</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></div>
+          <div class="guide-desc"><span data-lang="en">All 9 professions — permanent choice, difficulty, race synergy, fuel chain dependencies.</span><span data-lang="es">Las 9 profesiones — elección permanente, dificultad, sinergia racial, dependencias de fuel.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~15 min · <span data-lang="en">Beginner</span><span data-lang="es">Principiante</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CATEGORY: WORLD -->
+  <div class="guide-category reveal">
+    <div class="guide-category-label">
+      <span data-lang="en">World & Combat</span><span data-lang="es">Mundo y Combate</span>
+    </div>
+    <div class="guide-list">
+      <a href="resources/eldorath-city-guide.html" class="guide-card">
+        <span class="guide-icon">🏙️</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Eldorath City Guide</span><span data-lang="es">Guía de la Ciudad de Eldorath</span></div>
+          <div class="guide-desc"><span data-lang="en">The only neutral city — Sanctuary Seal, key locations, daily POIs, land districts.</span><span data-lang="es">La única ciudad neutral — Sello Santuario, ubicaciones clave, POIs diarios, distritos de tierra.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~12 min · <span data-lang="en">Beginner</span><span data-lang="es">Principiante</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+      <a href="resources/dungeons-primer.html" class="guide-card">
+        <span class="guide-icon">⚔️</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Dungeons Primer</span><span data-lang="es">Introducción a las Mazmorras</span></div>
+          <div class="guide-desc"><span data-lang="en">Access requirements, 3-stage structure, win/lose outcomes, durability costs, how to prepare.</span><span data-lang="es">Requisitos de acceso, estructura de 3 fases, resultados, costos de durabilidad, preparación.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~10 min · <span data-lang="en">Beginner–Int.</span><span data-lang="es">Princ.–Int.</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+      <a href="resources/troops-combat.html" class="guide-card">
+        <span class="guide-icon">🛡️</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Troops & Combat</span><span data-lang="es">Tropas y Combate</span></div>
+          <div class="guide-desc"><span data-lang="en">Full troop roster for all 8 races, TP costs, hero class resistances, 4 damage types.</span><span data-lang="es">Roster completo de las 8 razas, costos PT, resistencias de clase, 4 tipos de daño.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~15 min · <span data-lang="en">Intermediate</span><span data-lang="es">Intermedio</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CATEGORY: GOVERNANCE -->
+  <div class="guide-category reveal">
+    <div class="guide-category-label">
+      <span data-lang="en">Governance & Politics</span><span data-lang="es">Gobernanza y Política</span>
+    </div>
+    <div class="guide-list">
+      <a href="resources/race-leader-elections.html" class="guide-card">
+        <span class="guide-icon">🗳️</span>
+        <div class="guide-card-body">
+          <div class="guide-title"><span data-lang="en">Race Leader Elections</span><span data-lang="es">Elecciones de Líder de Raza</span></div>
+          <div class="guide-desc"><span data-lang="en">Governance mechanics, what Race Leaders control, all 8 races, influence building, voting strategy.</span><span data-lang="es">Mecánicas de gobernanza, qué controlan los Líderes, 8 razas, construcción de influencia, estrategia.</span></div>
+        </div>
+        <div class="guide-card-right">
+          <div class="guide-status live"><span data-lang="en">Live</span><span data-lang="es">En vivo</span></div>
+          <div class="guide-meta">~18 min · <span data-lang="en">Advanced</span><span data-lang="es">Avanzado</span></div>
+          <span class="guide-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </section>
 
 
@@ -316,7 +382,7 @@ div[data-lang]{display:none}
   <ul class="footer-nav">
     <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
     <li><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
-    <li><a href="valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
     <li><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
     <li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
     <li><a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
