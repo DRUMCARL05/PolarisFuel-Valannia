@@ -180,161 +180,6 @@ div[data-lang]{display:none}
 .notify-note{margin-top:1rem;font-size:.75rem;color:var(--text-dim)}
 
 @media(max-width:900px){.wt-layout{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}}
-
-/* ── CRAFTING DASHBOARD ── */
-#crafting-dashboard{padding:7rem 2rem;max-width:1100px;margin:0 auto}
-.cd-header{margin-bottom:3rem}
-.cd-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--gold-pale);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
-.cd-desc{font-size:.95rem;color:var(--text);line-height:1.95;max-width:680px}
-.cd-live-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;padding:.28rem .75rem;border:1px solid rgba(74,222,128,0.4);color:#4ade80;background:rgba(74,222,128,0.06);margin-bottom:1.5rem}
-.cd-live-badge::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s ease-in-out infinite}
-
-/* Dashboard forge container */
-.dash-forge{background:linear-gradient(160deg,#0e0805 0%,#130a04 50%,#0c0702 100%);border:1px solid rgba(212,168,67,0.25);border-top:2px solid rgba(255,107,26,0.5);box-shadow:0 0 60px rgba(255,107,26,0.08),inset 0 1px 0 rgba(255,200,80,0.04);padding:2rem;position:relative;overflow:hidden}
-.dash-forge::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,26,0.6),rgba(212,168,67,0.4),rgba(255,107,26,0.6),transparent);pointer-events:none}
-.dash-forge::after{content:'FORGE';position:absolute;bottom:-1.5rem;right:1.5rem;font-family:'Cinzel Decorative',serif;font-size:5rem;font-weight:900;color:rgba(255,107,26,0.03);letter-spacing:.2em;pointer-events:none;user-select:none}
-
-/* Main tabs — chunky game-style buttons */
-.dash-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.8rem}
-.dash-tab{
-  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
-  padding:.65rem 1.3rem;cursor:pointer;transition:all .2s;position:relative;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(212,168,67,0.2);
-  border-bottom:3px solid rgba(212,168,67,0.15);
-  color:var(--text-dim);
-  border-radius:3px;
-}
-.dash-tab:hover:not(.active){
-  background:rgba(255,107,26,0.08);
-  border-color:rgba(255,107,26,0.35);
-  border-bottom-color:rgba(255,107,26,0.35);
-  color:var(--text);
-  transform:translateY(-1px);
-}
-.dash-tab.active{
-  background:linear-gradient(160deg,rgba(255,107,26,0.18) 0%,rgba(180,60,10,0.1) 100%);
-  border-color:rgba(255,107,26,0.7);
-  border-bottom:3px solid var(--fire);
-  color:var(--fire);
-  box-shadow:0 4px 20px rgba(255,107,26,0.2),inset 0 1px 0 rgba(255,180,80,0.08);
-  transform:translateY(-2px);
-}
-.dash-tab.active::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--fire),transparent);border-radius:2px}
-
-.dash-panel{display:none}
-.dash-panel.active{display:block}
-.dash-intro{font-size:.85rem;color:var(--text-dim);line-height:1.9;margin-bottom:1.5rem;padding:.9rem 1.1rem;background:rgba(255,255,255,0.02);border-left:2px solid rgba(212,168,67,0.3)}
-
-/* Mount sub-tabs — color-coded per mount type */
-.mount-subtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
-.mount-stab{
-  font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.6rem 1.1rem;cursor:pointer;transition:all .22s;
-  border:2px solid rgba(255,255,255,0.08);
-  border-radius:4px;
-  background:rgba(255,255,255,0.03);
-  color:var(--text-dim);
-  position:relative;overflow:hidden;
-}
-.mount-stab::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s}
-.mount-stab:hover{transform:translateY(-2px);color:var(--text)}
-/* Gorren — water blue */
-.mount-stab[onclick*="gorren"]{border-color:rgba(56,189,248,0.25)}
-.mount-stab[onclick*="gorren"]:hover{border-color:rgba(56,189,248,0.6);box-shadow:0 4px 16px rgba(56,189,248,0.15)}
-.mount-stab[onclick*="gorren"].active{background:rgba(56,189,248,0.12);border-color:#38bdf8;color:#38bdf8;box-shadow:0 0 20px rgba(56,189,248,0.2);transform:translateY(-2px)}
-/* Vaelgrun — storm teal */
-.mount-stab[onclick*="vaelgrun"]{border-color:rgba(45,212,191,0.25)}
-.mount-stab[onclick*="vaelgrun"]:hover{border-color:rgba(45,212,191,0.6);box-shadow:0 4px 16px rgba(45,212,191,0.15)}
-.mount-stab[onclick*="vaelgrun"].active{background:rgba(45,212,191,0.12);border-color:#2dd4bf;color:#2dd4bf;box-shadow:0 0 20px rgba(45,212,191,0.2);transform:translateY(-2px)}
-/* Krazy Keg — fire orange */
-.mount-stab[onclick*="krazykeg"]{border-color:rgba(255,107,26,0.25)}
-.mount-stab[onclick*="krazykeg"]:hover{border-color:rgba(255,107,26,0.7);box-shadow:0 4px 16px rgba(255,107,26,0.2)}
-.mount-stab[onclick*="krazykeg"].active{background:rgba(255,107,26,0.15);border-color:var(--fire);color:var(--fire);box-shadow:0 0 24px rgba(255,107,26,0.3);transform:translateY(-2px)}
-/* Arcane — arcane purple */
-.mount-stab[onclick*="arcane"]{border-color:rgba(167,139,250,0.25)}
-.mount-stab[onclick*="arcane"]:hover{border-color:rgba(167,139,250,0.6);box-shadow:0 4px 16px rgba(167,139,250,0.15)}
-.mount-stab[onclick*="arcane"].active{background:rgba(167,139,250,0.12);border-color:#a78bfa;color:#a78bfa;box-shadow:0 0 20px rgba(167,139,250,0.2);transform:translateY(-2px)}
-
-.mpanel{display:none}.mpanel.active{display:block}
-
-/* Stat cards */
-.d-row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-.d-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
-@media(max-width:600px){.d-row2,.d-row3{grid-template-columns:1fr}}
-.d-card{
-  background:linear-gradient(160deg,rgba(30,18,8,0.9),rgba(20,12,4,0.95));
-  border:1px solid rgba(212,168,67,0.2);
-  border-top:2px solid rgba(212,168,67,0.35);
-  padding:1.1rem 1.4rem;
-  position:relative;overflow:hidden;
-  transition:border-color .2s,box-shadow .2s;
-}
-.d-card:hover{border-top-color:var(--fire);box-shadow:0 0 20px rgba(255,107,26,0.1)}
-.d-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.15),transparent)}
-.d-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.5rem}
-.d-val{font-size:1.6rem;font-weight:900;color:var(--gold-pale);font-family:'Cinzel',serif;text-shadow:0 0 20px rgba(212,168,67,0.2)}
-.d-sub{font-size:.76rem;color:var(--text-dim);margin-top:.4rem;line-height:1.6}
-
-/* Section dividers */
-.d-section-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ember);margin:1.6rem 0 .9rem;display:flex;align-items:center;gap:.8rem}
-.d-section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,154,0,0.4),transparent)}
-
-/* Material list */
-.d-mat-list{border:1px solid rgba(212,168,67,0.18);overflow:hidden}
-.d-mat-row{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.2rem;border-bottom:1px solid rgba(212,168,67,0.1);font-size:.87rem;transition:background .15s}
-.d-mat-row:hover{background:rgba(255,107,26,0.04)}
-.d-mat-row:last-child{border-bottom:none}
-.d-mat-name{color:var(--text);font-weight:400}
-.d-mat-src{font-size:.73rem;color:var(--text-dim);margin-top:.2rem}
-.d-mat-qty{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--fire);font-weight:700;min-width:36px;text-align:right;text-shadow:0 0 10px rgba(255,107,26,0.4)}
-
-/* Time grid */
-.d-time-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.8rem;margin-top:.9rem}
-.d-time-card{
-  background:rgba(212,168,67,0.04);
-  border:1px solid rgba(212,168,67,0.2);
-  border-bottom:2px solid rgba(212,168,67,0.3);
-  padding:.85rem 1rem;text-align:center;
-  transition:border-color .2s;
-}
-.d-time-card:hover{border-bottom-color:var(--gold)}
-.d-time-label{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.35rem}
-.d-time-val{font-size:1rem;font-weight:700;color:var(--gold-pale);font-family:'Cinzel',serif}
-
-/* Profession chain */
-.d-chain{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;font-size:.8rem;color:var(--text-dim);margin-bottom:.9rem;padding:.8rem 1rem;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.05)}
-.d-chain .node{color:var(--text);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;padding:.2rem .5rem;background:rgba(212,168,67,0.07);border:1px solid rgba(212,168,67,0.2)}
-.d-chain .arr{color:rgba(255,107,26,0.6);font-size:.9rem}
-.d-chain .end{color:#4ade80;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;padding:.2rem .5rem;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);box-shadow:0 0 10px rgba(74,222,128,0.1)}
-
-/* Gap note */
-.d-gap{font-size:.82rem;color:rgba(212,168,67,0.7);border-left:2px solid rgba(255,107,26,0.5);padding:.85rem 1.1rem;margin-top:1rem;line-height:1.8;background:rgba(255,107,26,0.04)}
-
-/* Slider */
-.d-slider-wrap{background:rgba(0,0,0,0.3);border:1px solid rgba(212,168,67,0.15);padding:1rem 1.2rem;margin-bottom:1rem}
-.d-slider-row{display:flex;align-items:center;gap:1rem}
-.d-slider-row label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;min-width:80px}
-.d-slider-row input[type=range]{
-  flex:1;height:4px;border-radius:2px;
-  -webkit-appearance:none;appearance:none;
-  background:linear-gradient(90deg,var(--fire) var(--pct,50%),rgba(255,255,255,0.1) var(--pct,50%));
-  cursor:pointer;
-}
-.d-slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--fire);border:2px solid var(--ember);box-shadow:0 0 10px rgba(255,107,26,0.5);cursor:pointer}
-.d-slider-row input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--fire);border:2px solid var(--ember);box-shadow:0 0 10px rgba(255,107,26,0.5);cursor:pointer}
-.d-slider-out{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--fire);min-width:54px;text-align:right;text-shadow:0 0 10px rgba(255,107,26,0.4)}
-
-/* Select */
-select.d-select{
-  background:rgba(10,7,4,0.8);
-  border:1px solid rgba(212,168,67,0.25);
-  border-bottom:2px solid rgba(212,168,67,0.35);
-  color:var(--text);font-family:'Lato',sans-serif;font-size:.88rem;
-  padding:.65rem 1rem;width:100%;transition:border-color .2s,box-shadow .2s;cursor:pointer;
-  border-radius:2px;
-}
-select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:0 0 12px rgba(255,107,26,0.1)}
 </style>
   <meta property="og:image" content="https://polarisfuel.app/og-image.png">
   <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
@@ -349,7 +194,7 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
 <div id="cursor"></div><div id="cursor-ring"></div>
 <canvas id="particle-canvas"></canvas>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a><a href="valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
   <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="mobile-menu-discord">Discord</a>
   <div class="mobile-lang">
     <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
@@ -358,7 +203,7 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
 </div>
 <nav id="navbar">
   <a href="index.html" class="nav-logo"><span class="nav-logo-text">Polaris Fuel</span></a>
-  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="valannia-tools.html" class="active"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="valannia-resources.html" ><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li><li><a href="valannia-roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li><li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li><li><a href="https://polarisfuel.app/index.html" style="color:var(--text-dim);opacity:.6;font-size:.58rem;letter-spacing:.15em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li></ul>
+  <ul class="nav-links"><li><a href="index.html" ><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li><li><a href="valannia-tools.html" class="active"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li><li><a href="valannia-resources.html" ><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li><li><a href="valannia-roadmap.html" ><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li><li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li><li><a href="https://polarisfuel.app/index.html" style="color:var(--text-dim);opacity:.6;font-size:.58rem;letter-spacing:.15em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li></ul>
   <div class="nav-right">
     <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
     <div class="nav-lang">
@@ -497,254 +342,6 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
 
 <div class="divider"></div>
 
-<!-- CRAFTING DASHBOARD -->
-<section id="crafting-dashboard">
-  <div class="cd-header">
-    <div class="section-label reveal">
-      <span data-lang="en">Live Tool</span>
-      <span data-lang="es">Herramienta En Vivo</span>
-    </div>
-    <div class="cd-live-badge reveal reveal-delay-1">
-      <span data-lang="en">Live — Data confirmed from Valannia portal</span>
-      <span data-lang="es">En Vivo — Datos confirmados del portal de Valannia</span>
-    </div>
-    <h2 class="cd-title reveal reveal-delay-2">
-      <span data-lang="en">Crafting Dashboard</span>
-      <span data-lang="es">Panel de Crafteo</span>
-    </h2>
-    <p class="cd-desc reveal reveal-delay-3">
-      <span data-lang="en">Calculate fuel costs for every mount type, plan ingot production, map the Fire Juice chain, and look up mining and survey requirements — all from confirmed Phase 1 data.</span>
-      <span data-lang="es">Calcula los costos de fuel para cada tipo de montura, planifica la producción de lingotes, mapea la cadena de Fire Juice y consulta los requisitos de minería y exploración — todo basado en datos confirmados de la Fase 1.</span>
-    </p>
-  </div>
-
-  <!-- TABS -->
-  <div class="dash-forge reveal">
-  <div class="dash-tabs">
-    <button class="dash-tab active" onclick="dTab('fuel',this)"><span data-lang="en">⛽ Fuel Calculator</span><span data-lang="es">⛽ Calculadora de Fuel</span></button>
-    <button class="dash-tab" onclick="dTab('ingot',this)"><span data-lang="en">🔩 Ingot Calculator</span><span data-lang="es">🔩 Calculadora de Lingotes</span></button>
-    <button class="dash-tab" onclick="dTab('fj',this)"><span data-lang="en">🔥 Fire Juice Chain</span><span data-lang="es">🔥 Cadena Fire Juice</span></button>
-    <button class="dash-tab" onclick="dTab('mine',this)"><span data-lang="en">⛏ Mining Planner</span><span data-lang="es">⛏ Planeador de Minería</span></button>
-    <button class="dash-tab" onclick="dTab('survey',this)"><span data-lang="en">🗺 Survey Planner</span><span data-lang="es">🗺 Planeador de Exploración</span></button>
-  </div>
-
-  <!-- ── FUEL CALCULATOR ── -->
-  <div class="dash-panel active" id="dp-fuel">
-    <p class="dash-intro">
-      <span data-lang="en">Select your mount type, set a distance, and see exact fuel requirements and raw material chain. All consumption rates, tank sizes, and supply chains confirmed from live Valannia data.</span>
-      <span data-lang="es">Selecciona tu tipo de montura, establece una distancia y ve los requisitos exactos de fuel y la cadena de materiales. Tasas de consumo, tamaños de tanque y cadenas de suministro confirmados de datos en vivo de Valannia.</span>
-    </p>
-    <div class="mount-subtabs">
-      <button class="mount-stab active" onclick="dMount('gorren',this)">🐾 <span data-lang="en">Gorren</span><span data-lang="es">Gorren</span></button>
-      <button class="mount-stab" onclick="dMount('vaelgrun',this)">🐾 <span data-lang="en">Vaelgrun</span><span data-lang="es">Vaelgrun</span></button>
-      <button class="mount-stab" onclick="dMount('krazykeg',this)">⚙️ <span data-lang="en">Krazy Keg</span><span data-lang="es">Krazy Keg</span></button>
-      <button class="mount-stab" onclick="dMount('arcane',this)">🔮 <span data-lang="en">Arcane Chariot</span><span data-lang="es">Arcane Chariot</span></button>
-    </div>
-
-    <!-- GORREN -->
-    <div class="mpanel active" id="dm-gorren">
-      <div class="d-row3">
-        <div class="d-card"><div class="d-label"><span data-lang="en">Fuel type</span><span data-lang="es">Tipo de fuel</span></div><div class="d-val" style="font-size:1.1rem">Water</div><div class="d-sub"><span data-lang="en">T1 Mining · Well Map + Bucket</span><span data-lang="es">Minería T1 · Mapa de Pozo + Cubo</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Consumption</span><span data-lang="es">Consumo</span></div><div class="d-val">1 <span style="font-size:.9rem;font-weight:400">/Lyr</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Tank size</span><span data-lang="es">Tamaño tanque</span></div><div class="d-val">60 <span style="font-size:.9rem;font-weight:400">Lyr</span></div></div>
-      </div>
-      <div class="d-slider-wrap">
-        <div class="d-slider-row">
-          <label><span data-lang="en">Distance</span><span data-lang="es">Distancia</span></label>
-          <input type="range" min="1" max="120" step="1" value="20" oninput="dCalcMount('gorren',this.value);dSlider(this)">
-          <span class="d-slider-out" id="dout-gorren">20 Lyr</span>
-        </div>
-      </div>
-      <div id="dm-gorren-result"></div>
-      <div class="d-section-label"><span data-lang="en">Supply chain</span><span data-lang="es">Cadena de suministro</span></div>
-      <div class="d-mat-list">
-        <div class="d-mat-row"><div><div class="d-mat-name">Water</div><div class="d-mat-src"><span data-lang="en">T1 Mining — Well Map + Bucket · yield 22–26/run · 2h</span><span data-lang="es">Minería T1 — Mapa de Pozo + Cubo · rendimiento 22–26/turno · 2h</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name"><span data-lang="en">Repair cost</span><span data-lang="es">Costo de reparación</span></div><div class="d-mat-src"><span data-lang="en">1 Meat per repair · Explorer pet KAIFAN T1 (Water ×5 · 1h → Meat ×10)</span><span data-lang="es">1 Carne por reparación · Mascota exploradora KAIFAN T1 (Agua ×5 · 1h → Carne ×10)</span></div></div></div>
-      </div>
-      <div class="d-section-label"><span data-lang="en">Profession chain</span><span data-lang="es">Cadena de profesiones</span></div>
-      <div class="d-chain"><span class="node">Explorer</span><span class="arr">→</span><span class="node">Miner</span><span class="arr">→</span><span class="end">Water</span></div>
-    </div>
-
-    <!-- VAELGRUN -->
-    <div class="mpanel" id="dm-vaelgrun">
-      <div class="d-row3">
-        <div class="d-card"><div class="d-label"><span data-lang="en">Fuel type</span><span data-lang="es">Tipo de fuel</span></div><div class="d-val" style="font-size:1.1rem">Stormwater</div><div class="d-sub"><span data-lang="en">T2 Mining · River Map + Improved Bucket</span><span data-lang="es">Minería T2 · Mapa de Río + Cubo Mejorado</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Consumption</span><span data-lang="es">Consumo</span></div><div class="d-val">1 <span style="font-size:.9rem;font-weight:400">/Lyr</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Tank size</span><span data-lang="es">Tamaño tanque</span></div><div class="d-val">27 <span style="font-size:.9rem;font-weight:400">Lyr</span></div></div>
-      </div>
-      <div class="d-slider-wrap">
-        <div class="d-slider-row">
-          <label><span data-lang="en">Distance</span><span data-lang="es">Distancia</span></label>
-          <input type="range" min="1" max="120" step="1" value="20" oninput="dCalcMount('vaelgrun',this.value);dSlider(this)">
-          <span class="d-slider-out" id="dout-vaelgrun">20 Lyr</span>
-        </div>
-      </div>
-      <div id="dm-vaelgrun-result"></div>
-      <div class="d-section-label"><span data-lang="en">Supply chain</span><span data-lang="es">Cadena de suministro</span></div>
-      <div class="d-mat-list">
-        <div class="d-mat-row"><div><div class="d-mat-name">Stormwater</div><div class="d-mat-src"><span data-lang="en">T2 Mining — River Map + Improved Bucket · yield 15–18/run · 2h</span><span data-lang="es">Minería T2 — Mapa de Río + Cubo Mejorado · rendimiento 15–18/turno · 2h</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name">Improved Bucket</div><div class="d-mat-src"><span data-lang="en">Blacksmith T2 — Iron Ingot + T2 Blueprint + Twisted Cord (Artisan)</span><span data-lang="es">Herrero T2 — Lingote de Hierro + Plano T2 + Cordel Retorcido (Artesano)</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name">River Map</div><div class="d-mat-src"><span data-lang="en">T2 Explorer Survey — Canvas Paper ×5 · 3h craft time</span><span data-lang="es">Exploración T2 — Papel Canvas ×5 · 3h de fabricación</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name"><span data-lang="en">Repair cost</span><span data-lang="es">Costo de reparación</span></div><div class="d-mat-src"><span data-lang="en">1 Meat per repair · Explorer pets</span><span data-lang="es">1 Carne por reparación · Mascotas exploradoras</span></div></div></div>
-      </div>
-      <div class="d-section-label"><span data-lang="en">Profession chain</span><span data-lang="es">Cadena de profesiones</span></div>
-      <div class="d-chain"><span class="node">Artisan</span><span class="arr">→</span><span class="node">Architecture</span><span class="arr">→</span><span class="node">Engineering</span><span class="arr">→</span><span class="node">Blacksmith</span><span class="arr">→</span><span class="node">Explorer</span><span class="arr">→</span><span class="node">Miner</span><span class="arr">→</span><span class="end">Stormwater</span></div>
-    </div>
-
-    <!-- KRAZY KEG -->
-    <div class="mpanel" id="dm-krazykeg">
-      <div class="d-row3">
-        <div class="d-card"><div class="d-label"><span data-lang="en">Fuel type</span><span data-lang="es">Tipo de fuel</span></div><div class="d-val" style="font-size:1.1rem">Fire Juice</div><div class="d-sub"><span data-lang="en">Alchemy — Coal ×1 + Stormwater ×2 · 1h</span><span data-lang="es">Alquimia — Carbón ×1 + Agua Tormenta ×2 · 1h</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Consumption</span><span data-lang="es">Consumo</span></div><div class="d-val">0.5 <span style="font-size:.9rem;font-weight:400">/Lyr</span></div><div class="d-sub"><span data-lang="en">Most fuel-efficient in the collection</span><span data-lang="es">La más eficiente en fuel de la colección</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Tank · Range</span><span data-lang="es">Tanque · Rango</span></div><div class="d-val">10 Lyr</div><div class="d-sub"><span data-lang="en">20 Lyr range on full tank</span><span data-lang="es">20 Lyr de rango con tanque lleno</span></div></div>
-      </div>
-      <div class="d-slider-wrap">
-        <div class="d-slider-row">
-          <label><span data-lang="en">Distance</span><span data-lang="es">Distancia</span></label>
-          <input type="range" min="1" max="120" step="1" value="20" oninput="dCalcMount('krazykeg',this.value);dSlider(this)">
-          <span class="d-slider-out" id="dout-krazykeg">20 Lyr</span>
-        </div>
-      </div>
-      <div id="dm-krazykeg-result"></div>
-      <div class="d-section-label"><span data-lang="en">Supply chain</span><span data-lang="es">Cadena de suministro</span></div>
-      <div class="d-mat-list">
-        <div class="d-mat-row"><div><div class="d-mat-name">Coal</div><div class="d-mat-src"><span data-lang="en">T2 Mining — Excavation Site Map + Iron Shovel · yield 15–18/run · 2h</span><span data-lang="es">Minería T2 — Mapa Sitio Excavación + Pala de Hierro · rendimiento 15–18/turno · 2h</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name">Stormwater</div><div class="d-mat-src"><span data-lang="en">T2 Mining — River Map + Improved Bucket · yield 15–18/run · 2h</span><span data-lang="es">Minería T2 — Mapa de Río + Cubo Mejorado · rendimiento 15–18/turno · 2h</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name"><span data-lang="en">Repair cost</span><span data-lang="es">Costo de reparación</span></div><div class="d-mat-src"><span data-lang="en">Gorb Toolbox — Blacksmith item. Carry one or have a Blacksmith on standby.</span><span data-lang="es">Gorb Toolbox — Ítem de Herrero. Lleva uno o ten un Herrero disponible.</span></div></div></div>
-      </div>
-      <div class="d-section-label"><span data-lang="en">Profession chain</span><span data-lang="es">Cadena de profesiones</span></div>
-      <div class="d-chain"><span class="node">Artisan</span><span class="arr">→</span><span class="node">Architecture</span><span class="arr">→</span><span class="node">Engineering</span><span class="arr">→</span><span class="node">Blacksmith</span><span class="arr">→</span><span class="node">Explorer</span><span class="arr">→</span><span class="node">Miner</span><span class="arr">→</span><span class="node">Alchemist</span><span class="arr">→</span><span class="end">Fire Juice</span></div>
-    </div>
-
-    <!-- ARCANE -->
-    <div class="mpanel" id="dm-arcane">
-      <div class="d-row3">
-        <div class="d-card"><div class="d-label"><span data-lang="en">Fuel type</span><span data-lang="es">Tipo de fuel</span></div><div class="d-val" style="font-size:1rem">Liquid Valannite</div><div class="d-sub"><span data-lang="en">Alchemy T1 — rare ingredient required</span><span data-lang="es">Alquimia T1 — ingrediente raro requerido</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Consumption</span><span data-lang="es">Consumo</span></div><div class="d-val">1 <span style="font-size:.9rem;font-weight:400">/Lyr</span></div></div>
-        <div class="d-card"><div class="d-label"><span data-lang="en">Tank size</span><span data-lang="es">Tamaño tanque</span></div><div class="d-val">60 <span style="font-size:.9rem;font-weight:400">Lyr</span></div></div>
-      </div>
-      <div class="d-slider-wrap">
-        <div class="d-slider-row">
-          <label><span data-lang="en">Distance</span><span data-lang="es">Distancia</span></label>
-          <input type="range" min="1" max="120" step="1" value="20" oninput="dCalcMount('arcane',this.value);dSlider(this)">
-          <span class="d-slider-out" id="dout-arcane">20 Lyr</span>
-        </div>
-      </div>
-      <div id="dm-arcane-result"></div>
-      <div class="d-section-label"><span data-lang="en">Supply chain</span><span data-lang="es">Cadena de suministro</span></div>
-      <div class="d-mat-list">
-        <div class="d-mat-row"><div><div class="d-mat-name">Liquid Valannite</div><div class="d-mat-src"><span data-lang="en">Alchemy T1 — Copper Ore ×4 + Water ×2 + Charcoal ×2 + Valannite ×1 · 4h</span><span data-lang="es">Alquimia T1 — Mineral de Cobre ×4 + Agua ×2 + Carbón Vegetal ×2 + Valannite ×1 · 4h</span></div></div></div>
-        <div class="d-mat-row"><div><div class="d-mat-name">Valannite</div><div class="d-mat-src"><span data-lang="en">Rare ingredient — source not yet confirmed. Likely Artisan or Exploration gathering.</span><span data-lang="es">Ingrediente raro — fuente no confirmada aún. Probablemente recolección de Artesano o Exploración.</span></div></div></div>
-      </div>
-      <div class="d-gap">
-        <span data-lang="en">⚠ Valannite raw ingredient sourcing is unconfirmed. Range and consumption calculations are accurate — full material chain will be updated when source is confirmed.</span>
-        <span data-lang="es">⚠ La fuente del ingrediente Valannite no está confirmada. Los cálculos de rango y consumo son precisos — la cadena de materiales completa se actualizará cuando se confirme la fuente.</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── INGOT CALCULATOR ── -->
-  <div class="dash-panel" id="dp-ingot">
-    <p class="dash-intro">
-      <span data-lang="en">Select a tier and quantity to see the full raw material requirement. All ingots follow the same pattern: Ore ×3 + matching Liquid ×1 + matching Fuel ×1.</span>
-      <span data-lang="es">Selecciona un nivel y cantidad para ver los requisitos de materiales completos. Todos los lingotes siguen el mismo patrón: Mineral ×3 + Líquido correspondiente ×1 + Combustible correspondiente ×1.</span>
-    </p>
-    <div class="d-row2">
-      <div>
-        <div class="d-label" style="margin-bottom:.5rem"><span data-lang="en">Ingot tier</span><span data-lang="es">Nivel de lingote</span></div>
-        <select class="d-select" id="d-ingot-tier" onchange="dCalcIngot()">
-          <option value="1">T1 — Copper Ingot / Lingote de Cobre</option>
-          <option value="2">T2 — Iron Ingot / Lingote de Hierro</option>
-          <option value="3">T3 — Quicksilver Ingot / Lingote Argénteo</option>
-          <option value="4">T4 — Luminite Ingot / Lingote de Luminita</option>
-          <option value="5">T5 — Kronscale Ingot / Lingote Kronscale</option>
-        </select>
-      </div>
-      <div>
-        <div class="d-slider-wrap" style="margin-top:.3rem">
-          <div class="d-slider-row">
-            <label><span data-lang="en">Quantity</span><span data-lang="es">Cantidad</span></label>
-            <input type="range" min="1" max="50" step="1" value="1" oninput="document.getElementById('d-ingot-qty-out').textContent=this.value;dCalcIngot();dSlider(this)">
-            <span class="d-slider-out" id="d-ingot-qty-out">1</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="d-section-label"><span data-lang="en">Raw materials required</span><span data-lang="es">Materiales requeridos</span></div>
-    <div id="d-ingot-result"></div>
-    <div class="d-section-label"><span data-lang="en">Craft time</span><span data-lang="es">Tiempo de fabricación</span></div>
-    <div id="d-ingot-time"></div>
-  </div>
-
-  <!-- ── FIRE JUICE CHAIN ── -->
-  <div class="dash-panel" id="dp-fj">
-    <p class="dash-intro">
-      <span data-lang="en">Fire Juice fuels mechanical mounts and Red Zone operations. Base recipe: Coal ×1 + Stormwater ×2 · 1h per unit. Set a target quantity to see the full material cascade.</span>
-      <span data-lang="es">El Fire Juice alimenta monturas mecánicas y operaciones en la Zona Roja. Receta base: Carbón ×1 + Agua Tormenta ×2 · 1h por unidad. Establece una cantidad objetivo para ver la cascada completa de materiales.</span>
-    </p>
-    <div class="d-slider-wrap">
-      <div class="d-slider-row">
-        <label><span data-lang="en">Target qty</span><span data-lang="es">Cantidad objetivo</span></label>
-        <input type="range" min="1" max="100" step="1" value="10" oninput="document.getElementById('d-fj-out').textContent=this.value;dCalcFJ(this.value);dSlider(this)">
-        <span class="d-slider-out" id="d-fj-out">10</span>
-      </div>
-    </div>
-    <div id="d-fj-result"></div>
-    <div class="d-section-label"><span data-lang="en">Profession chain</span><span data-lang="es">Cadena de profesiones</span></div>
-    <div class="d-chain"><span class="node">Artisan</span><span class="arr">→</span><span class="node">Architecture</span><span class="arr">→</span><span class="node">Engineering</span><span class="arr">→</span><span class="node">Blacksmith</span><span class="arr">→</span><span class="node">Explorer</span><span class="arr">→</span><span class="node">Miner</span><span class="arr">→</span><span class="node">Alchemist</span><span class="arr">→</span><span class="end">Fire Juice</span></div>
-    <div class="d-gap">
-      <span data-lang="en">⚠ Higher-tier Fire Juice variants, exact filtration steps, and Gold costs not yet confirmed. This calculator reflects the confirmed base recipe only.</span>
-      <span data-lang="es">⚠ Las variantes de Fire Juice de nivel superior, los pasos exactos de filtración y los costos en Oro aún no están confirmados. Esta calculadora refleja solo la receta base confirmada.</span>
-    </div>
-  </div>
-
-  <!-- ── MINING PLANNER ── -->
-  <div class="dash-panel" id="dp-mine">
-    <p class="dash-intro">
-      <span data-lang="en">Select a resource to see the required map (Explorer) and tool (Blacksmith), plus yield range and craft time.</span>
-      <span data-lang="es">Selecciona un recurso para ver el mapa requerido (Explorador) y la herramienta (Herrero), además del rango de rendimiento y tiempo de fabricación.</span>
-    </p>
-    <div class="d-row2">
-      <div>
-        <div class="d-label" style="margin-bottom:.5rem"><span data-lang="en">Tier</span><span data-lang="es">Nivel</span></div>
-        <select class="d-select" id="d-mine-tier" onchange="dBuildMineRes()">
-          <option value="1">Tier 1</option><option value="2">Tier 2</option><option value="3">Tier 3</option><option value="4">Tier 4</option><option value="5">Tier 5</option>
-        </select>
-      </div>
-      <div>
-        <div class="d-label" style="margin-bottom:.5rem"><span data-lang="en">Resource</span><span data-lang="es">Recurso</span></div>
-        <select class="d-select" id="d-mine-res" onchange="dCalcMine()"></select>
-      </div>
-    </div>
-    <div id="d-mine-result"></div>
-  </div>
-
-  <!-- ── SURVEY PLANNER ── -->
-  <div class="dash-panel" id="dp-survey">
-    <p class="dash-intro">
-      <span data-lang="en">Explorer Surveys produce maps (used by Miners) or a fallback raw resource. Tier 5 splits into two separate recipes by domain.</span>
-      <span data-lang="es">Las Exploraciones producen mapas (usados por Mineros) o un recurso bruto alternativo. El nivel 5 se divide en dos recetas separadas por dominio.</span>
-    </p>
-    <div class="d-row2">
-      <div>
-        <div class="d-label" style="margin-bottom:.5rem"><span data-lang="en">Survey tier</span><span data-lang="es">Nivel de exploración</span></div>
-        <select class="d-select" id="d-sv-tier" onchange="dBuildSvDomain()">
-          <option value="1">Tier 1</option><option value="2">Tier 2</option><option value="3">Tier 3</option><option value="4">Tier 4</option>
-          <option value="5A">Tier 5A — Wood / Water</option>
-          <option value="5B">Tier 5B — Ore / Fuel</option>
-        </select>
-      </div>
-      <div>
-        <div class="d-label" style="margin-bottom:.5rem"><span data-lang="en">Domain</span><span data-lang="es">Dominio</span></div>
-        <select class="d-select" id="d-sv-domain" onchange="dCalcSurvey()"></select>
-      </div>
-    </div>
-    <div id="d-sv-result"></div>
-  </div>
-
-  </div><!-- /dash-forge -->
-</section>
-
 <!-- COMING SOON TOOLS -->
 <section id="coming-tools">
   <div class="section-label reveal" style="justify-content:center">
@@ -756,7 +353,25 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
     <span data-lang="es">Lo que viene después</span>
   </h2>
   <div class="tools-grid">
+
     <div class="tool-card reveal reveal-delay-1">
+      <div class="tool-card-status soon">
+        <span data-lang="en">In Development</span><span data-lang="es">En Desarrollo</span>
+      </div>
+      <span class="tool-card-icon">⛽</span>
+      <div class="tool-card-title"><span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span></div>
+      <p class="tool-card-desc">
+        <span data-lang="en">Input mount type, tier, and distance. Get fuel requirements and cost estimates based on real gameplay data collected as Realms Phase 1 matures.</span>
+        <span data-lang="es">Ingresa tipo de montura, nivel y distancia. Obtén requisitos de fuel y estimaciones de costo basadas en datos reales recopilados conforme madura la Fase 1.</span>
+      </p>
+      <div class="tool-card-features">
+        <div class="tool-card-feature"><span data-lang="en">All 3 mount types and tiers</span><span data-lang="es">Los 3 tipos de montura y niveles</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Cargo load variables</span><span data-lang="es">Variables de carga</span></div>
+        <div class="tool-card-feature"><span data-lang="en">Updated as real data comes in</span><span data-lang="es">Actualizado con datos reales</span></div>
+      </div>
+    </div>
+
+    <div class="tool-card reveal reveal-delay-2">
       <div class="tool-card-status soon">
         <span data-lang="en">Planned</span><span data-lang="es">Planificado</span>
       </div>
@@ -772,6 +387,7 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
         <div class="tool-card-feature"><span data-lang="en">Crafting automation research (Phase 2)</span><span data-lang="es">Automatización de crafting (Fase 2)</span></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -789,8 +405,8 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
       <span data-lang="es">Sé notificado cuando las herramientas lancen</span>
     </h2>
     <p class="notify-sub reveal reveal-delay-2">
-      <span data-lang="en">Join Discord for real-time updates on new tools, guides, and game data as Phase 1 matures.</span>
-      <span data-lang="es">Únete a Discord para actualizaciones en tiempo real sobre nuevas herramientas, guías y datos del juego conforme madura la Fase 1.</span>
+      <span data-lang="en">Drop your email or join Discord. We'll notify you when the Wallet Management tool and Fuel Calculator go live.</span>
+      <span data-lang="es">Deja tu email o únete a Discord. Te notificamos cuando la herramienta de Wallets y la Calculadora de Fuel estén disponibles.</span>
     </p>
     <form class="notify-form reveal reveal-delay-3" id="notify-form">
       <input type="email" name="email" class="notify-input" placeholder="your@email.com" required>
@@ -813,7 +429,7 @@ select.d-select:focus{outline:none;border-color:rgba(255,107,26,0.6);box-shadow:
     <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
     <li></li>
     <li><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
-    <li><a href="valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
     <li><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
     <li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
     <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
@@ -839,70 +455,9 @@ function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');doc
 const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
 const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
 if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
-/* ── CRAFTING DASHBOARD JS ── */
-function dSlider(el){const pct=((el.value-el.min)/(el.max-el.min)*100).toFixed(1);el.style.setProperty('--pct',pct+'%')}
-document.querySelectorAll('.d-slider-row input[type=range]').forEach(dSlider);
-const DMOUNTS={gorren:{consume:1,tank:60},vaelgrun:{consume:1,tank:27},krazykeg:{consume:0.5,tank:10},arcane:{consume:1,tank:60}};
-function dMTime(t,n){const p=t.split(' ');let m=0;p.forEach(x=>{if(x.endsWith('h'))m+=parseInt(x)*60;if(x.endsWith('m'))m+=parseInt(x);});const tot=m*n;const h=Math.floor(tot/60),mn=tot%60;return mn>0?`${h}h ${mn}m`:`${h}h`;}
-function dCalcMount(id,dist){
-  dist=parseFloat(dist);
-  const out=document.getElementById('dout-'+id);
-  if(out)out.textContent=dist+' Lyr';
-  const m=DMOUNTS[id];
-  const fuel=+(dist*m.consume).toFixed(1);
-  const refills=Math.max(0,Math.ceil(dist/(m.tank/m.consume))-1);
-  const tanks=Math.ceil(fuel/m.tank);
-  const res=document.getElementById('dm-'+id+'-result');
-  if(!res)return;
-  let html=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
-    <div class="d-card"><div class="d-label">Fuel needed</div><div class="d-val">${fuel}</div></div>
-    <div class="d-card"><div class="d-label">Refuel stops</div><div class="d-val">${refills}</div></div>
-    <div class="d-card"><div class="d-label">Tanks</div><div class="d-val">${tanks}</div></div>
-  </div>`;
-  if(id==='krazykeg'){const coal=Math.ceil(fuel),storm=Math.ceil(fuel*2);html+=`<div class="d-section-label">Raw materials for ${fuel} Fire Juice</div><div class="d-mat-list"><div class="d-mat-row"><div><div class="d-mat-name">Coal</div><div class="d-mat-src">T2 Mining · Excavation Site Map + Iron Shovel</div></div><div class="d-mat-qty">×${coal}</div></div><div class="d-mat-row"><div><div class="d-mat-name">Stormwater</div><div class="d-mat-src">T2 Mining · River Map + Improved Bucket</div></div><div class="d-mat-qty">×${storm}</div></div></div>`;}
-  else if(id==='gorren'){html+=`<div class="d-section-label">Water required</div><div class="d-mat-list"><div class="d-mat-row"><div><div class="d-mat-name">Water</div><div class="d-mat-src">T1 Mining · Well Map + Bucket · yield 22–26/run</div></div><div class="d-mat-qty">×${fuel}</div></div></div>`;}
-  else if(id==='vaelgrun'){html+=`<div class="d-section-label">Stormwater required</div><div class="d-mat-list"><div class="d-mat-row"><div><div class="d-mat-name">Stormwater</div><div class="d-mat-src">T2 Mining · River Map + Improved Bucket · yield 15–18/run</div></div><div class="d-mat-qty">×${fuel}</div></div></div>`;}
-  else if(id==='arcane'){html+=`<div class="d-section-label">Liquid Valannite required</div><div class="d-mat-list"><div class="d-mat-row"><div><div class="d-mat-name">Copper Ore</div><div class="d-mat-src">T1 Mining</div></div><div class="d-mat-qty">×${Math.ceil(fuel*4)}</div></div><div class="d-mat-row"><div><div class="d-mat-name">Water</div><div class="d-mat-src">T1 Mining</div></div><div class="d-mat-qty">×${Math.ceil(fuel*2)}</div></div><div class="d-mat-row"><div><div class="d-mat-name">Charcoal</div><div class="d-mat-src">T1 Mining</div></div><div class="d-mat-qty">×${Math.ceil(fuel*2)}</div></div><div class="d-mat-row"><div><div class="d-mat-name">Valannite (rare)</div><div class="d-mat-src">Source unconfirmed</div></div><div class="d-mat-qty">×${Math.ceil(fuel)}</div></div></div>`;}
-  res.innerHTML=html;
-}
-function dMount(id,btn){
-  document.querySelectorAll('.mpanel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.mount-stab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('dm-'+id).classList.add('active');
-  btn.classList.add('active');
-  const sl=document.querySelector('#dm-'+id+' input[type=range]');
-  if(sl)dCalcMount(id,sl.value);
-}
-function dTab(id,btn){
-  document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.dash-tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('dp-'+id).classList.add('active');
-  btn.classList.add('active');
-}
-const DINGOTS={1:{name:'Copper Ingot',ore:'Copper Ore',liquid:'Water',fuel:'Charcoal',time:'1h'},2:{name:'Iron Ingot',ore:'Iron Ore',liquid:'Stormwater',fuel:'Coal',time:'1h'},3:{name:'Quicksilver Ingot',ore:'Cinnabar Ore',liquid:'Blackblood',fuel:'Meldstone',time:'1h 30m'},4:{name:'Luminite Ingot',ore:'Luminite Ore',liquid:'Mirrormist',fuel:'Moonslate',time:'1h 30m'},5:{name:'Kronscale Ingot',ore:'Kronyx Ore',liquid:'Elderwater',fuel:'Pyrestarter',time:'1h 45m'}};
-function dCalcIngot(){
-  const t=parseInt(document.getElementById('d-ingot-tier').value);
-  const q=parseInt(document.getElementById('d-ingot-qty-out').textContent)||1;
-  const d=DINGOTS[t];
-  document.getElementById('d-ingot-result').innerHTML=`<div class="d-mat-list"><div class="d-mat-row"><div><div class="d-mat-name">${d.ore}</div><div class="d-mat-src">Ore · T${t} Mining</div></div><div class="d-mat-qty">×${3*q}</div></div><div class="d-mat-row"><div><div class="d-mat-name">${d.liquid}</div><div class="d-mat-src">Liquid · T${t} Mining</div></div><div class="d-mat-qty">×${q}</div></div><div class="d-mat-row"><div><div class="d-mat-name">${d.fuel}</div><div class="d-mat-src">Fuel · T${t} Mining</div></div><div class="d-mat-qty">×${q}</div></div></div>`;
-  document.getElementById('d-ingot-time').innerHTML=`<div class="d-time-grid"><div class="d-time-card"><div class="d-time-label">Per ingot</div><div class="d-time-val">${d.time}</div></div><div class="d-time-card"><div class="d-time-label">For ${q}</div><div class="d-time-val">${dMTime(d.time,q)}</div></div></div>`;
-}
-function dCalcFJ(qty){
-  qty=parseInt(qty)||10;
-  const coal=qty,storm=2*qty;
-  document.getElementById('d-fj-result').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem"><div class="d-card"><div class="d-label">Fire Juice</div><div class="d-val">${qty}</div><div class="d-sub">Alchemy · 1h/unit</div></div><div class="d-card"><div class="d-label">Coal required</div><div class="d-val">${coal}</div><div class="d-sub">T2 Mining</div></div><div class="d-card"><div class="d-label">Stormwater required</div><div class="d-val">${storm}</div><div class="d-sub">T2 Mining</div></div></div><div class="d-time-grid"><div class="d-time-card"><div class="d-time-label">Alchemy time</div><div class="d-time-val">${dMTime('1h',qty)}</div></div><div class="d-time-card"><div class="d-time-label">Coal mining</div><div class="d-time-val">${dMTime('2h',coal)}</div></div><div class="d-time-card"><div class="d-time-label">Stormwater mining</div><div class="d-time-val">${dMTime('2h',storm)}</div></div></div>`;
-}
-const DMINE={1:[{name:'Copper Ore',type:'Ore',map:'Copper Vein Map',tool:'Pickaxe',yield:'22–26',time:'2h'},{name:'Charcoal',type:'Fuel',map:'Abandoned Camp Map',tool:'Shovel',yield:'22–26',time:'2h'},{name:'Water',type:'Liquid',map:'Well Map',tool:'Bucket',yield:'22–26',time:'2h'},{name:'Small Crystal',type:'Gem',map:'Small Crystal Vein Map',tool:'Pickaxe',yield:'1',time:'2h'}],2:[{name:'Iron Ore',type:'Ore',map:'Iron Vein Map',tool:'Iron Pickaxe',yield:'15–18',time:'2h'},{name:'Coal',type:'Fuel',map:'Excavation Site Map',tool:'Iron Shovel',yield:'15–18',time:'2h'},{name:'Stormwater',type:'Liquid',map:'River Map',tool:'Improved Bucket',yield:'15–18',time:'2h'},{name:'Clay',type:'Other',map:'River Map',tool:'Shovel',yield:'8',time:'1h'},{name:'Medium Crystal',type:'Gem',map:'Medium Crystal Vein Map',tool:'Pickaxe',yield:'1',time:'3h'}],3:[{name:'Cinnabar Ore',type:'Ore',map:'Cinnabar Vein Map',tool:'Quicksilver Pickaxe',yield:'15–18',time:'2h 30m'},{name:'Meldstone',type:'Fuel',map:'Quarry Map',tool:'Quicksilver Shovel',yield:'15–18',time:'2h 30m'},{name:'Blackblood',type:'Liquid',map:'Reservoir Map',tool:'Extraction Pipe',yield:'15–18',time:'2h 30m'},{name:'Large Crystal',type:'Gem',map:'Large Crystal Vein Map',tool:'Pickaxe',yield:'1',time:'4h'}],4:[{name:'Luminite Ore',type:'Ore',map:'Luminite Vein Map',tool:'Luminite Pickaxe',yield:'15–18',time:'4h'},{name:'Moonslate',type:'Fuel',map:'Pit Mine Map',tool:'Luminite Shovel',yield:'15–18',time:'4h'},{name:'Mirrormist',type:'Liquid',map:'Deep Well Map',tool:'Heartspire Bucket',yield:'15–18',time:'4h'}],5:[{name:'Kronyx Ore',type:'Ore',map:'Scalemourn Vein Map',tool:'Kronscale Pickaxe',yield:'15–18',time:'4h 30m'},{name:'Pyrestarter',type:'Fuel',map:'Emberhollow Cavern Map',tool:'Kronscale Shovel',yield:'15–18',time:'4h 30m'},{name:'Elderwater',type:'Liquid',map:'Wyrdspring Wells Map',tool:'Nightwood Bucket',yield:'15–18',time:'4h'}]};
-function dBuildMineRes(){const t=parseInt(document.getElementById('d-mine-tier').value);const sel=document.getElementById('d-mine-res');sel.innerHTML=DMINE[t].map((r,i)=>`<option value="${i}">${r.name}</option>`).join('');dCalcMine();}
-function dCalcMine(){const t=parseInt(document.getElementById('d-mine-tier').value);const i=parseInt(document.getElementById('d-mine-res').value);const r=DMINE[t][i];document.getElementById('d-mine-result').innerHTML=`<div class="d-row2"><div class="d-card"><div class="d-label">Map required</div><div class="d-val" style="font-size:1rem">${r.map}</div><div class="d-sub">Explorer Survey T${t}</div></div><div class="d-card"><div class="d-label">Tool required</div><div class="d-val" style="font-size:1rem">${r.tool}</div><div class="d-sub">Blacksmith T${t}</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem"><div class="d-card"><div class="d-label">Yield / run</div><div class="d-val">${r.yield}</div></div><div class="d-card"><div class="d-label">Craft time</div><div class="d-val">${r.time}</div></div><div class="d-card"><div class="d-label">Type</div><div class="d-val" style="font-size:1rem">${r.type}</div></div></div>`;}
-const DSV={'1':{paper:'Paper ×1',time:'3h',domains:[{name:'Wood',map:'Woodland Map',fb:'Softwood'},{name:'Water',map:'Well Map',fb:'Water'},{name:'Ore',map:'Copper Vein Map',fb:'Copper Ore'},{name:'Fuel',map:'Abandoned Camp Map',fb:'Charcoal'}]},'2':{paper:'Paper ×5',time:'3h',domains:[{name:'Wood',map:'Grove Map',fb:'Hardwood'},{name:'Water',map:'River Map',fb:'Stormwater'},{name:'Ore',map:'Iron Vein Map',fb:'Iron Ore'},{name:'Fuel',map:'Excavation Site Map',fb:'Coal'}]},'3':{paper:'Canvas Paper ×1',time:'4h',domains:[{name:'Wood',map:'Forest Map',fb:'Plumhide'},{name:'Water',map:'Reservoir Map',fb:'Blackblood'},{name:'Ore',map:'Cinnabar Vein Map',fb:'Cinnabar Ore'},{name:'Fuel',map:'Quarry Map',fb:'Meldstone'}]},'4':{paper:'Hideleaf ×1',time:'4h 30m',domains:[{name:'Wood',map:'Dense Forest Map',fb:'Heartspire'},{name:'Water',map:'Deep Well Map',fb:'Mirrormist'},{name:'Ore',map:'Luminite Vein Map',fb:'Luminite Ore'},{name:'Fuel',map:'Pit Mine Map',fb:'Moonslate'}]},'5A':{paper:'Heartspire Scroll ×1',time:'5h',domains:[{name:'Wood',map:'Elderbark Forest Map',fb:'Nightwood'},{name:'Water',map:'Wyrdspring Wells Map',fb:'Elderwater'}]},'5B':{paper:'Heartspire Scroll ×1',time:'5h',domains:[{name:'Ore',map:'Scalemourn Vein Map',fb:'Kronyx Ore'},{name:'Fuel',map:'Emberhollow Cavern Map',fb:'Pyrestarter'}]}};
-function dBuildSvDomain(){const t=document.getElementById('d-sv-tier').value;const sel=document.getElementById('d-sv-domain');sel.innerHTML=DSV[t].domains.map((d,i)=>`<option value="${i}">${d.name}</option>`).join('');dCalcSurvey();}
-function dCalcSurvey(){const t=document.getElementById('d-sv-tier').value;const i=parseInt(document.getElementById('d-sv-domain').value);const sv=DSV[t];const d=sv.domains[i];document.getElementById('d-sv-result').innerHTML=`<div class="d-row2"><div class="d-card"><div class="d-label">Input material</div><div class="d-val" style="font-size:1rem">${sv.paper}</div><div class="d-sub">Artisan</div></div><div class="d-card"><div class="d-label">Craft time</div><div class="d-val">${sv.time}</div></div></div><div class="d-row2"><div class="d-card"><div class="d-label">Map output</div><div class="d-val" style="font-size:1rem">${d.map}</div><div class="d-sub">Primary — used by Miner</div></div><div class="d-card"><div class="d-label">Fallback resource</div><div class="d-val" style="font-size:1rem">${d.fb}</div><div class="d-sub">If map not needed</div></div></div>`;}
-/* init dashboard */
-dCalcMount('gorren',20);dCalcMount('vaelgrun',20);dCalcMount('krazykeg',20);dCalcMount('arcane',20);
-dCalcIngot();dCalcFJ(10);dBuildMineRes();dBuildSvDomain();
 </script>
 <script>
+const nf = document.getElementById('notify-form');
 if(nf){
   nf.addEventListener('submit', async e => {
     e.preventDefault();
