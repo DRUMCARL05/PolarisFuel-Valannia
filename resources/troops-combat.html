@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Troops & Combat Guide — Polaris Fuel · Valannia</title>
+  <meta name="description" content="Complete troop roster for all 8 races, Troop Point costs for all 64 units, hero class resistances, damage types, and army-building strategy for Valannia Realms.">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+@media(max-width:900px){nav#navbar{padding:1rem 1.5rem}.nav-links,.nav-discord-btn{display:none}.nav-hamburger{display:flex}}
+@media(max-width:600px){#cursor,#cursor-ring{display:none}body{cursor:auto}a,button{cursor:auto}footer{flex-direction:column}}
+</style>
+<style>
+/* ── ARTICLE STYLES ── */
+.article-hero{padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
+.article-hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,107,26,0.07) 0%,transparent 65%);pointer-events:none}
+.article-breadcrumb{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2rem;opacity:0;animation:fadeUp .7s .2s forwards}
+.article-breadcrumb a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.article-breadcrumb a:hover{color:var(--gold)}
+.article-breadcrumb-sep{color:var(--fire);opacity:.5}
+.article-meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;opacity:0;animation:fadeUp .7s .3s forwards}
+.article-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(255,107,26,0.35);color:var(--fire);background:rgba(255,107,26,0.06)}
+.article-readtime{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.article-status{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(74,222,128,0.3);color:#4ade80;background:rgba(74,222,128,0.06)}
+.article-status::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}
+.article-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,3rem);font-weight:700;color:var(--gold-pale);letter-spacing:.04em;line-height:1.2;max-width:800px;margin:0 auto 1.2rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.article-subtitle{font-size:.98rem;color:var(--text);line-height:1.9;max-width:560px;margin:0 auto;opacity:0;animation:fadeUp .8s .55s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.article-body{max-width:860px;margin:0 auto;padding:5rem 2rem 6rem}
+.toc{padding:2rem 2.5rem;border:1px solid var(--border);background:var(--dark-card);margin-bottom:4rem}
+.toc-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.toc-list li{display:flex;align-items:baseline;gap:.7rem;font-size:.88rem}
+.toc-list li::before{content:attr(data-num);font-family:'Cinzel',serif;font-size:.55rem;color:var(--fire);opacity:.7;flex-shrink:0;letter-spacing:.1em}
+.toc-list a{color:var(--text);text-decoration:none;transition:color .2s;line-height:1.6}
+.toc-list a:hover{color:var(--gold)}
+.article-section{margin-bottom:4.5rem}
+.article-section-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.38em;text-transform:uppercase;color:var(--fire);opacity:.7;margin-bottom:.9rem}
+.article-h2{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:700;color:var(--gold-pale);letter-spacing:.06em;margin-bottom:1.8rem;line-height:1.4}
+.article-p{font-size:.96rem;line-height:1.95;color:var(--text);margin-bottom:1.2rem}
+.article-p strong{color:var(--gold-pale);font-weight:700}
+.article-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.18),transparent);margin:4rem 0}
+.callout{padding:1.5rem 2rem;border-left:3px solid var(--gold);background:rgba(212,168,67,0.05);margin:2rem 0}
+.callout-info{border-left-color:var(--gold)}
+.callout-fire{border-left-color:var(--fire);background:rgba(255,107,26,0.05)}
+.callout-warning{border-left-color:var(--ember);background:rgba(255,154,0,0.05)}
+.callout-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;opacity:.8}
+.callout-fire .callout-label{color:var(--fire)}
+.callout-warning .callout-label{color:var(--ember)}
+
+/* ── TABLES ── */
+.tier-table-wrap{overflow-x:auto;margin:2rem 0}
+.tier-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.tier-table th{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);padding:.9rem 1rem;text-align:left;background:var(--dark-card);border:1px solid var(--border)}
+.tier-table td{padding:.75rem 1rem;border:1px solid rgba(212,168,67,0.08);color:var(--text);vertical-align:middle;line-height:1.6}
+.tier-table tr:hover td{background:rgba(212,168,67,0.03)}
+.tp-badge{display:inline-flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;width:28px;height:28px;border-radius:50%;border:1px solid}
+.tp-low{border-color:rgba(74,222,128,0.4);color:#4ade80;background:rgba(74,222,128,0.08)}
+.tp-mid{border-color:rgba(255,154,0,0.4);color:var(--ember);background:rgba(255,154,0,0.08)}
+.tp-high{border-color:rgba(248,113,113,0.4);color:#f87171;background:rgba(248,113,113,0.08)}
+.tp-colossus{border-color:rgba(167,139,250,0.5);color:#a78bfa;background:rgba(167,139,250,0.08)}
+.unit-class{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;padding:.18rem .5rem;border:1px solid;white-space:nowrap}
+.cls-infantry{border-color:rgba(212,168,67,0.3);color:var(--gold);background:rgba(212,168,67,0.06)}
+.cls-cavalry{border-color:rgba(255,107,26,0.3);color:var(--fire);background:rgba(255,107,26,0.06)}
+.cls-mage{border-color:rgba(167,139,250,0.35);color:#a78bfa;background:rgba(167,139,250,0.06)}
+.cls-range{border-color:rgba(74,222,128,0.3);color:#4ade80;background:rgba(74,222,128,0.06)}
+.cls-tank{border-color:rgba(248,113,113,0.3);color:#f87171;background:rgba(248,113,113,0.06)}
+.cls-colossus{border-color:rgba(167,139,250,0.5);color:#a78bfa;background:rgba(167,139,250,0.08);font-weight:700}
+
+/* ── RACE TABS ── */
+.race-tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:2rem}
+.race-tab{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;padding:.35rem .9rem;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:none;transition:all .2s}
+.race-tab.active,.race-tab:hover{border-color:var(--gold);color:var(--gold-pale);background:rgba(212,168,67,0.07)}
+.race-panel{display:none}.race-panel.active{display:block}
+
+/* ── RESISTANCE GRID ── */
+.resist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:2rem 0}
+.resist-card{background:var(--dark-card);border:1px solid var(--border);padding:1.2rem 1.4rem}
+.resist-class{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:.8rem}
+.resist-row{display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;border-bottom:1px solid rgba(212,168,67,0.06);font-size:.82rem}
+.resist-row:last-child{border-bottom:none}
+.resist-type{color:var(--text-dim)}
+.resist-val{font-family:'Cinzel',serif;font-size:.7rem;font-weight:700}
+.resist-val.r0{color:var(--text-dim)}
+.resist-val.rlow{color:var(--ember)}
+.resist-val.rmid{color:var(--gold)}
+.resist-val.rhigh{color:#4ade80}
+
+/* ── DAMAGE TYPE CARDS ── */
+.dmg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;margin:2rem 0}
+.dmg-card{background:var(--dark-card);border:1px solid var(--border);padding:1.4rem;border-top:2px solid}
+.dmg-card-physical{border-top-color:var(--gold)}
+.dmg-card-elemental{border-top-color:var(--fire)}
+.dmg-card-magical{border-top-color:#a78bfa}
+.dmg-card-psychic{border-top-color:#38bdf8}
+.dmg-icon{font-size:1.6rem;margin-bottom:.7rem}
+.dmg-name{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.dmg-card-physical .dmg-name{color:var(--gold)}
+.dmg-card-elemental .dmg-name{color:var(--fire)}
+.dmg-card-magical .dmg-name{color:#a78bfa}
+.dmg-card-psychic .dmg-name{color:#38bdf8}
+.dmg-desc{font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.7rem}
+.dmg-resist{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+
+/* ── STAT ROW ── */
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid rgba(212,168,67,0.08)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.stat-value{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--gold-pale)}
+
+/* ── PHASE 2 PREVIEW CARD ── */
+.preview-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid rgba(255,154,0,0.35);color:var(--ember);background:rgba(255,154,0,0.06);margin-bottom:1.5rem}
+.unit-stat-card{background:var(--dark-card);border:1px solid var(--border);padding:1.6rem;margin-bottom:1rem}
+.unit-stat-card-name{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--gold-pale);letter-spacing:.08em;margin-bottom:.3rem}
+.unit-stat-card-race{font-size:.78rem;color:var(--text-dim);margin-bottom:1rem}
+.unit-stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.5rem;margin-bottom:1rem}
+.unit-stat-item{background:rgba(212,168,67,0.04);border:1px solid rgba(212,168,67,0.08);padding:.5rem .7rem}
+.unit-stat-item-label{font-family:'Cinzel',serif;font-size:.45rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.2rem}
+.unit-stat-item-val{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--gold-pale)}
+.unit-ability-name{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--fire);margin-bottom:.4rem}
+.unit-ability-desc{font-size:.83rem;color:var(--text);line-height:1.7}
+
+@media(max-width:600px){.resist-grid{grid-template-columns:1fr 1fr}.dmg-grid{grid-template-columns:1fr 1fr}.tier-table{font-size:.78rem}.tier-table th,.tier-table td{padding:.6rem .7rem}}
+@media(max-width:400px){.resist-grid{grid-template-columns:1fr}.dmg-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="navbar">
+  <a href="../index.html" class="nav-logo">
+    <span class="nav-logo-text">Polaris Fuel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-resources.html" class="active"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join</span><span data-lang="es">Únete</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem;letter-spacing:.13em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
+    <div class="nav-lang">
+      <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu" class="mobile-menu">
+  <a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+  <a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
+  <a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" class="mobile-menu-discord" target="_blank" rel="noopener noreferrer">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active lang-btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<main id="main-content">
+
+<section class="article-hero" style="margin-top:72px">
+  <div class="article-hero-glow"></div>
+  <div class="article-breadcrumb">
+    <a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Combat Guides</span><span data-lang="es">Guías de Combate</span></span>
+    <span class="article-breadcrumb-sep">›</span>
+    <span><span data-lang="en">Troops & Combat</span><span data-lang="es">Tropas y Combate</span></span>
+  </div>
+  <div class="article-meta-row">
+    <div class="article-status"><span data-lang="en">Live · Phase 1</span><span data-lang="es">En vivo · Fase 1</span></div>
+    <span class="article-tag">⚔️ <span data-lang="en">Combat</span><span data-lang="es">Combate</span></span>
+    <span class="article-tag">🛡️ <span data-lang="en">Army Building</span><span data-lang="es">Construcción de Ejército</span></span>
+    <span class="article-tag">🎯 <span data-lang="en">Strategy</span><span data-lang="es">Estrategia</span></span>
+    <span class="article-readtime">~15 <span data-lang="en">min read · Intermediate</span><span data-lang="es">min lectura · Intermedio</span></span>
+  </div>
+  <h1 class="article-title">
+    <span data-lang="en">Troops & Combat</span>
+    <span data-lang="es">Tropas y Combate</span>
+  </h1>
+  <p class="article-subtitle">
+    <span data-lang="en">Complete troop roster for all 8 races — every unit, every Troop Point cost. Plus hero class resistances, the four damage types, and how to build an army that works.</span>
+    <span data-lang="es">Roster completo de tropas para las 8 razas — cada unidad, cada costo en Puntos de Tropa. Más resistencias de clases de héroe, los cuatro tipos de daño y cómo construir un ejército efectivo.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<div class="article-body">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <div class="toc-label"><span data-lang="en">Contents</span><span data-lang="es">Contenido</span></div>
+    <ul class="toc-list">
+      <li data-num="01"><a href="#army-system"><span data-lang="en">The Army System — Leadership & Troop Points</span><span data-lang="es">El Sistema de Ejército — Liderazgo y Puntos de Tropa</span></a></li>
+      <li data-num="02"><a href="#hero-classes"><span data-lang="en">Hero Classes & Base Resistances</span><span data-lang="es">Clases de Héroe y Resistencias Base</span></a></li>
+      <li data-num="03"><a href="#damage-types"><span data-lang="en">The Four Damage Types</span><span data-lang="es">Los Cuatro Tipos de Daño</span></a></li>
+      <li data-num="04"><a href="#troop-roster"><span data-lang="en">Full Troop Roster — All 8 Races</span><span data-lang="es">Roster Completo de Tropas — Las 8 Razas</span></a></li>
+      <li data-num="05"><a href="#phase2-preview"><span data-lang="en">Phase 2 Combat Preview</span><span data-lang="es">Vista Previa del Combate en Fase 2</span></a></li>
+      <li data-num="06"><a href="#coordination"><span data-lang="en">Army Coordination — The Polaris Fuel Angle</span><span data-lang="es">Coordinación de Ejército — El Ángulo de Polaris Fuel</span></a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: ARMY SYSTEM -->
+  <div class="article-section reveal" id="army-system">
+    <div class="article-section-label"><span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span></div>
+    <h2 class="article-h2"><span data-lang="en">The Army System — Leadership & Troop Points</span><span data-lang="es">El Sistema de Ejército — Liderazgo y Puntos de Tropa</span></h2>
+    <div data-lang="en">
+      <p class="article-p">Every hero commands an army. The size of that army is determined by one stat: <strong>Leadership</strong>. Each Leadership point equals one Troop Point (TP) of army capacity. The maximum is 50 — meaning no hero can field more than 50 TP worth of troops at once, regardless of level.</p>
+      <p class="article-p">Every combat unit in Valannia has a TP cost. Cheap units (1 TP) let you fill your roster with numbers. Expensive units (17–22 TP) eat most of your capacity in a single slot but bring exceptional power. Your choices reflect your strategy — and your Leadership allocation.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada héroe comanda un ejército. El tamaño de ese ejército está determinado por una estadística: <strong>Liderazgo</strong>. Cada punto de Liderazgo equivale a un Punto de Tropa (PT) de capacidad del ejército. El máximo es 50 — lo que significa que ningún héroe puede desplegar más de 50 PT de tropas a la vez, independientemente de su nivel.</p>
+      <p class="article-p">Cada unidad de combate en Valannia tiene un costo en PT. Las unidades baratas (1 PT) te permiten llenar tu roster con números. Las unidades costosas (17–22 PT) consumen la mayor parte de tu capacidad en un solo slot, pero aportan un poder excepcional. Tus elecciones reflejan tu estrategia — y tu asignación de Liderazgo.</p>
+    </div>
+
+    <div style="margin:2rem 0">
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Leadership stat → Troop Points</span><span data-lang="es">Estadística Liderazgo → Puntos de Tropa</span></span>
+        <span class="stat-value"><span data-lang="en">1 : 1</span><span data-lang="es">1 : 1</span></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Maximum Troop Points per hero</span><span data-lang="es">Máximo de Puntos de Tropa por héroe</span></span>
+        <span class="stat-value">50 TP</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Units per race</span><span data-lang="es">Unidades por raza</span></span>
+        <span class="stat-value">8</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Total units across all races</span><span data-lang="es">Total de unidades en todas las razas</span></span>
+        <span class="stat-value">64</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label"><span data-lang="en">Race leaders start with</span><span data-lang="es">Los líderes de raza comienzan con</span></span>
+        <span class="stat-value">20 <span data-lang="en">Leadership</span><span data-lang="es">Liderazgo</span></span>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-label"><span data-lang="en">Leadership vs. other stats</span><span data-lang="es">Liderazgo vs. otras estadísticas</span></div>
+      <div data-lang="en">Every level-up grants 5 stat points to allocate freely. Investing in Leadership expands your army capacity — but it comes at the cost of HP, Power, Defense, Speed, or Stamina. A 50-Leadership hero commands the largest possible army but is individually weaker in combat. How you distribute these points is a genuine strategic decision that shapes your entire playstyle.</div>
+      <div data-lang="es">Cada subida de nivel otorga 5 puntos de estadística para asignar libremente. Invertir en Liderazgo expande la capacidad de tu ejército — pero a costa de HP, Poder, Defensa, Velocidad o Estamina. Un héroe con 50 de Liderazgo comanda el ejército más grande posible, pero es individualmente más débil en combate. Cómo distribuyes estos puntos es una decisión estratégica genuina que define todo tu estilo de juego.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 2: HERO CLASSES -->
+  <div class="article-section reveal" id="hero-classes">
+    <div class="article-section-label"><span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span></div>
+    <h2 class="article-h2"><span data-lang="en">Hero Classes & Base Resistances</span><span data-lang="es">Clases de Héroe y Resistencias Base</span></h2>
+    <div data-lang="en">
+      <p class="article-p">There are four hero classes. Each starts with different base stats and native resistances to the four damage types. Your class determines your gear restrictions and your inherent combat profile — and knowing your weaknesses is as important as knowing your strengths.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Hay cuatro clases de héroe. Cada una comienza con estadísticas base y resistencias nativas diferentes a los cuatro tipos de daño. Tu clase determina tus restricciones de equipo y tu perfil de combate inherente — y conocer tus debilidades es tan importante como conocer tus fortalezas.</p>
+    </div>
+
+    <div class="resist-grid reveal reveal-delay-1">
+      <div class="resist-card">
+        <div class="resist-class">🛡️ <span data-lang="en">Tank</span><span data-lang="es">Tanque</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.8rem"><span data-lang="en">Gear: Full Metal</span><span data-lang="es">Equipo: Metal Completo</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Physical</span><span data-lang="es">Físico</span></span><span class="resist-val rhigh"><span data-lang="en">Max (gear)</span><span data-lang="es">Máx. (equipo)</span></span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Magical</span><span data-lang="es">Mágico</span></span><span class="resist-val r0">0%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Psychic</span><span data-lang="es">Psíquico</span></span><span class="resist-val r0">0%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Elemental</span><span data-lang="es">Elemental</span></span><span class="resist-val r0">0%</span></div>
+      </div>
+      <div class="resist-card">
+        <div class="resist-class">⚔️ <span data-lang="en">Fighter</span><span data-lang="es">Guerrero</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.8rem"><span data-lang="en">Gear: Leather/Metal (no metal helmets)</span><span data-lang="es">Equipo: Cuero/Metal (sin cascos de metal)</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Physical</span><span data-lang="es">Físico</span></span><span class="resist-val rmid"><span data-lang="en">Defense stat</span><span data-lang="es">Estadística Defensa</span></span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Magical</span><span data-lang="es">Mágico</span></span><span class="resist-val r0">0%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Psychic</span><span data-lang="es">Psíquico</span></span><span class="resist-val rlow">15%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Elemental</span><span data-lang="es">Elemental</span></span><span class="resist-val rlow">5%</span></div>
+      </div>
+      <div class="resist-card">
+        <div class="resist-class">🏹 <span data-lang="en">Ranger</span><span data-lang="es">Arquero</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.8rem"><span data-lang="en">Gear: Leather</span><span data-lang="es">Equipo: Cuero</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Physical</span><span data-lang="es">Físico</span></span><span class="resist-val rlow"><span data-lang="en">Low (leather)</span><span data-lang="es">Bajo (cuero)</span></span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Magical</span><span data-lang="es">Mágico</span></span><span class="resist-val rlow">5%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Psychic</span><span data-lang="es">Psíquico</span></span><span class="resist-val rlow">5%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Elemental</span><span data-lang="es">Elemental</span></span><span class="resist-val rmid">15%</span></div>
+      </div>
+      <div class="resist-card">
+        <div class="resist-class">✨ <span data-lang="en">Mage</span><span data-lang="es">Mago</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.8rem"><span data-lang="en">Gear: Cloth (some leather)</span><span data-lang="es">Equipo: Tela (algo de cuero)</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Physical</span><span data-lang="es">Físico</span></span><span class="resist-val r0">0%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Magical</span><span data-lang="es">Mágico</span></span><span class="resist-val rhigh">20%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Psychic</span><span data-lang="es">Psíquico</span></span><span class="resist-val rmid">15%</span></div>
+        <div class="resist-row"><span class="resist-type"><span data-lang="en">Elemental</span><span data-lang="es">Elemental</span></span><span class="resist-val rlow">5%</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-fire">
+      <div class="callout-label"><span data-lang="en">Improving resistances</span><span data-lang="es">Mejorar las resistencias</span></div>
+      <div data-lang="en">Base resistances are a starting point — not a ceiling. All non-physical resistances can be improved through enchantments (applied by Enchanters), ORB slots in gear (crafted by Core Binders), specific gear sets, and skill development. Physical resistance scales through the Defense stat, higher-tier gear, and the same enchantment/ORB systems. A well-equipped hero can close most of the gaps that class alone leaves open.</div>
+      <div data-lang="es">Las resistencias base son un punto de partida — no un techo. Todas las resistencias no físicas se pueden mejorar a través de encantamientos (aplicados por Encantadores), ranuras de ORB en equipo (fabricadas por Enlazadores de Núcleo), conjuntos de equipo específicos y desarrollo de habilidades. La resistencia física escala a través de la estadística de Defensa, equipo de mayor nivel y los mismos sistemas de encantamiento/ORB. Un héroe bien equipado puede cerrar la mayoría de las brechas que la clase por sí sola deja abiertas.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 3: DAMAGE TYPES -->
+  <div class="article-section reveal" id="damage-types">
+    <div class="article-section-label"><span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span></div>
+    <h2 class="article-h2"><span data-lang="en">The Four Damage Types</span><span data-lang="es">Los Cuatro Tipos de Daño</span></h2>
+    <div data-lang="en">
+      <p class="article-p">Every attack in Valannia deals one of four damage types. Your hero class determines your base resistance to each. Understanding this system helps you choose the right gear enchantments, ORB effects, and army composition before entering dungeons or contested zones.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada ataque en Valannia inflige uno de cuatro tipos de daño. Tu clase de héroe determina tu resistencia base a cada uno. Entender este sistema te ayuda a elegir los encantamientos de equipo correctos, efectos de ORB y composición de ejército antes de entrar en mazmorras o zonas en disputa.</p>
+    </div>
+
+    <div class="dmg-grid reveal reveal-delay-1">
+      <div class="dmg-card dmg-card-physical">
+        <div class="dmg-icon">⚔️</div>
+        <div class="dmg-name"><span data-lang="en">Physical</span><span data-lang="es">Físico</span></div>
+        <div class="dmg-desc"><span data-lang="en">Weapons, melee strikes, physical force. The most common damage type in dungeons and open-world combat.</span><span data-lang="es">Armas, golpes cuerpo a cuerpo, fuerza física. El tipo de daño más común en mazmorras y combate de mundo abierto.</span></div>
+        <div class="dmg-resist"><span data-lang="en">Resisted by: Defense stat + gear tier</span><span data-lang="es">Resistido por: estadística Defensa + nivel de equipo</span></div>
+      </div>
+      <div class="dmg-card dmg-card-elemental">
+        <div class="dmg-icon">🔥</div>
+        <div class="dmg-name"><span data-lang="en">Elemental</span><span data-lang="es">Elemental</span></div>
+        <div class="dmg-desc"><span data-lang="en">Fire, lightning, natural forces. Rangers have the highest base elemental resistance of any class.</span><span data-lang="es">Fuego, relámpago, fuerzas naturales. Los Arqueros tienen la mayor resistencia elemental base de todas las clases.</span></div>
+        <div class="dmg-resist"><span data-lang="en">Resisted by: Elemental Resistance stat</span><span data-lang="es">Resistido por: estadística Resistencia Elemental</span></div>
+      </div>
+      <div class="dmg-card dmg-card-magical">
+        <div class="dmg-icon">✨</div>
+        <div class="dmg-name"><span data-lang="en">Magical</span><span data-lang="es">Mágico</span></div>
+        <div class="dmg-desc"><span data-lang="en">Arcane energy, spellcraft. Mages have the highest base magic resistance — the only class starting at 20%.</span><span data-lang="es">Energía arcana, hechicería. Los Magos tienen la mayor resistencia mágica base — la única clase que comienza en 20%.</span></div>
+        <div class="dmg-resist"><span data-lang="en">Resisted by: Magic Resistance stat</span><span data-lang="es">Resistido por: estadística Resistencia Mágica</span></div>
+      </div>
+      <div class="dmg-card dmg-card-psychic">
+        <div class="dmg-icon">🌀</div>
+        <div class="dmg-name"><span data-lang="en">Psychic</span><span data-lang="es">Psíquico</span></div>
+        <div class="dmg-desc"><span data-lang="en">Mind-targeting attacks. Fighters and Mages both carry native psychic resistance; Tanks have none.</span><span data-lang="es">Ataques dirigidos a la mente. Guerreros y Magos tienen resistencia psíquica nativa; los Tanques no tienen ninguna.</span></div>
+        <div class="dmg-resist"><span data-lang="en">Resisted by: Psychic Resistance stat</span><span data-lang="es">Resistido por: estadística Resistencia Psíquica</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 4: FULL TROOP ROSTER -->
+  <div class="article-section reveal" id="troop-roster">
+    <div class="article-section-label"><span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span></div>
+    <h2 class="article-h2"><span data-lang="en">Full Troop Roster — All 8 Races</span><span data-lang="es">Roster Completo de Tropas — Las 8 Razas</span></h2>
+    <div data-lang="en">
+      <p class="article-p">Each race commands 8 combat units, from cheap frontline fighters to rare, high-cost Colossus units. TP cost is the primary strategic variable — higher cost units are rarer and more powerful, but consume more of your 50-TP army cap. Select a race tab to view its full unit roster.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Cada raza comanda 8 unidades de combate, desde combatientes de primera línea baratos hasta unidades Colossus raras y de alto costo. El costo en PT es la variable estratégica principal — las unidades de mayor costo son más raras y poderosas, pero consumen más de tu límite de 50 PT. Selecciona una pestaña de raza para ver su roster completo de unidades.</p>
+    </div>
+
+    <div class="callout callout-info" style="margin-bottom:2rem">
+      <div class="callout-label"><span data-lang="en">TP cost legend</span><span data-lang="es">Leyenda de costos PT</span></div>
+      <div data-lang="en">
+        <span style="display:inline-flex;align-items:center;gap:.5rem;margin-right:1.2rem"><span class="tp-badge tp-low">1</span> <span style="font-size:.82rem">Low cost (1–3 TP)</span></span>
+        <span style="display:inline-flex;align-items:center;gap:.5rem;margin-right:1.2rem"><span class="tp-badge tp-mid">5</span> <span style="font-size:.82rem">Mid cost (4–7 TP)</span></span>
+        <span style="display:inline-flex;align-items:center;gap:.5rem;margin-right:1.2rem"><span class="tp-badge tp-high">17</span> <span style="font-size:.82rem">High cost (17+ TP)</span></span>
+        <span style="display:inline-flex;align-items:center;gap:.5rem"><span class="tp-badge tp-colossus">C</span> <span style="font-size:.82rem">Colossus — max power unit</span></span>
+      </div>
+      <div data-lang="es">
+        <span style="display:inline-flex;align-items:center;gap:.5rem;margin-right:1.2rem"><span class="tp-badge tp-low">1</span> <span style="font-size:.82rem">Costo bajo (1–3 PT)</span></span>
+        <span style="display:inline-flex;align-items:center;gap:.5rem;margin-right:1.2rem"><span class="tp-badge tp-mid">5</span> <span style="font-size:.82rem">Costo medio (4–7 PT)</span></span>
+        <span style="display:inline-flex;align-items:center;gap:.5rem;margin-right:1.2rem"><span class="tp-badge tp-high">17</span> <span style="font-size:.82rem">Costo alto (17+ PT)</span></span>
+        <span style="display:inline-flex;align-items:center;gap:.5rem"><span class="tp-badge tp-colossus">C</span> <span style="font-size:.82rem">Colossus — unidad de máximo poder</span></span>
+      </div>
+    </div>
+
+    <div class="race-tabs reveal reveal-delay-1">
+      <button class="race-tab active" onclick="showRace('altari')">Altari</button>
+      <button class="race-tab" onclick="showRace('feyrune')">Feyrune</button>
+      <button class="race-tab" onclick="showRace('glorb')">Glorb</button>
+      <button class="race-tab" onclick="showRace('humans')"><span data-lang="en">Humans</span><span data-lang="es">Humanos</span></button>
+      <button class="race-tab" onclick="showRace('lerathi')">Lerathi</button>
+      <button class="race-tab" onclick="showRace('pirith')">Pirith</button>
+      <button class="race-tab" onclick="showRace('tyxen')">Tyxen</button>
+      <button class="race-tab" onclick="showRace('zanthar')">Zan'Thar</button>
+    </div>
+
+    <!-- ALTARI -->
+    <div id="race-altari" class="race-panel active reveal">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Telekinetic Fighter</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Cane Ranger</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Sharpshooter</td><td><span class="tp-badge tp-low">2</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Skyhoof Strider</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Healer</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Conjurer</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Guardian</td><td><span class="tp-badge tp-mid">6</span></td><td><span class="unit-class cls-tank"><span data-lang="en">Tank</span><span data-lang="es">Tanque</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Zim</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus)</span></td><td><span class="tp-badge tp-colossus">18</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FEYRUNE -->
+    <div id="race-feyrune" class="race-panel">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Bladewing Glider</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Luminara</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Gladehorn</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Druid</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Forest Caretaker</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Whisperer</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Faunathar</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Forest Sprouter</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus · 72 exist)</span></td><td><span class="tp-badge tp-colossus">22</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GLORB -->
+    <div id="race-glorb" class="race-panel">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Cannon Fodder</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Brainbreaker</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Grace</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Blorgoth</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-tank"><span data-lang="en">Tank</span><span data-lang="es">Tanque</span></span></td></tr>
+            <tr><td>Stone Thrower</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Rider</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Glorbous</td><td><span class="tp-badge tp-mid">7</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Abomination</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus)</span></td><td><span class="tp-badge tp-colossus">19</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HUMANS -->
+    <div id="race-humans" class="race-panel">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Ruffian</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Crossbowman</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Pegasus</td><td><span class="tp-badge tp-low">2</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Bishop</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Dominium Paladin</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Infantry</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Dominium Knight</td><td><span class="tp-badge tp-mid">6</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Battering Ram</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus)</span></td><td><span class="tp-badge tp-colossus">17</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LERATHI -->
+    <div id="race-lerathi" class="race-panel">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Simermite</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Monk Warrior</td><td><span class="tp-badge tp-low">2</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Egarnate Archer</td><td><span class="tp-badge tp-low">2</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Gorgan</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-tank"><span data-lang="en">Tank</span><span data-lang="es">Tanque</span></span></td></tr>
+            <tr><td>Priest of Darkness</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Battlehorn Beast</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Skaard</td><td><span class="tp-badge tp-mid">7</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Red Dragon</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus · 79 exist)</span></td><td><span class="tp-badge tp-colossus">20</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PIRITH -->
+    <div id="race-pirith" class="race-panel">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Arvaxian Blade</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Pirith Horror</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Vellivox</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Dreadhorn</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Stone Golem</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-tank"><span data-lang="en">Tank</span><span data-lang="es">Tanque</span></span></td></tr>
+            <tr><td>Turling</td><td><span class="tp-badge tp-mid">6</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Necromancer</td><td><span class="tp-badge tp-mid">7</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Nightmare</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus)</span></td><td><span class="tp-badge tp-colossus">19</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TYXEN -->
+    <div id="race-tyxen" class="race-panel">
+      <div class="tier-table-wrap">
+        <table class="tier-table">
+          <thead><tr>
+            <th><span data-lang="en">Unit</span><span data-lang="es">Unidad</span></th>
+            <th>TP</th>
+            <th><span data-lang="en">Class</span><span data-lang="es">Clase</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Flamethrower</td><td><span class="tp-badge tp-low">1</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr><td>Electrocannon</td><td><span class="tp-badge tp-low">2</span></td><td><span class="unit-class cls-range"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></td></tr>
+            <tr><td>Technowarlock</td><td><span class="tp-badge tp-low">3</span></td><td><span class="unit-class cls-mage"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></td></tr>
+            <tr><td>Junkopter</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>Orbshield Warrior</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-tank"><span data-lang="en">Tank</span><span data-lang="es">Tanque</span></span></td></tr>
+            <tr><td>Mechacycle</td><td><span class="tp-badge tp-mid">4</span></td><td><span class="unit-class cls-cavalry"><span data-lang="en">Cavalry</span><span data-lang="es">Caballería</span></span></td></tr>
+            <tr><td>SuperTyxen</td><td><span class="tp-badge tp-mid">5</span></td><td><span class="unit-class cls-infantry"><span data-lang="en">Infantry</span><span data-lang="es">Infantería</span></span></td></tr>
+            <tr style="background:rgba(167,139,250,0.04)"><td><strong>Tank</strong> <span style="font-size:.75rem;color:var(--text-dim)">(Colossus)</span></td><td><span class="tp-badge tp-colossus">21</span></td><td><span class="unit-class cls-colossus">Colossus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ZAN'THAR -->
+    <div id="race-zanthar" class="race-panel">
+      <div class="callout callout-warning" style="margin-top:1rem">
+        <div class="callout-label"><span data-lang="en">Data pending confirmation</span><span data-lang="es">Datos pendientes de confirmación</span></div>
+        <div data-lang="en">Zan'Thar unit TP costs are pending verification. Known Zan'Thar units include: Telekinetic Fighter, Cane Ranger, Sharpshooter, Skyhoof Strider, Healer, Conjurer, Guardian, and the <strong>Zim</strong> Colossus. We will update this panel with confirmed costs once verified with Omen Games.</div>
+        <div data-lang="es">Los costos en PT de las unidades Zan'Thar están pendientes de verificación. Las unidades Zan'Thar conocidas incluyen: Luchador Telequinético, Ranger del Bastón, Tirador Certero, Jinete del Cielo, Sanador, Conjurador, Guardián y el Colossus <strong>Zim</strong>. Actualizaremos este panel con los costos confirmados una vez verificados con Omen Games.</div>
+      </div>
+    </div>
+
+  </div><!-- /troop-roster -->
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 5: PHASE 2 PREVIEW -->
+  <div class="article-section reveal" id="phase2-preview">
+    <div class="article-section-label"><span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span></div>
+    <h2 class="article-h2"><span data-lang="en">Phase 2 Combat Preview</span><span data-lang="es">Vista Previa del Combate en Fase 2</span></h2>
+
+    <div class="preview-badge">⏳ <span data-lang="en">Phase 2 — Not yet live</span><span data-lang="es">Fase 2 — Aún no disponible</span></div>
+
+    <div data-lang="en">
+      <p class="article-p">Phase 2 (Forged in Battle) will introduce a full unit stat system, turning every combat unit into a card with confirmed properties: Troop Points, Class, HP, Speed, Attack Damage range, Attack Range, and a unique Ability. Co-op dungeons are also confirmed for Phase 2.</p>
+      <p class="article-p">Three unit stat cards were previewed at Grand Assembly VI Part 2. These are the only confirmed stats for specific units — treat them as previews, as values may change before release.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">La Fase 2 (Forjado en Batalla) introducirá un sistema completo de estadísticas de unidades, convirtiendo cada unidad de combate en una carta con propiedades confirmadas: Puntos de Tropa, Clase, HP, Velocidad, rango de Daño de Ataque, Rango de Ataque y una Habilidad única. Las mazmorras cooperativas también están confirmadas para la Fase 2.</p>
+      <p class="article-p">Se mostraron tres cartas de estadísticas de unidades en la Gran Asamblea VI Parte 2. Estos son los únicos valores confirmados para unidades específicas — trátelos como vistas previas, ya que los valores pueden cambiar antes del lanzamiento.</p>
+    </div>
+
+    <div class="unit-stat-card reveal reveal-delay-1">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+        <div>
+          <div class="unit-stat-card-name">Stone Golem</div>
+          <div class="unit-stat-card-race">Pirith · <span class="unit-class cls-tank" style="vertical-align:middle"><span data-lang="en">Tank</span><span data-lang="es">Tanque</span></span></div>
+        </div>
+        <span class="tp-badge tp-mid">4</span>
+      </div>
+      <div class="unit-stat-row">
+        <div class="unit-stat-item"><div class="unit-stat-item-label">HP</div><div class="unit-stat-item-val">67</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span></div><div class="unit-stat-item-val">7</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Atk Dmg</span><span data-lang="es">Daño Atq</span></div><div class="unit-stat-item-val">18–24</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Atk Range</span><span data-lang="es">Rango Atq</span></div><div class="unit-stat-item-val">1</div></div>
+      </div>
+      <div class="unit-ability-name">Stone Shield</div>
+      <div class="unit-ability-desc"><span data-lang="en">Creates a shield absorbing damage for 4 turns. Shield does not regenerate on turns it absorbs damage.</span><span data-lang="es">Crea un escudo que absorbe daño por 4 turnos. El escudo no se regenera en los turnos en que absorbe daño.</span></div>
+    </div>
+
+    <div class="unit-stat-card reveal reveal-delay-2">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+        <div>
+          <div class="unit-stat-card-name">Technowarlock</div>
+          <div class="unit-stat-card-race">Tyxen · <span class="unit-class cls-mage" style="vertical-align:middle"><span data-lang="en">Mage</span><span data-lang="es">Mago</span></span></div>
+        </div>
+        <span class="tp-badge tp-low">3</span>
+      </div>
+      <div class="unit-stat-row">
+        <div class="unit-stat-item"><div class="unit-stat-item-label">HP</div><div class="unit-stat-item-val">36</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span></div><div class="unit-stat-item-val">20.6</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Atk Dmg</span><span data-lang="es">Daño Atq</span></div><div class="unit-stat-item-val">16–22</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Atk Range</span><span data-lang="es">Rango Atq</span></div><div class="unit-stat-item-val">6</div></div>
+      </div>
+      <div class="unit-ability-name">Healing Technosphere</div>
+      <div class="unit-ability-desc"><span data-lang="en">Launches a healing gas grenade restoring health to the 3 lowest-HP allies over 4 turns.</span><span data-lang="es">Lanza una granada de gas curativo que restaura salud a los 3 aliados con menos HP durante 4 turnos.</span></div>
+    </div>
+
+    <div class="unit-stat-card reveal reveal-delay-3">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+        <div>
+          <div class="unit-stat-card-name">Altari Archer</div>
+          <div class="unit-stat-card-race">Altari · <span class="unit-class cls-range" style="vertical-align:middle"><span data-lang="en">Range</span><span data-lang="es">Distancia</span></span></div>
+        </div>
+        <span class="tp-badge tp-mid">5</span>
+      </div>
+      <div class="unit-stat-row">
+        <div class="unit-stat-item"><div class="unit-stat-item-label">HP</div><div class="unit-stat-item-val">45</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span></div><div class="unit-stat-item-val">15.8</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Atk Dmg</span><span data-lang="es">Daño Atq</span></div><div class="unit-stat-item-val">26–35</div></div>
+        <div class="unit-stat-item"><div class="unit-stat-item-label"><span data-lang="en">Atk Range</span><span data-lang="es">Rango Atq</span></div><div class="unit-stat-item-val">10</div></div>
+      </div>
+      <div class="unit-ability-name">Barrage</div>
+      <div class="unit-ability-desc"><span data-lang="en">Charges for 1 turn, then fires 3 attacks at a single target — each dealing maximum damage.</span><span data-lang="es">Carga por 1 turno, luego dispara 3 ataques a un objetivo único — cada uno infligiendo el daño máximo.</span></div>
+    </div>
+
+    <div class="callout callout-warning" style="margin-top:2rem">
+      <div class="callout-label"><span data-lang="en">Preview data — subject to change</span><span data-lang="es">Datos de vista previa — sujetos a cambios</span></div>
+      <div data-lang="en">These unit stat cards were revealed as a preview of Phase 2 content. Values are from the Grand Assembly VI Part 2 teaser and may be adjusted before Phase 2 launches. We will update this section with confirmed live data when Forged in Battle releases.</div>
+      <div data-lang="es">Estas cartas de estadísticas de unidades fueron reveladas como vista previa del contenido de Fase 2. Los valores son del adelanto de la Gran Asamblea VI Parte 2 y pueden ajustarse antes del lanzamiento de la Fase 2. Actualizaremos esta sección con datos confirmados en vivo cuando se lance Forjado en Batalla.</div>
+    </div>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <!-- SECTION 6: COORDINATION -->
+  <div class="article-section reveal" id="coordination">
+    <div class="article-section-label"><span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span></div>
+    <h2 class="article-h2"><span data-lang="en">Army Coordination — The Polaris Fuel Angle</span><span data-lang="es">Coordinación de Ejército — El Ángulo de Polaris Fuel</span></h2>
+    <div data-lang="en">
+      <p class="article-p">No hero commands a perfect army alone. The 50 TP cap means every composition is a trade-off. A hero who maxes Leadership fields the largest army but is individually weaker. A hero who prioritizes Power and Defense fights harder in dungeons but commands fewer troops. Coordinated guilds — where heroes specialize and complement each other — outperform collections of individual maximizers.</p>
+      <p class="article-p">Polaris Fuel organizes heroes around exactly this: coordinated networks that cover production chains, dungeon loops, and now army composition. If you want to build an army that fits a coordinated guild strategy — not just your own 50 TP — join us.</p>
+    </div>
+    <div data-lang="es">
+      <p class="article-p">Ningún héroe comanda un ejército perfecto solo. El límite de 50 PT significa que cada composición es una compensación. Un héroe que maximiza el Liderazgo despliega el ejército más grande pero es individualmente más débil. Un héroe que prioriza Poder y Defensa lucha mejor en mazmorras pero comanda menos tropas. Los gremios coordinados — donde los héroes se especializan y se complementan — superan a las colecciones de maximizadores individuales.</p>
+      <p class="article-p">Polaris Fuel organiza a los héroes exactamente en torno a esto: redes coordinadas que cubren cadenas de producción, loops de mazmorras y ahora composición de ejércitos. Si quieres construir un ejército que encaje en una estrategia de gremio coordinada — no solo tus propios 50 PT — únete a nosotros.</p>
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="../valannia-join.html" style="font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;padding:.95rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;display:inline-block;font-weight:700;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(255,107,26,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /article-body -->
+
+</main>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html"><span data-lang="en">Resources</span><span data-lang="es">Recursos</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+function setLang(l){document.body.classList.toggle('lang-es',l==='es');document.documentElement.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+l);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',l)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+function showRace(race){
+  document.querySelectorAll('.race-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.race-tab').forEach(t=>t.classList.remove('active'));
+  const panel=document.getElementById('race-'+race);
+  if(panel)panel.classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
