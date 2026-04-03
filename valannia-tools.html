@@ -179,7 +179,278 @@ div[data-lang]{display:none}
 .notify-input:focus{outline:none;border-color:rgba(255,107,26,0.5)}
 .notify-note{margin-top:1rem;font-size:.75rem;color:var(--text-dim)}
 
+/* TOOL SHORTCUTS */
+
+
+/* CRAFTING TOOL */
+#crafting-tool{padding:7rem 2rem;max-width:1100px;margin:0 auto}
+.ct-tabs{display:flex;gap:.4rem;margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:0}
+.ct-tab{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1.2rem;border:1px solid transparent;color:var(--text-dim);background:transparent;cursor:none;transition:all .2s;margin-bottom:-1px;border-bottom:none}
+.ct-tab.active{border-color:var(--border);border-bottom-color:var(--dark);color:var(--gold);background:var(--dark)}
+.ct-tab:hover:not(.active){color:var(--text);border-color:rgba(212,168,67,0.15)}
+.ct-panel{display:none}.ct-panel.active{display:block}
+
+/* FUEL CALCULATOR */
+.fc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+.fc-inputs{background:var(--dark-card);border:1px solid var(--border);padding:2rem}
+.fc-results{background:var(--dark-card);border:1px solid var(--border);padding:2rem}
+.fc-field{margin-bottom:1.4rem}
+.fc-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.5rem;display:block}
+.fc-select,.fc-input-num{width:100%;background:var(--dark);border:1px solid var(--border);color:var(--text);font-family:'Lato',sans-serif;font-size:.88rem;padding:.65rem 1rem;transition:border-color .2s;appearance:none}
+.fc-select:focus,.fc-input-num:focus{outline:none;border-color:rgba(255,107,26,0.5)}
+.fc-result-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid rgba(212,168,67,0.07)}
+.fc-result-row:last-child{border-bottom:none}
+.fc-result-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.fc-result-val{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold-pale)}
+.fc-result-val.highlight{color:var(--fire)}
+.fc-gap-note{margin-top:1rem;padding:.8rem 1rem;border-left:2px solid rgba(212,168,67,0.25);font-size:.78rem;color:var(--text-dim);line-height:1.7;font-style:italic}
+
+/* CRAFTING REFERENCE TABLE */
+.ct-table-wrap{overflow-x:auto;margin-top:1.5rem}
+.ct-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.ct-table th{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);padding:.8rem 1rem;text-align:left;background:var(--dark-card);border:1px solid var(--border)}
+.ct-table td{padding:.7rem 1rem;border:1px solid rgba(212,168,67,0.07);color:var(--text);vertical-align:top;line-height:1.6}
+.ct-table tr:hover td{background:rgba(212,168,67,0.02)}
+.ct-chain{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-top:1.5rem}
+.ct-chain-step{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border:1px solid var(--border);color:var(--text-dim)}
+.ct-chain-step.hi{border-color:rgba(255,107,26,0.4);color:var(--fire);background:rgba(255,107,26,0.05)}
+.ct-chain-arrow{color:var(--text-dim);font-size:.7rem}
+@media(max-width:700px){.fc-grid{grid-template-columns:1fr}}
+
 @media(max-width:900px){.wt-layout{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}}
+
+/* ── CRAFTING DASHBOARD ── */
+/* ── HERO SHORTCUTS ── */
+.shortcuts-bar { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:3rem; }
+.shortcut-btn {
+  position:relative; display:inline-flex; align-items:center; gap:.7rem;
+  font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
+  padding:.7rem 1.6rem; text-decoration:none; cursor:pointer; border:none;
+  color:var(--gold); background:rgba(212,168,67,0.04);
+  border-top:1px solid var(--gold); border-bottom:1px solid var(--gold);
+  border-left:2px solid var(--fire); border-right:2px solid var(--fire);
+  transition:all .3s; overflow:hidden;
+}
+.shortcut-btn::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(255,107,26,0.1),transparent 60%);
+  opacity:0; transition:opacity .3s;
+}
+.shortcut-btn:hover { color:var(--text-bright); background:rgba(212,168,67,0.08); border-color:var(--fire); }
+.shortcut-btn:hover::before { opacity:1; }
+.shortcut-corner { position:absolute; width:6px; height:6px; border-color:var(--fire); border-style:solid; opacity:.8; }
+.shortcut-corner.tl { top:-1px; left:-1px; border-width:2px 0 0 2px; }
+.shortcut-corner.tr { top:-1px; right:-1px; border-width:2px 2px 0 0; }
+.shortcut-corner.bl { bottom:-1px; left:-1px; border-width:0 0 2px 2px; }
+.shortcut-corner.br { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+.shortcut-icon { font-size:1rem; }
+.shortcut-arrow { font-size:.7rem; color:var(--fire); }
+
+/* ── SECTION LABELS ── */
+.section-eyebrow {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.4em;
+  text-transform:uppercase; color:var(--fire); opacity:.7;
+  display:flex; align-items:center; gap:.7rem; margin-bottom:.8rem;
+}
+.section-eyebrow::after { content:''; flex:1; height:1px; background:rgba(255,107,26,0.15); }
+.section-title {
+  font-family:'Cinzel',serif; font-size:clamp(1.1rem,2.5vw,1.6rem);
+  font-weight:900; color:var(--gold-pale); letter-spacing:.07em;
+  text-transform:uppercase; margin-bottom:.5rem;
+}
+.section-sub { font-size:.88rem; color:var(--text-dim); line-height:1.8; margin-bottom:2rem; }
+
+/* ── TOOL WRAPPER ── */
+.tool-section { max-width:960px; margin:0 auto 5rem; padding:0; }
+
+/* ── SCROLL / ALCHEMY FUEL CALC ── */
+.scroll-wrap {
+  position:relative;
+  background:var(--scroll-bg);
+  border:1px solid rgba(212,168,67,0.25);
+  border-top:2px solid var(--gold);
+  padding:2rem;
+}
+.scroll-wrap::before {
+  content:''; position:absolute; inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none; opacity:.5;
+}
+.scroll-header {
+  display:flex; align-items:center; gap:1rem; margin-bottom:1.8rem;
+  padding-bottom:1rem; border-bottom:1px solid rgba(212,168,67,0.12);
+}
+.scroll-rune {
+  width:44px; height:44px; border:1px solid rgba(212,168,67,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; background:rgba(212,168,67,0.05); flex-shrink:0;
+  position:relative;
+}
+.scroll-rune::before,.scroll-rune::after {
+  content:''; position:absolute; width:6px; height:6px;
+  border-color:var(--fire); border-style:solid;
+}
+.scroll-rune::before { top:-1px; left:-1px; border-width:2px 0 0 2px; }
+.scroll-rune::after { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+.scroll-title { font-family:'Cinzel',serif; font-size:.95rem; font-weight:700; color:var(--gold-pale); letter-spacing:.1em; text-transform:uppercase; }
+.scroll-status { display:flex; align-items:center; gap:.4rem; font-family:'Cinzel',serif; font-size:.45rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(74,222,128,.7); margin-top:.3rem; }
+.scroll-dot { width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.fc-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+@media(max-width:640px){ .fc-layout { grid-template-columns:1fr; } }
+
+.fc-field { margin-bottom:1.2rem; }
+.fc-label {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--text-dim); display:block; margin-bottom:.5rem;
+}
+.fc-select, .fc-input {
+  width:100%; background:rgba(10,7,4,0.7); border:1px solid rgba(212,168,67,0.2);
+  color:var(--text); font-family:'Lato',sans-serif; font-size:.87rem;
+  padding:.65rem 1rem; transition:border-color .2s; appearance:none;
+}
+.fc-select:focus,.fc-input:focus { outline:none; border-color:rgba(255,107,26,.5); }
+.fc-select { cursor:pointer; }
+
+.fc-results-panel { position:relative; }
+.fc-result-glow {
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,107,26,0.05), transparent 70%);
+}
+.fc-result-item {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:.65rem 0; border-bottom:1px solid rgba(212,168,67,0.07);
+  position:relative;
+}
+.fc-result-item:last-child { border-bottom:none; }
+.fc-result-label { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.17em; text-transform:uppercase; color:var(--text-dim); }
+.fc-result-value { font-family:'Cinzel',serif; font-size:.82rem; font-weight:700; color:var(--gold-pale); }
+.fc-result-value.fire { color:var(--fire); }
+.fc-result-value.green { color:var(--green); }
+.fc-warn { 
+  margin-top:1rem; padding:.8rem 1rem; 
+  border-left:2px solid rgba(255,107,26,.4); 
+  background:rgba(255,107,26,.04);
+  font-size:.8rem; color:var(--text-dim); line-height:1.7; font-style:italic;
+}
+.fc-warn.gap { border-left-color:rgba(248,113,113,.4); background:rgba(248,113,113,.04); color:rgba(248,113,113,.7); font-style:normal; font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.15em; text-transform:uppercase; }
+
+/* ── CRAFTING DASHBOARD ── */
+.dash-wrap {
+  background:var(--dark-card);
+  border:1px solid rgba(212,168,67,0.2);
+}
+.dash-top {
+  padding:1.5rem 2rem;
+  border-bottom:1px solid rgba(212,168,67,.1);
+  display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:end;
+}
+@media(max-width:640px){ .dash-top { grid-template-columns:1fr; } }
+.dash-search-wrap { position:relative; }
+.dash-search {
+  width:100%; background:rgba(10,7,4,.8); border:1px solid rgba(212,168,67,.25);
+  color:var(--text); font-family:'Lato',sans-serif; font-size:.9rem;
+  padding:.75rem 1rem .75rem 2.4rem; transition:border-color .2s;
+}
+.dash-search:focus { outline:none; border-color:rgba(255,107,26,.5); }
+.dash-search-icon { position:absolute; left:.85rem; top:50%; transform:translateY(-50%); color:var(--text-dim); font-size:.85rem; pointer-events:none; }
+.dash-qty-wrap { display:flex; align-items:center; gap:.8rem; }
+.dash-qty-label { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); white-space:nowrap; }
+.dash-qty {
+  width:80px; background:rgba(10,7,4,.8); border:1px solid rgba(212,168,67,.25);
+  color:var(--text); font-family:'Lato',sans-serif; font-size:.9rem;
+  padding:.75rem .75rem; text-align:center; transition:border-color .2s;
+}
+.dash-qty:focus { outline:none; border-color:rgba(255,107,26,.5); }
+
+/* Recipe list */
+.recipe-list {
+  max-height:260px; overflow-y:auto; border-bottom:1px solid rgba(212,168,67,.1);
+  scrollbar-width:thin; scrollbar-color:rgba(212,168,67,.2) transparent;
+}
+.recipe-item {
+  padding:.7rem 2rem; display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; border-bottom:1px solid rgba(212,168,67,.04);
+  transition:background .15s; position:relative;
+}
+.recipe-item::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--fire); transform:scaleY(0); transform-origin:bottom; transition:transform .2s; }
+.recipe-item:hover { background:rgba(255,107,26,.04); }
+.recipe-item:hover::before { transform:scaleY(1); }
+.recipe-item.active { background:rgba(255,107,26,.07); }
+.recipe-item.active::before { transform:scaleY(1); }
+.recipe-name { font-family:'Cinzel',serif; font-size:.72rem; font-weight:700; color:var(--gold-pale); letter-spacing:.08em; text-transform:uppercase; }
+.recipe-prof { font-size:.75rem; color:var(--text-dim); margin-top:.15rem; }
+.recipe-time-badge { font-family:'Cinzel',serif; font-size:.46rem; letter-spacing:.15em; text-transform:uppercase; padding:.18rem .5rem; border:1px solid rgba(212,168,67,.2); color:var(--gold); white-space:nowrap; }
+.recipe-category {
+  padding:.4rem 2rem; background:rgba(212,168,67,.03);
+  font-family:'Cinzel',serif; font-size:.46rem; letter-spacing:.35em;
+  text-transform:uppercase; color:var(--fire); opacity:.6;
+  border-bottom:1px solid rgba(212,168,67,.05);
+}
+.no-results { padding:2rem; text-align:center; color:var(--text-dim); font-size:.85rem; font-style:italic; }
+
+/* Result pane */
+.result-pane { padding:1.5rem 2rem; min-height:240px; }
+.result-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:200px; gap:.8rem; }
+.result-empty-icon { font-size:2rem; opacity:.25; }
+.result-empty-text { font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.3em; text-transform:uppercase; color:var(--text-dim); }
+
+.result-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap; gap:.5rem; }
+.result-item-name { font-family:'Cinzel',serif; font-size:1rem; font-weight:700; color:var(--gold-pale); letter-spacing:.08em; text-transform:uppercase; }
+.result-item-prof { font-size:.8rem; color:var(--text-dim); margin-top:.2rem; }
+.result-total-time {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:.4rem 1rem; border:1px solid rgba(255,107,26,.4); color:var(--fire); background:rgba(255,107,26,.05);
+}
+
+.ingredients-list { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1.5rem; }
+.ingredient-row {
+  display:grid; grid-template-columns:2rem 1fr 5rem 6rem;
+  align-items:center; gap:.8rem; padding:.6rem .8rem;
+  border:1px solid rgba(212,168,67,.08); background:rgba(10,7,4,.4);
+  transition:border-color .2s;
+}
+.ingredient-row:hover { border-color:rgba(212,168,67,.2); }
+.ingredient-row.gap-item { border-color:rgba(248,113,113,.15); background:rgba(248,113,113,.03); }
+.ingr-qty { font-family:'Cinzel',serif; font-size:.72rem; font-weight:700; color:var(--fire); text-align:center; }
+.ingr-name { font-size:.85rem; color:var(--text); }
+.ingr-name.gap-name { color:rgba(248,113,113,.8); font-style:italic; }
+.ingr-source { font-family:'Cinzel',serif; font-size:.46rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim); }
+.ingr-time { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); text-align:right; }
+.ingr-time.gap-time { color:rgba(248,113,113,.6); }
+@media(max-width:500px){ .ingredient-row { grid-template-columns:2rem 1fr; } .ingr-source,.ingr-time{ display:none; } }
+
+.step-header { font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.3em; text-transform:uppercase; color:var(--text-dim); margin-bottom:.6rem; margin-top:1.2rem; }
+
+/* Decision row */
+.decision-row {
+  display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1.5rem;
+  padding-top:1.5rem; border-top:1px solid rgba(212,168,67,.08);
+}
+.decision-btn {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:.5rem 1rem; border:1px solid; cursor:pointer; background:transparent; transition:all .2s;
+  display:inline-flex; align-items:center; gap:.4rem;
+}
+.decision-btn.craft { color:var(--fire); border-color:rgba(255,107,26,.4); }
+.decision-btn.craft:hover { background:rgba(255,107,26,.08); }
+.decision-btn.trade { color:var(--gold); border-color:rgba(212,168,67,.3); }
+.decision-btn.trade:hover { background:rgba(212,168,67,.06); }
+.decision-btn.wallet { color:var(--green); border-color:rgba(74,222,128,.3); }
+.decision-btn.wallet:hover { background:rgba(74,222,128,.05); }
+
+/* Gap callout */
+.gap-callout {
+  margin-top:1rem; padding:.8rem 1rem;
+  border:1px solid rgba(248,113,113,.2); background:rgba(248,113,113,.04);
+  font-family:'Cinzel',serif; font-size:.47rem; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(248,113,113,.7); line-height:1.8;
+}
+.gap-callout strong { color:rgba(248,113,113,.9); }
+
+/* Internal dev note - hidden from users */
+.dev-note { display:none; }
 </style>
   <meta property="og:image" content="https://polarisfuel.app/og-image.png">
   <meta name="twitter:image" content="https://polarisfuel.app/og-image.png">
@@ -229,7 +500,174 @@ div[data-lang]{display:none}
     <span data-lang="en">Practical tools for Valannia's economy. No speculation. No vaporware. Built as the game matures — and released when they're ready.</span>
     <span data-lang="es">Herramientas prácticas para la economía de Valannia. Sin especulaciones. Sin humo. Construidas conforme el juego madura — y publicadas cuando estén listas.</span>
   </p>
+  <div class="shortcuts-bar">
+    <a href="#fuel-calc" class="shortcut-btn" onclick="event.preventDefault();smoothTo('fuel-calc')">
+      <span class="shortcut-corner tl"></span><span class="shortcut-corner tr"></span>
+      <span class="shortcut-corner bl"></span><span class="shortcut-corner br"></span>
+      <span class="shortcut-icon">⛽</span>
+      <span data-lang="en">Fuel Calculator</span><span data-lang="es">Calculadora de Fuel</span>
+      <span class="shortcut-arrow">↓</span>
+    </a>
+    <a href="#crafting-dash" class="shortcut-btn" onclick="event.preventDefault();smoothTo('crafting-dash')">
+      <span class="shortcut-corner tl"></span><span class="shortcut-corner tr"></span>
+      <span class="shortcut-corner bl"></span><span class="shortcut-corner br"></span>
+      <span class="shortcut-icon">⚗️</span>
+      <span data-lang="en">Crafting Planner</span><span data-lang="es">Planificador de Crafting</span>
+      <span class="shortcut-arrow">↓</span>
+    </a>
+    <a href="/wallet-manager/" class="shortcut-btn">
+      <span class="shortcut-corner tl"></span><span class="shortcut-corner tr"></span>
+      <span class="shortcut-corner bl"></span><span class="shortcut-corner br"></span>
+      <span class="shortcut-icon">🔗</span>
+      <span data-lang="en">Wallet Manager ↗</span><span data-lang="es">Wallet Manager ↗</span>
+    </a>
+  </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     TOOL 1 — FUEL CALCULATOR (SCROLL UI)
+═══════════════════════════════════════ -->
+<div class="tool-section" id="fuel-calc">
+  <div class="section-eyebrow">Tool 01 — Fuel &amp; Movement</div>
+  <div class="section-title">Mount Fuel Calculator</div>
+  <p class="section-sub">Select your mount and route. The scroll reveals what you'll need.</p>
+
+  <div class="scroll-wrap">
+    <div class="scroll-header">
+      <div class="scroll-rune">⛽</div>
+      <div>
+        <div class="scroll-title">Alchemical Fuel Register</div>
+        <div class="scroll-status"><span class="scroll-dot"></span> Phase 1 Data — Confirmed</div>
+      </div>
+    </div>
+
+    <div class="fc-layout">
+      <div>
+        <div class="fc-field">
+          <label class="fc-label">Mount Family</label>
+          <select class="fc-select" id="fc-mount" onchange="calcFuel()">
+            <option value="gorren"       data-fuel="Water"          data-consume="1"   data-tank="60">🐾 Gorren — Water · 60 Lyr range</option>
+            <option value="vaelgrun"     data-fuel="Stormwater"     data-consume="1"   data-tank="27">🐾 Vaelgrun — Stormwater · 27 Lyr range</option>
+            <option value="krazykeg"     data-fuel="Fire Juice"     data-consume="0.5" data-tank="10">⚙️ Krazy Keg — Fire Juice · 20 Lyr range</option>
+            <option value="arcane"       data-fuel="Liquid Valannite" data-consume="1" data-tank="20">🔮 Arcane Chariot — Liq. Valannite · 20 Lyr range</option>
+            <option value="qwemzi"       data-fuel="Arcane Energy"  data-consume="?"   data-tank="?">☀️ Qwemzi Divine Sun — Fuel TBC</option>
+          </select>
+        </div>
+        <div class="fc-field">
+          <label class="fc-label">Distance (Lyrias)</label>
+          <input type="number" class="fc-input" id="fc-distance" value="10" min="0.1" step="0.5" oninput="calcFuel()">
+        </div>
+        <div class="fc-field">
+          <label class="fc-label">Number of Journeys</label>
+          <input type="number" class="fc-input" id="fc-journeys" value="1" min="1" step="1" oninput="calcFuel()">
+        </div>
+      </div>
+
+      <div class="fc-results-panel">
+        <div class="fc-result-glow"></div>
+        <div class="fc-result-item">
+          <span class="fc-result-label">Fuel Type</span>
+          <span class="fc-result-value" id="res-fueltype">Fire Juice</span>
+        </div>
+        <div class="fc-result-item">
+          <span class="fc-result-label">Fuel per Journey</span>
+          <span class="fc-result-value fire" id="res-perjour">5.0 units</span>
+        </div>
+        <div class="fc-result-item">
+          <span class="fc-result-label">Total Fuel Needed</span>
+          <span class="fc-result-value fire" id="res-total">5.0 units</span>
+        </div>
+        <div class="fc-result-item">
+          <span class="fc-result-label">Tank Range</span>
+          <span class="fc-result-value" id="res-range">20 Lyr</span>
+        </div>
+        <div class="fc-result-item">
+          <span class="fc-result-label">Refuels Needed</span>
+          <span class="fc-result-value green" id="res-refuels">0</span>
+        </div>
+        <div id="res-note" class="fc-warn" style="display:none"></div>
+        <div id="res-gap" class="fc-warn gap" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TOOL 2 — CRAFTING PLANNER DASHBOARD
+═══════════════════════════════════════ -->
+<div class="tool-section" id="crafting-dash">
+  <div class="section-eyebrow">Tool 02 — Crafting Planner</div>
+  <div class="section-title">Recipe Lookup &amp; Material Planner</div>
+  <p class="section-sub">Search any confirmed recipe. See every material, craft time, and profession needed — then decide: craft it, buy it, or trade it.</p>
+
+  <div class="dash-wrap">
+    <div class="dash-top">
+      <div class="dash-search-wrap">
+        <span class="dash-search-icon">⚗</span>
+        <input type="text" class="dash-search" id="dash-search" placeholder="Search recipes — Fire Juice, Iron Sword, Leather..." oninput="filterRecipes()">
+      </div>
+      <div class="dash-qty-wrap">
+        <label class="dash-qty-label">Quantity to Craft</label>
+        <input type="number" class="dash-qty" id="dash-qty" value="1" min="1" step="1" oninput="updateResult()">
+      </div>
+    </div>
+
+    <div class="recipe-list" id="recipe-list"></div>
+
+    <div class="result-pane" id="result-pane">
+      <div class="result-empty" id="result-empty">
+        <div class="result-empty-icon">⚗️</div>
+        <div class="result-empty-text">Select a recipe above to begin</div>
+      </div>
+      <div id="result-content" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DEV NOTE (hidden) -->
+<div class="dev-note">
+  <!--
+  EXPANSION NOTES — DO NOT PUBLISH
+  Last updated: April 2026
+
+  DATA GAPS TO FILL WHEN CONFIRMED:
+  1. Qwemzi Divine Sun, Glorb Turboscrap, Ophalyss — fuel type, consumption rate, tank size
+  2. Artisan wearable full recipes (Apprentice set pieces beyond boots confirmed)
+  3. Blacksmith armor full piece list (Ironrot, Petalsteel — chestplate missing)
+  4. Petalsteel Chestplate recipe
+  5. Heartspire set full list (Hat, Tunic, Pants, Chestguard missing)
+  6. Heartspire Tool Grip Artisan recipe (only Blacksmith consumption confirmed)
+  7. Architecture handle recipes beyond softwood (T2+ assumed by pattern, not confirmed)
+  8. Exploration recipe list (maps confirmed conceptually, specific recipes not captured)
+  9. Mining extraction yields/times — gathered quantities per session not confirmed
+  10. Alchemy processed intermediates recipes (Processed Honey Drop etc. confirmed exist but recipes not captured)
+  11. Infused ingot recipes (some confirmed, full set not captured)
+  12. Potions full recipe list (Swiftstride Serum, Wipe Memory Potion partial only)
+  13. Liquid Astralite recipe not captured
+  14. ORB ingredients sources (Mirrormist etc. mining details needed)
+  15. Stronghold Tower recipe
+  16. Nightwood Cloth recipe (pattern assumed, direct recipe not confirmed)
+
+  TO ADD NEW RECIPE: add entry to RECIPES array in JS below.
+  Format:
+  {
+    id: 'unique-id',
+    name: 'Item Name',
+    nameEs: 'Nombre en Español',
+    category: 'alchemy|blacksmith|engineering|architecture|artisan|jewelry|mining',
+    profession: 'Profession Name',
+    professionEs: 'Profesión',
+    craftTime: 60, // minutes
+    ingredients: [
+      { qty: 1, name: 'Material', source: 'Profession/Source', craftTime: 0, gap: false }
+    ],
+    gap: false, // true if recipe is incomplete
+    gapNote: '' // note for incomplete recipes
+  }
+  -->
+</div>
 
 <div class="divider"></div>
 
@@ -237,8 +675,8 @@ div[data-lang]{display:none}
 <section id="wallet-tool">
   <div class="wt-header">
     <div class="section-label reveal">
-      <span data-lang="en">Featured Tool</span>
-      <span data-lang="es">Herramienta Principal</span>
+      <span data-lang="en">Tool 02 — On-Chain</span>
+      <span data-lang="es">Herramienta 02 — On-Chain</span>
     </div>
     <div class="wt-launch-wrap reveal reveal-delay-1">
       <div class="wt-launch-label">
@@ -431,7 +869,8 @@ div[data-lang]{display:none}
     <li><a href="valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
     <li><a href="valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
     <li><a href="valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
-    <li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
     <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
     <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
   </ul>
@@ -451,6 +890,538 @@ for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0
 const revEls=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
 revEls.forEach(el=>obs.observe(el));
+// ═══════════════════════════════════════════════
+// RECIPE DATABASE — confirmed data only
+// ═══════════════════════════════════════════════
+const RECIPES = [
+
+  // ── ALCHEMY ──
+  { id:'fire-juice', name:'Fire Juice', nameEs:'Fire Juice', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Coal', source:'Mining T2 (Shovel)', craftTime:0},
+      {qty:2, name:'Stormwater', source:'Mining T2 (Bucket)', craftTime:0}
+    ]
+  },
+  { id:'liquid-valannite', name:'Liquid Valannite', nameEs:'Valannite Líquida', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:240,
+    ingredients:[
+      {qty:4, name:'Copper Ore', source:'Mining T1 (Pickaxe)', craftTime:0},
+      {qty:2, name:'Water', source:'Mining T1 (Bucket)', craftTime:0},
+      {qty:2, name:'Charcoal', source:'Mining T1 (Shovel)', craftTime:0},
+      {qty:1, name:'Valannite', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
+    ], gapNote:'Valannite raw source unconfirmed — likely Artisan/Exploration gathering.'
+  },
+  { id:'liquid-honey-drop', name:'Liquid Honey Drop', nameEs:'Gota de Miel Líquida', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:240,
+    ingredients:[
+      {qty:4, name:'Copper Ore', source:'Mining T1', craftTime:0},
+      {qty:2, name:'Water', source:'Mining T1', craftTime:0},
+      {qty:2, name:'Charcoal', source:'Mining T1', craftTime:0},
+      {qty:2, name:'Honey Drop', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
+    ], gapNote:'Honey Drop raw source unconfirmed.'
+  },
+  { id:'liquid-dragon-breath', name:'Liquid Dragon Breath', nameEs:'Aliento de Dragón Líquido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:240,
+    ingredients:[
+      {qty:4, name:'Iron Ore', source:'Mining T2 (Pickaxe)', craftTime:0},
+      {qty:2, name:'Stormwater', source:'Mining T2 (Bucket)', craftTime:0},
+      {qty:2, name:'Coal', source:'Mining T2 (Shovel)', craftTime:0},
+      {qty:2, name:'Dragon Breath', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
+    ], gapNote:'Dragon Breath raw source unconfirmed.'
+  },
+  { id:'liquid-celespar', name:'Liquid Celespar', nameEs:'Celespar Líquido', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:300,
+    ingredients:[
+      {qty:4, name:'Iron Ore', source:'Mining T2', craftTime:0},
+      {qty:2, name:'Stormwater', source:'Mining T2', craftTime:0},
+      {qty:2, name:'Coal', source:'Mining T2', craftTime:0},
+      {qty:2, name:'Celespar', source:'Rare ingredient — source unconfirmed', craftTime:0, gap:true}
+    ], gapNote:'Celespar raw source unconfirmed.'
+  },
+  { id:'glass', name:'Glass', nameEs:'Vidrio', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:null,
+    ingredients:[
+      {qty:1, name:'Natron', source:'Alchemy Discovery T1', craftTime:0},
+      {qty:1, name:'Limestone', source:'Alchemy Discovery T1', craftTime:0},
+      {qty:1, name:'Coal', source:'Mining T2', craftTime:0}
+    ], gapNote:'Glass craft time not captured.'
+  },
+  { id:'rose-glass', name:'Rose Glass', nameEs:'Vidrio Rosa', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:null,
+    ingredients:[
+      {qty:1, name:'Rose Dust', source:'Alchemy Discovery T2', craftTime:0},
+      {qty:1, name:'Meld Ash', source:'Alchemy — Meldstone x1 + Blackblood x1 (2h)', craftTime:120},
+      {qty:1, name:'Processed Celespar', source:'Jewelry', craftTime:120},
+      {qty:1, name:'Quicksilver Ingot', source:'Blacksmith smelting', craftTime:0}
+    ], gapNote:'Rose Glass total craft time not confirmed.'
+  },
+  { id:'meld-ash', name:'Meld Ash', nameEs:'Ceniza de Fusión', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:120,
+    ingredients:[
+      {qty:1, name:'Meldstone', source:'Mining T3', craftTime:0},
+      {qty:1, name:'Blackblood', source:'Mining T3 (liquid)', craftTime:0}
+    ]
+  },
+  { id:'luminous-powder', name:'Luminous Powder', nameEs:'Polvo Luminoso', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:180,
+    ingredients:[
+      {qty:1, name:'Luminite Ore', source:'Mining T4', craftTime:0},
+      {qty:1, name:'Mirrormist', source:'Mining T4 (liquid)', craftTime:0}
+    ]
+  },
+  { id:'moon-ash', name:'Moon Ash', nameEs:'Ceniza de Luna', category:'alchemy', profession:'Alchemy', professionEs:'Alquimia',
+    craftTime:180,
+    ingredients:[
+      {qty:1, name:'Moonslate', source:'Mining T4', craftTime:0},
+      {qty:1, name:'Mirrormist', source:'Mining T4 (liquid)', craftTime:0}
+    ]
+  },
+
+  // ── JEWELRY ──
+  { id:'proc-valannite', name:'Processed Valannite', nameEs:'Valannite Procesada', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
+    craftTime:60,
+    ingredients:[
+      {qty:3, name:'Charcoal', source:'Mining T1', craftTime:0},
+      {qty:1, name:'Liquid Valannite', source:'Alchemy — 4h', craftTime:240},
+      {qty:1, name:'Valannite', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+    ]
+  },
+  { id:'proc-honey-drop', name:'Processed Honey Drop', nameEs:'Gota de Miel Procesada', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
+    craftTime:60,
+    ingredients:[
+      {qty:3, name:'Charcoal', source:'Mining T1', craftTime:0},
+      {qty:1, name:'Liquid Honey Drop', source:'Alchemy — 4h', craftTime:240},
+      {qty:1, name:'Honey Drop', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+    ]
+  },
+  { id:'proc-dragon-breath', name:'Processed Dragon Breath', nameEs:'Aliento de Dragón Procesado', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
+    craftTime:120,
+    ingredients:[
+      {qty:3, name:'Coal', source:'Mining T2', craftTime:0},
+      {qty:1, name:'Liquid Dragon Breath', source:'Alchemy — 4h', craftTime:240},
+      {qty:2, name:'Dragon Breath', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+    ]
+  },
+  { id:'proc-celespar', name:'Processed Celespar', nameEs:'Celespar Procesado', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
+    craftTime:120,
+    ingredients:[
+      {qty:3, name:'Coal', source:'Mining T2', craftTime:0},
+      {qty:1, name:'Liquid Celespar', source:'Alchemy — 5h', craftTime:300},
+      {qty:2, name:'Celespar', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+    ]
+  },
+  { id:'proc-vipharine', name:'Processed Vipharine', nameEs:'Vipharine Procesada', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
+    craftTime:180,
+    ingredients:[
+      {qty:3, name:'Moonslate', source:'Mining T4', craftTime:0},
+      {qty:1, name:'Liquid Vipharine', source:'Alchemy — 6h', craftTime:360},
+      {qty:2, name:'Vipharine', source:'Rare — source unconfirmed', craftTime:0, gap:true}
+    ]
+  },
+  { id:'copper-ring-val', name:'Copper Ring of Valannite', nameEs:'Anillo de Cobre de Valannite', category:'jewelry', profession:'Jewelry', professionEs:'Joyería',
+    craftTime:60,
+    ingredients:[
+      {qty:3, name:'Processed Valannite', source:'Jewelry — 1h each', craftTime:60},
+      {qty:1, name:'Glorb Toolbox', source:'Blacksmith — 1h', craftTime:60},
+      {qty:1, name:'Copper Ingot', source:'Blacksmith smelting', craftTime:0}
+    ]
+  },
+  { id:'powergleam-orb', name:'Powergleam Orb', nameEs:'Orbe Destello de Poder', category:'jewelry', profession:'Jewelry (Core Binder)', professionEs:'Joyería (Enlazador de Núcleo)',
+    craftTime:120,
+    ingredients:[
+      {qty:5, name:'Processed Valannite', source:'Jewelry — 1h each', craftTime:60},
+      {qty:5, name:'Mirrormist', source:'Mining T4 (liquid)', craftTime:0},
+      {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60}
+    ]
+  },
+  { id:'wardbound-orb', name:'Wardbound Orb', nameEs:'Orbe de Protección', category:'jewelry', profession:'Jewelry (Core Binder)', professionEs:'Joyería (Enlazador de Núcleo)',
+    craftTime:150,
+    ingredients:[
+      {qty:5, name:'Processed Honey Drop', source:'Jewelry — 1h each', craftTime:60},
+      {qty:5, name:'Luminite Ore', source:'Mining T4', craftTime:0},
+      {qty:1, name:'Luminite Toolkit', source:'Blacksmith', craftTime:90}
+    ]
+  },
+
+  // ── BLACKSMITH — WEAPONS ──
+  { id:'meadborne-sword', name:'Meadborne Sword', nameEs:'Espada Meadborne', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:180,
+    ingredients:[
+      {qty:2, name:'Softwood', source:'Artisan gathering', craftTime:0},
+      {qty:2, name:'Softwood Fibers', source:'Artisan T1 processing', craftTime:60},
+      {qty:2, name:'Copper Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Softwood Handle', source:'Architecture T1', craftTime:0},
+      {qty:1, name:'Processed Honey Drop', source:'Jewelry — 1h', craftTime:60},
+      {qty:1, name:'Cloth Tool Grip', source:'Artisan T1 — 1h', craftTime:60},
+      {qty:1, name:'Blueprint', source:'Engineering T1 — 1h', craftTime:60}
+    ]
+  },
+  { id:'flametongue-sword', name:'Flametongue Sword', nameEs:'Espada Lengua de Fuego', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:360,
+    ingredients:[
+      {qty:2, name:'Hardwood', source:'Artisan T2 gathering', craftTime:0},
+      {qty:2, name:'Twisted Cord', source:'Artisan T2 — 1h', craftTime:60},
+      {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Hardwood Handle', source:'Architecture T2', craftTime:0},
+      {qty:1, name:'Processed Dragon Breath', source:'Jewelry — 2h', craftTime:120},
+      {qty:1, name:'Canvas Tool Grip', source:'Artisan T2 — 1h', craftTime:60},
+      {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
+    ]
+  },
+  { id:'gleamspar-sword', name:'Gleamspar Sword', nameEs:'Espada Gleamspar', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:420,
+    ingredients:[
+      {qty:2, name:'Plumhide', source:'Artisan T3 gathering', craftTime:0},
+      {qty:2, name:'Braided Line', source:'Artisan T3 — 84min', craftTime:84},
+      {qty:2, name:'QS Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Plumhide Handle', source:'Architecture T3', craftTime:0},
+      {qty:1, name:'Processed Celespar', source:'Jewelry — 2h', craftTime:120},
+      {qty:1, name:'Leather Tool Grip', source:'Artisan T3 — 108min', craftTime:108},
+      {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60}
+    ]
+  },
+
+  // ── BLACKSMITH — TOOLS ──
+  { id:'iron-pickaxe', name:'Iron Pickaxe', nameEs:'Pico de Hierro', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Hardwood Handle', source:'Architecture T2', craftTime:0},
+      {qty:1, name:'Canvas Tool Grip', source:'Artisan T2 — 1h', craftTime:60},
+      {qty:1, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
+    ]
+  },
+  { id:'iron-shovel', name:'Iron Shovel', nameEs:'Pala de Hierro', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Hardwood Handle', source:'Architecture T2', craftTime:0},
+      {qty:1, name:'Canvas Tool Grip', source:'Artisan T2 — 1h', craftTime:60},
+      {qty:1, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
+    ]
+  },
+  { id:'glorb-toolbox', name:'Glorb Toolbox', nameEs:'Caja de Herramientas Glorb', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Copper Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Blueprint', source:'Engineering T1 — 1h', craftTime:60}
+    ]
+  },
+  { id:'tyxen-toolkit', name:'Tyxen Toolkit', nameEs:'Kit de Herramientas Tyxen', category:'blacksmith', profession:'Blacksmith', professionEs:'Herrería',
+    craftTime:60,
+    ingredients:[
+      {qty:2, name:'Iron Ingot', source:'Blacksmith smelting', craftTime:0},
+      {qty:1, name:'Blueprint', source:'Engineering T2 — 1h', craftTime:60}
+    ]
+  },
+
+  // ── ENGINEERING ──
+  { id:'copper-wire', name:'Copper Wire', nameEs:'Hilo de Cobre', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
+    craftTime:60,
+    ingredients:[{qty:2, name:'Copper Ingot', source:'Blacksmith smelting', craftTime:0}]
+  },
+  { id:'frame-t1', name:'Frame (Softwood)', nameEs:'Marco de Madera Blanda', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Glorb Toolbox', source:'Blacksmith — 1h', craftTime:60},
+      {qty:2, name:'Softwood Beam', source:'Architecture T1', craftTime:0}
+    ]
+  },
+  { id:'hardwood-frame', name:'Hardwood Frame', nameEs:'Marco de Madera Dura', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
+    craftTime:60,
+    ingredients:[
+      {qty:1, name:'Tyxen Toolkit', source:'Blacksmith — 1h', craftTime:60},
+      {qty:2, name:'Hardwood Beam', source:'Architecture T2', craftTime:0}
+    ]
+  },
+  { id:'tome', name:'Tome of Constructive Order', nameEs:'Tomo del Orden Constructivo', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
+    craftTime:180,
+    ingredients:[
+      {qty:2, name:'Leather', source:'Artisan T3 — 90min', craftTime:90},
+      {qty:15, name:'Paper', source:'Artisan T1 — 1h per 3', craftTime:60},
+      {qty:1, name:'Braided Line', source:'Artisan T3 — 84min', craftTime:84}
+    ]
+  },
+  { id:'alchemical-flask', name:'Alchemical Flask', nameEs:'Frasco Alquímico', category:'engineering', profession:'Engineering', professionEs:'Ingeniería',
+    craftTime:90,
+    ingredients:[
+      {qty:1, name:'Glass', source:'Alchemy', craftTime:0},
+      {qty:1, name:'Blueprint', source:'Engineering T3', craftTime:0},
+      {qty:1, name:'Plumhide', source:'Artisan T3 gathering', craftTime:0}
+    ]
+  },
+
+  // ── ARCHITECTURE ──
+  { id:'softwood-beam', name:'Softwood Beam', nameEs:'Viga de Madera Blanda', category:'architecture', profession:'Architecture', professionEs:'Arquitectura',
+    craftTime:null,
+    ingredients:[{qty:2, name:'Softwood', source:'Artisan T1 gathering', craftTime:0}],
+    gapNote:'Softwood Beam craft time not confirmed.'
+  },
+  { id:'hardwood-beam', name:'Hardwood Beam', nameEs:'Viga de Madera Dura', category:'architecture', profession:'Architecture', professionEs:'Arquitectura',
+    craftTime:null,
+    ingredients:[{qty:2, name:'Hardwood', source:'Artisan T2 gathering', craftTime:0}],
+    gapNote:'Hardwood Beam craft time not confirmed.'
+  },
+  { id:'wall', name:'Stronghold Wall', nameEs:'Muro del Bastión', category:'architecture', profession:'Architecture', professionEs:'Arquitectura',
+    craftTime:null,
+    ingredients:[
+      {qty:100, name:'Brick', source:'Architecture T2', craftTime:0},
+      {qty:50, name:'Clay', source:'Mining', craftTime:0},
+      {qty:10, name:'Stairs', source:'Architecture', craftTime:0},
+      {qty:5, name:'Tyxen Toolkit', source:'Blacksmith — 1h each', craftTime:60}
+    ], gapNote:'Brick craft time not confirmed. Stairs recipe not captured.'
+  },
+
+  // ── ARTISAN ──
+  { id:'cloth', name:'Cloth', nameEs:'Tela', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    ingredients:[{qty:4, name:'Softwood Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
+  },
+  { id:'canvas', name:'Canvas', nameEs:'Lona', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    ingredients:[{qty:2, name:'Hardwood Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
+  },
+  { id:'twisted-cord', name:'Twisted Cord', nameEs:'Cordel Torcido', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    ingredients:[{qty:2, name:'Hardwood Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
+  },
+  { id:'braided-line', name:'Braided Line', nameEs:'Línea Trenzada', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:84,
+    ingredients:[{qty:2, name:'Plumhide Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
+  },
+  { id:'leather', name:'Leather', nameEs:'Cuero', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:90,
+    ingredients:[{qty:4, name:'Plumhide Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
+  },
+  { id:'heartspire-cloth', name:'Heartspire Cloth', nameEs:'Tela de Corazón Etéreo', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:120,
+    ingredients:[{qty:4, name:'Heartspire Fibers', source:'Artisan processing — 1h per wood', craftTime:60}]
+  },
+  { id:'paper', name:'Paper', nameEs:'Papel', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    note:'Yields x3 per craft',
+    ingredients:[
+      {qty:1, name:'Softwood Fibers', source:'Artisan processing', craftTime:60},
+      {qty:1, name:'Water', source:'Mining T1', craftTime:0}
+    ]
+  },
+  { id:'canvas-paper', name:'Canvas Paper', nameEs:'Papel de Lona', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    note:'Yields x3 per craft',
+    ingredients:[
+      {qty:1, name:'Hardwood Fibers', source:'Artisan processing', craftTime:60},
+      {qty:1, name:'Water', source:'Mining T1', craftTime:0},
+      {qty:1, name:'Canvas', source:'Artisan T2 — 1h', craftTime:60}
+    ]
+  },
+  { id:'heartspire-scroll', name:'Heartspire Scroll', nameEs:'Pergamino de Corazón Etéreo', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:90,
+    ingredients:[
+      {qty:1, name:'Heartspire Fibers', source:'Artisan processing', craftTime:60},
+      {qty:1, name:'Blackblood', source:'Mining T3 (liquid)', craftTime:0},
+      {qty:1, name:'Heartspire Cloth', source:'Artisan T4 — 2h', craftTime:120}
+    ]
+  },
+  { id:'guild-banner', name:'Guild Banner', nameEs:'Estandarte del Gremio', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:720,
+    ingredients:[
+      {qty:2, name:'Hardwood Beam', source:'Architecture T2', craftTime:0},
+      {qty:4, name:'Twisted Cord', source:'Artisan T2 — 1h each', craftTime:60},
+      {qty:5, name:'Canvas', source:'Artisan T2 — 1h each', craftTime:60},
+      {qty:4, name:'Moon Ash', source:'Alchemy — 3h each', craftTime:180},
+      {qty:6, name:'Leather', source:'Artisan T3 — 90min each', craftTime:90},
+      {qty:5, name:'Heartspire Cloth', source:'Artisan T4 — 2h each', craftTime:120}
+    ]
+  },
+  { id:'cloth-grip', name:'Cloth Tool Grip', nameEs:'Mango de Tela', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    ingredients:[{qty:1, name:'Cloth', source:'Artisan T1 — 1h', craftTime:60}]
+  },
+  { id:'canvas-grip', name:'Canvas Tool Grip', nameEs:'Mango de Lona', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:60,
+    ingredients:[{qty:1, name:'Canvas', source:'Artisan T2 — 1h', craftTime:60}]
+  },
+  { id:'leather-grip', name:'Leather Tool Grip', nameEs:'Mango de Cuero', category:'artisan', profession:'Artisan', professionEs:'Artesanía',
+    craftTime:108,
+    ingredients:[{qty:1, name:'Leather', source:'Artisan T3 — 90min', craftTime:90}]
+  }
+];
+
+const CATEGORY_LABELS = {
+  alchemy:'⚗️ Alchemy', jewelry:'💎 Jewelry', blacksmith:'⚒️ Blacksmith',
+  engineering:'⚙️ Engineering', architecture:'🏗️ Architecture', artisan:'🪵 Artisan'
+};
+
+let selectedRecipe = null;
+
+// ─── FUEL CALCULATOR ───────────────────────────
+function calcFuel(){
+  const sel = document.getElementById('fc-mount');
+  const opt = sel.options[sel.selectedIndex];
+  const consume = parseFloat(opt.dataset.consume);
+  const tank    = parseFloat(opt.dataset.tank);
+  const fuel    = opt.dataset.fuel;
+  const dist    = parseFloat(document.getElementById('fc-distance').value) || 0;
+  const trips   = parseInt(document.getElementById('fc-journeys').value) || 1;
+
+  const noteEl = document.getElementById('res-note');
+  const gapEl  = document.getElementById('res-gap');
+
+  if(isNaN(consume)){
+    document.getElementById('res-fueltype').textContent = fuel;
+    document.getElementById('res-perjour').textContent  = '— TBC';
+    document.getElementById('res-total').textContent    = '— TBC';
+    document.getElementById('res-range').textContent    = '— TBC';
+    document.getElementById('res-refuels').textContent  = '—';
+    gapEl.textContent = 'Fuel data for this mount is not yet confirmed. Check back as Phase 1 data matures.';
+    gapEl.style.display='block'; noteEl.style.display='none';
+    return;
+  }
+
+  const perTrip     = dist * consume;
+  const total       = perTrip * trips;
+  const range       = tank / consume;
+  const totalDist   = dist * trips;
+  const refuels     = Math.max(0, Math.ceil(totalDist / range) - 1);
+
+  document.getElementById('res-fueltype').textContent = fuel;
+  document.getElementById('res-perjour').textContent  = perTrip.toFixed(1) + ' units';
+  document.getElementById('res-total').textContent    = total.toFixed(1) + ' units';
+  document.getElementById('res-range').textContent    = range.toFixed(0) + ' Lyr per tank';
+  document.getElementById('res-refuels').textContent  = refuels;
+  gapEl.style.display='none';
+
+  const notes = {
+    gorren:    'Water is the simplest fuel — effectively unlimited supply from T1 Mining. Gorren mounts are the most economical option for long-distance transport.',
+    vaelgrun:  'Stormwater requires biome-specific gathering (T2 Mining Bucket). Plan routes near water sources for easy resupply.',
+    krazykeg:  'Fire Juice: Coal x1 + Stormwater x2 per craft (1h). Terrain penalty: −20% speed in forests. Best on open terrain and deserts (+5%).',
+    arcane:    'Liquid Valannite is a T1 Alchemy output (4h craft from Copper Ore + Water + Charcoal + Valannite). Plan your supply chain in advance.'
+  };
+  const mount = sel.value;
+  if(notes[mount]){ noteEl.textContent = notes[mount]; noteEl.style.display='block'; }
+  else { noteEl.style.display='none'; }
+}
+
+// ─── RECIPE LIST ────────────────────────────────
+function renderList(filter){
+  const list = document.getElementById('recipe-list');
+  const q = (filter || '').toLowerCase().trim();
+
+  const grouped = {};
+  RECIPES.forEach(r => {
+    if(q && !r.name.toLowerCase().includes(q) && !r.profession.toLowerCase().includes(q)) return;
+    if(!grouped[r.category]) grouped[r.category] = [];
+    grouped[r.category].push(r);
+  });
+
+  const order = ['alchemy','jewelry','blacksmith','engineering','architecture','artisan'];
+  let html = '';
+  let total = 0;
+
+  order.forEach(cat => {
+    if(!grouped[cat]) return;
+    html += `<div class="recipe-category">${CATEGORY_LABELS[cat]||cat}</div>`;
+    grouped[cat].forEach(r => {
+      total++;
+      const t = r.craftTime ? formatTime(r.craftTime) : '—';
+      const active = selectedRecipe && selectedRecipe.id === r.id ? ' active' : '';
+      html += `<div class="recipe-item${active}" onclick="selectRecipe('${r.id}')">
+        <div>
+          <div class="recipe-name">${r.name}</div>
+          <div class="recipe-prof">${r.profession}</div>
+        </div>
+        <div class="recipe-time-badge">${t}</div>
+      </div>`;
+    });
+  });
+
+  if(!total) html = '<div class="no-results">No recipes found. Try a different search.</div>';
+  list.innerHTML = html;
+}
+
+function filterRecipes(){
+  const q = document.getElementById('dash-search').value;
+  renderList(q);
+}
+
+function selectRecipe(id){
+  selectedRecipe = RECIPES.find(r => r.id === id);
+  renderList(document.getElementById('dash-search').value);
+  updateResult();
+}
+
+// ─── RESULT PANE ────────────────────────────────
+function updateResult(){
+  const empty   = document.getElementById('result-empty');
+  const content = document.getElementById('result-content');
+  if(!selectedRecipe){ empty.style.display='flex'; content.style.display='none'; return; }
+
+  const qty = parseInt(document.getElementById('dash-qty').value) || 1;
+  const r   = selectedRecipe;
+
+  // calc total time: own craft time + max ingredient craft time (sequential assumes parallel)
+  const ownTime  = r.craftTime ? r.craftTime * qty : null;
+  const hasGap   = r.gap || r.gapNote || r.ingredients.some(i => i.gap);
+
+  // Build ingredients HTML
+  let ingrHTML = '';
+  r.ingredients.forEach(i => {
+    const scaledQty = i.qty * qty;
+    const gap = i.gap ? ' gap-item' : '';
+    const nameClass = i.gap ? ' gap-name' : '';
+    const timeStr = i.craftTime ? formatTime(i.craftTime) : (i.gap ? 'Source unknown' : 'Gathered/mined');
+    const timeClass = i.gap ? ' gap-time' : '';
+    ingrHTML += `<div class="ingredient-row${gap}">
+      <div class="ingr-qty">${scaledQty}</div>
+      <div class="ingr-name${nameClass}">${i.name}</div>
+      <div class="ingr-source">${i.source}</div>
+      <div class="ingr-time${timeClass}">${timeStr}</div>
+    </div>`;
+  });
+
+  const timeDisplay = ownTime ? `⏱ ${formatTime(ownTime)}` : '⏱ Time unconfirmed';
+  const gapHTML = hasGap ? `<div class="gap-callout">
+    <strong>⚠ Data gap:</strong> ${r.gapNote || 'Some ingredient sources are not yet confirmed. Highlighted items in red need verification. This recipe will be expanded when more data is available.'}
+  </div>` : '';
+
+  const noteHTML = r.note ? `<div class="fc-warn" style="margin-bottom:1rem">${r.note}</div>` : '';
+
+  content.innerHTML = `
+    <div class="result-header">
+      <div>
+        <div class="result-item-name">${r.name}</div>
+        <div class="result-item-prof">${r.profession}</div>
+      </div>
+      <div class="result-total-time">${timeDisplay}</div>
+    </div>
+    ${noteHTML}
+    <div class="step-header">Materials needed${qty > 1 ? ` × ${qty}` : ''}</div>
+    <div class="ingredients-list">${ingrHTML}</div>
+    ${gapHTML}
+    <div class="decision-row">
+      <button class="decision-btn craft">⚗ Craft it</button>
+      <button class="decision-btn trade" onclick="window.open('https://portal.valannia.com/','_blank')">↔ Buy on market</button>
+      <button class="decision-btn wallet" onclick="window.open('/wallet-manager/','_blank')">🔗 Trade via Wallet Manager</button>
+    </div>
+  `;
+  empty.style.display='none'; content.style.display='block';
+}
+
+function formatTime(mins){
+  if(!mins) return '—';
+  if(mins < 60) return mins + 'm';
+  const h = Math.floor(mins/60);
+  const m = mins % 60;
+  return m ? `${h}h ${m}m` : `${h}h`;
+}
+
+function smoothTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+// ─── INIT ────────────────────────────────────────
+calcFuel();
+renderList();
+
 function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');document.querySelectorAll('select option[data-en]').forEach(opt=>{opt.textContent=lang==='es'?opt.dataset.es:opt.dataset.en});localStorage.setItem('pf-lang',lang)}
 const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
 const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
