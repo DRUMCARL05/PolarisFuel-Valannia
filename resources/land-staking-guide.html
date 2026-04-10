@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Land Staking Guide — Polaris Fuel</title>
+  <meta name="description" content="How Eldorath land staking works. Reward tiers, HP regen bonuses, pool mechanics, and the early staker advantage — confirmed data from Polaris Fuel.">
+  <meta property="og:title" content="Land Staking Guide — Polaris Fuel">
+  <meta property="og:description" content="How Eldorath land staking works. Reward tiers, HP regen, pool mechanics, and the early staker advantage.">
+  <meta property="og:type" content="article">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--smoke:#9A8A74;--parchment:#D4C4A8;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+
+/* BILINGUAL */
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+
+/* GUIDE LAYOUT */
+.guide-wrap{max-width:860px;margin:0 auto;padding:0 2rem;position:relative;z-index:2}
+.guide-hero{padding:9rem 0 4rem;text-align:center}
+.guide-hero .back-link{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2.5rem;transition:color .2s}
+.guide-hero .back-link:hover{color:var(--gold)}
+.guide-hero .back-link::before{content:'←';font-size:.9rem}
+.guide-hero-eyebrow{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:1rem}
+.guide-hero-eyebrow::before,.guide-hero-eyebrow::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.guide-hero h1{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:900;color:var(--gold-pale);letter-spacing:.06em;text-transform:uppercase;line-height:1.1;margin-bottom:1.4rem}
+.guide-hero-sub{font-size:.95rem;color:var(--text-dim);line-height:1.9;max-width:560px;margin:0 auto 2rem}
+.guide-meta{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin-top:2rem}
+.guide-meta-item{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+.guide-meta-item strong{color:var(--gold);font-weight:700}
+
+/* TOC */
+.toc{background:var(--dark-card);border:1px solid var(--border);padding:1.8rem 2rem;margin:2rem 0 3rem}
+.toc-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.toc-list li a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.7rem}
+.toc-list li a::before{content:'';display:block;width:16px;height:1px;background:var(--border-bright);flex-shrink:0;transition:background .2s,width .2s}
+.toc-list li a:hover{color:var(--gold)}
+.toc-list li a:hover::before{background:var(--fire);width:22px}
+
+/* SECTIONS */
+.guide-section{padding:3.5rem 0;border-top:1px solid var(--border)}
+.guide-section-header{margin-bottom:2.5rem}
+.section-num{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem}
+.section-num::after{content:'';display:block;width:32px;height:1px;background:rgba(255,107,26,0.4)}
+.guide-h2{font-family:'Cinzel',serif;font-size:clamp(1.2rem,2.5vw,1.65rem);font-weight:900;color:var(--gold-pale);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.7rem}
+.guide-intro{font-size:.9rem;color:var(--text-dim);line-height:1.95;max-width:680px}
+
+/* WARN / INFO */
+.warn-banner{background:rgba(255,107,26,0.07);border:1px solid rgba(255,107,26,0.3);border-left:3px solid var(--fire);padding:1.1rem 1.4rem;margin:2rem 0;display:flex;gap:1rem;align-items:flex-start}
+.warn-icon{font-size:1.1rem;line-height:1;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:.86rem;color:var(--text);line-height:1.8}
+.warn-text strong{color:var(--fire)}
+.info-banner{background:rgba(212,168,67,0.05);border:1px solid rgba(212,168,67,0.2);border-left:3px solid var(--gold);padding:1.1rem 1.4rem;margin:2rem 0;display:flex;gap:1rem;align-items:flex-start}
+.info-text{font-size:.86rem;color:var(--text);line-height:1.8}
+.info-text strong{color:var(--gold)}
+
+/* STAKING TIERS */
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin:1.5rem 0}
+.tier-card{background:var(--dark-card);border:1px solid var(--border);padding:1.6rem 1.8rem;position:relative;transition:border-color .3s}
+.tier-card:hover{border-color:rgba(212,168,67,0.35)}
+.tier-card.featured{border-color:rgba(255,107,26,0.4)}
+.tier-badge{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(255,107,26,0.12);border:1px solid rgba(255,107,26,0.3);color:var(--fire);display:inline-block;margin-bottom:.8rem}
+.tier-duration{font-family:'Cinzel',serif;font-size:1.6rem;font-weight:900;color:var(--gold-pale);letter-spacing:.04em;line-height:1;margin-bottom:.3rem}
+.tier-duration-unit{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.tier-reward-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.3rem}
+.tier-reward-val{font-size:.92rem;color:var(--text);line-height:1.6;margin-bottom:.8rem}
+.tier-dist{font-size:.75rem;color:var(--smoke);font-style:italic}
+
+/* STATS TABLE */
+.stat-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.84rem}
+.stat-table th{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;border-bottom:1px solid var(--border-bright);text-align:left}
+.stat-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top;line-height:1.7}
+.stat-table td:first-child{color:var(--gold-pale);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.08em;font-weight:700}
+.stat-table tr:last-child td{border-bottom:none}
+.stat-table tr:hover td{background:rgba(212,168,67,0.03)}
+.highlight-val{color:var(--fire);font-weight:700}
+
+/* REGEN TABLE */
+.regen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;margin:1.5rem 0}
+.regen-card{background:var(--dark-card);border:1px solid var(--border);padding:1.2rem 1.4rem;text-align:center;transition:border-color .3s}
+.regen-card:hover{border-color:rgba(212,168,67,0.3)}
+.regen-rarity{font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.regen-rarity.mythic{color:#e8cc7a}
+.regen-rarity.legendary{color:#c084fc}
+.regen-rarity.rare{color:var(--gold)}
+.regen-rarity.none{color:var(--text-dim)}
+.regen-rate{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;color:var(--gold-pale);line-height:1;margin-bottom:.2rem}
+.regen-per-hour{font-size:.75rem;color:var(--smoke)}
+
+/* UTILITY GRID */
+.utility-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin:1.5rem 0}
+.utility-card{background:var(--dark-card);border:1px solid var(--border);padding:1.3rem 1.5rem;transition:border-color .3s}
+.utility-card:hover{border-color:rgba(212,168,67,0.25)}
+.utility-card-title{font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:.7rem}
+.utility-card ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.utility-card ul li{font-size:.82rem;color:var(--text-dim);line-height:1.6;padding-left:1rem;position:relative}
+.utility-card ul li::before{content:'—';position:absolute;left:0;color:rgba(255,107,26,0.5);font-size:.7rem}
+
+/* DECISION TABLE */
+.decision-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.84rem}
+.decision-table th{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;border-bottom:1px solid var(--border-bright);text-align:left}
+.decision-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top;line-height:1.7}
+.decision-table td:first-child{color:var(--gold-pale);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;font-weight:700}
+.decision-table tr:last-child td{border-bottom:none}
+.rec-yes{color:#4ade80;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rec-no{color:var(--fire);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rec-maybe{color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+
+/* CTA */
+.guide-cta{background:var(--dark-card);border:1px solid var(--border);padding:2.5rem;text-align:center}
+.guide-cta-title{font-family:'Cinzel',serif;font-size:clamp(.9rem,2vw,1.3rem);font-weight:900;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.guide-cta-sub{font-size:.88rem;color:var(--text-dim);line-height:1.85;max-width:540px;margin:0 auto 1.8rem}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 1.8rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,107,26,0.35)}
+
+/* LIVE STAT BOX */
+.live-stat-box{background:rgba(255,107,26,0.04);border:1px solid rgba(255,107,26,0.2);padding:1.4rem 1.8rem;margin:1.5rem 0}
+.live-stat-header{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.live-stat-header::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--fire);animation:pulseDot 1.5s ease-in-out infinite;flex-shrink:0}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+.live-stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
+.live-stat-item{display:flex;flex-direction:column;gap:.2rem}
+.live-stat-label{font-size:.72rem;color:var(--text-dim)}
+.live-stat-value{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold-pale)}
+
+/* FOOTER */
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem;position:relative;z-index:2}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav#navbar{padding:1rem 1.2rem}
+  .nav-links,.nav-right .nav-lang,.nav-right .nav-discord-btn{display:none}
+  .nav-hamburger{display:flex}
+  .guide-wrap{padding:0 1.2rem}
+  .tier-grid{grid-template-columns:1fr}
+  .regen-grid{grid-template-columns:repeat(2,1fr)}
+  .utility-grid{grid-template-columns:1fr}
+  .stat-table,.decision-table{font-size:.76rem}
+  .stat-table th,.decision-table th{font-size:.48rem;padding:.5rem .6rem}
+  .stat-table td,.decision-table td{padding:.6rem .6rem}
+  footer{padding:2rem 1.2rem;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="../index.html" class="nav-logo">
+    <span class="nav-logo-text">Polaris Fuel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html" class="active"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="color:var(--text-dim);opacity:.6;font-size:.58rem;letter-spacing:.15em">← <span data-lang="en">All Games</span><span data-lang="es">Todos los Juegos</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn lang-btn-en active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a>
+  <a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
+  <a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" class="mobile-menu-discord" target="_blank" rel="noopener noreferrer">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn lang-btn-en active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="guide-wrap">
+  <div class="guide-hero">
+    <a href="../valannia-resources.html" class="back-link reveal">
+      <span data-lang="en">Back to Guides</span><span data-lang="es">Volver a Guías</span>
+    </a>
+    <div class="guide-hero-eyebrow reveal reveal-delay-1">
+      <span data-lang="en">Valannia Guide</span><span data-lang="es">Guía de Valannia</span>
+    </div>
+    <h1 class="reveal reveal-delay-2">
+      <span data-lang="en">Land Staking<br>Guide</span><span data-lang="es">Guía de<br>Staking de Tierras</span>
+    </h1>
+    <p class="guide-hero-sub reveal reveal-delay-3">
+      <span data-lang="en">Eldorath land is more than an address. Staking it generates real yield in $VALAN, $SOL, and VET treasury tokens — with rewards that depend on how long you commit and how many others are staking alongside you.</span><span data-lang="es">Las tierras de Eldorath son más que una dirección. Hacer staking con ellas genera rendimiento real en $VALAN, $SOL y tokens del tesoro VET — con recompensas que dependen de cuánto tiempo te comprometes y cuántos otros están haciendo staking a la vez.</span>
+    </p>
+    <div class="guide-meta reveal reveal-delay-4">
+      <span class="guide-meta-item"><strong><span data-lang="en">Realms Phase 1</span><span data-lang="es">Realms Fase 1</span></strong></span>
+      <span class="guide-meta-item"><strong>3</strong> <span data-lang="en">Reward Tiers</span><span data-lang="es">Niveles de Recompensa</span></span>
+      <span class="guide-meta-item"><strong>4</strong> <span data-lang="en">Land Rarities</span><span data-lang="es">Rarezas de Tierras</span></span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <div class="toc-title"><span data-lang="en">In this guide</span><span data-lang="es">En esta guía</span></div>
+    <ul class="toc-list">
+      <li><a href="#section-what"><span data-lang="en">What is land staking?</span><span data-lang="es">¿Qué es el staking de tierras?</span></a></li>
+      <li><a href="#section-tiers"><span data-lang="en">Staking tiers & rewards</span><span data-lang="es">Niveles de staking y recompensas</span></a></li>
+      <li><a href="#section-mechanics"><span data-lang="en">How rewards are calculated</span><span data-lang="es">Cómo se calculan las recompensas</span></a></li>
+      <li><a href="#section-regen"><span data-lang="en">Land rarity & HP regen</span><span data-lang="es">Rareza de tierras y regeneración de PS</span></a></li>
+      <li><a href="#section-utility"><span data-lang="en">Land utility beyond staking</span><span data-lang="es">Utilidad de las tierras más allá del staking</span></a></li>
+      <li><a href="#section-decision"><span data-lang="en">Should you stake?</span><span data-lang="es">¿Deberías hacer staking?</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 01: WHAT IS LAND STAKING -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-what">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">What Is Land Staking?</span><span data-lang="es">¿Qué Es el Staking de Tierras?</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Eldorath land plots are NFTs minted on Solana and purchased in $VALAN. Staking a plot means locking it in place for a set duration in exchange for ongoing yield from the city's economic activity. Staking does not make the land unavailable to play on — your hero can still use it as a home base. What it locks is your ability to sell, transfer, or unstake the land without penalty.</span><span data-lang="es">Los terrenos de Eldorath son NFTs acuñados en Solana y comprados en $VALAN. Hacer staking de un terreno significa bloquearlo en su lugar por una duración establecida a cambio de rendimiento continuo de la actividad económica de la ciudad. El staking no hace que la tierra sea inaccesible para jugar — tu héroe todavía puede usarla como base. Lo que bloquea es tu capacidad de vender, transferir o retirar el staking de la tierra sin penalización.</span>
+      </p>
+    </div>
+
+    <div class="warn-banner reveal">
+      <span class="warn-icon">⚠️</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">Unstaking resets your clock — all accumulated progress is forfeited.</span><span data-lang="es">Retirar el staking reinicia tu reloj — se pierde todo el progreso acumulado.</span></strong>
+        <span data-lang="en"> If you unstake at any point before your chosen duration completes — whether at day 5 of 30 or day 89 of 90 — you lose all accumulated rewards for that period and the staking timer restarts from zero. Commit only to durations you can sustain.</span><span data-lang="es"> Si retiras el staking en cualquier momento antes de que se complete la duración elegida — ya sea el día 5 de 30 o el día 89 de 90 — pierdes todas las recompensas acumuladas de ese período y el temporizador de staking se reinicia desde cero. Comprométete solo con duraciones que puedas sostener.</span>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">🏠</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Land types and districts.</span><span data-lang="es">Tipos de tierras y distritos.</span></strong>
+        <span data-lang="en"> Mythic (ultra-rare, Center District — grandest structures), Legendary (large buildings, Center + Inner Ring), Rare (medium homes/shops, Inner + Outer Ring), Uncommon (small houses/empty plots, Outer Ring). More central plots carry greater governance influence and a larger proportional share of city revenue flows. All lands are upgradeable and customizable.</span><span data-lang="es"> Mítica (ultra-rara, Distrito Central — estructuras más imponentes), Legendaria (edificios grandes, Centro + Anillo Interior), Rara (casas/tiendas medianas, Anillo Interior + Exterior), Poco Común (casas pequeñas/terrenos vacíos, Anillo Exterior). Los terrenos más céntricos tienen mayor influencia de gobernanza y una mayor participación proporcional en los flujos de ingresos de la ciudad. Todas las tierras son mejorables y personalizables.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 02: STAKING TIERS -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-tiers">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Staking Tiers & Rewards</span><span data-lang="es">Niveles de Staking y Recompensas</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">There are three staking tiers — each unlocks a different reward type and requires a longer commitment. The tiers are additive: staking for 300 days qualifies for all three reward pools simultaneously.</span><span data-lang="es">Hay tres niveles de staking — cada uno desbloquea un tipo de recompensa diferente y requiere un compromiso más prolongado. Los niveles son acumulativos: hacer staking por 300 días califica para los tres fondos de recompensas simultáneamente.</span>
+      </p>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier-card reveal">
+        <div class="tier-badge"><span data-lang="en">Tier 1</span><span data-lang="es">Nivel 1</span></div>
+        <div class="tier-duration">30</div>
+        <div class="tier-duration-unit"><span data-lang="en">Days</span><span data-lang="es">Días</span></div>
+        <div class="tier-reward-label"><span data-lang="en">Reward</span><span data-lang="es">Recompensa</span></div>
+        <div class="tier-reward-val"><span data-lang="en">Monthly <strong style="color:var(--gold)">$VALAN</strong> distribution</span><span data-lang="es">Distribución mensual de <strong style="color:var(--gold)">$VALAN</strong></span></div>
+        <div class="tier-dist"><span data-lang="en">First distribution: end of April 2026</span><span data-lang="es">Primera distribución: fin de abril 2026</span></div>
+      </div>
+      <div class="tier-card featured reveal reveal-delay-1">
+        <div class="tier-badge"><span data-lang="en">Tier 2</span><span data-lang="es">Nivel 2</span></div>
+        <div class="tier-duration">90</div>
+        <div class="tier-duration-unit"><span data-lang="en">Days</span><span data-lang="es">Días</span></div>
+        <div class="tier-reward-label"><span data-lang="en">Reward</span><span data-lang="es">Recompensa</span></div>
+        <div class="tier-reward-val"><span data-lang="en">Quarterly <strong style="color:var(--gold)">$SOL</strong> distribution</span><span data-lang="es">Distribución trimestral de <strong style="color:var(--gold)">$SOL</strong></span></div>
+        <div class="tier-dist"><span data-lang="en">First distribution: end of Q2 2026</span><span data-lang="es">Primera distribución: fin de T2 2026</span></div>
+      </div>
+      <div class="tier-card reveal reveal-delay-2">
+        <div class="tier-badge"><span data-lang="en">Tier 3</span><span data-lang="es">Nivel 3</span></div>
+        <div class="tier-duration">300</div>
+        <div class="tier-duration-unit"><span data-lang="en">Days</span><span data-lang="es">Días</span></div>
+        <div class="tier-reward-label"><span data-lang="en">Reward</span><span data-lang="es">Recompensa</span></div>
+        <div class="tier-reward-val"><span data-lang="en"><strong style="color:var(--gold)">3% of VET</strong> — Valannia Eternal Treasury (held in BTC + SOL)</span><span data-lang="es"><strong style="color:var(--gold)">3% del VET</strong> — Tesoro Eterno de Valannia (en BTC + SOL)</span></div>
+        <div class="tier-dist"><span data-lang="en">Long-term holder reward. VET is the cross-chain treasury token.</span><span data-lang="es">Recompensa para titulares a largo plazo. VET es el token del tesoro inter-cadena.</span></div>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">📊</span>
+      <div class="info-text">
+        <strong><span data-lang="en">The tiers stack.</span><span data-lang="es">Los niveles se acumulan.</span></strong>
+        <span data-lang="en"> A land staked for 300 days earns from all three pools — monthly $VALAN, quarterly $SOL, and the VET distribution. The 300-day commitment is the maximum leverage position for a landowner willing to lock long-term.</span><span data-lang="es"> Una tierra en staking por 300 días gana de los tres fondos — $VALAN mensual, $SOL trimestral y la distribución VET. El compromiso de 300 días es la posición de máximo apalancamiento para un propietario dispuesto a bloquear a largo plazo.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 03: HOW REWARDS ARE CALCULATED -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-mechanics">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">How Rewards Are Calculated</span><span data-lang="es">Cómo Se Calculan las Recompensas</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Staking rewards are not fixed amounts — they are proportional shares of a pool funded by live in-game economic activity. Your reward depends on two variables: how much $VALAN is spent in Eldorath each month, and what percentage of all staked land your plot represents.</span><span data-lang="es">Las recompensas de staking no son cantidades fijas — son participaciones proporcionales de un fondo financiado por la actividad económica en vivo del juego. Tu recompensa depende de dos variables: cuánto $VALAN se gasta en Eldorath cada mes, y qué porcentaje de todas las tierras en staking representa tu terreno.</span>
+      </p>
+    </div>
+
+    <div class="reveal" style="overflow-x:auto">
+      <table class="stat-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Mechanic</span><span data-lang="es">Mecánica</span></th>
+            <th><span data-lang="en">Detail</span><span data-lang="es">Detalle</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Pool source</span><span data-lang="es">Fuente del fondo</span></td>
+            <td><span data-lang="en">1% of all $VALAN spent in Eldorath each month flows directly into the staking reward pool. More in-game economic activity = larger pool.</span><span data-lang="es">El 1% de todo el $VALAN gastado en Eldorath cada mes fluye directamente al fondo de recompensas de staking. Mayor actividad económica en el juego = fondo más grande.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Reward formula</span><span data-lang="es">Fórmula de recompensa</span></td>
+            <td><span data-lang="en">Your reward = (your staked lands ÷ total staked lands) × pool. The fewer lands staked overall, the larger each staker's individual share.</span><span data-lang="es">Tu recompensa = (tus tierras en staking ÷ total de tierras en staking) × fondo. Cuantas menos tierras estén en staking en total, mayor será la participación individual de cada staker.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Tracking panel</span><span data-lang="es">Panel de seguimiento</span></td>
+            <td><span data-lang="en">The User Lands panel shows: owned lands, your ownership % of Eldorath, staking status, staking start date, days staked, and city-wide staking stats.</span><span data-lang="es">El panel de Tierras del Usuario muestra: tierras poseídas, tu % de propiedad de Eldorath, estado del staking, fecha de inicio del staking, días en staking y estadísticas de staking de toda la ciudad.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Unstaking penalty</span><span data-lang="es">Penalización por retirar staking</span></td>
+            <td><span data-lang="en">Unstaking at any point resets the staking clock to zero. All accumulated rewards for the current period are forfeited.</span><span data-lang="es">Retirar el staking en cualquier momento reinicia el reloj de staking a cero. Todas las recompensas acumuladas del período actual se pierden.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- LIVE STAT BOX -->
+    <div class="live-stat-box reveal">
+      <div class="live-stat-header"><span data-lang="en">Live staking snapshot — April 2, 2026</span><span data-lang="es">Instantánea de staking en vivo — 2 de abril de 2026</span></div>
+      <div class="live-stat-grid">
+        <div class="live-stat-item">
+          <span class="live-stat-label"><span data-lang="en">Lands sold (total)</span><span data-lang="es">Tierras vendidas (total)</span></span>
+          <span class="live-stat-value">123</span>
+        </div>
+        <div class="live-stat-item">
+          <span class="live-stat-label"><span data-lang="en">Lands currently staked</span><span data-lang="es">Tierras actualmente en staking</span></span>
+          <span class="live-stat-value">2 / 123 <span style="font-size:.72rem;color:var(--fire)">(1.63%)</span></span>
+        </div>
+        <div class="live-stat-item">
+          <span class="live-stat-label"><span data-lang="en">Est. monthly reward (1 land)</span><span data-lang="es">Recompensa mensual est. (1 tierra)</span></span>
+          <span class="live-stat-value">2.476 $VALAN</span>
+        </div>
+        <div class="live-stat-item">
+          <span class="live-stat-label"><span data-lang="en">Est. quarterly reward (1 land)</span><span data-lang="es">Recompensa trimestral est. (1 tierra)</span></span>
+          <span class="live-stat-value">0.003469 $SOL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">🔥</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Early staker advantage — and why it closes over time.</span><span data-lang="es">Ventaja del staker temprano — y por qué se cierra con el tiempo.</span></strong>
+        <span data-lang="en"> With only 1.63% of sold lands staked at launch, each staker holds a disproportionately large share of the reward pool. As more landowners stake, each individual share decreases and reward estimates compress. The earlier you stake, the larger your proportional share during the period when the pool is least contested. This window does not repeat.</span><span data-lang="es"> Con solo el 1.63% de las tierras vendidas en staking al lanzamiento, cada staker tiene una participación desproporcionadamente grande del fondo de recompensas. A medida que más propietarios hagan staking, cada participación individual disminuye y las estimaciones de recompensa se comprimen. Cuanto antes hagas staking, mayor será tu participación proporcional durante el período en que el fondo es menos disputado. Esta ventana no se repite.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 04: RARITY & HP REGEN -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-regen">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Land Rarity & Hero HP Regen</span><span data-lang="es">Rareza de Tierra y Regeneración de PS del Héroe</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Staking a land plot does more than generate token rewards. It directly increases the idle HP regeneration rate for all heroes on that account — a production benefit that matters every hour of play. HP regen rate is determined by the rarity of your staked land, not just the fact of staking.</span><span data-lang="es">Hacer staking de un terreno hace más que generar recompensas en tokens. Aumenta directamente la tasa de regeneración de PS en reposo para todos los héroes en esa cuenta — un beneficio de producción que importa cada hora de juego. La tasa de regen de PS está determinada por la rareza de tu tierra en staking, no solo por el hecho de hacer staking.</span>
+      </p>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">❤️</span>
+      <div class="info-text">
+        <strong><span data-lang="en">HP below 50% = 50% slower crafting. HP below 20% = no crafting.</span><span data-lang="es">PS por debajo del 50% = crafteo 50% más lento. PS por debajo del 20% = sin crafteo.</span></strong>
+        <span data-lang="en"> Land rarity directly affects production uptime. A hero running on a Mythic land account regenerates 5× faster than a hero with no land — meaning less downtime between crafting sessions and fewer Food/Potion interruptions needed to maintain production. This benefit compounds across every hero on the account.</span><span data-lang="es"> La rareza de la tierra afecta directamente el tiempo de actividad de producción. Un héroe que usa una cuenta con tierra Mítica se regenera 5× más rápido que un héroe sin tierra — lo que significa menos tiempo de inactividad entre sesiones de crafteo y menos interrupciones de Comida/Pociones necesarias para mantener la producción. Este beneficio se multiplica en todos los héroes de la cuenta.</span>
+      </div>
+    </div>
+
+    <div class="regen-grid">
+      <div class="regen-card reveal">
+        <div class="regen-rarity none"><span data-lang="en">No Land</span><span data-lang="es">Sin Tierra</span></div>
+        <div class="regen-rate">1 HP</div>
+        <div class="regen-per-hour"><span data-lang="en">every 20 min · 3 HP/hr</span><span data-lang="es">cada 20 min · 3 PS/hora</span></div>
+      </div>
+      <div class="regen-card reveal reveal-delay-1">
+        <div class="regen-rarity rare"><span data-lang="en">Rare</span><span data-lang="es">Rara</span></div>
+        <div class="regen-rate">2 HP</div>
+        <div class="regen-per-hour"><span data-lang="en">every 20 min · 6 HP/hr</span><span data-lang="es">cada 20 min · 6 PS/hora</span></div>
+      </div>
+      <div class="regen-card reveal reveal-delay-2">
+        <div class="regen-rarity legendary"><span data-lang="en">Legendary</span><span data-lang="es">Legendaria</span></div>
+        <div class="regen-rate">3 HP</div>
+        <div class="regen-per-hour"><span data-lang="en">every 20 min · 9 HP/hr</span><span data-lang="es">cada 20 min · 9 PS/hora</span></div>
+      </div>
+      <div class="regen-card reveal reveal-delay-3">
+        <div class="regen-rarity mythic"><span data-lang="en">Mythic</span><span data-lang="es">Mítica</span></div>
+        <div class="regen-rate">5 HP</div>
+        <div class="regen-per-hour"><span data-lang="en">every 20 min · 15 HP/hr</span><span data-lang="es">cada 20 min · 15 PS/hora</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 05: UTILITY BEYOND STAKING -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-utility">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Land Utility Beyond Staking</span><span data-lang="es">Utilidad de las Tierras Más Allá del Staking</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Staking is the yield layer. But land in Eldorath carries utility across four other dimensions — storage, governance, commerce, and cross-game functionality. Some features are live; others are confirmed design intent with implementation pending.</span><span data-lang="es">El staking es la capa de rendimiento. Pero las tierras en Eldorath tienen utilidad en otras cuatro dimensiones — almacenamiento, gobernanza, comercio y funcionalidad inter-juego. Algunas características están activas; otras son intención de diseño confirmada con implementación pendiente.</span>
+      </p>
+    </div>
+
+    <div class="utility-grid">
+      <div class="utility-card reveal">
+        <div class="utility-card-title">🏠 <span data-lang="en">Storage & Base</span><span data-lang="es">Almacenamiento y Base</span></div>
+        <ul>
+          <li><span data-lang="en">Expandable Storage Depot — higher rarity = larger capacity</span><span data-lang="es">Depósito de almacenamiento expandible — mayor rareza = mayor capacidad</span></li>
+          <li><span data-lang="en">Faster HP + stat recovery when resting at home vs. standard rest</span><span data-lang="es">Recuperación más rápida de PS + estadísticas al descansar en casa vs. descanso estándar</span></li>
+          <li><span data-lang="en">Permanent safe logout and custom building display</span><span data-lang="es">Cierre de sesión seguro permanente y exhibición de construcción personalizada</span></li>
+          <li><span data-lang="en">Future: player rentals for passive income</span><span data-lang="es">Futuro: alquileres de jugadores para ingreso pasivo</span></li>
+        </ul>
+      </div>
+      <div class="utility-card reveal reveal-delay-1">
+        <div class="utility-card-title">🗳️ <span data-lang="en">Power & Governance</span><span data-lang="es">Poder y Gobernanza</span></div>
+        <ul>
+          <li><span data-lang="en">Only landowners can run for Eldorath city leadership (political rights)</span><span data-lang="es">Solo los propietarios de tierras pueden postularse para el liderazgo de la ciudad de Eldorath (derechos políticos)</span></li>
+          <li><span data-lang="en">Reputation boost — better NPC prices and higher social standing</span><span data-lang="es">Boost de reputación — mejores precios de NPC y mayor posición social</span></li>
+          <li><span data-lang="en">Access to exclusive NPCs — trainers and quest givers</span><span data-lang="es">Acceso a NPCs exclusivos — entrenadores y dadores de misiones</span></li>
+          <li><span data-lang="en">VIP access to festivals, tournaments, and special gatherings</span><span data-lang="es">Acceso VIP a festivales, torneos y reuniones especiales</span></li>
+        </ul>
+      </div>
+      <div class="utility-card reveal reveal-delay-2">
+        <div class="utility-card-title">💰 <span data-lang="en">Real Yield (confirmed design intent)</span><span data-lang="es">Rendimiento Real (intención de diseño confirmada)</span></div>
+        <ul>
+          <li><span data-lang="en">1% of all $VALAN spent in city → staking reward pool (active)</span><span data-lang="es">1% de todo el $VALAN gastado en la ciudad → fondo de recompensas de staking (activo)</span></li>
+          <li><span data-lang="en">20% of quarterly marketplace fees in $SOL → landholders</span><span data-lang="es">20% de las comisiones trimestrales del mercado en $SOL → propietarios de tierras</span></li>
+          <li><span data-lang="en">Annual BTC yield from the Valannia Eternal Treasury</span><span data-lang="es">Rendimiento anual en BTC del Tesoro Eterno de Valannia</span></li>
+        </ul>
+      </div>
+      <div class="utility-card reveal reveal-delay-3">
+        <div class="utility-card-title">🏪 <span data-lang="en">Commerce & Cross-game</span><span data-lang="es">Comercio e Inter-juego</span></div>
+        <ul>
+          <li><span data-lang="en">Run a player business: forge, shop, tavern, service hub</span><span data-lang="es">Administrar un negocio de jugador: fragua, tienda, taberna, centro de servicios</span></li>
+          <li><span data-lang="en">15% revenue share from marketplace commissions for Community Business participants</span><span data-lang="es">15% de participación en ingresos de comisiones del mercado para participantes del Negocio Comunitario</span></li>
+          <li><span data-lang="en">Exclusive quests and item drops for landholders</span><span data-lang="es">Misiones exclusivas y drops de ítems para propietarios de tierras</span></li>
+          <li><span data-lang="en">Cross-game: works as universal base across Realms, Arena, and Worlds</span><span data-lang="es">Inter-juego: funciona como base universal en Realms, Arena y Worlds</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warn-banner reveal">
+      <span class="warn-icon">⚠️</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">Implementation status note.</span><span data-lang="es">Nota sobre el estado de implementación.</span></strong>
+        <span data-lang="en"> The full yield mechanics (20% $SOL quarterly, annual BTC from VET) are confirmed design intent as of the Valannia white papers. Implementation status as of April 2026 is not fully confirmed — this guide will be updated as features go live. The 1% $VALAN staking pool and HP regen bonuses are confirmed active.</span><span data-lang="es"> Los mecanismos de rendimiento completos (20% $SOL trimestral, BTC anual del VET) son intención de diseño confirmada según los documentos técnicos de Valannia. El estado de implementación a abril de 2026 no está completamente confirmado — esta guía se actualizará cuando las características entren en funcionamiento. El fondo de staking del 1% $VALAN y los bonuses de regen de PS están confirmados como activos.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 06: SHOULD YOU STAKE -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-decision">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Should You Stake?</span><span data-lang="es">¿Deberías Hacer Staking?</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Staking is not universally correct for every landowner. The decision depends on your time horizon, your need for liquidity, and how actively you plan to play during the staking period. Use the table below to frame the decision.</span><span data-lang="es">El staking no es universalmente correcto para todos los propietarios de tierras. La decisión depende de tu horizonte temporal, tu necesidad de liquidez y qué tan activamente planeas jugar durante el período de staking. Usa la tabla a continuación para enmarcar la decisión.</span>
+      </p>
+    </div>
+
+    <div class="reveal" style="overflow-x:auto">
+      <table class="decision-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Situation</span><span data-lang="es">Situación</span></th>
+            <th><span data-lang="en">Staking makes sense?</span><span data-lang="es">¿El staking tiene sentido?</span></th>
+            <th><span data-lang="en">Notes</span><span data-lang="es">Notas</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Active player, committed to Realms for 30+ days</span><span data-lang="es">Jugador activo, comprometido con Realms por 30+ días</span></td>
+            <td><span class="rec-yes">Yes</span></td>
+            <td><span data-lang="en">Immediate $VALAN yield + HP regen benefit every session. Low downside if you're playing anyway.</span><span data-lang="es">Rendimiento inmediato en $VALAN + beneficio de regen de PS en cada sesión. Poco riesgo si de todos modos vas a jugar.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Looking to sell your land in the near term</span><span data-lang="es">Buscas vender tu tierra en el corto plazo</span></td>
+            <td><span class="rec-no">No</span></td>
+            <td><span data-lang="en">Staking locks the land. You cannot sell or transfer while staked — and unstaking forfeits all accumulated rewards.</span><span data-lang="es">El staking bloquea la tierra. No puedes vender ni transferir mientras está en staking — y retirar el staking hace perder todas las recompensas acumuladas.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Long-term holder, planning 300 days of play</span><span data-lang="es">Titular a largo plazo, planeando 300 días de juego</span></td>
+            <td><span class="rec-yes">Yes — Tier 3</span></td>
+            <td><span data-lang="en">Access to all three reward pools simultaneously. Maximum leverage position for committed players.</span><span data-lang="es">Acceso a los tres fondos de recompensas simultáneamente. Posición de máximo apalancamiento para jugadores comprometidos.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Casual player, inconsistent play schedule</span><span data-lang="es">Jugador casual, horario de juego inconsistente</span></td>
+            <td><span class="rec-maybe">Maybe — Tier 1 only</span></td>
+            <td><span data-lang="en">30-day commitment is the lowest risk. HP regen benefits still apply. Avoid 90 or 300-day if unsure about sustained play.</span><span data-lang="es">El compromiso de 30 días es el de menor riesgo. Los beneficios de regen de PS siguen aplicando. Evita 90 o 300 días si no estás seguro de jugar de manera sostenida.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Staking early (low % of lands staked)</span><span data-lang="es">Haciendo staking temprano (bajo % de tierras en staking)</span></td>
+            <td><span class="rec-yes">Yes — act now</span></td>
+            <td><span data-lang="en">Proportional reward share is highest when fewest lands are staked. This window closes as more landowners participate — it does not reopen.</span><span data-lang="es">La participación proporcional en las recompensas es mayor cuando menos tierras están en staking. Esta ventana se cierra a medida que más propietarios participan — no vuelve a abrirse.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Multiple lands owned</span><span data-lang="es">Múltiples tierras en propiedad</span></td>
+            <td><span class="rec-yes">Yes — stack your share</span></td>
+            <td><span data-lang="en">Each staked land adds to your proportional share of the pool. Two staked lands = twice the share. Regen bonus applies once per account regardless of how many lands are staked.</span><span data-lang="es">Cada tierra en staking suma a tu participación proporcional del fondo. Dos tierras en staking = el doble de participación. El bonus de regen aplica una vez por cuenta independientemente de cuántas tierras estén en staking.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="guide-cta reveal" style="margin-top:3rem">
+      <div class="guide-cta-title">
+        <span data-lang="en">Questions about your land position?</span><span data-lang="es">¿Preguntas sobre tu posición de tierras?</span>
+      </div>
+      <p class="guide-cta-sub">
+        <span data-lang="en">Polaris Fuel heroes are active Eldorath landowners. Join the Discord to discuss staking strategy, coordinate with other landowners, and stay updated as new yield features go live.</span><span data-lang="es">Los héroes de Polaris Fuel son propietarios activos de tierras en Eldorath. Únete al Discord para discutir estrategias de staking, coordinarte con otros propietarios de tierras y mantenerte actualizado a medida que nuevas características de rendimiento entren en funcionamiento.</span>
+      </p>
+      <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        <span><span data-lang="en">Join Discord</span><span data-lang="es">Únete al Discord</span></span>
+      </a>
+    </div>
+
+    <!-- MORE GUIDES -->
+    <div style="margin:3rem 0 2rem">
+      <div style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;opacity:.8">
+        <span data-lang="en">More Guides</span><span data-lang="es">Más Guías</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem">
+        <a href="./eldorath-city-guide.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">🏙️</span>
+          <span><span data-lang="en">Eldorath City Guide</span><span data-lang="es">Guía de la Ciudad de Eldorath</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+        <a href="./crafting-dependency-guide.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">⚙️</span>
+          <span><span data-lang="en">Crafting Dependency Guide</span><span data-lang="es">Guía de Dependencias de Crafting</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+        <a href="./profession-guide.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">⚗️</span>
+          <span><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+        <a href="./race-leader-elections.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">🗳️</span>
+          <span><span data-lang="en">Race Leader Elections</span><span data-lang="es">Elecciones de Líder de Raza</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+</body>
+</html>

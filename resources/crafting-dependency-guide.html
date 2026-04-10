@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FF6B1A">
+  <title>Crafting Dependency Guide — Polaris Fuel</title>
+  <meta name="description" content="How Valannia's professions connect. Every production chain mapped — Fire Juice, T2 Mining, Guild Stronghold. Written by Polaris Fuel economic specialists.">
+  <meta property="og:title" content="Crafting Dependency Guide — Polaris Fuel">
+  <meta property="og:description" content="How Valannia's professions connect. Every production chain mapped — Fire Juice, T2 Mining, Guild Stronghold.">
+  <meta property="og:type" content="article">
+<style>
+:root{--fire:#FF6B1A;--ember:#FF9A00;--gold:#D4A843;--gold-pale:#e8cc7a;--dark:#0A0704;--dark-mid:#120C05;--dark-surface:#1A1008;--dark-card:#1F1409;--text:#D4C4A8;--text-dim:#7A6A54;--smoke:#9A8A74;--border:rgba(212,168,67,0.15);--border-bright:rgba(212,168,67,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.5}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid rgba(255,107,26,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:18px;height:18px;background:var(--ember)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:48px;height:48px;border-color:var(--gold)}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55}
+nav#navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+nav#navbar.scrolled{background:rgba(10,7,4,0.92);border-color:var(--border);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-discord-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem .95rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s;cursor:none}
+.nav-discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,107,26,0.4)}
+.nav-lang{display:flex;gap:.4rem}
+.lang-btn{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;padding:.26rem .52rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:none;transition:all .2s}
+.lang-btn.active,.lang-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,0.08)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,7,4,0.98);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-discord{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 2rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;margin-top:1rem}
+.mobile-lang{display:flex;gap:.6rem;margin-top:.5rem}
+section,footer{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}.reveal-delay-5{transition-delay:.5s}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-bright),transparent)}
+
+/* BILINGUAL */
+body span[data-lang]{display:none}
+body:not(.lang-es) span[data-lang="en"]{display:inline}
+body.lang-es span[data-lang="es"]{display:inline}
+body:not(.lang-es) div[data-lang="en"]{display:block}
+body.lang-es div[data-lang="es"]{display:block}
+div[data-lang]{display:none}
+
+/* GUIDE LAYOUT */
+.guide-wrap{max-width:860px;margin:0 auto;padding:0 2rem;position:relative;z-index:2}
+.guide-hero{padding:9rem 0 4rem;text-align:center}
+.guide-hero .back-link{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2.5rem;transition:color .2s}
+.guide-hero .back-link:hover{color:var(--gold)}
+.guide-hero .back-link::before{content:'←';font-size:.9rem}
+.guide-hero-eyebrow{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fire);margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:1rem}
+.guide-hero-eyebrow::before,.guide-hero-eyebrow::after{content:'';display:block;width:26px;height:1px;background:var(--fire)}
+.guide-hero h1{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:900;color:var(--gold-pale);letter-spacing:.06em;text-transform:uppercase;line-height:1.1;margin-bottom:1.4rem}
+.guide-hero-sub{font-size:.95rem;color:var(--text-dim);line-height:1.9;max-width:560px;margin:0 auto 2rem}
+.guide-meta{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin-top:2rem}
+.guide-meta-item{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+.guide-meta-item strong{color:var(--gold);font-weight:700}
+
+/* TOC */
+.toc{background:var(--dark-card);border:1px solid var(--border);padding:1.8rem 2rem;margin:2rem 0 3rem}
+.toc-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.toc-list li a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.7rem}
+.toc-list li a::before{content:'';display:block;width:16px;height:1px;background:var(--border-bright);flex-shrink:0;transition:background .2s,width .2s}
+.toc-list li a:hover{color:var(--gold)}
+.toc-list li a:hover::before{background:var(--fire);width:22px}
+
+/* SECTIONS */
+.guide-section{padding:3.5rem 0;border-top:1px solid var(--border)}
+.guide-section-header{margin-bottom:2.5rem}
+.section-num{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;color:var(--fire);margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem}
+.section-num::after{content:'';display:block;width:32px;height:1px;background:rgba(255,107,26,0.4)}
+.guide-h2{font-family:'Cinzel',serif;font-size:clamp(1.2rem,2.5vw,1.65rem);font-weight:900;color:var(--gold-pale);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.7rem}
+.guide-intro{font-size:.9rem;color:var(--text-dim);line-height:1.95;max-width:680px}
+
+/* WARN BANNER */
+.warn-banner{background:rgba(255,107,26,0.07);border:1px solid rgba(255,107,26,0.3);border-left:3px solid var(--fire);padding:1.1rem 1.4rem;margin:2rem 0;display:flex;gap:1rem;align-items:flex-start}
+.warn-icon{font-size:1.1rem;line-height:1;flex-shrink:0;margin-top:2px}
+.warn-text{font-size:.86rem;color:var(--text);line-height:1.8}
+.warn-text strong{color:var(--fire)}
+
+/* INFO BANNER */
+.info-banner{background:rgba(212,168,67,0.05);border:1px solid rgba(212,168,67,0.2);border-left:3px solid var(--gold);padding:1.1rem 1.4rem;margin:2rem 0;display:flex;gap:1rem;align-items:flex-start}
+.info-text{font-size:.86rem;color:var(--text);line-height:1.8}
+.info-text strong{color:var(--gold)}
+
+/* DEPENDENCY TABLE */
+.dep-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.84rem}
+.dep-table th{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;border-bottom:1px solid var(--border-bright);text-align:left}
+.dep-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top;line-height:1.7}
+.dep-table td:first-child{color:var(--gold-pale);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.08em;font-weight:700;white-space:nowrap}
+.dep-table tr:last-child td{border-bottom:none}
+.dep-table tr:hover td{background:rgba(212,168,67,0.03)}
+.dep-table .consumers{color:var(--smoke);font-size:.8rem}
+
+/* CHAIN FLOW */
+.chain-block{background:var(--dark-card);border:1px solid var(--border);padding:2rem;margin:1.5rem 0}
+.chain-title{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold-pale);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+.chain-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.chain-steps{display:flex;flex-direction:column;gap:.5rem}
+.chain-step{display:flex;gap:1rem;align-items:flex-start}
+.chain-step-num{font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;color:var(--fire);background:rgba(255,107,26,0.1);border:1px solid rgba(255,107,26,0.25);padding:.25rem .55rem;flex-shrink:0;min-width:2rem;text-align:center;letter-spacing:.05em;margin-top:.15rem}
+.chain-step-body{flex:1}
+.chain-step-prof{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase}
+.chain-step-detail{font-size:.83rem;color:var(--text-dim);line-height:1.7;margin-top:.2rem}
+.chain-step-output{font-size:.78rem;color:var(--smoke);font-style:italic;margin-top:.2rem}
+.chain-arrow{text-align:center;color:rgba(255,107,26,0.4);font-size:.9rem;padding:.1rem 0;margin-left:1.55rem}
+
+/* COMPONENT TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.83rem}
+.comp-table th{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.6rem .8rem;border-bottom:1px solid var(--border-bright);text-align:left}
+.comp-table td{padding:.65rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top;line-height:1.6}
+.comp-table td:first-child{color:var(--gold-pale);font-weight:700;font-size:.8rem}
+.comp-table td:nth-child(2){color:var(--fire);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em}
+.comp-table tr:last-child td{border-bottom:none}
+.gap-note{font-size:.78rem;color:rgba(255,107,26,0.7);font-style:italic;margin:.4rem 0}
+
+/* PROFESSION GRID (overview) */
+.prof-overview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;margin:1.5rem 0}
+.prof-overview-card{background:var(--dark-card);border:1px solid var(--border);padding:1.2rem 1.4rem;transition:border-color .3s}
+.prof-overview-card:hover{border-color:rgba(212,168,67,0.3)}
+.prof-overview-name{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.prof-overview-outputs{font-size:.8rem;color:var(--text-dim);line-height:1.6;margin-bottom:.5rem}
+.prof-overview-feeds{font-size:.75rem;color:var(--smoke);font-style:italic}
+.feeds-label{color:var(--gold);font-style:normal;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;margin-right:.3rem}
+
+/* GUILD ROLES TABLE */
+.roles-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.84rem}
+.roles-table th{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;border-bottom:1px solid var(--border-bright);text-align:left}
+.roles-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top;line-height:1.7}
+.roles-table td:first-child{color:var(--gold-pale);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.07em;font-weight:700}
+.roles-table .priority-high{color:var(--fire);font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.roles-table .priority-med{color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.roles-table tr:last-child td{border-bottom:none}
+
+/* CTA */
+.guide-cta{background:var(--dark-card);border:1px solid var(--border);padding:2.5rem;text-align:center}
+.guide-cta-title{font-family:'Cinzel',serif;font-size:clamp(.9rem,2vw,1.3rem);font-weight:900;color:var(--gold-pale);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.guide-cta-sub{font-size:.88rem;color:var(--text-dim);line-height:1.85;max-width:540px;margin:0 auto 1.8rem}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:.7rem 1.8rem;background:linear-gradient(135deg,var(--fire),var(--ember));color:#0A0704;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,107,26,0.35)}
+
+/* FOOTER */
+footer{padding:3rem;border-top:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem;position:relative;z-index:2}
+.footer-logo-text{font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.footer-copy{font-size:.75rem;color:var(--text-dim);line-height:1.8}
+.footer-nav{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-nav a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-token{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:rgba(212,168,67,0.15);letter-spacing:.15em;align-self:flex-end}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav#navbar{padding:1rem 1.2rem}
+  .nav-links,.nav-right .nav-lang,.nav-right .nav-discord-btn{display:none}
+  .nav-hamburger{display:flex}
+  .guide-wrap{padding:0 1.2rem}
+  .dep-table,.comp-table,.roles-table{font-size:.76rem}
+  .dep-table th,.comp-table th,.roles-table th{font-size:.48rem;padding:.5rem .6rem}
+  .dep-table td,.comp-table td,.roles-table td{padding:.6rem .6rem}
+  .prof-overview-grid{grid-template-columns:1fr}
+  footer{padding:2rem 1.2rem;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="../index.html" class="nav-logo">
+    <span class="nav-logo-text">Polaris Fuel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html" class="active"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem;letter-spacing:.1em"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn lang-btn-en active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="nav-discord-btn">Discord</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a>
+  <a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a>
+  <a href="../valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a>
+  <a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a>
+  <a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a>
+  <a href="https://polarisfuel.app/index.html" style="opacity:.6;font-size:.85rem"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a>
+  <a href="https://discord.gg/yNfUZ4Gb7k" class="mobile-menu-discord" target="_blank" rel="noopener noreferrer">Discord</a>
+  <div class="mobile-lang">
+    <button class="lang-btn lang-btn-en active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn lang-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="guide-wrap">
+  <div class="guide-hero">
+    <a href="../valannia-resources.html" class="back-link reveal">
+      <span data-lang="en">Back to Guides</span><span data-lang="es">Volver a Guías</span>
+    </a>
+    <div class="guide-hero-eyebrow reveal reveal-delay-1">
+      <span data-lang="en">Valannia Guide</span><span data-lang="es">Guía de Valannia</span>
+    </div>
+    <h1 class="reveal reveal-delay-2">
+      <span data-lang="en">Crafting<br>Dependency Guide</span><span data-lang="es">Guía de<br>Dependencias de Crafting</span>
+    </h1>
+    <p class="guide-hero-sub reveal reveal-delay-3">
+      <span data-lang="en">No profession completes a production chain alone. Every major resource in Valannia flows through multiple players. This guide maps every dependency — so your guild can coordinate before it stalls.</span><span data-lang="es">Ninguna profesión completa una cadena de producción por sí sola. Todo recurso importante en Valannia fluye a través de múltiples jugadores. Esta guía mapea cada dependencia para que tu gremio pueda coordinarse antes de atascarse.</span>
+    </p>
+    <div class="guide-meta reveal reveal-delay-4">
+      <span class="guide-meta-item"><strong><span data-lang="en">Realms Phase 1</span><span data-lang="es">Realms Fase 1</span></strong></span>
+      <span class="guide-meta-item"><strong>8</strong> <span data-lang="en">Professions Mapped</span><span data-lang="es">Profesiones Mapeadas</span></span>
+      <span class="guide-meta-item"><strong>3</strong> <span data-lang="en">Full Chains</span><span data-lang="es">Cadenas Completas</span></span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <div class="toc-title"><span data-lang="en">In this guide</span><span data-lang="es">En esta guía</span></div>
+    <ul class="toc-list">
+      <li><a href="#section-wiring"><span data-lang="en">How the economy is wired</span><span data-lang="es">Cómo está conectada la economía</span></a></li>
+      <li><a href="#section-map"><span data-lang="en">Full profession dependency map</span><span data-lang="es">Mapa completo de dependencias</span></a></li>
+      <li><a href="#section-firejuice"><span data-lang="en">Chain 1: Fire Juice production</span><span data-lang="es">Cadena 1: Producción de Fire Juice</span></a></li>
+      <li><a href="#section-t2mining"><span data-lang="en">Chain 2: T2 Mining unlock</span><span data-lang="es">Cadena 2: Desbloqueo de Minería T2</span></a></li>
+      <li><a href="#section-stronghold"><span data-lang="en">Chain 3: Guild Stronghold</span><span data-lang="es">Cadena 3: Bastión del Gremio</span></a></li>
+      <li><a href="#section-guild"><span data-lang="en">What this means for your guild</span><span data-lang="es">Qué significa esto para tu gremio</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 01: HOW THE ECONOMY IS WIRED -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-wiring">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 01</span><span data-lang="es">Sección 01</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">How the Economy Is Wired</span><span data-lang="es">Cómo Está Conectada la Economía</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Valannia's crafting system is built around enforced interdependence. No single profession — and no single player — can produce the inputs needed for any major output on their own. An Alchemist needs a Miner's raw liquids. A Miner needs an Explorer's maps. A Blacksmith needs an Architect's handles and an Engineer's blueprints before the first tool is forged. Every profession is a node in a supply network. Understanding where you sit in that network — and what breaks if your node goes offline — is what separates coordinated guilds from disorganised ones.</span>
+        <span data-lang="es">El sistema de crafting de Valannia está construido en torno a la interdependencia forzada. Ninguna profesión — y ningún jugador — puede producir por sí solo los insumos necesarios para cualquier producción importante. Un Alquimista necesita los líquidos crudos de un Minero. Un Minero necesita los mapas de un Explorador. Un Herrero necesita los mangos de un Arquitecto y los planos de un Ingeniero antes de forjar la primera herramienta. Cada profesión es un nodo en una red de suministro. Entender dónde estás en esa red — y qué se rompe si tu nodo queda fuera de línea — es lo que separa a los gremios coordinados de los desorganizados.</span>
+      </p>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">⚙️</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Crafting queue: up to 10 hours.</span><span data-lang="es">Cola de crafting: hasta 10 horas.</span></strong>
+        <span data-lang="en"> Every hero can queue up to 10 hours of pending crafts. Queuing 4 or more actions at once provides a 50% reduction in total fees — batch your crafts wherever possible. Activities exceeding 10 hours are capped and must be re-queued.</span><span data-lang="es"> Cada héroe puede poner en cola hasta 10 horas de crafteos pendientes. Poner en cola 4 o más acciones a la vez proporciona una reducción del 50% en las tarifas totales — agrupa tus crafteos siempre que sea posible. Las actividades que superan las 10 horas se cortan y deben volver a ponerse en cola.</span>
+      </div>
+    </div>
+
+    <div class="warn-banner reveal">
+      <span class="warn-icon">❤️</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">Hero health directly affects production speed.</span><span data-lang="es">La salud del héroe afecta directamente la velocidad de producción.</span></strong>
+        <span data-lang="en"> If a hero's HP falls below 50%, they craft and gather at 50% speed. If HP falls below 20%, they cannot perform any crafting or gathering actions at all. Every profession in this guide has a hidden dependency on Exploration (Meat) and Alchemy (Food/Potions) to maintain production uptime. Plan your guild's HP recovery supply before scaling production.</span><span data-lang="es"> Si los PS de un héroe caen por debajo del 50%, craftea y recolecta al 50% de velocidad. Si los PS caen por debajo del 20%, no puede realizar ninguna acción de crafteo o recolección. Cada profesión en esta guía tiene una dependencia oculta de Exploración (Carne) y Alquimia (Comida/Pociones) para mantener el tiempo de actividad de producción. Planifica el suministro de recuperación de PS de tu gremio antes de escalar la producción.</span>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">🌿</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Every profession branches at Level 10.</span><span data-lang="es">Cada profesión se ramifica en el Nivel 10.</span></strong>
+        <span data-lang="en"> Upon reaching Level 10, every profession splits into three specialization paths. For example: Blacksmith → Molten Smith / Armsmith / Anvilsmith; Miner → Deepminer / Fluid Extractor / Crystal Shaper; Alchemist → Mycomancer / Alchemical Researcher / Chemist. Guilds producing at scale should plan which specialization each hero will pursue — some roles (like Fluid Extractor for liquids vs. Deepminer for ores) are distinct enough to warrant dedicated heroes.</span><span data-lang="es"> Al alcanzar el Nivel 10, cada profesión se divide en tres rutas de especialización. Por ejemplo: Herrería → Herrero Fundidor / Armador / Yunquero; Minería → Minero Profundo / Extractor de Fluidos / Modelador de Cristales; Alquimia → Micromante / Investigador Alquímico / Químico. Los gremios que producen a escala deben planificar qué especialización seguirá cada héroe — algunos roles (como Extractor de Fluidos para líquidos vs. Minero Profundo para minerales) son lo suficientemente distintos como para justificar héroes dedicados.</span>
+      </div>
+    </div>
+
+    <div class="prof-overview-grid">
+      <div class="prof-overview-card reveal">
+        <div class="prof-overview-name"><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">Paper (all tiers — T1 Paper, T3 Canvas Paper, T5 Hideleaf), cloth, canvas, leather, rope, cord, Tool Grips, Heartspire Scroll, Guild Banner. Gathers wood/fiber from the map using an Axe and Explorer maps.</span><span data-lang="es">Papel (todos los niveles — Papel T1, Papel de Canvas T3, Hideleaf T5), tela, canvas, cuero, cuerda, cordel, Empuñaduras de Herramienta, Pergamino Heartspire, Estandarte del Gremio. Recolecta madera/fibra del mapa usando un Hacha y mapas del Explorador.</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Exploration (Paper — absolute requirement for maps), Blacksmith (Tool Grips), Engineering (Paper/Canvas Paper/Hideleaf for blueprints + Tome), Architecture (wood inputs), Alchemy (Guild Banner via Moon Ash)</span><span data-lang="es">Exploración (Papel — requisito absoluto para mapas), Herrería (Empuñaduras de Herramienta), Ingeniería (Papel/Papel de Canvas/Hideleaf para planos + Tomo), Arquitectura (insumos de madera), Alquimia (Estandarte del Gremio via Ceniza de Luna)</span></div>
+      </div>
+      <div class="prof-overview-card reveal reveal-delay-1">
+        <div class="prof-overview-name"><span data-lang="en">Architecture</span><span data-lang="es">Arquitectura</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">Tool Handles (all tiers — Carpentry spec), Beams, Planks, Bricks, Machine Chassis, Wayfarer's Tent, Travelers Tent, Stronghold structures</span><span data-lang="es">Mangos de Herramientas (todos los niveles — especialización Carpintería), Vigas, Tablones, Ladrillos, Chasis de Máquina, Tienda del Caminante, Tienda del Viajero, estructuras de Bastión</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Blacksmith (Tool Handles), Engineering (Machine Chassis for Engines), Guild buildings (Walls, Towers, Great Hall)</span><span data-lang="es">Herrería (Mangos de Herramientas), Ingeniería (Chasis de Máquina para Motores), Edificios del gremio (Murallas, Torres, Gran Salón)</span></div>
+      </div>
+      <div class="prof-overview-card reveal reveal-delay-2">
+        <div class="prof-overview-name"><span data-lang="en">Engineering</span><span data-lang="es">Ingeniería</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">Blueprints (using Artisan Paper/Canvas Paper/Hideleaf), Frames, Copper Wire, Wheels, Pulleys, Engines, Extraction Tower, Alchemical Flask (requires Glass from Alchemy), Tome of Constructive Order</span><span data-lang="es">Planos (usando Papel/Papel de Canvas/Hideleaf del Artesano), Marcos, Alambre de Cobre, Ruedas, Poleas, Motores, Torre de Extracción, Matraz Alquímico (requiere Vidrio de Alquimia), Tomo del Orden Constructivo</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Blacksmith (tools/weapons), Architecture (Frames for tents), Alchemy (Flask for T8+ potions)</span><span data-lang="es">Herrería (herramientas/armas), Arquitectura (Marcos para tiendas), Alquimia (Matraz para pociones T8+)</span></div>
+      </div>
+      <div class="prof-overview-card reveal">
+        <div class="prof-overview-name"><span data-lang="en">Blacksmith</span><span data-lang="es">Herrería</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">All ingots (Copper → Kronscale), all mining/gathering tools, weapons, armor, Tyxen Toolkits, Glorb Toolboxes (weapon/tool durability repair — used by all heroes)</span><span data-lang="es">Todos los lingotes (Cobre → Kronscale), todas las herramientas de minería/recolección, armas, armaduras, Kits Tyxen, Cajas de Herramientas Glorb (reparación de durabilidad de armas/herramientas — usadas por todos los héroes)</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Mining (tools), Architecture (ingots, Tyxen Toolkits consumed in high volume for structures), Engineering (ingots, wire), Jewelry (ingots), all heroes (Glorb Toolbox for durability repair)</span><span data-lang="es">Minería (herramientas), Arquitectura (lingotes, Kits Tyxen consumidos en alto volumen para estructuras), Ingeniería (lingotes, alambre), Joyería (lingotes), todos los héroes (Caja de Herramientas Glorb para reparación de durabilidad)</span></div>
+      </div>
+      <div class="prof-overview-card reveal reveal-delay-1">
+        <div class="prof-overview-name"><span data-lang="en">Exploration</span><span data-lang="es">Exploración</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">Resource maps (all tiers and types, Richness 1–5), Meat via hunting pets. Two-step process: Scouting (reveal area richness) then Exploring (consume Artisan Paper to produce the physical map).</span><span data-lang="es">Mapas de recursos (todos los niveles y tipos, Riqueza 1–5), Carne mediante mascotas de caza. Proceso de dos pasos: Exploración Previa (revelar riqueza del área) y luego Exploración (consumir Papel del Artesano para producir el mapa físico).</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Mining (all extraction), Artisan (wood/fiber gathering maps), Alchemy (Meat → Food for HP recovery — critical for all guild production uptime)</span><span data-lang="es">Minería (toda extracción), Artesanía (mapas de recolección de madera/fibra), Alquimia (Carne → Comida para recuperación de PS — crítico para el tiempo de actividad de producción del gremio)</span></div>
+      </div>
+      <div class="prof-overview-card reveal reveal-delay-2">
+        <div class="prof-overview-name"><span data-lang="en">Mining</span><span data-lang="es">Minería</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">Ores, Fuels (Charcoal/Coal/Pyrestarter — required for every smelting and cooking recipe in the game), Liquids (Water → Elderwater), Gems, Clay (for Bricks). Currently the most underserved profession in the economy.</span><span data-lang="es">Minerales, Combustibles (Carbón de Leña/Carbón/Pyrestarter — requeridos para cada receta de fundición y cocción en el juego), Líquidos (Agua → Elderwater), Gemas, Arcilla (para Ladrillos). Actualmente la profesión más desatendida en la economía.</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Blacksmith (ores + fuels for all smelting), Alchemy (reactions), Architecture (Stormwater for Brick, Clay for Brick), Artisan (Stormwater/Blackblood for T3–T4 items), Artisan (Water + Softwood Fibers for Paper)</span><span data-lang="es">Herrería (minerales + combustibles para toda fundición), Alquimia (reacciones), Arquitectura (Agua de Tormenta para Ladrillos, Arcilla para Ladrillos), Artesanía (Agua de Tormenta/Sangre Negra para ítems T3–T4), Artesanía (Agua + Fibras de Madera Blanda para Papel)</span></div>
+      </div>
+      <div class="prof-overview-card reveal">
+        <div class="prof-overview-name"><span data-lang="en">Alchemy</span><span data-lang="es">Alquimia</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">Fire Juice (L3/7), Liquid Valannite (L1/5), Glass — the critical bottleneck (required by Engineering for Alchemical Flask, Architecture for Tower/Great Hall, Jewelry for Glasses/Rose Glasses), infused ingots, potions, Food (HP recovery — requires Meat from Exploration), Moon Nectar (Tyxen Machine catalyst), Gemweld Resin, Wipe Memory Potion</span><span data-lang="es">Fire Juice (N3/7), Valannita Líquida (N1/5), Vidrio — el cuello de botella crítico (requerido por Ingeniería para Matraz Alquímico, Arquitectura para Torre/Gran Salón, Joyería para Gafas/Gafas Rosas), lingotes infundidos, pociones, Comida (recuperación de PS — requiere Carne de Exploración), Néctar de Luna (catalizador de Máquina Tyxen), Resina Gemweld, Poción de Borrar Memoria</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Blacksmith (processed ingredients for weapons), Architecture (Glass for Tower + Great Hall), Engineering (Glass for Flask), Artisan (Moon Ash for Guild Banner), Jewelry (liquid forms), all heroes (Food for HP recovery)</span><span data-lang="es">Herrería (ingredientes procesados para armas), Arquitectura (Vidrio para Torre + Gran Salón), Ingeniería (Vidrio para Matraz), Artesanía (Ceniza de Luna para Estandarte), Joyería (formas líquidas), todos los héroes (Comida para recuperación de PS)</span></div>
+      </div>
+      <div class="prof-overview-card reveal reveal-delay-1">
+        <div class="prof-overview-name"><span data-lang="en">Jewelry</span><span data-lang="es">Joyería</span></div>
+        <div class="prof-overview-outputs"><span data-lang="en">All Processed intermediates (Valannite, Honey Drop, Dragon Breath, Celespar, Astralite, Vipharine), rings, pendants, Glasses/Rose Glasses (require Alchemy Glass), ORBs (Power, Speed, HP stat boosts — slotted into gear by all combat heroes for Dungeon survival)</span><span data-lang="es">Todos los intermediarios Procesados (Valannita, Honey Drop, Aliento de Dragón, Celespar, Astralita, Vipharine), anillos, colgantes, Gafas/Gafas Rosas (requieren Vidrio de Alquimia), ORBs (bonuses de estadísticas de Poder, Velocidad, PS — insertados en el equipo por todos los héroes de combate para sobrevivir en Mazmorras)</span></div>
+        <div class="prof-overview-feeds"><span class="feeds-label"><span data-lang="en">Feeds</span><span data-lang="es">Abastece</span></span><span data-lang="en">Alchemy (processed ingredients for potions), Blacksmith (processed ingredients for high-tier weapon sets), all combat heroes (ORBs for dungeon stat requirements)</span><span data-lang="es">Alquimia (ingredientes procesados para pociones), Herrería (ingredientes procesados para sets de armas de alto nivel), todos los héroes de combate (ORBs para requisitos de estadísticas en mazmorras)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 02: FULL DEPENDENCY MAP -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-map">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 02</span><span data-lang="es">Sección 02</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Full Profession Dependency Map</span><span data-lang="es">Mapa Completo de Dependencias</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Every profession, its confirmed outputs, and what it depends on. Read this before assigning roles in your guild — gaps here become production bottlenecks in-game.</span><span data-lang="es">Cada profesión, sus productos confirmados, y de qué depende. Lee esto antes de asignar roles en tu gremio — los vacíos aquí se convierten en cuellos de botella de producción en el juego.</span>
+      </p>
+    </div>
+
+    <div class="reveal" style="overflow-x:auto">
+      <table class="dep-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Profession</span><span data-lang="es">Profesión</span></th>
+            <th><span data-lang="en">Depends On</span><span data-lang="es">Depende de</span></th>
+            <th><span data-lang="en">Key Outputs</span><span data-lang="es">Productos Clave</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></td>
+            <td><span data-lang="en">Mining (Water + Softwood Fibers for Paper; Stormwater/Blackblood for T3–T4 items), Exploration (maps to gather wood/fiber), Alchemy (Moon Ash for Guild Banner)</span><span data-lang="es">Minería (Agua + Fibras de Madera Blanda para Papel; Agua de Tormenta/Sangre Negra para ítems T3–T4), Exploración (mapas para recolectar madera/fibra), Alquimia (Ceniza de Luna para Estandarte)</span></td>
+            <td><span data-lang="en">Paper (T1), Canvas Paper (T3), Hideleaf (T5) — absolute fuel for Exploration map-making; Cloth, Canvas, Heartspire Cloth, Leather, Tool Grips (for Blacksmith tools), Rope, Heartspire Scroll, Guild Banner</span><span data-lang="es">Papel (T1), Papel de Canvas (T3), Hideleaf (T5) — combustible absoluto para la fabricación de mapas de Exploración; Tela, Canvas, Tela Heartspire, Cuero, Empuñaduras de Herramienta (para herramientas del Herrero), Cuerda, Pergamino Heartspire, Estandarte del Gremio</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Architecture</span><span data-lang="es">Arquitectura</span></td>
+            <td><span data-lang="en">Artisan (wood/fiber inputs for beams/planks), Blacksmith (Iron Hoop, ingots, Tyxen Toolkits for T3+ structures), Mining (Stormwater + Clay for Brick), Engineering (Frames for Wayfarer's Tent and Travelers Tent)</span><span data-lang="es">Artesanía (insumos de madera/fibra para vigas/tablones), Herrería (Aro de Hierro, lingotes, Kits Tyxen para estructuras T3+), Minería (Agua de Tormenta + Arcilla para Ladrillos), Ingeniería (Marcos para Tienda del Caminante y Tienda del Viajero)</span></td>
+            <td><span data-lang="en">Tool Handles (all tiers — Carpentry spec), Beams, Planks, Machine Chassis, Bricks (primary Phase 1 material for Walls/Towers), Wayfarer's Tent, Travelers Tent, Stronghold structures</span><span data-lang="es">Mangos de Herramientas (todos los niveles — especialización Carpintería), Vigas, Tablones, Chasis de Máquina, Ladrillos (material principal de Fase 1 para Murallas/Torres), Tienda del Caminante, Tienda del Viajero, estructuras de Bastión</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Engineering</span><span data-lang="es">Ingeniería</span></td>
+            <td><span data-lang="en">Artisan (Paper/Canvas Paper/Hideleaf for Blueprints and Tome), Architecture (Planks/Beams for Wheels/Pulleys), Blacksmith (Ingots for wire and components), Alchemy (Glass for Alchemical Flask and Alembic)</span><span data-lang="es">Artesanía (Papel/Papel de Canvas/Hideleaf para Planos y Tomo), Arquitectura (Tablones/Vigas para Ruedas/Poleas), Herrería (Lingotes para alambre y componentes), Alquimia (Vidrio para Matraz Alquímico y Alambique)</span></td>
+            <td><span data-lang="en">Blueprints (all tiers, using Artisan paper), Frames (required by Architecture for tents), Copper Wire, Wheels, Pulleys, Engines, Extraction Tower, Alchemical Flask (requires Glass — T8+ Alchemy gating item), Tome of Constructive Order, Stronghold Blueprint</span><span data-lang="es">Planos (todos los niveles, usando papel del Artesano), Marcos (requeridos por Arquitectura para tiendas), Alambre de Cobre, Ruedas, Poleas, Motores, Torre de Extracción, Matraz Alquímico (requiere Vidrio — ítem de acceso para Alquimia T8+), Tomo del Orden Constructivo, Plano del Bastión</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Blacksmith</span><span data-lang="es">Herrería</span></td>
+            <td><span data-lang="en">Artisan (Tool Grips + Canvas Tool Grip L7 for T2 tools; cloth/leather for armor), Architecture (Tool Handles), Engineering (Blueprints for T2+ tools), Mining (Ores + Fuels for all smelting), Jewelry (Processed gems for Flametongue/Verdynox high-tier weapon sets)</span><span data-lang="es">Artesanía (Empuñaduras de Herramienta + Empuñadura de Herramienta de Canvas N7 para herramientas T2; tela/cuero para armaduras), Arquitectura (Mangos de Herramientas), Ingeniería (Planos para herramientas T2+), Minería (Minerales + Combustibles para toda fundición), Joyería (gemas Procesadas para sets de armas de alto nivel Flametongue/Verdynox)</span></td>
+            <td><span data-lang="en">All ingots (Copper → Kronscale), all mining/gathering tools, weapons, armor, Tyxen Toolkits (consumed in high volume by Architecture for structures), Glorb Toolboxes (weapon/tool durability repair for all heroes), Iron Hoop</span><span data-lang="es">Todos los lingotes (Cobre → Kronscale), todas las herramientas de minería/recolección, armas, armaduras, Kits Tyxen (consumidos en alto volumen por Arquitectura para estructuras), Cajas de Herramientas Glorb (reparación de durabilidad de armas/herramientas para todos los héroes), Aro de Hierro</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Exploration</span><span data-lang="es">Exploración</span></td>
+            <td><span data-lang="en">Artisan (Paper T1 / Canvas Paper T3 / Hideleaf T5 — absolute requirement for map production; no paper = no maps), Blacksmith (tools for scouting)</span><span data-lang="es">Artesanía (Papel T1 / Papel de Canvas T3 / Hideleaf T5 — requisito absoluto para la producción de mapas; sin papel = sin mapas), Herrería (herramientas para exploración)</span></td>
+            <td><span data-lang="en">Resource maps (T1–T5, Richness 1–5 — higher richness = more extraction sessions per map), Meat via hunting pets (only source for Alchemist Food production = guild HP recovery)</span><span data-lang="es">Mapas de recursos (T1–T5, Riqueza 1–5 — mayor riqueza = más sesiones de extracción por mapa), Carne mediante mascotas de caza (única fuente para la producción de Comida del Alquimista = recuperación de PS del gremio)</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Mining</span><span data-lang="es">Minería</span></td>
+            <td><span data-lang="en">Exploration (maps to locate deposits — map Richness 1–5 determines extraction yield), Blacksmith (tools: Iron Shovel for Coal via Excavation Site Map, Improved Bucket for Stormwater via River Map, Pickaxe for ores), Engineering (Extraction Tower for high-tier liquid deposits)</span><span data-lang="es">Exploración (mapas para localizar depósitos — la Riqueza del mapa 1–5 determina el rendimiento de extracción), Herrería (herramientas: Pala de Hierro para Carbón via Mapa de Sitio de Excavación, Cubo Mejorado para Agua de Tormenta via Mapa de Río, Pico para minerales), Ingeniería (Torre de Extracción para depósitos líquidos de alto nivel)</span></td>
+            <td><span data-lang="en">Ores, Fuels (Charcoal/Coal/Pyrestarter — required for every smelting and cooking recipe), Liquids (Water → Elderwater), Gems, Clay — the foundational raw material layer for every other profession. Currently the most underserved role in the Phase 1 economy.</span><span data-lang="es">Minerales, Combustibles (Carbón de Leña/Carbón/Pyrestarter — requeridos para cada receta de fundición y cocción), Líquidos (Agua → Elderwater), Gemas, Arcilla — la capa de materiales crudos fundacional para todas las demás profesiones. Actualmente el rol más desatendido en la economía de Fase 1.</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Alchemy</span><span data-lang="es">Alquimia</span></td>
+            <td><span data-lang="en">Mining (ores, fuels, liquids for all reactions), Engineering (Alchemical Flask — required for Potion of Stamina L8+ and advanced recipes), Jewelry (Processed intermediates for advanced potions), Exploration (Meat for Food crafting)</span><span data-lang="es">Minería (minerales, combustibles, líquidos para todas las reacciones), Ingeniería (Matraz Alquímico — requerido para Poción de Resistencia N8+ y recetas avanzadas), Joyería (intermediarios Procesados para pociones avanzadas), Exploración (Carne para crafteo de Comida)</span></td>
+            <td><span data-lang="en">Fire Juice (L3/7), Liquid Valannite (L1/5), Glass — major bottleneck (required by Engineering for Flask, Architecture for Tower/Great Hall, Jewelry for Glasses/Rose Glasses), Food (HP recovery), Moon Nectar (Tyxen Machine catalyst for high-tier craft success rate), potions, Gemweld Resin, Wipe Memory Potion</span><span data-lang="es">Fire Juice (N3/7), Valannita Líquida (N1/5), Vidrio — gran cuello de botella (requerido por Ingeniería para Matraz, Arquitectura para Torre/Gran Salón, Joyería para Gafas/Gafas Rosas), Comida (recuperación de PS), Néctar de Luna (catalizador de Máquina Tyxen para tasa de éxito de crafteos de alto nivel), pociones, Resina Gemweld, Poción de Borrar Memoria</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Jewelry</span><span data-lang="es">Joyería</span></td>
+            <td><span data-lang="en">Mining (gems, fuels, raw rare ingredients), Alchemy (Liquid Gem forms — absolute requirement for all Processed intermediates; Jewelry cannot function without them), Blacksmith (Ingots for jewelry settings), Alchemy (Glass for Glasses and Rose Glasses)</span><span data-lang="es">Minería (gemas, combustibles, ingredientes raros crudos), Alquimia (formas de Gemas Líquidas — requisito absoluto para todos los intermediarios Procesados; la Joyería no puede funcionar sin ellas), Herrería (lingotes para monturas de joyería), Alquimia (Vidrio para Gafas y Gafas Rosas)</span></td>
+            <td><span data-lang="en">All Processed intermediates (for Alchemy potions and Blacksmith weapon sets), Rings, Pendants, Glasses/Rose Glasses, ORBs (Power/Speed/HP stat boosts — all combat heroes depend on these for high-tier Dungeon survival; Core Binder spec required to craft them)</span><span data-lang="es">Todos los intermediarios Procesados (para pociones de Alquimia y sets de armas del Herrero), Anillos, Colgantes, Gafas/Gafas Rosas, ORBs (bonuses de Poder/Velocidad/PS — todos los héroes de combate dependen de estos para sobrevivir en Mazmorras de alto nivel; se requiere especialización Enlazador de Núcleo para craftearlos)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 03: FIRE JUICE CHAIN -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-firejuice">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 03</span><span data-lang="es">Sección 03</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Chain 1: Fire Juice Production</span><span data-lang="es">Cadena 1: Producción de Fire Juice</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Fire Juice fuels Red Zone operations and mechanical mounts. At base tier it is a simple two-ingredient craft — but those ingredients require five professions upstream to produce reliably at scale. The fifth is the Artisan: Explorers cannot produce any maps without Artisan-supplied Paper, making Artisan an upstream blocker that does not appear in the Fire Juice recipe itself. At high tier, an Engineer must build an Extraction Tower, and the Miner's Fluid Extractor specialization (Level 10, choose a dedicated path) maximises liquid yield. The Alchemist's Chemist specialization unlocks Valannium work for top-tier production.</span><span data-lang="es">El Fire Juice impulsa las operaciones en la Zona Roja y las monturas mecánicas. En nivel base es un crafteo simple de dos ingredientes — pero esos ingredientes requieren cinco profesiones aguas arriba para producirse de forma confiable a escala. La quinta es el Artesano: los Exploradores no pueden producir ningún mapa sin el Papel suministrado por el Artesano, haciendo del Artesano un bloqueador aguas arriba que no aparece en la receta del Fire Juice en sí. En nivel alto, un Ingeniero debe construir una Torre de Extracción, y la especialización Extractor de Fluidos del Minero (Nivel 10, elige un camino dedicado) maximiza el rendimiento de líquidos. La especialización Químico del Alquimista desbloquea el trabajo con Valannium para producción de alto nivel.</span>
+      </p>
+    </div>
+
+    <div class="chain-block reveal">
+      <div class="chain-title"><span data-lang="en">Fire Juice Chain — 5 Professions Upstream</span><span data-lang="es">Cadena de Fire Juice — 5 Profesiones Aguas Arriba</span></div>
+      <div class="chain-steps">
+        <div class="chain-step">
+          <div class="chain-step-num">0</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span> <span style="font-family:'Lato',sans-serif;font-size:.72rem;color:var(--fire);font-weight:400;text-transform:none;letter-spacing:0">(<span data-lang="en">hidden upstream blocker</span><span data-lang="es">bloqueador oculto aguas arriba</span>)</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Produces Paper (T1) — the only input that allows Explorers to craft maps. Without an Artisan supplying Paper, the Explorer cannot produce River Maps or Excavation Site Maps, which means the Miner cannot locate deposits, which means Fire Juice production stops entirely. Artisan does not appear in the Fire Juice recipe but is an absolute upstream requirement.</span><span data-lang="es">Produce Papel (T1) — el único insumo que permite a los Exploradores craftear mapas. Sin un Artesano suministrando Papel, el Explorador no puede producir Mapas de Río ni Mapas de Sitio de Excavación, lo que significa que el Minero no puede localizar depósitos, lo que significa que la producción de Fire Juice se detiene por completo. El Artesano no aparece en la receta del Fire Juice pero es un requisito aguas arriba absoluto.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Paper T1 (requires Mining Water + Softwood Fibers)</span><span data-lang="es">Papel T1 (requiere Agua de Minería + Fibras de Madera Blanda)</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">1</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Explorer</span><span data-lang="es">Explorador</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Scouts deposits then consumes Artisan Paper to produce physical maps. Coal requires the Iron Shovel + Excavation Site Map. Stormwater requires the Improved Bucket + River Map. These are distinct tools for distinct deposits — both are needed for the Fire Juice recipe. Map Richness (1–5) determines how many extraction sessions the Miner gets before the map is exhausted.</span><span data-lang="es">Explora depósitos y luego consume Papel del Artesano para producir mapas físicos. El Carbón requiere la Pala de Hierro + Mapa de Sitio de Excavación. El Agua de Tormenta requiere el Cubo Mejorado + Mapa de Río. Estas son herramientas distintas para depósitos distintos — ambas son necesarias para la receta del Fire Juice. La Riqueza del mapa (1–5) determina cuántas sesiones de extracción obtiene el Minero antes de que el mapa se agote.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">River Map (Stormwater), Excavation Site Map (Coal)</span><span data-lang="es">Mapa de Río (Agua de Tormenta), Mapa de Sitio de Excavación (Carbón)</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">2</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Blacksmith</span><span data-lang="es">Herrero</span> <span style="font-family:'Lato',sans-serif;font-size:.72rem;color:var(--fire);font-weight:400;text-transform:none;letter-spacing:0">(<span data-lang="en">hidden dependency</span><span data-lang="es">dependencia oculta</span>)</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Forges the Iron Shovel (for Coal) and Improved Bucket (for Stormwater). Without these tools the Miner cannot begin T2 extraction. Note the circular dependency: forging Iron tools requires Iron Ingots, which require Coal + Stormwater to smelt — the exact resources the tools are needed to extract. Guilds must jumpstart this loop by sourcing their first batch of Coal, Stormwater, and Iron Ore from the Marketplace, Dungeons, or Adventures.</span><span data-lang="es">Forja la Pala de Hierro (para Carbón) y el Cubo Mejorado (para Agua de Tormenta). Sin estas herramientas el Minero no puede comenzar la extracción T2. Nota la dependencia circular: forjar herramientas de Hierro requiere Lingotes de Hierro, que requieren Carbón + Agua de Tormenta para fundirlos — exactamente los recursos que las herramientas son necesarias para extraer. Los gremios deben arrancar este ciclo obteniendo su primer lote de Carbón, Agua de Tormenta y Mineral de Hierro del Mercado, Mazmorras o Aventuras.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Iron Shovel (+ Excavation Site Map → Coal), Improved Bucket (+ River Map → Stormwater)</span><span data-lang="es">Pala de Hierro (+ Mapa de Sitio de Excavación → Carbón), Cubo Mejorado (+ Mapa de Río → Agua de Tormenta)</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">3</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Miner</span><span data-lang="es">Minero</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Extracts Coal and Stormwater using maps and Blacksmith tools. At Level 10, the Miner must choose a specialization path: Fluid Extractor (maximises liquid yield — Stormwater, Blackblood, Elderwater) or Deepminer (maximises solid yield — ores and coal). High-volume guilds benefit from having one of each. Upgrading from Iron tools to Quicksilver tools (T3) significantly increases resources extracted per session.</span><span data-lang="es">Extrae Carbón y Agua de Tormenta usando mapas y herramientas del Herrero. En el Nivel 10, el Minero debe elegir una ruta de especialización: Extractor de Fluidos (maximiza el rendimiento de líquidos — Agua de Tormenta, Sangre Negra, Elderwater) o Minero Profundo (maximiza el rendimiento sólido — minerales y carbón). Los gremios de alto volumen se benefician de tener uno de cada uno. Actualizar de herramientas de Hierro a herramientas de Plata Viva (T3) aumenta significativamente los recursos extraídos por sesión.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Coal x1, Stormwater x2 (per Fire Juice craft)</span><span data-lang="es">Carbón x1, Agua de Tormenta x2 (por crafteo de Fire Juice)</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">4</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Alchemist</span><span data-lang="es">Alquimista</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Combines inputs to craft Fire Juice. Base recipe: Coal x1 + Stormwater x2, 1 hour craft time. Queue 4 or more at once for a 50% fee reduction. If the Alchemist's HP drops below 50%, that 1-hour craft becomes 2 hours — maintain a Food/Potion supply. The Chemist specialization (Level 10) unlocks Valannium work for advanced variants.</span><span data-lang="es">Combina los insumos para craftear Fire Juice. Receta base: Carbón x1 + Agua de Tormenta x2, tiempo de crafteo 1 hora. Pon en cola 4 o más a la vez para una reducción del 50% en tarifas. Si los PS del Alquimista caen por debajo del 50%, ese crafteo de 1 hora se convierte en 2 horas — mantén un suministro de Comida/Pociones. La especialización Químico (Nivel 10) desbloquea el trabajo con Valannium para variantes avanzadas.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Fire Juice (1h craft)</span><span data-lang="es">Fire Juice (1h de crafteo)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-banner reveal">
+      <span class="warn-icon">⚠️</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">Mount fuel types — each has its own chain.</span><span data-lang="es">Tipos de combustible de montura — cada uno tiene su propia cadena.</span></strong>
+        <span data-lang="en"> Liquid Valannite (Alchemy L1/5): powers Arcane Chariot. Fire Juice (Alchemy L3/7): powers Krazy Keg — also requires Maintenance Toolkits from Blacksmith for durability repairs. Stormwater (Mining L3/7): powers Vaelgrun. Coordinate your fuel source before committing to a mount tier — the supply chains are distinct.</span><span data-lang="es"> Valannita Líquida (Alquimia N1/5): impulsa el Arcane Chariot. Fire Juice (Alquimia N3/7): impulsa el Krazy Keg — también requiere Kits de Mantenimiento del Herrero para reparaciones de durabilidad. Agua de Tormenta (Minería N3/7): impulsa el Vaelgrun. Coordina tu fuente de combustible antes de comprometerte con un nivel de montura — las cadenas de suministro son distintas.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 04: T2 MINING UNLOCK -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-t2mining">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 04</span><span data-lang="es">Sección 04</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Chain 2: T2 Mining Unlock</span><span data-lang="es">Cadena 2: Desbloqueo de Minería T2</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">Before a Miner can reach T2 deposits — the source of Coal, Stormwater, and Iron Ore — six professions must contribute. There is also a "Step 0" circular dependency that every guild must solve before the chain can run independently. The Iron Ingot produced at the end of this chain is itself a critical input for T2 tools, armor, structures, and Stronghold components.</span><span data-lang="es">Antes de que un Minero pueda llegar a los depósitos T2 — fuente de Carbón, Agua de Tormenta y Mineral de Hierro — seis profesiones deben contribuir. También hay una dependencia circular de "Paso 0" que cada gremio debe resolver antes de que la cadena pueda funcionar de forma independiente. El Lingote de Hierro producido al final de esta cadena es en sí mismo un insumo crítico para herramientas, armaduras, estructuras y componentes del Bastión T2.</span>
+      </p>
+    </div>
+
+    <div class="chain-block reveal">
+      <div class="chain-title"><span data-lang="en">T2 Mining Unlock Chain → Iron Ingot</span><span data-lang="es">Cadena de Desbloqueo de Minería T2 → Lingote de Hierro</span></div>
+      <div class="chain-steps">
+        <div class="chain-step">
+          <div class="chain-step-num">1</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Gathers wood and fiber from the map using an Axe and Explorer maps. Produces Softwood, Fibers, Cloth (T1) and Hardwood, Canvas, Twisted Cord (T2) for Architecture and Blacksmith. Critically also produces Paper (T1) from Mining Water + Softwood Fibers — the absolute input for Explorer map-making — and Canvas Tool Grip (L7) required for all T2 Iron tools.</span><span data-lang="es">Recolecta madera y fibra del mapa usando un Hacha y mapas del Explorador. Produce Madera Blanda, Fibras, Tela (T1) y Madera Dura, Canvas, Cordel Retorcido (T2) para Arquitectura y Herrería. Críticamente también produce Papel (T1) de Agua de Minería + Fibras de Madera Blanda — el insumo absoluto para la fabricación de mapas del Explorador — y Empuñadura de Herramienta de Canvas (N7) requerida para todas las herramientas de Hierro T2.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Softwood/Fibers/Cloth (T1), Hardwood/Canvas/Twisted Cord (T2), Paper T1, Canvas Tool Grip L7</span><span data-lang="es">Madera Blanda/Fibras/Tela (T1), Madera Dura/Canvas/Cordel Retorcido (T2), Papel T1, Empuñadura de Herramienta de Canvas N7</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">2</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Architecture</span><span data-lang="es">Arquitectura</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Crafts tool handles from Artisan wood and fiber outputs. Handles are required by Blacksmiths for every tier of tool production. Without Architecture's handles, Blacksmith cannot forge the tools Miners need.</span><span data-lang="es">Craftea mangos de herramientas a partir de los productos de madera y fibra del Artesano. Los mangos son necesarios para los Herreros en cada nivel de producción de herramientas. Sin los mangos de Arquitectura, el Herrero no puede forjar las herramientas que necesitan los Mineros.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Tool Handles (T1–T5)</span><span data-lang="es">Mangos de Herramientas (T1–T5)</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">3</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Engineering</span><span data-lang="es">Ingeniería</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Produces Blueprints using Artisan Paper (T1) and Canvas Paper (T2/T3) — not Architecture frames. T2 tools require T2 Blueprints before a Blacksmith can forge them. Engineering also produces Frames (required by Architecture for Wayfarer's and Travelers Tents) and Wheels that feed back into Architecture for higher-tier builds.</span><span data-lang="es">Produce Planos usando Papel del Artesano (T1) y Papel de Canvas (T2/T3) — no marcos de Arquitectura. Las herramientas T2 requieren Planos T2 antes de que un Herrero pueda forjarlas. Ingeniería también produce Marcos (requeridos por Arquitectura para Tiendas del Caminante y del Viajero) y Ruedas que vuelven a Arquitectura para construcciones de mayor nivel.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Blueprints (T1–T5), Frames</span><span data-lang="es">Planos (T1–T5), Marcos</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">4</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Blacksmith</span><span data-lang="es">Herrero</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Using Architecture Tool Handles, Artisan Canvas Tool Grip (L7), and Engineering Blueprints, forges the three T2 Mining tools. All three require the Canvas Tool Grip — without it the Blacksmith cannot complete the tool regardless of other inputs available.</span><span data-lang="es">Usando Mangos de Herramientas de Arquitectura, Empuñadura de Herramienta de Canvas del Artesano (N7) y Planos de Ingeniería, forja las tres herramientas de Minería T2. Las tres requieren la Empuñadura de Herramienta de Canvas — sin ella el Herrero no puede completar la herramienta independientemente de los demás insumos disponibles.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Iron Shovel (Coal), Iron Pickaxe (Iron Ore), Improved Bucket (Stormwater)</span><span data-lang="es">Pala de Hierro (Carbón), Pico de Hierro (Mineral de Hierro), Cubo Mejorado (Agua de Tormenta)</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">5</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Explorer</span><span data-lang="es">Explorador</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Provides the River Map and Excavation Site Map (T2 surveys) that unlock T2 deposit locations. A Miner with the correct tools but no survey map cannot begin T2 extraction.</span><span data-lang="es">Proporciona el Mapa de Río y el Mapa de Sitio de Excavación (prospecciones T2) que desbloquean las ubicaciones de depósitos T2. Un Minero con las herramientas correctas pero sin mapa de prospección no puede comenzar la extracción T2.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">River Map, Excavation Site Map</span><span data-lang="es">Mapa de Río, Mapa de Sitio de Excavación</span></div>
+          </div>
+        </div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-step">
+          <div class="chain-step-num">6</div>
+          <div class="chain-step-body">
+            <div class="chain-step-prof"><span data-lang="en">Miner</span><span data-lang="es">Minero</span></div>
+            <div class="chain-step-detail"><span data-lang="en">Armed with T2 tools and survey maps, extracts Coal and Stormwater from T2 deposits. Combined with Iron Ore (also T2 Mining), these are smelted by the Blacksmith into Iron Ingots — the base metal for all T2 tools, weapons, armor, and structures. Upgrading to Quicksilver tools (T3) later significantly increases resources per session compared to Iron.</span><span data-lang="es">Equipado con herramientas T2 y mapas de prospección, extrae Carbón y Agua de Tormenta de depósitos T2. Combinados con Mineral de Hierro (también Minería T2), el Herrero los funde en Lingotes de Hierro — el metal base para todas las herramientas, armas, armaduras y estructuras T2. Actualizar a herramientas de Plata Viva (T3) más adelante aumenta significativamente los recursos por sesión en comparación con el Hierro.</span></div>
+            <div class="chain-step-output">→ <span data-lang="en">Coal, Stormwater, Iron Ore → (Blacksmith) → Iron Ingot</span><span data-lang="es">Carbón, Agua de Tormenta, Mineral de Hierro → (Herrero) → Lingote de Hierro</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-banner reveal">
+      <span class="warn-icon">🔄</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">The "Step 0" circular dependency — every guild hits this.</span><span data-lang="es">La dependencia circular del "Paso 0" — todos los gremios se topan con esto.</span></strong>
+        <span data-lang="en"> To forge Iron Tools, the Blacksmith needs Iron Ingots. To smelt Iron Ingots, the Blacksmith needs Iron Ore + Coal + Stormwater. To extract those materials, the Miner needs the Iron Tools. This loop cannot resolve itself from inside the chain. <strong>Guild strategy:</strong> source your first batch of Coal, Stormwater, and Iron Ore from the Marketplace, Dungeons (Zeraphy or Wendigo drop these), or Adventures to jumpstart Iron tool production. Once the first Iron tools exist, the chain becomes self-sustaining.</span><span data-lang="es"> Para forjar Herramientas de Hierro, el Herrero necesita Lingotes de Hierro. Para fundir Lingotes de Hierro, el Herrero necesita Mineral de Hierro + Carbón + Agua de Tormenta. Para extraer esos materiales, el Minero necesita las Herramientas de Hierro. Este ciclo no puede resolverse desde dentro de la cadena. <strong>Estrategia de gremio:</strong> obtén tu primer lote de Carbón, Agua de Tormenta y Mineral de Hierro del Mercado, Mazmorras (Zeraphy o Wendigo los dropean) o Aventuras para arrancar la producción de herramientas de Hierro. Una vez que existan las primeras herramientas de Hierro, la cadena se vuelve autosustentable.</span>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">🗺️</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Map Richness (1–5) controls extraction yield.</span><span data-lang="es">La Riqueza del mapa (1–5) controla el rendimiento de extracción.</span></strong>
+        <span data-lang="en"> The richness level of an Explorer's survey map determines how many extraction sessions a Miner can run before the map is exhausted. Higher richness = more sessions = more raw materials per map. Prioritise high-richness maps for your most critical extraction slots (Coal, Stormwater, Iron Ore).</span><span data-lang="es"> El nivel de riqueza del mapa de prospección de un Explorador determina cuántas sesiones de extracción puede realizar un Minero antes de que el mapa se agote. Mayor riqueza = más sesiones = más materiales crudos por mapa. Prioriza los mapas de alta riqueza para tus ranuras de extracción más críticas (Carbón, Agua de Tormenta, Mineral de Hierro).</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 05: GUILD STRONGHOLD -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-stronghold">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 05</span><span data-lang="es">Sección 05</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">Chain 3: Guild Stronghold</span><span data-lang="es">Cadena 3: Bastión del Gremio</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">A Guild Stronghold unlocks the Economy, Technology, and Military tech trees that give collective bonuses to every guild member. Building one requires a Level 11 Architect, confirmed components from at least six professions, and a final assembly combining Tower x6, Wall x10, Gate x1, Great Hall x1, Tyxen Toolkit x20, Guild Banner x4, and the Stronghold Blueprint. The Guild Banner alone has a 12-hour craft time and requires Alchemy input — plan this build well in advance.</span><span data-lang="es">Un Bastión del Gremio desbloquea los árboles tecnológicos de Economía, Tecnología y Militar que otorgan bonuses colectivos a cada miembro del gremio. Construirlo requiere un Arquitecto de Nivel 11, componentes confirmados de al menos seis profesiones, y un ensamblaje final que combina Torre x6, Muralla x10, Puerta x1, Gran Salón x1, Kit Tyxen x20, Estandarte del Gremio x4 y el Plano del Bastión. El Estandarte del Gremio solo tiene un tiempo de crafteo de 12 horas y requiere insumos de Alquimia — planifica esta construcción con mucha anticipación.</span>
+      </p>
+    </div>
+
+    <div class="warn-banner reveal">
+      <span class="warn-icon">🏰</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">Level 11 Architect required for final assembly.</span><span data-lang="es">Se requiere Arquitecto de Nivel 11 para el ensamblaje final.</span></strong>
+        <span data-lang="en"> Brick production starts at Architecture Level 7. The Stronghold's final assembly requires Architecture Level 11 — a full RISEN hero. Shattered RISEN are capped at Level 3, Soul RISEN at Level 6. Identify your Architect early and plan their levelling path before purchasing materials.</span><span data-lang="es"> La producción de Ladrillos comienza en Arquitectura Nivel 7. El ensamblaje final del Bastión requiere Arquitectura Nivel 11 — un héroe RISEN completo. Los RISEN Fragmentados tienen tope en Nivel 3, los RISEN Alma en Nivel 6. Identifica a tu Arquitecto con anticipación y planifica su camino de nivelación antes de comprar materiales.</span>
+      </div>
+    </div>
+
+    <!-- FINAL ASSEMBLY BOX -->
+    <div class="info-banner reveal">
+      <span class="warn-icon">🔩</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Final Stronghold Assembly (Architecture Level 11):</span><span data-lang="es">Ensamblaje Final del Bastión (Arquitectura Nivel 11):</span></strong>
+        <span data-lang="en"> Tower x6 + Wall x10 + Gate x1 + Great Hall x1 + Tyxen Toolkit x20 + Guild Banner x4 + Stronghold Blueprint x1</span><span data-lang="es"> Torre x6 + Muralla x10 + Puerta x1 + Gran Salón x1 + Kit Tyxen x20 + Estandarte del Gremio x4 + Plano del Bastión x1</span>
+      </div>
+    </div>
+
+    <!-- COMPONENT TABLE -->
+    <div class="reveal" style="overflow-x:auto;margin-top:1.5rem">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Component</span><span data-lang="es">Componente</span></th>
+            <th><span data-lang="en">Crafted By</span><span data-lang="es">Crafteado Por</span></th>
+            <th><span data-lang="en">Key Inputs</span><span data-lang="es">Insumos Clave</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Stronghold Blueprint</span><span data-lang="es">Plano del Bastión</span></td>
+            <td><span data-lang="en">Engineering L12 (T4)</span><span data-lang="es">Ingeniería N12 (T4)</span></td>
+            <td><span data-lang="en">Heartspire Scroll x1 + Tome of Constructive Order x1</span><span data-lang="es">Pergamino Heartspire x1 + Tomo del Orden Constructivo x1</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Great Hall</span><span data-lang="es">Gran Salón</span></td>
+            <td><span data-lang="en">Architecture L11 (Guild)</span><span data-lang="es">Arquitectura N11 (Gremio)</span></td>
+            <td><span data-lang="en">Brick x500, Heartspire Fibers x50, Tyxen Toolkit x20, Glass x50, Barrel x20, Travelers Tent x10, Guild Banner x2, Chest x20</span><span data-lang="es">Ladrillo x500, Fibras Heartspire x50, Kit Tyxen x20, Vidrio x50, Barril x20, Tienda del Viajero x10, Estandarte del Gremio x2, Cofre x20</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Gate</span><span data-lang="es">Puerta</span></td>
+            <td><span data-lang="en">Engineering L10 (T3)</span><span data-lang="es">Ingeniería N10 (T3)</span></td>
+            <td><span data-lang="en">Engine x2, Pulley x8, Quicksilver Ingot x10, Brick x100, Hardwood Beam x12, Iron Ingot x10, Gate Blueprint x1, Tyxen Toolkit x10</span><span data-lang="es">Motor x2, Polea x8, Lingote de Plata Viva x10, Ladrillo x100, Viga de Madera Dura x12, Lingote de Hierro x10, Plano de Puerta x1, Kit Tyxen x10</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Engine</span><span data-lang="es">Motor</span></td>
+            <td><span data-lang="en">Engineering L10 (T3)</span><span data-lang="es">Ingeniería N10 (T3)</span></td>
+            <td><span data-lang="en">Machine Chassis (Arch), Quicksilver Ingot x4, Copper Wire x20, Tyxen Toolkit x8, Engine Blueprint x1, Iron Ingot x10</span><span data-lang="es">Chasis de Máquina (Arq), Lingote de Plata Viva x4, Alambre de Cobre x20, Kit Tyxen x8, Plano de Motor x1, Lingote de Hierro x10</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Machine Chassis</span><span data-lang="es">Chasis de Máquina</span></td>
+            <td><span data-lang="en">Architecture L10 (T3)</span><span data-lang="es">Arquitectura N10 (T3)</span></td>
+            <td><span data-lang="en">Frame x2, Hardwood Frame x2, Tyxen Toolkit x2, Quicksilver Ingot x6</span><span data-lang="es">Marco x2, Marco de Madera Dura x2, Kit Tyxen x2, Lingote de Plata Viva x6</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Tower</span><span data-lang="es">Torre</span></td>
+            <td><span data-lang="en">Architecture L10 (T3)</span><span data-lang="es">Arquitectura N10 (T3)</span></td>
+            <td><span data-lang="en">Travelers Tent x5, Brick x100, Tyxen Toolkit x10, Plumhide x10, Stairs x10, Glass x20 — 24h craft</span><span data-lang="es">Tienda del Viajero x5, Ladrillo x100, Kit Tyxen x10, Plumhide x10, Escaleras x10, Vidrio x20 — 24h de crafteo</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Wall</span><span data-lang="es">Muralla</span></td>
+            <td><span data-lang="en">Architecture L10 (T3)</span><span data-lang="es">Arquitectura N10 (T3)</span></td>
+            <td><span data-lang="en">Brick x100, Clay x50, Stairs x10, Tyxen Toolkit x5, Wayfarer's Tent x5</span><span data-lang="es">Ladrillo x100, Arcilla x50, Escaleras x10, Kit Tyxen x5, Tienda del Caminante x5</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Brick</span><span data-lang="es">Ladrillo</span></td>
+            <td><span data-lang="en">Architecture L7 (T2)</span><span data-lang="es">Arquitectura N7 (T2)</span></td>
+            <td><span data-lang="en">Hardwood Fibers x3 + Clay x3 + Stormwater x3 → x5 bricks</span><span data-lang="es">Fibras de Madera Dura x3 + Arcilla x3 + Agua de Tormenta x3 → x5 ladrillos</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Guild Banner</span><span data-lang="es">Estandarte del Gremio</span></td>
+            <td><span data-lang="en">Artisan L11 (T4)</span><span data-lang="es">Artesano N11 (T4)</span></td>
+            <td><span data-lang="en">Hardwood Beam x2, Twisted Cord x4, Canvas x5, Moon Ash x4, Leather x6, Heartspire Cloth x5 — 12h craft</span><span data-lang="es">Viga de Madera Dura x2, Cordel Retorcido x4, Canvas x5, Ceniza de Luna x4, Cuero x6, Tela Heartspire x5 — 12h de crafteo</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Tome of Constructive Order</span><span data-lang="es">Tomo del Orden Constructivo</span></td>
+            <td><span data-lang="en">Engineering L10 (T3)</span><span data-lang="es">Ingeniería N10 (T3)</span></td>
+            <td><span data-lang="en">Leather x2 + Paper x15 + Braided Line x1 — 3h craft</span><span data-lang="es">Cuero x2 + Papel x15 + Línea Trenzada x1 — 3h de crafteo</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-banner reveal" style="margin-top:1.5rem">
+      <span class="warn-icon">🌿</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Multiple cross-profession dependencies to plan around.</span><span data-lang="es">Múltiples dependencias inter-profesionales a planificar.</span></strong>
+        <span data-lang="en"> Guild Banner (Artisan T4, 12h) requires Moon Ash from Alchemy. Great Hall requires Glass from Alchemy and Guild Banner x2. Tower and Wall both require Glass. The Tome of Constructive Order — needed for the Stronghold Blueprint — requires Braided Line (Artisan) and Paper (Artisan). Start stockpiling early and assign a dedicated Alchemist to glass and powder production before the build begins.</span><span data-lang="es"> El Estandarte del Gremio (Artesano T4, 12h) requiere Ceniza de Luna de Alquimia. El Gran Salón requiere Vidrio de Alquimia y Estandarte del Gremio x2. La Torre y la Muralla requieren Vidrio. El Tomo del Orden Constructivo — necesario para el Plano del Bastión — requiere Línea Trenzada (Artesano) y Papel (Artesano). Empieza a acumular materiales con anticipación y asigna un Alquimista dedicado a la producción de vidrio y polvos antes de que comience la construcción.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 06: GUILD ROLES -->
+<div class="guide-wrap">
+  <div class="guide-section" id="section-guild">
+    <div class="guide-section-header">
+      <div class="section-num reveal"><span data-lang="en">Section 06</span><span data-lang="es">Sección 06</span></div>
+      <h2 class="guide-h2 reveal reveal-delay-1">
+        <span data-lang="en">What This Means for Your Guild</span><span data-lang="es">Qué Significa Esto para Tu Gremio</span>
+      </h2>
+      <p class="guide-intro reveal reveal-delay-2">
+        <span data-lang="en">The chains above reveal the minimum viable coverage a guild needs to operate independently. Missing any single role creates a bottleneck that everyone downstream feels. Below are the critical roles to fill — and the ones that become bottlenecks first when left uncovered.</span><span data-lang="es">Las cadenas anteriores revelan la cobertura mínima viable que un gremio necesita para operar de forma independiente. La ausencia de cualquier rol individual crea un cuello de botella que todos los que están aguas abajo sienten. A continuación se presentan los roles críticos a cubrir — y los que se convierten en cuellos de botella primero cuando quedan sin cubrir.</span>
+      </p>
+    </div>
+
+    <div class="reveal" style="overflow-x:auto">
+      <table class="roles-table">
+        <thead>
+          <tr>
+            <th><span data-lang="en">Role</span><span data-lang="es">Rol</span></th>
+            <th><span data-lang="en">Why It's Critical</span><span data-lang="es">Por Qué Es Crítico</span></th>
+            <th><span data-lang="en">Priority</span><span data-lang="es">Prioridad</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="en">Miner</span><span data-lang="es">Minero</span></td>
+            <td><span data-lang="en">Every other profession ultimately depends on raw materials from Mining. No Miner means no ores, no fuels, no liquids — everything stalls.</span><span data-lang="es">Todas las demás profesiones dependen en última instancia de los materiales crudos de la Minería. Sin Minero no hay minerales, ni combustibles, ni líquidos — todo se detiene.</span></td>
+            <td><span class="priority-high">Critical</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Explorer</span><span data-lang="es">Explorador</span></td>
+            <td><span data-lang="en">Without survey maps, Miners cannot unlock T2+ deposits. Often overlooked at guild formation — causes hard blocks weeks into the game.</span><span data-lang="es">Sin mapas de prospección, los Mineros no pueden desbloquear depósitos T2+. A menudo se pasa por alto en la formación del gremio — causa bloqueos duros semanas después del inicio del juego.</span></td>
+            <td><span class="priority-high">Critical</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Blacksmith</span><span data-lang="es">Herrero</span></td>
+            <td><span data-lang="en">Produces every tool Mining depends on, plus ingots for Architecture and Engineering. A hidden dependency in the Fire Juice chain.</span><span data-lang="es">Produce cada herramienta de la que depende la Minería, más lingotes para Arquitectura e Ingeniería. Una dependencia oculta en la cadena de Fire Juice.</span></td>
+            <td><span class="priority-high">Critical</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Alchemist</span><span data-lang="es">Alquimista</span></td>
+            <td><span data-lang="en">The only profession that produces Fire Juice. Central to fuel operations, weapon ingredient chains, and the Guild Banner.</span><span data-lang="es">La única profesión que produce Fire Juice. Central para las operaciones de combustible, las cadenas de ingredientes para armas y el Estandarte del Gremio.</span></td>
+            <td><span class="priority-high">Critical</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Architect (Level 7+ for Brick; Level 11 for Stronghold)</span><span data-lang="es">Arquitecto (Nivel 7+ para Ladrillos; Nivel 11 para Bastión)</span></td>
+            <td><span data-lang="en">Brick production starts at L7. Final Stronghold assembly requires L11 — must be a full RISEN hero. Also depends on Engineering for Frames (for tents) and Blueprints for higher-tier structures. Produces Tool Handles via Carpentry specialization.</span><span data-lang="es">La producción de Ladrillos comienza en N7. El ensamblaje final del Bastión requiere N11 — debe ser un héroe RISEN completo. También depende de Ingeniería para Marcos (para tiendas) y Planos para estructuras de mayor nivel. Produce Mangos de Herramientas mediante la especialización Carpintería.</span></td>
+            <td><span class="priority-high">Critical</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Engineer</span><span data-lang="es">Ingeniero</span></td>
+            <td><span data-lang="en">Produces all Blueprints (required for T2+ tools and weapons) and Extraction Towers (required for high-tier liquid mining). Low difficulty, high impact.</span><span data-lang="es">Produce todos los Planos (necesarios para herramientas y armas T2+) y Torres de Extracción (necesarias para minería líquida de alto nivel). Dificultad baja, alto impacto.</span></td>
+            <td><span class="priority-med">High</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Artisan</span><span data-lang="es">Artesano</span></td>
+            <td><span data-lang="en">Supplies Blacksmith with Tool Grips (including Canvas Tool Grip L7 for T2 tools) and Engineering with Paper/Canvas Paper/Hideleaf for Blueprints and the Tome. Only source of the Guild Banner (12h craft). Note: Tool Handles have moved to Architecture's Carpentry specialization — Artisan now focuses on Grips, Paper, cloth, and leather.</span><span data-lang="es">Suministra al Herrero Empuñaduras de Herramienta (incluida la Empuñadura de Canvas N7 para herramientas T2) y a Ingeniería Papel/Papel de Canvas/Hideleaf para Planos y el Tomo. Única fuente del Estandarte del Gremio (12h de crafteo). Nota: Los Mangos de Herramientas se han movido a la especialización Carpintería de Arquitectura — el Artesano ahora se enfoca en Empuñaduras, Papel, tela y cuero.</span></td>
+            <td><span class="priority-med">High</span></td>
+          </tr>
+          <tr>
+            <td><span data-lang="en">Jeweler</span><span data-lang="es">Joyero</span></td>
+            <td><span data-lang="en">Produces all Processed intermediates for Alchemy and Blacksmith weapon chains. Only profession that can craft ORBs. High scarcity, high value.</span><span data-lang="es">Produce todos los intermediarios Procesados para las cadenas de Alquimia y armas del Herrero. Única profesión que puede craftear ORBs. Alta escasez, alto valor.</span></td>
+            <td><span class="priority-med">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warn-banner reveal" style="margin-top:2rem">
+      <span class="warn-icon">🔄</span>
+      <div class="warn-text">
+        <strong><span data-lang="en">The circular dependency every guild must solve at launch.</span><span data-lang="es">La dependencia circular que cada gremio debe resolver al inicio.</span></strong>
+        <span data-lang="en"> Forging Iron Tools requires Iron Ingots. Smelting Iron Ingots requires Coal, Stormwater, and Iron Ore. Extracting those materials requires the Iron Tools. This loop cannot bootstrap itself — guilds must source their first T2 materials from the Marketplace, Dungeons, or Adventures before the production chain becomes self-sustaining.</span><span data-lang="es"> Forjar Herramientas de Hierro requiere Lingotes de Hierro. Fundir Lingotes de Hierro requiere Carbón, Agua de Tormenta y Mineral de Hierro. Extraer esos materiales requiere las Herramientas de Hierro. Este ciclo no puede arrancarse por sí solo — los gremios deben obtener sus primeros materiales T2 del Mercado, Mazmorras o Aventuras antes de que la cadena de producción se vuelva autosustentable.</span>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">🔧</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Maintenance supply chain — every hero needs it.</span><span data-lang="es">Cadena de suministro de mantenimiento — todos los héroes la necesitan.</span></strong>
+        <span data-lang="en"> The Blacksmith produces Glorb Toolboxes (weapon and tool durability repair) and Tyxen Toolkits (consumed in high volume by Architecture for Walls, Towers, and the Great Hall). Durability degrades during combat and dungeon runs — every hero in the guild will eventually need Glorb Toolboxes. Plan Blacksmith production capacity around both tool forging and ongoing maintenance output.</span><span data-lang="es"> El Herrero produce Cajas de Herramientas Glorb (reparación de durabilidad de armas y herramientas) y Kits Tyxen (consumidos en alto volumen por Arquitectura para Murallas, Torres y el Gran Salón). La durabilidad se degrada durante el combate y las corridas de mazmorras — todos los héroes del gremio eventualmente necesitarán Cajas de Herramientas Glorb. Planifica la capacidad de producción del Herrero tanto para la forja de herramientas como para la producción de mantenimiento continuo.</span>
+      </div>
+    </div>
+
+    <div class="info-banner reveal">
+      <span class="warn-icon">🌿</span>
+      <div class="info-text">
+        <strong><span data-lang="en">Specialization planning at Level 10 changes role counts.</span><span data-lang="es">La planificación de especialización en el Nivel 10 cambia el número de roles.</span></strong>
+        <span data-lang="en"> Every profession splits into 3 paths at Level 10. Some splits require dedicated heroes: a guild running high-volume Fire Juice needs both a Fluid Extractor Miner (for Stormwater) and a Deepminer (for Coal) — one hero cannot maximise both. Plan your Level 10 specialization assignments before reaching that threshold, not after.</span><span data-lang="es"> Cada profesión se divide en 3 caminos en el Nivel 10. Algunas divisiones requieren héroes dedicados: un gremio que produce Fire Juice en alto volumen necesita tanto un Minero Extractor de Fluidos (para Agua de Tormenta) como un Minero Profundo (para Carbón) — un héroe no puede maximizar ambos. Planifica tus asignaciones de especialización del Nivel 10 antes de llegar a ese umbral, no después.</span>
+      </div>
+    </div>
+
+    <div class="guide-cta reveal" style="margin-top:3rem">
+      <div class="guide-cta-title">
+        <span data-lang="en">Coordinate your chain before you craft</span><span data-lang="es">Coordina tu cadena antes de craftear</span>
+      </div>
+      <p class="guide-cta-sub">
+        <span data-lang="en">Polaris Fuel specialises in economic coordination — matching extractors with crafters, identifying guild supply gaps, and building the cross-profession networks that make large-scale production possible. Join the Discord to connect with coordinated heroes.</span><span data-lang="es">Polaris Fuel se especializa en coordinación económica — conectando extractores con artesanos, identificando vacíos de suministro en gremios y construyendo las redes inter-profesionales que hacen posible la producción a gran escala. Únete al Discord para conectarte con héroes coordinados.</span>
+      </p>
+      <a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        <span><span data-lang="en">Join Discord</span><span data-lang="es">Únete al Discord</span></span>
+      </a>
+    </div>
+
+    <!-- MORE GUIDES -->
+    <div style="margin:3rem 0 2rem">
+      <div style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;opacity:.8">
+        <span data-lang="en">More Guides</span><span data-lang="es">Más Guías</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem">
+        <a href="./profession-guide.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">⚗️</span>
+          <span><span data-lang="en">Profession Selection Guide</span><span data-lang="es">Guía de Selección de Profesión</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+        <a href="./mount-tier-comparison.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">⛽</span>
+          <span><span data-lang="en">Mount Tier Comparison</span><span data-lang="es">Comparación de Niveles de Montura</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+        <a href="./eldorath-city-guide.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">🏙️</span>
+          <span><span data-lang="en">Eldorath City Guide</span><span data-lang="es">Guía de la Ciudad de Eldorath</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+        <a href="./dungeons-primer.html" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s,border-color .2s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--fire)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">
+          <span style="font-size:1rem;flex-shrink:0">⚔️</span>
+          <span><span data-lang="en">Dungeons Primer</span><span data-lang="es">Introducción a las Mazmorras</span></span>
+          <span style="margin-left:auto;opacity:.5">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo-text">Polaris Fuel</div>
+    <p class="footer-copy">© 2026 Polaris Fuel<br><span data-lang="en">Building Valannia's economic infrastructure.</span><span data-lang="es">Construyendo la infraestructura económica de Valannia.</span></p>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="../index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+    <li><a href="../valannia-tools.html"><span data-lang="en">Tools</span><span data-lang="es">Herramientas</span></a></li>
+    <li><a href="../valannia-resources.html"><span data-lang="en">Guides</span><span data-lang="es">Guías</span></a></li>
+    <li><a href="../valannia-roadmap.html"><span data-lang="en">Roadmap</span><span data-lang="es">Hoja de Ruta</span></a></li>
+    <li><a href="../valannia-join.html" style="color:var(--fire)"><span data-lang="en">Join Polaris Fuel</span><span data-lang="es">Únete a Polaris Fuel</span></a></li>
+    <li><a href="https://polarisfuel.app/index.html" style="opacity:.6"><span data-lang="en">← All Games</span><span data-lang="es">← Todos los Juegos</span></a></li>
+    <li><a href="https://discord.gg/yNfUZ4Gb7k" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="https://x.com/Polaris_Fuel" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+  </ul>
+  <div class="footer-token">$VALAN</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px'}if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px'}requestAnimationFrame(animCursor)}
+animCursor();
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{if(nb)nb.classList.toggle('scrolled',window.scrollY>60)});
+const canvas=document.getElementById('particle-canvas');
+if(canvas){const ctx=canvas.getContext('2d');let W,H,particles=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);class P{constructor(){this.reset(true)}reset(init=false){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*1.8+.4;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.25;this.life=0;this.maxLife=Math.random()*180+80;this.hue=Math.random()*25+8}update(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.maxLife||this.y<-10)this.reset()}draw(){const t=this.life/this.maxLife,a=t<.3?t/.3:1-((t-.3)/.7);ctx.save();ctx.globalAlpha=a*.65;ctx.fillStyle=`hsl(${this.hue},100%,60%)`;ctx.shadowBlur=5;ctx.shadowColor=`hsl(${this.hue},100%,60%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore()}}
+for(let i=0;i<100;i++)particles.push(new P());function animP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animP)}animP()}
+const revEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revEls.forEach(el=>obs.observe(el));
+function setLang(lang){document.body.classList.toggle('lang-es',lang==='es');document.documentElement.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.querySelector('.lang-btn-'+lang);if(btn)btn.classList.add('active');localStorage.setItem('pf-lang',lang)}
+const savedLang=localStorage.getItem('pf-lang');if(savedLang==='es')setLang('es');
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobile-menu');
+if(ham&&mob){ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}))}
+</script>
+</body>
+</html>
